@@ -1,0 +1,7 @@
+{
+  "version": "0.8.3.1",
+  "filename": "HaebangRoms_Setup_v0.8.3.1_Update.exe",
+  "sftp_path": "/home/ftpuser/release",
+  "changelog": "[v0.8.3.1]\n    - mix 이미지 편집 시 스터링(깜빡임)현상 제거.\n    - 일부 SFTP커넥션 OS 오류 증상(바토세라등..) 수정",
+  "pluscode": "c1b1975c660017c156d720b8d422e0be8b59862ec9303b8031ad75e4f388ca3e"
+}
