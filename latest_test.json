@@ -2,7 +2,7 @@
   "version": "0.8.3.1",
   "filename": "HaebangRoms_Setup_v0.8.3.1_Update.exe",
   "sftp_path": "/home/ftpuser/release",
-  "changelog": "[v0.8.3.1]\n    - mix 이미지 편집 시 스터링(깜빡임)현상 제거.\n    - 일부 SFTP커넥션 OS 오류 증상(바토세라등..) 수정",
+  "changelog": "[v0.8.3]\n - 기능 개선\n    - mix 이미지 크기 및 위치 변경 인터페이스 제공. Files > Edit Mix Image\n    - 매칭 시 롬파일 지역 네이밍에 따른 네이밍 처리\n    - 리눅스 연결 접속 정보에 PORT정보 추가\n\n - 기타 버그 수정\n    - PLUS 업그레이드 코드 문제 수정\n    - MSU패치 폴더 매칭 문제 수정\n    - None 매칭 롬이 있는 시스템에서 전체 재스캔시 오류 수정",
   "changelog_miner": "[v0.8.3.1]\n    - mix 이미지 편집 시 스터링(깜빡임)현상 제거.\n    - 일부 SFTP커넥션 OS 오류 증상(바토세라등..) 수정",
   "pluscode": "c1b1975c660017c156d720b8d422e0be8b59862ec9303b8031ad75e4f388ca3e"
 }
