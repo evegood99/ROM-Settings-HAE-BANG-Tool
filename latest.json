@@ -1,5 +1,5 @@
 {
-  "version": "0.8.3.2",
+  "version": "0.8.3.1",
   "filename": "HaebangRoms_Setup_v0.8.3.2_Update.exe",
   "sftp_path": "/home/evegood/release",
   "changelog": "[v0.8.3.2]\n    - 게임 목록 필드 정보 추가 및, 추가 된 필드에 대한 정렬.\n    - 게임리스트 체크 박스 범위 선택 가능( shift를 누른 상태로 범위 마지막 게임 선택하고 space)\n    - 게임 동기화 시 스크린샷으로 사용될 이미지 선택 종류 증가\n    - 게임미디어 서버 이전 (네이버-->구글)\n",
