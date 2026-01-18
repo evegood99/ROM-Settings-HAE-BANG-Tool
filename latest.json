@@ -1,5 +1,5 @@
 {
-  "version": "0.8.4",
+  "version": "0.8.3",
   "filename": "HaebangRoms_Setup_v0.8.4_Update.exe",
   "sftp_path": "/home/ftpuser/release",
   "changelog": "[v0.8.4]\n      - DOS게임 매칭 기능 향상.\n      - mix 이미지 이동 및 크기 변경 시 스터링(깜빡임)현상 제거.\n      - 일부 SFTP커넥션 OS 오류 증상(바토세라등..) 수정\n      - TRIMUI SMART PRO 동기화 일부 오류 수정\n      - RG34xxSP FBNEO 레트로아크 실행 문제 수정\n      - 0.8.3에서 AI 롬매칭 시 매칭 종료 되는 문제 수정\n      - 게임 목록 필드 정보 추가 및, 추가 된 필드에 대한 정렬.\n      - 게임리스트 체크 박스 범위 선택 가능( shift를 누른 상태로 범위 마지막 게임 선택하고 space)\n      - 게임 동기화 시 스크린샷으로 사용될 이미지 선택 종류 증가\n      - 게임미디어 서버 이전 (네이버-->구글)\n",
