@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HAE-BANG Rom Setting Tools — 레트로 게임 라이브러리 큐레이터</title>
+<meta name="description" content="AI 기반 ROM 메타데이터 매칭, 미디어 자동 수집, 믹스 이미지 합성, 멀티 프론트엔드 내보내기와 휴대용 게임기 연동까지. 흩어진 ROM을 한 번에 정리하는 Windows 데스크톱 도구." />
+<meta property="og:title" content="HAE-BANG Rom Setting Tools" />
+<meta property="og:description" content="AI와 레트로 감성이 만난 새로운 ROM 매니저. 수천 개의 ROM을 한 번에 정리하세요." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/icon.png" />
+<link rel="icon" href="assets/favicon.ico" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  :root{
+    --bg:#07080d; --bg2:#0a0c14; --surface:#11131d; --surface2:#171a27;
+    --border:#222639; --border2:#2c3147;
+    --text:#e9ebf4; --muted:#9aa1b6; --faint:#6b7186;
+    --cyan:#22d3ee; --violet:#8b5cf6; --indigo:#6366f1; --gold:#fbbf24; --emerald:#34d399; --rose:#fb7185;
+    --grad:linear-gradient(120deg,#22d3ee 0%,#6366f1 50%,#8b5cf6 100%);
+    --grad-soft:linear-gradient(120deg,rgba(34,211,238,.16),rgba(139,92,246,.16));
+    --radius:16px; --maxw:1180px;
+    --shadow:0 24px 60px -20px rgba(0,0,0,.7);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6; overflow-x:hidden;
+  }
+  /* ambient background glow */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(900px 520px at 78% -8%, rgba(99,102,241,.20), transparent 60%),
+      radial-gradient(720px 480px at 10% 4%, rgba(34,211,238,.14), transparent 55%),
+      radial-gradient(700px 700px at 50% 120%, rgba(139,92,246,.12), transparent 60%);
+  }
+  a{color:inherit; text-decoration:none}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  .grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .muted{color:var(--muted)}
+  .eyebrow{font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--cyan); font-weight:700}
+
+  /* ---------- Header ---------- */
+  header{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:rgba(8,9,15,.62); border-bottom:1px solid transparent; transition:.25s}
+  header.scrolled{border-bottom-color:var(--border); background:rgba(8,9,15,.84)}
+  .nav{display:flex; align-items:center; gap:18px; height:66px}
+  .brand{display:flex; align-items:center; gap:11px; font-weight:800; letter-spacing:.2px}
+  .brand img{width:34px; height:34px; border-radius:9px; box-shadow:0 0 0 1px var(--border2), 0 6px 18px -6px rgba(34,211,238,.5)}
+  .brand .bt{font-size:15.5px}
+  .brand .bs{font-size:10.5px; color:var(--muted); font-weight:600; letter-spacing:.04em}
+  .nav-links{display:flex; gap:6px; margin-left:18px}
+  .nav-links a{padding:8px 12px; border-radius:9px; font-size:14px; color:var(--muted); font-weight:600; transition:.18s}
+  .nav-links a:hover{color:var(--text); background:var(--surface)}
+  .nav-right{margin-left:auto; display:flex; align-items:center; gap:10px}
+  .icon-btn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px;
+    border:1px solid var(--border); color:var(--muted); background:var(--surface); transition:.18s; cursor:pointer}
+  .icon-btn:hover{color:var(--text); border-color:var(--border2); transform:translateY(-1px)}
+  .lang{font-size:12.5px; font-weight:800; letter-spacing:.04em}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:700; border-radius:11px; cursor:pointer;
+    padding:11px 18px; font-size:14px; border:1px solid transparent; transition:.2s; white-space:nowrap}
+  .btn-primary{background:var(--grad); color:#05070d; box-shadow:0 10px 30px -10px rgba(99,102,241,.7)}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 40px -12px rgba(99,102,241,.85)}
+  .btn-ghost{border-color:var(--border2); color:var(--text); background:var(--surface)}
+  .btn-ghost:hover{border-color:var(--cyan); color:#fff; transform:translateY(-2px)}
+  .hide-m{display:inline-flex}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:74px 0 40px}
+  .hero-grid{display:grid; grid-template-columns:1.04fr 1fr; gap:54px; align-items:center}
+  .badge-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px}
+  .badge{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700; color:var(--muted);
+    border:1px solid var(--border); background:var(--surface); padding:6px 11px; border-radius:999px}
+  .badge .dot{width:7px; height:7px; border-radius:50%; background:var(--emerald); box-shadow:0 0 10px var(--emerald)}
+  h1.hero-title{font-size:clamp(34px,5.2vw,58px); line-height:1.08; letter-spacing:-.02em; font-weight:800; margin:0 0 20px}
+  .hero-tag{font-size:clamp(16px,2vw,19px); color:var(--muted); max-width:540px; margin:0 0 30px}
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+  .hero-note{margin-top:16px; font-size:13px; color:var(--faint); display:flex; gap:14px; flex-wrap:wrap}
+  .hero-note span{display:inline-flex; gap:6px; align-items:center}
+
+  /* ---------- App window mockup ---------- */
+  .mock{position:relative}
+  .mock::before{content:""; position:absolute; inset:-30px -20px; background:var(--grad-soft); filter:blur(46px); border-radius:40px; z-index:-1}
+  .win{border:1px solid var(--border2); border-radius:14px; overflow:hidden; background:var(--bg2);
+    box-shadow:var(--shadow); transform:perspective(1600px) rotateY(-9deg) rotateX(3deg); transform-origin:left center}
+  .win-bar{display:flex; align-items:center; gap:8px; padding:10px 13px; background:#0e1019; border-bottom:1px solid var(--border)}
+  .win-bar .d{width:11px; height:11px; border-radius:50%}
+  .win-bar .d1{background:#ff5f57}.win-bar .d2{background:#febc2e}.win-bar .d3{background:#28c840}
+  .win-bar .wt{margin-left:8px; font-size:11.5px; color:var(--faint); font-weight:600}
+  .win-body{display:grid; grid-template-columns:118px 1fr 150px; height:330px; font-size:11px}
+  .w-side{background:#0c0e16; border-right:1px solid var(--border); padding:9px 8px; overflow:hidden}
+  .w-side .sh{font-size:9px; letter-spacing:.12em; color:var(--faint); text-transform:uppercase; margin:2px 4px 8px; font-weight:700}
+  .sysrow{display:flex; align-items:center; gap:7px; padding:6px 7px; border-radius:7px; margin-bottom:3px; color:var(--muted)}
+  .sysrow.active{background:linear-gradient(90deg,rgba(99,102,241,.22),transparent); color:#fff; box-shadow:inset 2px 0 0 var(--indigo)}
+  .sysrow .ci{width:16px; height:16px; border-radius:4px; flex:0 0 auto}
+  .w-grid{background:#0a0c13; overflow:hidden}
+  .gh{display:grid; grid-template-columns:1fr 54px; gap:8px; padding:7px 11px; border-bottom:1px solid var(--border); color:var(--faint); font-size:9.5px; font-weight:700; letter-spacing:.04em}
+  .grow{display:grid; grid-template-columns:1fr 54px; gap:8px; padding:7px 11px; border-bottom:1px solid rgba(255,255,255,.04); align-items:center; color:var(--muted)}
+  .grow.sel{background:linear-gradient(90deg,rgba(34,211,238,.12),transparent)}
+  .grow .nm{color:#dfe3ee; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .grow.sel .nm{color:#fff}
+  .mtag{font-size:8.5px; font-weight:800; padding:2px 6px; border-radius:999px; text-align:center; letter-spacing:.02em}
+  .m1{background:rgba(52,211,153,.16); color:#6ee7b7}
+  .m23{background:rgba(56,189,248,.16); color:#7dd3fc}
+  .m4{background:rgba(251,191,36,.16); color:#fcd34d}
+  .mx{background:rgba(148,163,184,.16); color:#cbd5e1}
+  .w-info{background:#0c0e16; border-left:1px solid var(--border); padding:10px 9px; overflow:hidden}
+  .miximg{height:118px; border-radius:8px; position:relative; overflow:hidden; border:1px solid var(--border);
+    background:radial-gradient(120% 80% at 70% 10%, #1b2336, #0a0d16)}
+  .miximg .box{position:absolute; left:9px; bottom:9px; width:42px; height:60px; border-radius:4px; transform:rotate(-7deg);
+    background:linear-gradient(150deg,#7c3aed,#2563eb); box-shadow:0 8px 18px -6px rgba(0,0,0,.7), inset 0 0 0 1px rgba(255,255,255,.15)}
+  .miximg .ss{position:absolute; right:8px; top:10px; width:96px; height:66px; border-radius:5px;
+    background:linear-gradient(135deg,#0ea5e9,#7c3aed 70%); box-shadow:0 8px 20px -6px rgba(0,0,0,.7); opacity:.96}
+  .miximg .logo{position:absolute; left:12px; top:12px; width:54px; height:14px; border-radius:3px; background:linear-gradient(90deg,#fbbf24,#f59e0b)}
+  .i-title{font-size:12.5px; font-weight:800; color:#fff; margin:10px 0 2px}
+  .i-sub{font-size:10px; color:var(--faint); margin-bottom:9px}
+  .i-meta{display:flex; flex-wrap:wrap; gap:5px}
+  .chip{font-size:9px; padding:3px 7px; border-radius:999px; background:var(--surface); border:1px solid var(--border); color:var(--muted)}
+  .i-bars{margin-top:11px; display:flex; flex-direction:column; gap:6px}
+  .bar{height:6px; border-radius:999px; background:var(--surface)}
+  .bar i{display:block; height:100%; border-radius:999px; background:var(--grad)}
+
+  /* ---------- Sections ---------- */
+  section{padding:64px 0}
+  .sec-head{text-align:center; max-width:680px; margin:0 auto 46px}
+  .sec-head h2{font-size:clamp(26px,3.6vw,38px); font-weight:800; letter-spacing:-.02em; margin:12px 0 12px}
+  .sec-head p{color:var(--muted); font-size:16px; margin:0}
+
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; padding:26px 0 8px}
+  .stat{border:1px solid var(--border); background:linear-gradient(180deg,var(--surface),rgba(17,19,29,.4)); border-radius:14px; padding:20px 18px; text-align:center}
+  .stat .n{font-size:30px; font-weight:800; letter-spacing:-.02em}
+  .stat .l{font-size:12.5px; color:var(--muted); margin-top:4px; font-weight:600}
+
+  .feat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+  .card{position:relative; border:1px solid var(--border); border-radius:var(--radius); padding:26px 22px;
+    background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.55)); transition:.22s; overflow:hidden}
+  .card::after{content:""; position:absolute; inset:0; border-radius:inherit; padding:1px; background:var(--grad);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; opacity:0; transition:.22s}
+  .card:hover{transform:translateY(-4px); border-color:transparent}
+  .card:hover::after{opacity:.7}
+  .ico{width:46px; height:46px; border-radius:12px; display:grid; place-items:center; margin-bottom:16px;
+    background:var(--grad-soft); border:1px solid var(--border2); font-size:22px}
+  .card h3{font-size:18px; margin:0 0 8px; font-weight:800; letter-spacing:-.01em}
+  .card p{margin:0; color:var(--muted); font-size:14.5px}
+
+  /* pipeline */
+  .pipe{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; counter-reset:step}
+  .step{position:relative; border:1px solid var(--border); border-radius:14px; padding:22px 16px; background:var(--surface)}
+  .step .sn{width:30px; height:30px; border-radius:9px; display:grid; place-items:center; font-weight:800; font-size:14px;
+    background:var(--grad); color:#06070d; margin-bottom:12px}
+  .step h4{margin:0 0 5px; font-size:15.5px; font-weight:800}
+  .step p{margin:0; font-size:13px; color:var(--muted)}
+  .step:not(:last-child)::after{content:"→"; position:absolute; right:-12px; top:50%; transform:translateY(-50%);
+    color:var(--faint); font-size:16px; z-index:2}
+
+  /* targets */
+  .targets{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+  .tcol{border:1px solid var(--border); border-radius:var(--radius); padding:24px; background:var(--surface)}
+  .tcol h3{margin:0 0 4px; font-size:17px; font-weight:800; display:flex; align-items:center; gap:9px}
+  .tcol .th-sub{color:var(--muted); font-size:13px; margin:0 0 16px}
+  .pills{display:flex; flex-wrap:wrap; gap:9px}
+  .pill{font-size:13px; font-weight:600; padding:8px 13px; border-radius:10px; border:1px solid var(--border2);
+    background:var(--bg2); color:#d6dae6}
+  .pill b{color:var(--cyan); font-weight:800}
+
+  /* screenshots */
+  .shots{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  .shot{border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--surface)}
+  .shot .ph{aspect-ratio:16/10; display:grid; place-items:center; color:var(--faint); font-size:13px;
+    background:repeating-linear-gradient(45deg,rgba(255,255,255,.018) 0 14px,transparent 14px 28px), radial-gradient(120% 90% at 60% 0,#161a28,#0a0c13)}
+  .shot .cap{padding:13px 15px; font-size:13.5px; color:var(--muted); font-weight:600; border-top:1px solid var(--border)}
+
+  /* CTA */
+  .cta{position:relative; border:1px solid var(--border2); border-radius:24px; overflow:hidden; text-align:center;
+    padding:58px 24px; background:radial-gradient(120% 130% at 50% -10%, rgba(99,102,241,.22), transparent 60%), var(--surface)}
+  .cta h2{font-size:clamp(26px,3.6vw,40px); font-weight:800; margin:0 0 12px; letter-spacing:-.02em}
+  .cta p{color:var(--muted); font-size:16px; max-width:560px; margin:0 auto 26px}
+  .cta .hero-cta{justify-content:center}
+
+  /* footer */
+  footer{border-top:1px solid var(--border); padding:46px 0 50px; margin-top:30px}
+  .foot{display:flex; justify-content:space-between; gap:28px; flex-wrap:wrap}
+  .foot .brand .bt{font-size:14px}
+  .foot-col h5{margin:0 0 10px; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint)}
+  .foot-col a{display:block; color:var(--muted); font-size:14px; padding:3px 0; transition:.15s}
+  .foot-col a:hover{color:var(--text)}
+  .donate{font-size:12px; color:var(--faint); word-break:break-all; max-width:340px}
+  .donate code{color:var(--muted); font-size:11px}
+  .foot-bottom{margin-top:34px; padding-top:20px; border-top:1px solid var(--border); display:flex; justify-content:space-between;
+    gap:14px; flex-wrap:wrap; color:var(--faint); font-size:12.5px}
+
+  /* reveal */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1; transform:none}
+
+  @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr; gap:40px}
+    .mock .win{transform:none}
+    .feat-grid{grid-template-columns:1fr 1fr}
+    .pipe{grid-template-columns:1fr 1fr}
+    .step:not(:last-child)::after{display:none}
+    .stats{grid-template-columns:1fr 1fr}
+    .targets{grid-template-columns:1fr}
+    .shots{grid-template-columns:1fr}
+    .nav-links{display:none}
+  }
+  @media (max-width:560px){
+    .feat-grid{grid-template-columns:1fr}
+    .pipe{grid-template-columns:1fr}
+    .hide-s{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img src="assets/logo.png" alt="HAE-BANG logo" />
+      <span>
+        <span class="bt">HAE-BANG</span>
+        <div class="bs" data-ko="롬 세팅 툴" data-en="Rom Setting Tools">롬 세팅 툴</div>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="#features" data-ko="기능" data-en="Features">기능</a>
+      <a href="#how" data-ko="작동 방식" data-en="How it works">작동 방식</a>
+      <a href="#targets" data-ko="지원 대상" data-en="Supported">지원 대상</a>
+      <a href="#shots" data-ko="화면" data-en="Screens">화면</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-btn lang" id="langBtn" title="Language" aria-label="Language">EN</button>
+      <a class="icon-btn" href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.23-1.27-5.23-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.17a11 11 0 0 1 5.78 0c2.2-1.48 3.17-1.17 3.17-1.17.63 1.58.24 2.75.12 3.04.74.8 1.18 1.82 1.18 3.07 0 4.41-2.69 5.38-5.25 5.66.42.36.8 1.08.8 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+      </a>
+      <a class="btn btn-primary hide-s" href="#download" data-ko="다운로드" data-en="Download">다운로드</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal in">
+        <div class="badge-row">
+          <span class="badge"><span class="dot"></span>v1.0.0 · Windows</span>
+          <span class="badge" data-ko="AI 하이브리드 매칭" data-en="AI hybrid matching">AI 하이브리드 매칭</span>
+          <span class="badge" data-ko="한국어 · English" data-en="Korean · English">한국어 · English</span>
+        </div>
+        <h1 class="hero-title">
+          <span data-ko="수천 개의 ROM," data-en="Thousands of ROMs,">수천 개의 ROM,</span><br />
+          <span class="grad-text" data-ko="한 번에 정리." data-en="curated at once.">한 번에 정리.</span>
+        </h1>
+        <p class="hero-tag"
+           data-ko="복잡한 파일명, 제각각인 폴더, 언어 장벽. HAE-BANG은 AI 매칭과 미디어 라이브러리, 멀티 프론트엔드 내보내기, 휴대용 게임기 연동까지 한 번에 해결하는 레트로 게임 관리 도구입니다."
+           data-en="Messy filenames, scattered folders, language barriers. HAE-BANG unifies AI matching, a rich media library, multi-frontend export and handheld device sync into one retro game manager.">
+          복잡한 파일명, 제각각인 폴더, 언어 장벽. HAE-BANG은 AI 매칭과 미디어 라이브러리, 멀티 프론트엔드 내보내기, 휴대용 게임기 연동까지 한 번에 해결하는 레트로 게임 관리 도구입니다.
+        </p>
+        <div class="hero-cta">
+          <!-- 실제 설치 파일 URL 로 교체하세요 (예: GitHub Releases) -->
+          <a class="btn btn-primary" href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool/releases" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <span data-ko="Windows용 다운로드" data-en="Download for Windows">Windows용 다운로드</span>
+          </a>
+          <a class="btn btn-ghost" href="#features" data-ko="기능 둘러보기" data-en="Explore features">기능 둘러보기</a>
+        </div>
+        <div class="hero-note">
+          <span>🪟 <span data-ko="Windows 10/11" data-en="Windows 10/11">Windows 10/11</span></span>
+          <span>🤖 <span data-ko="ChatGPT · Gemini 연동" data-en="ChatGPT · Gemini">ChatGPT · Gemini 연동</span></span>
+          <span>🎮 <span data-ko="ES-DE · RetroArch · Pegasus" data-en="ES-DE · RetroArch · Pegasus">ES-DE · RetroArch · Pegasus</span></span>
+        </div>
+      </div>
+
+      <!-- App window mockup -->
+      <div class="mock reveal in">
+        <div class="win">
+          <div class="win-bar">
+            <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
+            <span class="wt">HAE-BANG Rom Setting Tools</span>
+          </div>
+          <div class="win-body">
+            <div class="w-side">
+              <div class="sh">Systems</div>
+              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#ef4444,#f59e0b)"></span>Mega Drive</div>
+              <div class="sysrow active"><span class="ci" style="background:linear-gradient(135deg,#6366f1,#22d3ee)"></span>Super Famicom</div>
+              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#10b981,#06b6d4)"></span>PlayStation</div>
+              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"></span>Saturn</div>
+              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"></span>PC Engine</div>
+              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#14b8a6,#6366f1)"></span>Game Boy</div>
+            </div>
+            <div class="w-grid">
+              <div class="gh"><span>Name</span><span style="text-align:center">Match</span></div>
+              <div class="grow"><span class="nm">Super Mario World</span><span class="mtag m1">1</span></div>
+              <div class="grow sel"><span class="nm">Chrono Trigger</span><span class="mtag m23">2</span></div>
+              <div class="grow"><span class="nm">Final Fantasy VI</span><span class="mtag m1">1</span></div>
+              <div class="grow"><span class="nm">Secret of Mana</span><span class="mtag m23">3</span></div>
+              <div class="grow"><span class="nm">sf2_turbo_hyper</span><span class="mtag m4">llm</span></div>
+              <div class="grow"><span class="nm">Donkey Kong Country</span><span class="mtag m1">1</span></div>
+              <div class="grow"><span class="nm">unknown_rom_0x9f</span><span class="mtag mx">—</span></div>
+              <div class="grow"><span class="nm">Terranigma</span><span class="mtag m23">2</span></div>
+            </div>
+            <div class="w-info">
+              <div class="miximg">
+                <div class="ss"></div><div class="box"></div><div class="logo"></div>
+              </div>
+              <div class="i-title">Chrono Trigger</div>
+              <div class="i-sub">크로노 트리거 · 1995 · Square</div>
+              <div class="i-meta">
+                <span class="chip">RPG</span><span class="chip">1P</span><span class="chip">JP</span>
+              </div>
+              <div class="i-bars"><div class="bar"><i style="width:86%"></i></div><div class="bar"><i style="width:64%"></i></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="stats reveal">
+        <div class="stat"><div class="n grad-text">4+</div><div class="l" data-ko="프론트엔드 포맷" data-en="Frontend formats">프론트엔드 포맷</div></div>
+        <div class="stat"><div class="n grad-text">8+</div><div class="l" data-ko="휴대용 OS 연동" data-en="Handheld OSes">휴대용 OS 연동</div></div>
+        <div class="stat"><div class="n grad-text">10</div><div class="l" data-ko="미디어 종류" data-en="Media types">미디어 종류</div></div>
+        <div class="stat"><div class="n grad-text">AI</div><div class="l" data-ko="매칭 · 번역" data-en="Match · translate">매칭 · 번역</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow" data-ko="핵심 기능" data-en="Core features">핵심 기능</div>
+        <h2 data-ko="정리부터 큐레이션까지, 전부 자동으로" data-en="From cleanup to curation — automatically">정리부터 큐레이션까지, 전부 자동으로</h2>
+        <p data-ko="흩어진 파일에 생명을 불어넣어, 화려한 비주얼과 완벽한 메타데이터를 갖춘 나만의 디지털 박물관으로 만듭니다." data-en="Breathe life into scattered files and turn them into your own digital museum — rich visuals, complete metadata.">흩어진 파일에 생명을 불어넣어, 화려한 비주얼과 완벽한 메타데이터를 갖춘 나만의 디지털 박물관으로 만듭니다.</p>
+      </div>
+      <div class="feat-grid">
+        <div class="card reveal">
+          <div class="ico">🧠</div>
+          <h3 data-ko="AI 하이브리드 매칭" data-en="AI hybrid matching">AI 하이브리드 매칭</h3>
+          <p data-ko="해시·DB·토큰·퍼지 매칭으로 1차 인식하고, 실패하면 ChatGPT·Gemini가 문맥으로 정확한 타이틀을 찾습니다. 오타·줄임말 파일명도 척척." data-en="Hash, DB, token and fuzzy matching first — then ChatGPT/Gemini infer the right title from context. Typos and abbreviations welcome.">해시·DB·토큰·퍼지 매칭으로 1차 인식하고, 실패하면 ChatGPT·Gemini가 문맥으로 정확한 타이틀을 찾습니다. 오타·줄임말 파일명도 척척.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico">🗂️</div>
+          <h3 data-ko="미디어 자동 수집" data-en="Auto media library">미디어 자동 수집</h3>
+          <p data-ko="스크린샷·타이틀·박스아트(2D/3D)·휠 로고·서포트·매뉴얼·플레이 영상까지 자동 다운로드하고 리전 우선순위로 정리합니다." data-en="Screenshots, title screens, 2D/3D box art, wheel logos, support, manuals and gameplay videos — auto-downloaded and region-prioritized.">스크린샷·타이틀·박스아트(2D/3D)·휠 로고·서포트·매뉴얼·플레이 영상까지 자동 다운로드하고 리전 우선순위로 정리합니다.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico">🎨</div>
+          <h3 data-ko="믹스 이미지 합성" data-en="Mix image composer">믹스 이미지 합성</h3>
+          <p data-ko="박스아트·스크린샷·로고·서포트를 자유롭게 조합하는 레이어 편집기. 게임별·시스템별 레이아웃을 저장해 프론트엔드에서 통일된 비주얼을 완성합니다." data-en="A layer editor that freely combines box art, screenshots, logos and support. Save per-game or per-system layouts for a unified look.">박스아트·스크린샷·로고·서포트를 자유롭게 조합하는 레이어 편집기. 게임별·시스템별 레이아웃을 저장해 프론트엔드에서 통일된 비주얼을 완성합니다.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico">🌐</div>
+          <h3 data-ko="AI 매뉴얼 번역" data-en="AI manual translation">AI 매뉴얼 번역</h3>
+          <p data-ko="내장 뷰어에서 일본어·영어 매뉴얼을 원본 레이아웃 그대로 한글로 덮어씌워 보여줍니다. 30년 전 RPG 매뉴얼도 잡지 읽듯 편안하게." data-en="The built-in viewer overlays Korean onto Japanese/English manuals while preserving the original layout. Read 30-year-old manuals with ease.">내장 뷰어에서 일본어·영어 매뉴얼을 원본 레이아웃 그대로 한글로 덮어씌워 보여줍니다. 30년 전 RPG 매뉴얼도 잡지 읽듯 편안하게.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico">📦</div>
+          <h3 data-ko="멀티 프론트엔드 내보내기" data-en="Multi-frontend export">멀티 프론트엔드 내보내기</h3>
+          <p data-ko="ES-DE·EmulationStation·RetroArch·Pegasus용 gamelist/플레이리스트를 OS별 규칙에 맞춰 생성하고 ROM·미디어를 함께 복사합니다." data-en="Generates gamelists/playlists for ES-DE, EmulationStation, RetroArch and Pegasus per OS conventions, copying ROMs and media together.">ES-DE·EmulationStation·RetroArch·Pegasus용 gamelist/플레이리스트를 OS별 규칙에 맞춰 생성하고 ROM·미디어를 함께 복사합니다.</p>
+        </div>
+        <div class="card reveal">
+          <div class="ico">🔌</div>
+          <h3 data-ko="휴대용 게임기 연동" data-en="Handheld device sync">휴대용 게임기 연동</h3>
+          <p data-ko="Batocera·ArkOS·OnionOS·muOS·ROCKNIX 등 리눅스 기기는 SFTP/SSH로, 안드로이드는 ADB로. 기기별 경로는 자동 인식합니다." data-en="Linux handhelds (Batocera, ArkOS, OnionOS, muOS, ROCKNIX…) over SFTP/SSH and Android over ADB — device paths auto-detected.">Batocera·ArkOS·OnionOS·muOS·ROCKNIX 등 리눅스 기기는 SFTP/SSH로, 안드로이드는 ADB로. 기기별 경로는 자동 인식합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow" data-ko="작동 방식" data-en="How it works">작동 방식</div>
+        <h2 data-ko="ROM을 넣으면, 나머지는 자동" data-en="Drop in ROMs — the rest is automatic">ROM을 넣으면, 나머지는 자동</h2>
+        <p data-ko="폴더를 추가하거나 드래그하면 다섯 단계가 알아서 흘러갑니다." data-en="Add a folder or drag files in, and five stages flow on their own.">폴더를 추가하거나 드래그하면 다섯 단계가 알아서 흘러갑니다.</p>
+      </div>
+      <div class="pipe">
+        <div class="step reveal"><div class="sn">1</div><h4 data-ko="ROM 추가" data-en="Add ROMs">ROM 추가</h4><p data-ko="폴더·드래그·파일 선택으로 시스템 자동 인식" data-en="Folder, drag or file picker — system auto-detected">폴더·드래그·파일 선택으로 시스템 자동 인식</p></div>
+        <div class="step reveal"><div class="sn">2</div><h4 data-ko="AI 매칭" data-en="AI match">AI 매칭</h4><p data-ko="해시→DB→퍼지→LLM 단계로 정확한 타이틀 확정" data-en="Hash → DB → fuzzy → LLM to pin the title">해시→DB→퍼지→LLM 단계로 정확한 타이틀 확정</p></div>
+        <div class="step reveal"><div class="sn">3</div><h4 data-ko="미디어 수집" data-en="Fetch media">미디어 수집</h4><p data-ko="이미지·영상·매뉴얼을 리전 우선순위로 캐시" data-en="Cache images, video, manuals by region priority">이미지·영상·매뉴얼을 리전 우선순위로 캐시</p></div>
+        <div class="step reveal"><div class="sn">4</div><h4 data-ko="믹스 합성" data-en="Compose mix">믹스 합성</h4><p data-ko="레이아웃대로 대표 이미지 자동 생성" data-en="Auto-generate the key art per layout">레이아웃대로 대표 이미지 자동 생성</p></div>
+        <div class="step reveal"><div class="sn">5</div><h4 data-ko="내보내기" data-en="Export">내보내기</h4><p data-ko="PC·안드로이드·리눅스 기기로 목록+미디어 전송" data-en="Send list + media to PC, Android or Linux">PC·안드로이드·리눅스 기기로 목록+미디어 전송</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARGETS -->
+  <section id="targets">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow" data-ko="지원 대상" data-en="Supported">지원 대상</div>
+        <h2 data-ko="당신의 셋업, 그대로 지원합니다" data-en="Works with your setup">당신의 셋업, 그대로 지원합니다</h2>
+      </div>
+      <div class="targets">
+        <div class="tcol reveal">
+          <h3>🖥️ <span data-ko="프론트엔드" data-en="Frontends">프론트엔드</span></h3>
+          <p class="th-sub" data-ko="OS별 폴더·이름 규칙에 맞춘 메타 생성" data-en="Metadata tailored to each OS's folder/name rules">OS별 폴더·이름 규칙에 맞춘 메타 생성</p>
+          <div class="pills">
+            <span class="pill">ES-DE</span><span class="pill">EmulationStation</span>
+            <span class="pill">RetroArch</span><span class="pill">Pegasus</span>
+          </div>
+        </div>
+        <div class="tcol reveal">
+          <h3>🎮 <span data-ko="휴대용 게임기 / OS" data-en="Handhelds / OS">휴대용 게임기 / OS</span></h3>
+          <p class="th-sub" data-ko="리눅스는 SFTP/SSH, 안드로이드는 ADB로 연결" data-en="Linux via SFTP/SSH, Android via ADB">리눅스는 SFTP/SSH, 안드로이드는 ADB로 연결</p>
+          <div class="pills">
+            <span class="pill">ArkOS</span><span class="pill">Batocera</span><span class="pill">JELOS</span>
+            <span class="pill">KNULLI</span><span class="pill">ROCKNIX</span><span class="pill">OnionOS</span>
+            <span class="pill">muOS</span><span class="pill">RG34xxSP / TSP</span><span class="pill"><b>Android</b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <section id="shots">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow" data-ko="화면" data-en="Screens">화면</div>
+        <h2 data-ko="텍스트 리스트는 그만, 눈이 즐거운 라이브러리" data-en="No more plain lists — a library that delights">텍스트 리스트는 그만, 눈이 즐거운 라이브러리</h2>
+      </div>
+      <div class="shots">
+        <div class="shot reveal"><div class="ph" data-ko="라이브러리 그리드 뷰" data-en="Library grid view">라이브러리 그리드 뷰</div><div class="cap" data-ko="시스템·게임·미디어를 한 화면에서" data-en="Systems, games and media in one view">시스템·게임·미디어를 한 화면에서</div></div>
+        <div class="shot reveal"><div class="ph" data-ko="게임 상세 · 믹스 이미지" data-en="Game detail · mix image">게임 상세 · 믹스 이미지</div><div class="cap" data-ko="메타데이터와 합성 비주얼" data-en="Metadata with composed key art">메타데이터와 합성 비주얼</div></div>
+        <div class="shot reveal"><div class="ph" data-ko="내보내기 · 기기 연동" data-en="Export · device sync">내보내기 · 기기 연동</div><div class="cap" data-ko="휴대용 게임기로 무선 전송" data-en="Wireless transfer to handhelds">휴대용 게임기로 무선 전송</div></div>
+      </div>
+      <p class="muted reveal" style="text-align:center; font-size:13px; margin-top:22px"
+         data-ko="※ 실제 스크린샷으로 교체할 영역입니다 (docs/assets 에 이미지 추가 후 연결)."
+         data-en="※ Placeholder — replace with real screenshots (add images to docs/assets).">
+        ※ 실제 스크린샷으로 교체할 영역입니다 (docs/assets 에 이미지 추가 후 연결).
+      </p>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD CTA -->
+  <section id="download">
+    <div class="wrap">
+      <div class="cta reveal">
+        <h2 data-ko="흩어진 ROM, 지금 한 번에 정리하세요" data-en="Bring order to your ROMs today">흩어진 ROM, 지금 한 번에 정리하세요</h2>
+        <p data-ko="복잡한 설정도, 지루한 파일명 수정도, 언어의 압박도 없이. 오직 게임이 주는 즐거움에만 집중하세요." data-en="No tedious setup, no renaming, no language barrier. Just focus on the fun of the games.">복잡한 설정도, 지루한 파일명 수정도, 언어의 압박도 없이. 오직 게임이 주는 즐거움에만 집중하세요.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool/releases" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <span data-ko="Windows용 다운로드" data-en="Download for Windows">Windows용 다운로드</span>
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <p class="muted" style="font-size:12.5px; margin-top:18px; margin-bottom:0"
+           data-ko="exe 설치 파일 · Windows 10/11 · 자동 업데이트 지원"
+           data-en="EXE installer · Windows 10/11 · auto-update">exe 설치 파일 · Windows 10/11 · 자동 업데이트 지원</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div style="max-width:340px">
+        <a class="brand" href="#top"><img src="assets/logo.png" alt="logo" style="width:30px;height:30px"/><span class="bt">HAE-BANG Rom Setting Tools</span></a>
+        <p class="muted" style="font-size:13.5px; margin:14px 0 0" data-ko="레트로 게임 라이브러리를 큐레이션하는 전용 도구. 한국 개발자가 만든 한/영 지원 앱." data-en="A dedicated curator for retro game libraries. Built in Korea, Korean & English.">레트로 게임 라이브러리를 큐레이션하는 전용 도구. 한국 개발자가 만든 한/영 지원 앱.</p>
+      </div>
+      <div class="foot-col">
+        <h5 data-ko="바로가기" data-en="Links">바로가기</h5>
+        <a href="#features" data-ko="기능" data-en="Features">기능</a>
+        <a href="#how" data-ko="작동 방식" data-en="How it works">작동 방식</a>
+        <a href="#download" data-ko="다운로드" data-en="Download">다운로드</a>
+        <a href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="foot-col">
+        <h5 data-ko="후원" data-en="Support">후원</h5>
+        <p class="muted" style="font-size:13px;margin:0 0 8px" data-ko="후원해 주신 분들 — 무한이 · 거제 두람빠 · 날라랑 · 이만" data-en="Thanks to our supporters — 무한이 · 거제 두람빠 · 날라랑 · 이만">후원해 주신 분들 — 무한이 · 거제 두람빠 · 날라랑 · 이만</p>
+        <div class="donate"><span data-ko="후원 주소" data-en="Donation">후원 주소</span><br/><code>0nn00cOI1EIhNJ939naYeH9E1NAoqL8rRKJmyEJZmLWC8byyeXTbgUtvs6i44e2D</code></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> HAE-BANG Rom Setting Tools. All rights reserved.</span>
+      <span data-ko="Windows 전용 · Python · pywebview" data-en="Windows only · Python · pywebview">Windows 전용 · Python · pywebview</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // language toggle (ko <-> en)
+  var lang = 'ko';
+  function applyLang(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-ko]').forEach(function(el){
+      var v = el.getAttribute('data-' + l);
+      if (v != null) el.textContent = v;
+    });
+    document.getElementById('langBtn').textContent = (l === 'ko') ? 'EN' : '한';
+    try { localStorage.setItem('hb_lang', l); } catch(e){}
+  }
+  document.getElementById('langBtn').addEventListener('click', function(){
+    applyLang(lang === 'ko' ? 'en' : 'ko');
+  });
+  try { var saved = localStorage.getItem('hb_lang'); if (saved) applyLang(saved); } catch(e){}
+
+  // header shadow on scroll
+  var hdr = document.getElementById('hdr');
+  function onScroll(){ hdr.classList.toggle('scrolled', window.scrollY > 8); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // scroll reveal
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
