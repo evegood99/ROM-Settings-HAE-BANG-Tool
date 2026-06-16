@@ -91,6 +91,8 @@
   .win-bar .d{width:11px; height:11px; border-radius:50%}
   .win-bar .d1{background:#ff5f57}.win-bar .d2{background:#febc2e}.win-bar .d3{background:#28c840}
   .win-bar .wt{margin-left:8px; font-size:11.5px; color:var(--faint); font-weight:600}
+  .win-shot{display:block}
+  .win-shot img{display:block; width:100%; height:auto}
   .win-body{display:grid; grid-template-columns:118px 1fr 150px; height:330px; font-size:11px}
   .w-side{background:#0c0e16; border-right:1px solid var(--border); padding:9px 8px; overflow:hidden}
   .w-side .sh{font-size:9px; letter-spacing:.12em; color:var(--faint); text-transform:uppercase; margin:2px 4px 8px; font-weight:700}
@@ -168,11 +170,15 @@
   .pill b{color:var(--cyan); font-weight:800}
 
   /* screenshots */
-  .shots{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
-  .shot{border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--surface)}
-  .shot .ph{aspect-ratio:16/10; display:grid; place-items:center; color:var(--faint); font-size:13px;
-    background:repeating-linear-gradient(45deg,rgba(255,255,255,.018) 0 14px,transparent 14px 28px), radial-gradient(120% 90% at 60% 0,#161a28,#0a0c13)}
-  .shot .cap{padding:13px 15px; font-size:13.5px; color:var(--muted); font-weight:600; border-top:1px solid var(--border)}
+  .shots{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+  .shot{border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--surface); transition:.22s; display:block}
+  .shot:hover{transform:translateY(-4px); border-color:var(--border2); box-shadow:0 22px 50px -22px rgba(0,0,0,.8)}
+  .shot .imgw{aspect-ratio:16/10; overflow:hidden; background:#0a0c13}
+  .shot .imgw img{width:100%; height:100%; object-fit:cover; object-position:top left; display:block; transition:.4s}
+  .shot:hover .imgw img{transform:scale(1.03)}
+  .shot .cap{padding:13px 15px; border-top:1px solid var(--border)}
+  .shot .cap b{display:block; font-size:14px; color:var(--text); font-weight:700}
+  .shot .cap span{font-size:12.5px; color:var(--muted)}
 
   /* CTA */
   .cta{position:relative; border:1px solid var(--border2); border-radius:24px; overflow:hidden; text-align:center;
@@ -220,7 +226,7 @@
 <header id="hdr">
   <div class="wrap nav">
     <a class="brand" href="#top">
-      <img src="assets/logo.png" alt="HAE-BANG logo" />
+      <img src="assets/icon.png" alt="HAE-BANG logo" />
       <span>
         <span class="bt">HAE-BANG</span>
         <div class="bs" data-ko="롬 세팅 툴" data-en="Rom Setting Tools">롬 세팅 툴</div>
@@ -234,9 +240,6 @@
     </nav>
     <div class="nav-right">
       <button class="icon-btn lang" id="langBtn" title="Language" aria-label="Language">EN</button>
-      <a class="icon-btn" href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.23-1.27-5.23-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.17a11 11 0 0 1 5.78 0c2.2-1.48 3.17-1.17 3.17-1.17.63 1.58.24 2.75.12 3.04.74.8 1.18 1.82 1.18 3.07 0 4.41-2.69 5.38-5.25 5.66.42.36.8 1.08.8 2.18v3.23c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
-      </a>
       <a class="btn btn-primary hide-s" href="#download" data-ko="다운로드" data-en="Download">다운로드</a>
     </div>
   </div>
@@ -263,8 +266,7 @@
           복잡한 파일명, 제각각인 폴더, 언어 장벽. HAE-BANG은 AI 매칭과 미디어 라이브러리, 멀티 프론트엔드 내보내기, 휴대용 게임기 연동까지 한 번에 해결하는 레트로 게임 관리 도구입니다.
         </p>
         <div class="hero-cta">
-          <!-- 실제 설치 파일 URL 로 교체하세요 (예: GitHub Releases) -->
-          <a class="btn btn-primary" href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool/releases" target="_blank" rel="noopener">
+          <a class="btn btn-primary" href="#download">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             <span data-ko="Windows용 다운로드" data-en="Download for Windows">Windows용 다운로드</span>
           </a>
@@ -284,39 +286,9 @@
             <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
             <span class="wt">HAE-BANG Rom Setting Tools</span>
           </div>
-          <div class="win-body">
-            <div class="w-side">
-              <div class="sh">Systems</div>
-              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#ef4444,#f59e0b)"></span>Mega Drive</div>
-              <div class="sysrow active"><span class="ci" style="background:linear-gradient(135deg,#6366f1,#22d3ee)"></span>Super Famicom</div>
-              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#10b981,#06b6d4)"></span>PlayStation</div>
-              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"></span>Saturn</div>
-              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"></span>PC Engine</div>
-              <div class="sysrow"><span class="ci" style="background:linear-gradient(135deg,#14b8a6,#6366f1)"></span>Game Boy</div>
-            </div>
-            <div class="w-grid">
-              <div class="gh"><span>Name</span><span style="text-align:center">Match</span></div>
-              <div class="grow"><span class="nm">Super Mario World</span><span class="mtag m1">1</span></div>
-              <div class="grow sel"><span class="nm">Chrono Trigger</span><span class="mtag m23">2</span></div>
-              <div class="grow"><span class="nm">Final Fantasy VI</span><span class="mtag m1">1</span></div>
-              <div class="grow"><span class="nm">Secret of Mana</span><span class="mtag m23">3</span></div>
-              <div class="grow"><span class="nm">sf2_turbo_hyper</span><span class="mtag m4">llm</span></div>
-              <div class="grow"><span class="nm">Donkey Kong Country</span><span class="mtag m1">1</span></div>
-              <div class="grow"><span class="nm">unknown_rom_0x9f</span><span class="mtag mx">—</span></div>
-              <div class="grow"><span class="nm">Terranigma</span><span class="mtag m23">2</span></div>
-            </div>
-            <div class="w-info">
-              <div class="miximg">
-                <div class="ss"></div><div class="box"></div><div class="logo"></div>
-              </div>
-              <div class="i-title">Chrono Trigger</div>
-              <div class="i-sub">크로노 트리거 · 1995 · Square</div>
-              <div class="i-meta">
-                <span class="chip">RPG</span><span class="chip">1P</span><span class="chip">JP</span>
-              </div>
-              <div class="i-bars"><div class="bar"><i style="width:86%"></i></div><div class="bar"><i style="width:64%"></i></div></div>
-            </div>
-          </div>
+          <a class="win-shot" href="assets/library_grid_view.png" target="_blank" rel="noopener">
+            <img src="assets/library_grid_view.png" alt="HAE-BANG 라이브러리 화면" loading="eager" />
+          </a>
         </div>
       </div>
     </div>
@@ -429,15 +401,31 @@
         <h2 data-ko="텍스트 리스트는 그만, 눈이 즐거운 라이브러리" data-en="No more plain lists — a library that delights">텍스트 리스트는 그만, 눈이 즐거운 라이브러리</h2>
       </div>
       <div class="shots">
-        <div class="shot reveal"><div class="ph" data-ko="라이브러리 그리드 뷰" data-en="Library grid view">라이브러리 그리드 뷰</div><div class="cap" data-ko="시스템·게임·미디어를 한 화면에서" data-en="Systems, games and media in one view">시스템·게임·미디어를 한 화면에서</div></div>
-        <div class="shot reveal"><div class="ph" data-ko="게임 상세 · 믹스 이미지" data-en="Game detail · mix image">게임 상세 · 믹스 이미지</div><div class="cap" data-ko="메타데이터와 합성 비주얼" data-en="Metadata with composed key art">메타데이터와 합성 비주얼</div></div>
-        <div class="shot reveal"><div class="ph" data-ko="내보내기 · 기기 연동" data-en="Export · device sync">내보내기 · 기기 연동</div><div class="cap" data-ko="휴대용 게임기로 무선 전송" data-en="Wireless transfer to handhelds">휴대용 게임기로 무선 전송</div></div>
+        <a class="shot reveal" href="assets/game_info_view.png" target="_blank" rel="noopener">
+          <div class="imgw"><img src="assets/game_info_view.png" alt="게임 상세 정보" loading="lazy" /></div>
+          <div class="cap"><b data-ko="게임 상세 · 믹스 이미지" data-en="Game detail · mix image">게임 상세 · 믹스 이미지</b><span data-ko="메타데이터와 합성된 대표 비주얼" data-en="Metadata with the composed key art">메타데이터와 합성된 대표 비주얼</span></div>
+        </a>
+        <a class="shot reveal" href="assets/game_meta_edit_view.png" target="_blank" rel="noopener">
+          <div class="imgw"><img src="assets/game_meta_edit_view.png" alt="메타 편집기" loading="lazy" /></div>
+          <div class="cap"><b data-ko="메타 편집기" data-en="Metadata editor">메타 편집기</b><span data-ko="후보 검색·리전·미디어를 직접 편집" data-en="Edit candidates, region and media directly">후보 검색·리전·미디어를 직접 편집</span></div>
+        </a>
+        <a class="shot reveal" href="assets/mix_media_edit.png" target="_blank" rel="noopener">
+          <div class="imgw"><img src="assets/mix_media_edit.png" alt="믹스 이미지 편집" loading="lazy" /></div>
+          <div class="cap"><b data-ko="믹스 이미지 편집" data-en="Mix image editor">믹스 이미지 편집</b><span data-ko="레이어를 자유 조합·배치" data-en="Freely compose and place layers">레이어를 자유 조합·배치</span></div>
+        </a>
+        <a class="shot reveal" href="assets/media_edit_by_search.png" target="_blank" rel="noopener">
+          <div class="imgw"><img src="assets/media_edit_by_search.png" alt="미디어 편집 - 웹 검색" loading="lazy" /></div>
+          <div class="cap"><b data-ko="미디어 편집 · 웹 검색" data-en="Media edit · web search">미디어 편집 · 웹 검색</b><span data-ko="이미지 검색·자르기·정면화·투명화" data-en="Search, crop, flatten, transparency">이미지 검색·자르기·정면화·투명화</span></div>
+        </a>
+        <a class="shot reveal" href="assets/auto_translate_manual.png" target="_blank" rel="noopener">
+          <div class="imgw"><img src="assets/auto_translate_manual.png" alt="AI 매뉴얼 번역" loading="lazy" /></div>
+          <div class="cap"><b data-ko="AI 매뉴얼 번역" data-en="AI manual translation">AI 매뉴얼 번역</b><span data-ko="원본 레이아웃 그대로 한글 오버레이" data-en="Korean overlay preserving the layout">원본 레이아웃 그대로 한글 오버레이</span></div>
+        </a>
+        <a class="shot reveal" href="assets/export_setting_view.png" target="_blank" rel="noopener">
+          <div class="imgw"><img src="assets/export_setting_view.png" alt="내보내기 설정" loading="lazy" /></div>
+          <div class="cap"><b data-ko="내보내기 · 기기 연동" data-en="Export · device sync">내보내기 · 기기 연동</b><span data-ko="프론트엔드·OS별 설정과 전송" data-en="Per-frontend/OS settings and transfer">프론트엔드·OS별 설정과 전송</span></div>
+        </a>
       </div>
-      <p class="muted reveal" style="text-align:center; font-size:13px; margin-top:22px"
-         data-ko="※ 실제 스크린샷으로 교체할 영역입니다 (docs/assets 에 이미지 추가 후 연결)."
-         data-en="※ Placeholder — replace with real screenshots (add images to docs/assets).">
-        ※ 실제 스크린샷으로 교체할 영역입니다 (docs/assets 에 이미지 추가 후 연결).
-      </p>
     </div>
   </section>
 
@@ -448,11 +436,11 @@
         <h2 data-ko="흩어진 ROM, 지금 한 번에 정리하세요" data-en="Bring order to your ROMs today">흩어진 ROM, 지금 한 번에 정리하세요</h2>
         <p data-ko="복잡한 설정도, 지루한 파일명 수정도, 언어의 압박도 없이. 오직 게임이 주는 즐거움에만 집중하세요." data-en="No tedious setup, no renaming, no language barrier. Just focus on the fun of the games.">복잡한 설정도, 지루한 파일명 수정도, 언어의 압박도 없이. 오직 게임이 주는 즐거움에만 집중하세요.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool/releases" target="_blank" rel="noopener">
+          <!-- TODO: 실제 설치 exe 다운로드 URL 로 교체하세요 -->
+          <a class="btn btn-primary" href="#" id="dlBtn">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
             <span data-ko="Windows용 다운로드" data-en="Download for Windows">Windows용 다운로드</span>
           </a>
-          <a class="btn btn-ghost" href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool" target="_blank" rel="noopener">GitHub</a>
         </div>
         <p class="muted" style="font-size:12.5px; margin-top:18px; margin-bottom:0"
            data-ko="exe 설치 파일 · Windows 10/11 · 자동 업데이트 지원"
@@ -466,15 +454,15 @@
   <div class="wrap">
     <div class="foot">
       <div style="max-width:340px">
-        <a class="brand" href="#top"><img src="assets/logo.png" alt="logo" style="width:30px;height:30px"/><span class="bt">HAE-BANG Rom Setting Tools</span></a>
+        <a class="brand" href="#top"><img src="assets/icon.png" alt="logo" style="width:30px;height:30px"/><span class="bt">HAE-BANG Rom Setting Tools</span></a>
         <p class="muted" style="font-size:13.5px; margin:14px 0 0" data-ko="레트로 게임 라이브러리를 큐레이션하는 전용 도구. 한국 개발자가 만든 한/영 지원 앱." data-en="A dedicated curator for retro game libraries. Built in Korea, Korean & English.">레트로 게임 라이브러리를 큐레이션하는 전용 도구. 한국 개발자가 만든 한/영 지원 앱.</p>
       </div>
       <div class="foot-col">
         <h5 data-ko="바로가기" data-en="Links">바로가기</h5>
         <a href="#features" data-ko="기능" data-en="Features">기능</a>
         <a href="#how" data-ko="작동 방식" data-en="How it works">작동 방식</a>
+        <a href="#targets" data-ko="지원 대상" data-en="Supported">지원 대상</a>
         <a href="#download" data-ko="다운로드" data-en="Download">다운로드</a>
-        <a href="https://github.com/evegood99/HAE-BANG-ROMs-Setting-Tool" target="_blank" rel="noopener">GitHub</a>
       </div>
       <div class="foot-col">
         <h5 data-ko="후원" data-en="Support">후원</h5>
