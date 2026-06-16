@@ -37,6 +37,10 @@
   .grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
   .muted{color:var(--muted)}
 
+  /* 언어 토글: html.en 클래스로 ko/en 전환 (서식 보존) */
+  html:not(.en) .en-only{display:none !important}
+  html.en .ko-only{display:none !important}
+
   /* header (index 와 동일 톤) */
   header{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
     background:rgba(8,9,15,.66); border-bottom:1px solid transparent; transition:.25s}
@@ -50,6 +54,9 @@
   .nav-links a{padding:8px 12px; border-radius:9px; font-size:14px; color:var(--muted); font-weight:600; transition:.18s}
   .nav-links a:hover,.nav-links a.active{color:var(--text); background:var(--surface)}
   .nav-right{margin-left:auto; display:flex; align-items:center; gap:10px}
+  .langbtn{font-size:12.5px; font-weight:800; letter-spacing:.04em; padding:9px 13px; border-radius:10px;
+    border:1px solid var(--border2); background:var(--surface); color:var(--text); cursor:pointer; transition:.18s}
+  .langbtn:hover{border-color:var(--cyan); transform:translateY(-1px)}
   .btn{display:inline-flex; align-items:center; gap:8px; font-weight:700; border-radius:11px; cursor:pointer;
     padding:10px 16px; font-size:14px; border:1px solid transparent; transition:.2s}
   .btn-primary{background:var(--grad); color:#05070d}
@@ -83,7 +90,6 @@
   .ptab:hover{color:var(--text); border-color:var(--border2)}
   .ptab.active{color:#06070d; background:var(--grad); border-color:transparent}
   .ptab.active .pn{color:rgba(0,0,0,.6)}
-  .ptab.soon{opacity:.6}
 
   /* article */
   .part{display:none; padding:54px 0 30px}
@@ -132,52 +138,11 @@
   .tbc h3{margin:14px 0 6px; font-size:20px; font-weight:800}
   .tbc p{margin:0; color:var(--muted); font-size:14.5px}
 
-  /* coming soon */
-  .soonbox{max-width:var(--read); margin:40px auto; text-align:center; padding:60px 28px; border:1px dashed var(--border2); border-radius:18px; background:var(--surface)}
-  .soonbox .px{font-family:var(--pixel); font-size:14px; color:var(--cyan); letter-spacing:.04em}
-  .soonbox h3{margin:18px 0 8px; font-size:24px; font-weight:800}
-  .soonbox p{margin:0 auto; color:var(--muted); max-width:440px}
-
   footer{border-top:1px solid var(--border); padding:40px 0 50px; margin-top:50px; color:var(--faint); font-size:13px}
   .foot{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; align-items:center}
 
   .reveal{opacity:0; transform:translateY(20px); transition:opacity .6s, transform .6s}
   .reveal.in{opacity:1; transform:none}
-
-  /* 파이프라인 흐름 (Machine→SoC→OS→FE→Emulator) */
-  .flow{display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin:32px 0}
-  .fstage{border:1px solid var(--border2); border-radius:14px; padding:16px 13px; background:var(--surface); position:relative}
-  .fstage .ft{font-family:var(--pixel); font-size:9px; letter-spacing:.03em; color:var(--cyan); margin-bottom:8px}
-  .fstage .fi{font-size:23px; margin-bottom:8px}
-  .fstage ul{margin:0; padding:0; list-style:none}
-  .fstage li{font-size:12px; color:var(--muted); padding:2px 0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  .fstage::after{content:"→"; position:absolute; right:-11px; top:22px; color:var(--faint); font-size:15px; z-index:2}
-  .fstage:last-child::after{display:none}
-
-  /* 콘솔 성능 스케일 */
-  .scale{margin:28px 0; border:1px solid var(--border); border-radius:14px; padding:18px; background:var(--surface)}
-  .scale .chips{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px}
-  .scale .chips span{font-size:11.5px; font-weight:700; padding:5px 9px; border-radius:7px; background:var(--bg2); border:1px solid var(--border2); color:#d6dae6}
-  .scale .bar{height:10px; border-radius:999px; background:linear-gradient(90deg,#22d3ee,#6366f1,#f59e0b,#ef4444)}
-  .scale .lab{margin-top:8px; font-size:11px; color:var(--faint); text-align:right; font-family:var(--pixel); letter-spacing:.02em}
-
-  /* 프론트엔드 ↔ 에뮬레이터 관계 */
-  .rel{display:grid; grid-template-columns:1fr auto 1fr; gap:14px; align-items:center; margin:30px 0}
-  .relcol{border:1px solid var(--border2); border-radius:14px; padding:18px 16px; background:var(--surface)}
-  .relcol h4{margin:0 0 12px; font-family:var(--pixel); font-size:10px; letter-spacing:.03em}
-  .relcol.fe h4{color:var(--cyan)} .relcol.em h4{color:var(--rose)}
-  .relcol .item{font-size:13px; font-weight:700; color:#dce0ec; padding:7px 0; border-top:1px dashed rgba(255,255,255,.06)}
-  .relcol .item:first-of-type{border-top:0}
-  .relmid{text-align:center; color:var(--faint); font-size:12px}
-  .relmid .ar{font-size:22px; color:var(--violet)}
-  .relmid b{display:block; color:var(--gold); font-size:11px; margin-top:6px}
-
-  /* 레트로아크 코어 다운로더 mock */
-  .coremock{border:1px solid var(--border2); border-radius:12px; overflow:hidden; margin:24px 0; background:#0e1019; font-size:13px}
-  .coremock .cm-bar{display:flex; align-items:center; gap:8px; padding:10px 13px; background:#141826; border-bottom:1px solid var(--border); color:var(--cyan); font-weight:800; font-size:12.5px}
-  .coremock .cm-row{display:flex; justify-content:space-between; gap:10px; padding:9px 14px; border-top:1px solid rgba(255,255,255,.04); color:#cdd2e0}
-  .coremock .cm-row.on{background:linear-gradient(90deg,rgba(34,211,238,.13),transparent); color:#fff}
-  .coremock .cm-row small{color:var(--faint); font-weight:600}
 
   /* OS 요약 3카드 */
   .oscards{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:28px 0}
@@ -188,9 +153,21 @@
   .oscard .pro::before{content:"＋"; position:absolute; left:0; color:var(--emerald); font-weight:800}
   .oscard .con::before{content:"－"; position:absolute; left:0; color:var(--rose); font-weight:800}
 
+  /* PDF 도식 이미지 (클릭 확대) */
+  .fig{display:block; border:1px solid var(--border2); border-radius:14px; overflow:hidden; background:var(--surface); margin:30px 0; cursor:zoom-in; transition:.2s}
+  .fig:hover{border-color:var(--cyan); transform:translateY(-3px)}
+  .fig img{display:block; width:100%; height:auto}
+  .fig .cap{display:block; padding:11px 16px; font-size:12.5px; color:var(--muted); border-top:1px solid var(--border); text-align:center}
+  /* 라이트박스(클릭 확대) */
+  .lb{position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; padding:28px;
+    background:rgba(4,5,9,.85); backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px);
+    opacity:0; pointer-events:none; transition:opacity .3s ease; cursor:zoom-out}
+  .lb.open{opacity:1; pointer-events:auto}
+  .lb img{max-width:94vw; max-height:92vh; display:block; border-radius:12px;
+    box-shadow:0 50px 140px -40px rgba(0,0,0,.95), 0 0 0 1px var(--border2); will-change:transform}
+  .lb .lb-hint{position:fixed; bottom:20px; left:0; right:0; text-align:center; color:var(--faint); font-size:12.5px; pointer-events:none}
+
   @media (max-width:760px){
-    .flow{grid-template-columns:1fr 1fr} .fstage::after{display:none}
-    .rel{grid-template-columns:1fr} .relmid .ar{transform:rotate(90deg); display:inline-block}
     .oscards{grid-template-columns:1fr}
     .compare{grid-template-columns:1fr}
     .nav-links{display:none}
@@ -204,16 +181,17 @@
   <div class="wrap nav">
     <a class="brand" href="index.html">
       <img src="assets/icon.png" alt="HAE-BANG" />
-      <span><span class="bt">HAE-BANG</span><div class="bs">롬 세팅 툴</div></span>
+      <span><span class="bt">HAE-BANG</span><div class="bs"><span class="ko-only">롬 세팅 툴</span><span class="en-only">Rom Setting Tools</span></div></span>
     </a>
     <nav class="nav-links">
-      <a href="index.html#features">기능</a>
-      <a href="index.html#how">작동 방식</a>
-      <a href="index.html#shots">화면</a>
-      <a href="story.html" class="active">읽을거리</a>
+      <a href="index.html#features"><span class="ko-only">기능</span><span class="en-only">Features</span></a>
+      <a href="index.html#how"><span class="ko-only">작동 방식</span><span class="en-only">How it works</span></a>
+      <a href="index.html#shots"><span class="ko-only">화면</span><span class="en-only">Screens</span></a>
+      <a href="story.html" class="active"><span class="ko-only">읽을거리</span><span class="en-only">Read</span></a>
     </nav>
     <div class="nav-right">
-      <a class="btn btn-primary" href="index.html#download">다운로드</a>
+      <button class="langbtn" id="langBtn">EN</button>
+      <a class="btn btn-primary" href="index.html#download"><span class="ko-only">다운로드</span><span class="en-only">Download</span></a>
     </div>
   </div>
 </header>
@@ -221,19 +199,28 @@
 <!-- ===== Hero ===== -->
 <section class="rhero">
   <div class="rhero-in">
-    <span class="series-badge"><span class="blink"></span>READING · 레트로 에뮬레이터 이야기</span>
-    <h1>막막한 에뮬레이터 세계,<br /><span class="grad-text">왜 이렇게 생겼을까?</span></h1>
-    <p class="lead">에뮬레이터·레트로아크·프론트엔드·세팅… 용어부터 숨이 막히는 분들을 위해, <strong>"사용법"이 아니라 "왜 이렇게 됐는지"</strong>를 추억과 함께 풀어 봅니다.</p>
-    <div class="meta">초보자 · 추억 보유자 · 레트로 뉴비를 위한 이해 중심 가이드</div>
+    <span class="series-badge"><span class="blink"></span>READING&nbsp;·&nbsp;<span class="ko-only">레트로 에뮬레이터 이야기</span><span class="en-only">Retro Emulator Story</span></span>
+    <h1>
+      <span class="ko-only">막막한 에뮬레이터 세계,<br /><span class="grad-text">왜 이렇게 생겼을까?</span></span>
+      <span class="en-only">The overwhelming world of emulators —<br /><span class="grad-text">why is it built this way?</span></span>
+    </h1>
+    <p class="lead">
+      <span class="ko-only">에뮬레이터·레트로아크·프론트엔드·세팅… 용어부터 숨이 막히는 분들을 위해, <strong>"사용법"이 아니라 "왜 이렇게 됐는지"</strong>를 추억과 함께 풀어 봅니다.</span>
+      <span class="en-only">For anyone who finds the very terms — emulator, RetroArch, front-end, setup — suffocating, here's <strong>not a how-to, but the "why,"</strong> told with a little nostalgia.</span>
+    </p>
+    <div class="meta">
+      <span class="ko-only">초보자 · 추억 보유자 · 레트로 뉴비를 위한 이해 중심 가이드</span>
+      <span class="en-only">An understanding-first guide for beginners, the nostalgic, and retro newbies</span>
+    </div>
   </div>
 </section>
 
 <!-- ===== Parts nav ===== -->
 <div class="parts">
   <div class="wrap parts-in">
-    <button class="ptab active" data-part="1"><span class="pn">PART 1</span> 게임팩에서 만능게임기까지</button>
-    <button class="ptab" data-part="2"><span class="pn">PART 2</span> 프론트엔드와 레트로아크</button>
-    <button class="ptab" data-part="3"><span class="pn">PART 3</span> 게임기·SoC·OS 고르기</button>
+    <button class="ptab active" data-part="1"><span class="pn">PART 1</span> <span class="ko-only">게임팩에서 만능게임기까지</span><span class="en-only">From Cartridges to the All-in-One</span></button>
+    <button class="ptab" data-part="2"><span class="pn">PART 2</span> <span class="ko-only">프론트엔드와 레트로아크</span><span class="en-only">Front-Ends &amp; RetroArch</span></button>
+    <button class="ptab" data-part="3"><span class="pn">PART 3</span> <span class="ko-only">게임기·SoC·OS 고르기</span><span class="en-only">Device · SoC · OS</span></button>
   </div>
 </div>
 
@@ -241,22 +228,17 @@
 
   <!-- ===================== PART 1 ===================== -->
   <article class="part active" id="part-1">
-    <div class="article">
+    <!-- KO -->
+    <div class="article ko-only">
       <p class="kicker reveal">PART 1 — 게임팩에서 만능게임기까지</p>
-
       <p class="dropcap reveal">에뮬레이터 세계에 처음 발을 들이면 대부분 시작이 막막합니다. 에뮬레이터는 뭐고, 레트로아크는 뭐고, 프론트엔드에 세팅까지… <em>"뭐가 이리 복잡해!"</em> 라는 말이 절로 나오는 게 당연합니다. 그러다 보니 그냥 누군가 다 만들어 둔 것을 받아 쓰는 경우도 많죠.</p>
-
       <p class="reveal">세상에는 사용법 위주의 글이 많습니다. 그래서 저는 조금 다르게, <strong>"왜 이런 프로그램들이 생겼는지"</strong> 이해의 폭을 넓혀 보자는 마음으로 이 글을 씁니다. 어릴 때부터 컴퓨터와 게임을 좋아한 분들 중에는 저처럼 에뮬레이터의 발전사와 함께 게임을 즐겨 온 분도 많을 겁니다. <span class="hl">ZSNES, NESticle</span>을 아신다면… 네, 고인물 인증입니다. 이 글은 이제 막 레트로 에뮬 세계에 발을 들인 분들, 옛 게임기의 추억이 있는 분들, 레트로 게임을 좋아하는 뉴비를 위해 최대한 쉽게 적었습니다.</p>
-
       <p class="reveal">그러니 초보자의 시선에서, 제 옛 행적(?)과 함께 끄적인 이 이야기를 찬찬히 즐기며 읽어 주시면 좋겠습니다.</p>
-
       <div class="divider reveal" aria-hidden="true">
         <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="7" y="6" width="34" height="36" rx="3" fill="#171a27" stroke="#2c3147" stroke-width="2"/><rect x="13" y="6" width="22" height="9" rx="2" fill="#22d3ee" opacity=".5"/><rect x="12" y="20" width="24" height="3" fill="#6b7186"/><rect x="12" y="26" width="24" height="3" fill="#6b7186"/><rect x="12" y="32" width="16" height="3" fill="#6b7186"/></svg>
       </div>
-
       <h2 class="reveal">"게임을 한다"는 것 — 그때와 지금</h2>
       <p class="reveal">우리가 흔히 말하는 <strong>"게임을 한다"</strong>를, 옛날 게임기를 쓰던 시절로 돌아가 떠올려 봅시다. 그리고 그것을 에뮬레이터 세계의 "게임을 한다"와 나란히 비교해 보겠습니다.</p>
-
       <div class="compare reveal">
         <div class="ccard old">
           <h4>🕹️ 옛날 게임기 시절</h4>
@@ -275,220 +257,307 @@
           </ol>
         </div>
       </div>
-
       <p class="reveal">상당히 비슷하죠? 결국 "팩 → 롬 파일", "게임기 → 에뮬레이터"로 바뀌었을 뿐, 본질은 같습니다.</p>
-
       <h2 class="reveal">게임기를 흉내 낸 프로그램, 에뮬레이터</h2>
       <p class="reveal">어릴 적, 게임기 한 대 갖기도 쉽지 않던 시절 아버지가 패미컴과 슈퍼마리오를 사 주셨을 때가 생각납니다. 자랑하고 싶어 마리오 팩을 들고 친구 집 <strong>MSX</strong>에 짓이겨 넣었죠. 네… 그땐 참 무식했습니다. 너무 세게 누른 나머지 팩 안 기판이 케이스 속으로 쏙 들어가 버렸고, 얼마나 울었는지 모릅니다. ㅠ</p>
-
       <div class="pull reveal">패미컴 팩이 패미컴(과 호환 기종)에서만 돌아가듯, 에뮬레이터도 "어떤 게임기를 흉내 냈는가"에 따라 돌릴 수 있는 롬이 정해집니다.</div>
-
       <p class="reveal">패미컴을 흉내 낸 에뮬레이터에는 패미컴 롬을, MSX를 흉내 낸 에뮬레이터에는 MSX 롬을 넣어 즐기는 식이죠. 실제 게임기 없이 롬 파일을 로드해 즐길 수 있게 된 겁니다. 한마디로 <span class="hl">에뮬레이터는 게임기를 흉내 낸 프로그램</span>입니다.</p>
-
       <p class="reveal">저 역시 안드로이드 폰이 막 나오던 초창기, 레트로 게임을 돌리려고 <span class="hl-v">MD.emu</span>, <span class="hl-v">NES.emu</span> 같은 에뮬을 기종별로 따로 받아 각 기종에 맞는 게임을 즐기곤 했습니다. 지금도 이렇게 심플하게 게임 라이프를 즐기는 분들이 있을 겁니다.</p>
-
       <h2 class="reveal">책상 위에 쌓여 가는 게임기들</h2>
       <p class="reveal">이런 개별 에뮬레이터들은 계속 발전해 왔고, 다양한 기종을 즐기고 싶던 저는 결국 온갖 에뮬레이터를 다 깔게 됩니다. PC 바탕화면과 폰 화면에는 잡다한 에뮬 아이콘이 가득 펼쳐졌죠. 마치 방 안에…</p>
-
       <div class="callout reveal">패미컴, 겜보이, 슈퍼겜보이 with 메가CD + 32X, 슈퍼패미콤, PC엔진, 네오지오… <b>온갖 게임기가 늘어져 전원선은 꼬이고, 게임 패드는 제각각 굴러다니는</b> 그 모양새 말입니다. 😵‍💫</div>
-
       <p class="reveal">물론 깔끔하게 정리하는 분도 있겠지만(저는 절대 아니었습니다)… 어릴 때 한 번쯤 이런 상상 해 보셨을 겁니다. <strong>만능 게임기 한 대에 모든 게임기의 CPU를 이식해서, 하나로 모든 기종을 돌릴 수 있다면 얼마나 끝내줄까?</strong> 팩 모양이 제각각이니 팩 꽂는 입구를 여러 개 만들어 볼 수도 있겠죠.</p>
-
       <h2 class="reveal">만능 게임기의 탄생 — 레트로아크</h2>
       <p class="reveal">실제로 그런 기기는 나올 수 없었지만, 바로 이 컨셉으로 개발된 프로그램이 있습니다. 그것이 <span class="hl">레트로아크(RetroArch)</span>입니다. 다양한 게임기 CPU(코어)를 레트로아크에 집어넣으면, 우리는 <strong>레트로아크라는 하나의 프로그램으로 여러 기종을 구동</strong>할 수 있게 됩니다.</p>
-
       <p class="reveal">레트로아크의 <span class="hl-v">[코어 다운로드]</span>가 바로 이런저런 게임기의 CPU를 집어넣는 행위이고, 그래서 레트로아크를 쓰는 데 필수적인 과정이죠. 사실 레트로아크는 기존 독립 에뮬레이터들의 코어를 살짝 다듬어 품은 것이라, 많은 사람들이 함께 만든 프로그램이라고도 볼 수 있습니다.</p>
-
       <p class="reveal">덕분에 우리는 레트로아크에서 직접 게임을 골라 구동할 수 있고, 마치 하나의 만능 게임기처럼 <strong>게임패드 설정이나 화면 설정이 다른 기종에도 똑같이 적용</strong>됩니다. 한 번 내 손에 맞춘 세팅으로 모든 기종을 편하게 즐길 수 있게 되는 것이죠.</p>
-
       <h2 class="reveal">"프론트엔드"라는 말</h2>
       <p class="reveal">"프론트엔드"라는 말, 가끔 들어 보셨을 겁니다. 프론트엔드(Front-End)의 사전적 의미는 <strong>사용자가 실제로 보고 상호작용하는 부분</strong>을 뜻합니다. 레트로 게임에서 쓰는 프론트엔드도 비슷한데, 보통 <span class="hl">여러 게임기와 게임을 직접 고르고 구동할 수 있으면서 미려한 테마를 제공하는 프로그램</span>을 가리킵니다.</p>
-
       <p class="reveal">그런 의미에서 레트로아크는 다양한 코어를 실행하는 프로그램이면서, 동시에 게임을 직접 골라 구동하는 <strong>프론트엔드 역할</strong>까지 합니다. 다만… 그리 미려하지는 않다는 게 좀 문제죠. 😅</p>
-
       <h2 class="reveal">게임은 돌아가는데… 뭔가 허전하다</h2>
       <p class="reveal">자, 이제 만능 게임기가 생겼고 각종 게임팩을 대표하는 롬도 잘 챙겼습니다. 레트로아크에서 롬을 로드하고 어떤 코어로 돌릴지 설정하면, 하나의 프로그램으로 게임이 돌아갑니다. 어떤 팩이든 만능 게임기의 알맞은 트레이에 넣고 스위치를 올리면 되는 것과 같은 이치죠.</p>
-
       <p class="reveal">이것만으로 게임 구동에는 큰 문제가 없습니다. 그런데 뭔가 좀 심심합니다. 상상해 보죠. 나뒹굴던 게임기와 꼬인 선들은 만능 게임기 한 대로 대체됐고, 게임들은 알팩 상태로 바구니에 기종별로 담겨 있습니다.</p>
-
       <div class="pull reveal">그림도 흐릿한 알팩들. 어떤 게임인지 구분이 안 돼 싸인펜으로 겉면에 이름을 적고, 그 이름만 보고 게임을 골라 플레이합니다.<span class="by">— 결국 늘 하던 게임, 아는 게임만 하게 되죠.</span></div>
-
       <h2 class="reveal">용산 게임샵의 두근거림</h2>
       <p class="reveal">우리가 어릴 적 잘 꾸며진 용산 게임샵을 보면 왜 그렇게 가슴이 두근거렸을까요? 화려한 케이스로 정갈하게 진열된 게임들, 앞면의 멋진 캐릭터 작화, 뒷면의 실제 게임 화면, 그리고 매장에서 시연 중인 플레이 화면까지… 거기엔 분명한 <strong>쾌감</strong>이 있었습니다.</p>
-
       <p class="reveal">자, 이제 바구니 속 알팩을 멋진 정품 케이스에 담고, 예쁜 장식장에 진열해 봅시다. 장식장 옆엔 모니터를 두어 게임 구동 화면까지 흐르게 하면… <span class="hl">두근거리는 나만의 게임 공간</span>이 탄생합니다.</p>
-
       <h2 class="reveal">그래서, "세팅"</h2>
       <p class="reveal">바로 여기에서 <strong>세팅</strong>이라는 말이 나옵니다. 물론 앞서 말한 코어 다운로드, 롬 준비, 게임패드 설정도 세팅이라 할 수 있습니다. 하지만 이런 초기 세팅엔 시간이 그리 많이 들지 않습니다.</p>
-
       <div class="callout reveal">진짜 고역은 따로 있습니다. <b>게임 롬 파일과, 그에 대응하는 이미지·설명 정보를 일일이 잘 매핑하는 작업</b>이죠. 알팩 하나하나를 맞는 케이스에 포장하고 매뉴얼까지 넣는 일과 같아서, 상당한 시간과 노력이 듭니다.</div>
-
       <p class="reveal">레트로아크도 나름 스크린샷·박스커버를 보여 주는 기능은 있지만… 뭔가 예쁘진 않죠? 그래서 등장하는 것들이 바로 <span class="hl">ES-DE</span>, <span class="hl">다이지쇼(Daijishō)</span>, <span class="hl">페가수스(Pegasus)</span> 같은, 흔히 프론트엔드라 부르는 다양한 프로그램들입니다.</p>
-
       <div class="tbc reveal">
         <div class="ic">▶ TO BE CONTINUED…</div>
         <h3>다음 편에 계속</h3>
         <p>예쁜 프론트엔드들, 그리고 그 미려함의 핵심인 <strong>메타데이터·미디어 세팅</strong> 이야기로 이어집니다.</p>
       </div>
     </div>
+    <!-- EN -->
+    <div class="article en-only">
+      <p class="kicker reveal">PART 1 — From Cartridges to the All-in-One Console</p>
+      <p class="dropcap reveal">When you first step into the world of emulators, the start usually feels overwhelming. What's an emulator? What's RetroArch? Front-ends, setup… <em>"Why is this so complicated!"</em> is a perfectly natural reaction. So a lot of people just grab whatever someone else has already set up.</p>
+      <p class="reveal">There are plenty of how-to guides out there. So I wanted to do something a little different — to widen your understanding of <strong>"why these programs came to exist."</strong> Among those who've loved computers and games since childhood, many have grown up alongside the history of emulators, just like me. If you know <span class="hl">ZSNES and NESticle</span>… yes, that's veteran certification. This piece is written as simply as possible for newcomers to retro emulation, those with fond memories of old consoles, and retro-game-loving newbies.</p>
+      <p class="reveal">So, from a beginner's point of view, here's my little story — scribbled together with my own past escapades. Please enjoy it at a relaxed pace.</p>
+      <div class="divider reveal" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="7" y="6" width="34" height="36" rx="3" fill="#171a27" stroke="#2c3147" stroke-width="2"/><rect x="13" y="6" width="22" height="9" rx="2" fill="#22d3ee" opacity=".5"/><rect x="12" y="20" width="24" height="3" fill="#6b7186"/><rect x="12" y="26" width="24" height="3" fill="#6b7186"/><rect x="12" y="32" width="16" height="3" fill="#6b7186"/></svg>
+      </div>
+      <h2 class="reveal">"Playing a game" — then and now</h2>
+      <p class="reveal">Let's recall what we casually call <strong>"playing a game,"</strong> back in the days of old consoles. Then let's line it up against "playing a game" in the world of emulators.</p>
+      <div class="compare reveal">
+        <div class="ccard old">
+          <h4>🕹️ The old console days</h4>
+          <ol>
+            <li>Beg your parents endlessly, get fleeced at the electronics market, and finally buy a <strong>game cartridge</strong>.</li>
+            <li>Carefully <strong>insert the precious cartridge</strong> into the console.</li>
+            <li>Power on, play all night, and get smacked on the back of the head by your parents.</li>
+          </ol>
+        </div>
+        <div class="ccard new">
+          <h4>💾 The emulator world</h4>
+          <ol>
+            <li>Instead of buying a cartridge, you obtain a <strong>game ROM file</strong>.</li>
+            <li>You <strong>LOAD the ROM in an emulator</strong> that plays the role of the console.</li>
+            <li>Play all night and get a back-slap from your spouse.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="reveal">Pretty similar, right? In the end, only "cartridge → ROM file" and "console → emulator" changed; the essence is the same.</p>
+      <h2 class="reveal">Emulators — programs that imitate consoles</h2>
+      <p class="reveal">I remember when, in an era when owning even one console wasn't easy, my dad bought me a Famicom and Super Mario. Dying to show off, I carried the Mario cartridge to a friend's house and jammed it into his <strong>MSX</strong>. Yeah… I was clueless back then. I pushed so hard that the board inside slid right out of its plastic shell. I can't tell you how much I cried. ㅠ</p>
+      <div class="pull reveal">Just as a Famicom cartridge only runs on a Famicom (and compatible machines), an emulator can only run the ROMs of whatever console it imitates.</div>
+      <p class="reveal">An emulator imitating a Famicom takes Famicom ROMs; one imitating an MSX takes MSX ROMs. Now you can load and enjoy ROM files without the actual console. In short, <span class="hl">an emulator is a program that imitates a console.</span></p>
+      <p class="reveal">In the early days of Android phones, I too downloaded separate emulators like <span class="hl-v">MD.emu</span> and <span class="hl-v">NES.emu</span> for each system to play. Some people still enjoy their gaming life this simply today.</p>
+      <h2 class="reveal">Consoles piling up on the desk</h2>
+      <p class="reveal">These individual emulators kept improving, and wanting to play many systems, I ended up installing every emulator under the sun. My PC desktop and phone screen filled up with a clutter of emulator icons. Like a room with…</p>
+      <div class="callout reveal">Famicom, Game Boy, Super Game Boy with Mega CD + 32X, Super Famicom, PC Engine, Neo Geo… <b>every console sprawled out, power cables tangled, gamepads rolling around all over.</b> 😵‍💫</div>
+      <p class="reveal">Sure, some people keep it all tidy (I absolutely did not)… but haven't you, at least once as a kid, imagined this? <strong>What if one all-in-one console had every console's CPU transplanted into it, so a single machine could run every system? How awesome would that be?</strong> Since cartridge shapes differ, maybe you'd even build several cartridge slots.</p>
+      <h2 class="reveal">The all-in-one console is born — RetroArch</h2>
+      <p class="reveal">Such a device could never really exist — but a program built on exactly this concept does. It's <span class="hl">RetroArch</span>. By putting various console CPUs (cores) into RetroArch, we can run many systems with <strong>a single program called RetroArch.</strong></p>
+      <p class="reveal">RetroArch's <span class="hl-v">[Core Download]</span> is precisely the act of inserting this or that console's CPU — so it's an essential step in using RetroArch. In fact, RetroArch took the cores of existing standalone emulators and refined them in, so you could call it a program built by many people together.</p>
+      <p class="reveal">Thanks to this, we can pick and run games right inside RetroArch, and like a single all-in-one console, <strong>gamepad and display settings apply identically across systems.</strong> Tune it once to your liking, and you can comfortably enjoy every system with that one setup.</p>
+      <h2 class="reveal">The word "Front-End"</h2>
+      <p class="reveal">You've probably heard the word "front-end" now and then. The dictionary meaning of Front-End is <strong>the part the user actually sees and interacts with.</strong> The front-end in retro gaming is similar — generally <span class="hl">a program that lets you directly pick and launch various systems and games, with a beautiful theme.</span></p>
+      <p class="reveal">In that sense, RetroArch is both a program that runs various cores and one that performs the <strong>front-end role</strong> of picking and launching games directly. The catch is… it's just not that pretty. 😅</p>
+      <h2 class="reveal">The games run… but something's missing</h2>
+      <p class="reveal">Now we have our all-in-one console, and we've gathered the ROMs that represent each cartridge. In RetroArch you load a ROM, choose which core to run it with, and the game runs from a single program — just like dropping any cartridge into the right tray of an all-in-one console and flipping the switch.</p>
+      <p class="reveal">This alone is enough to run games. But something feels a little dull. Picture it: the sprawling consoles and tangled cables are now one all-in-one console, and the games sit as bare cartridges in baskets sorted by system.</p>
+      <div class="pull reveal">Bare cartridges with faded labels. You can't tell which is which, so you scribble names on them with a marker and pick games by name alone.<span class="by">— In the end, you only ever play the same old games you already know.</span></div>
+      <h2 class="reveal">The thrill of the game shop</h2>
+      <p class="reveal">Why did our hearts race as kids at a beautifully arranged game shop? The games neatly displayed in flashy cases, the gorgeous character art on the front, the actual gameplay shots on the back, and the demos playing nearby… there was a real <strong>thrill</strong> there.</p>
+      <p class="reveal">So now, let's put those bare cartridges into nice official cases and display them in a pretty cabinet. Add a monitor beside it streaming gameplay, and… <span class="hl">your very own heart-racing game space</span> is born.</p>
+      <h2 class="reveal">And so — "setup"</h2>
+      <p class="reveal">This is exactly where the word <strong>"setup"</strong> comes in. Of course, the core downloads, ROM prep, and gamepad config mentioned earlier are also setup. But that initial setup doesn't take much time.</p>
+      <div class="callout reveal">The real grind is elsewhere. <b>It's the work of carefully mapping each ROM file to its matching images and descriptive info.</b> It's like packing each cartridge into its proper case and slipping in the manual too — it takes considerable time and effort.</div>
+      <p class="reveal">RetroArch does have features to show screenshots and box covers… but it's just not pretty, is it? That's why programs like <span class="hl">ES-DE</span>, <span class="hl">Daijishō</span>, and <span class="hl">Pegasus</span> — the various programs commonly called front-ends — come into play.</p>
+      <div class="tbc reveal">
+        <div class="ic">▶ TO BE CONTINUED…</div>
+        <h3>Continues next time</h3>
+        <p>The pretty front-ends, and the heart of that beauty — <strong>metadata &amp; media setup</strong> — are up next.</p>
+      </div>
+    </div>
   </article>
 
   <!-- ===================== PART 2 ===================== -->
   <article class="part" id="part-2">
-    <div class="article">
+    <!-- KO -->
+    <div class="article ko-only">
       <p class="kicker reveal">PART 2 — 프론트엔드와 레트로아크</p>
-
       <p class="dropcap reveal">1부를 짧게 요약하면 이렇습니다. 우리는 만능게임기(<strong>레트로아크</strong>)로 여러 종류의 게임팩(게임 롬)을 구동할 수 있다 — 각종 게임기의 CPU(코어)를 탑재하고 있으니까. 잘만 쓰면 엄청난 종류의 게임이 돌아간다! 그런데… 뭔가 허전합니다. 게임샵에서 고르듯 다양한 정보와 근사한 화면이 나오면 좋겠죠. 그래서 등장한 것이 <span class="hl">프론트엔드</span>였습니다. 자, 이제 프론트엔드를 좀 더 들여다봅시다.</p>
-
       <h2 class="reveal">프론트엔드의 핵심</h2>
       <p class="reveal">에뮬레이터 게임을 구동하는 프론트엔드의 핵심은 이렇습니다 — <strong>내가 가진 게임들의 자세한 정보, 다양한 이미지·영상, 미려한 게임 선택 화면, 그리고 구경하다 바로 실행하는 편리함.</strong></p>
-
       <div class="pull reveal">바구니에 알팩을 넣어두고 이름만 봐가며 고를 것이냐 — 아니면 화려한 선반에 진열된 케이스 그림을 감상하고, 게임 화면·영상도 구경하며 "오 이건 재밌겠네!" 기대하며 들어갈 것이냐.<span class="by">— 이 차이가 바로 프론트엔드입니다.</span></div>
-
       <h2 class="reveal">프론트엔드가 하는 일</h2>
       <p class="reveal">프론트엔드는 다양한 게임기와 게임을 멋지게 보여주면서, 게임 롬(게임팩)을 에뮬레이터(게임기)로 실행시켜 줍니다. 대표적인 범용 프론트엔드로 요즘 가장 각광받는 것이 <span class="hl">ES-DE</span>입니다. 윈도우·안드로이드·리눅스·맥·스팀덱 등 다양한 OS를 지원해서, 윈도우에서 꾸민 나만의 멋진 장식장을 <strong>안드로이드 게임기로 그대로 이전</strong>할 수도 있죠. 같은 프론트엔드를 여러 기기에서 쓰니 무척 편합니다. 그리고 1부에서 말했듯 레트로아크도 넓게 보면 이런 프론트엔드에 속합니다.</p>
-
       <h2 class="reveal">프론트엔드는 "게임기"가 아니다</h2>
       <p class="reveal">프론트엔드는 그 자체로 게임기를 흉내 내는 프로그램이 아닙니다. <strong>에뮬레이터를 실행시켜 주는 동시에, 내 게임 목록을 미려하게 보여주는 것</strong>이 목적이죠. 그래서 프론트엔드만 있으면, 게임 롬이 있어도 게임을 못 돌립니다. 게임팩을 사서 예쁜 진열장에만 놓았을 뿐, 정작 게임기는 없는 상황인 거죠.</p>
-
       <div class="pull reveal">프론트엔드는 바로가기 아이콘을 보여주는 "바탕화면" 같은 녀석입니다. 여튼, <strong>안내자</strong> 역할이죠.</div>
-
       <div class="callout reveal">그래서 프론트엔드 설정에는 반드시 <b>"각 게임 기종을 어떤 에뮬레이터로 실행할지"</b> 정하는 부분이 있습니다. 예: 슈퍼패미콤 게임은 <b>SNES9X</b>로 실행해줘! 이게 초기 세팅의 핵심이죠. 보통 프론트엔드마다 기본값이 잡혀 있기도 합니다. 그리고 범용 프론트엔드(ES-DE, 다이지쇼, 페가수스…)는 독립 에뮬레이터(ppsspp, pcsx2 등)가 있으면 그걸 연동해 롬을 구동시킵니다. 그런데… 레트로아크는 여기서 살짝 다릅니다. (아.. 또 왜이래!!! 😵)</div>
-
       <h2 class="reveal">레트로아크는 좀 다르다</h2>
       <p class="reveal">레트로아크는 다양한 독립 에뮬레이터 역할을 하는 <span class="hl-v">[코어]</span>를 품고 있다고 했습니다. 그래서 레트로아크 <strong>그 자체로는 게임을 실행할 능력이 없습니다.</strong> 실제로 게임을 에뮬레이트하는 건 바로 이 <strong>코어(Core)</strong>라는 개별 모듈이죠(독립 에뮬레이터 프로그램은 아닙니다). 결국 레트로아크는 코어로 게임을 돌릴 뿐, <strong>다른 독립 에뮬레이터를 실행시키지는 못합니다.</strong> 이게 범용 프론트엔드와 레트로아크의 큰 차이입니다.</p>
-
       <h2 class="reveal">코어 — 클릭 한 번으로 게임기를 사다니</h2>
       <p class="reveal">이 [코어]는 기존 에뮬레이터의 소스코드·엔진을 기반으로, 개발자들이 레트로아크용으로 다시 포팅(변환·개발)한 것입니다. 우리는 그저 레트로아크에서 <strong>클릭 한 번으로 다운로드+설치</strong>를 하면 되죠. (이 얼마나 좋은 세상인가… 클릭 한 번으로 게임기를 사다니!!! 🛒)</p>
-
-      <div class="coremock reveal" aria-label="레트로아크 코어 다운로더 예시">
-        <div class="cm-bar">🎮 코어 다운로더 <span style="margin-left:auto; color:var(--faint); font-weight:600">RetroArch</span></div>
-        <div class="cm-row"><span>Nintendo - 3DS (Citra)</span><small>GPLv2+</small></div>
-        <div class="cm-row"><span>Nintendo - DS (DeSmuME)</span><small>GPLv2</small></div>
-        <div class="cm-row on"><span>Nintendo - DS (melonDS)</span><small>GPLv3 · [설치]</small></div>
-        <div class="cm-row"><span>Nintendo - Game Boy / Color (Gambatte)</span><small>GPLv2</small></div>
-        <div class="cm-row"><span>Sega - MS/GG/MD/CD (Genesis Plus GX)</span><small>비상업</small></div>
-      </div>
-
+      <a class="fig reveal" href="assets/p2_core_downloader.png" target="_blank" rel="noopener">
+        <img src="assets/p2_core_downloader.png" alt="레트로아크 코어 다운로더" loading="lazy" />
+        <span class="cap">레트로아크 코어 다운로더 — 클릭 한 번으로 게임기 CPU(코어)를 설치</span>
+      </a>
       <h2 class="reveal">한 번 설정하면, 모든 기종에 그대로</h2>
       <p class="reveal">레트로아크는 코어로 모든 게임을 돌리면서, 단순 연동을 넘어 <strong>쉐이더, 게임패드 버튼 설정, 비디오 렌더러, 오디오 드라이버, 세이브/로드, 화면 번역</strong> 같은 기능을 <span class="hl">한 번만 설정하면 모든 코어에 공통 적용</span>되는 어마어마한 장점이 있습니다.</p>
-
       <div class="callout reveal">반대로 독립 에뮬레이터를 여러 개 쓴다면? <b>게임 종료 버튼 조작이 슈퍼패미콤 따로, 메가드라이브 따로…</b> 결국 "게임 제대로 끄는 법"마저 에뮬마다 외워야 하는 불편이 생깁니다. 😩</div>
-
       <h2 class="reveal">그래서 레트로아크는 "통합 에뮬레이터"처럼</h2>
       <p class="reveal">이렇다 보니 레트로아크는 미려한 테마로 목록을 보여주는 일반 프론트엔드와 달리, <strong>통합 에뮬레이터에 가까운 성격</strong>을 띱니다. 그래서 범용 프론트엔드는 독립 에뮬레이터와 연결하는 것은 물론, <strong>레트로아크 자체를 "프론트엔드가 아니라 하나의 에뮬레이터"처럼 취급해</strong> 연결합니다.</p>
-
-      <div class="rel reveal" aria-label="프론트엔드와 에뮬레이터 연결 관계">
-        <div class="relcol fe">
-          <h4>FRONT-END</h4>
-          <div class="item">ES-DE</div>
-          <div class="item">Pegasus</div>
-          <div class="item">Daijishō</div>
-        </div>
-        <div class="relmid">
-          <div class="ar">→</div>
-          연결(직접/코어)
-          <b>※ 연동은 우리가 한다</b>
-        </div>
-        <div class="relcol em">
-          <h4>EMULATOR</h4>
-          <div class="item">PPSSPP · PCSX2</div>
-          <div class="item">AetherSX2 · Redream</div>
-          <div class="item">RetroArch (+ 코어)</div>
-        </div>
-      </div>
-
+      <a class="fig reveal" href="assets/p2_relation.png" target="_blank" rel="noopener">
+        <img src="assets/p2_relation.png" alt="프론트엔드와 에뮬레이터 연결 관계" loading="lazy" />
+        <span class="cap">프론트엔드 ↔ 에뮬레이터 — 코어 다운로드/직접 연결은 우리가, 코어 포팅은 개발자가</span>
+      </a>
       <p class="reveal">특히 레트로아크는 워낙 많은 에뮬레이터(코어)를 품고 있어서, <strong>거의 모든 프론트엔드의 디폴트 에뮬레이터</strong>로 레트로아크 기반 코어가 쓰이고 있습니다.</p>
-
+      <a class="fig reveal" href="assets/p2_relation2.png" target="_blank" rel="noopener">
+        <img src="assets/p2_relation2.png" alt="프론트엔드가 레트로아크를 에뮬레이터처럼 연결" loading="lazy" />
+        <span class="cap">범용 프론트엔드는 레트로아크(코어)를 하나의 에뮬레이터처럼 연결해 사용</span>
+      </a>
       <div class="tbc reveal">
         <div class="ic">▶ TO BE CONTINUED…</div>
         <h3>다음 편에 계속</h3>
         <p>이제 실제로 손에 쥐는 <strong>휴대용 게임기 — SoC와 OS</strong>의 세계로 들어갑니다.</p>
       </div>
     </div>
+    <!-- EN -->
+    <div class="article en-only">
+      <p class="kicker reveal">PART 2 — Front-Ends and RetroArch</p>
+      <p class="dropcap reveal">A quick recap of Part 1: with our all-in-one console (<strong>RetroArch</strong>) we can run many kinds of cartridges (ROMs) — because it carries each console's CPU (core). Used well, a staggering number of games will run! But… something felt missing. We wished for rich info and a gorgeous screen, like picking a game at a shop. That's what brought us the <span class="hl">front-end</span>. So let's look at front-ends a bit more closely.</p>
+      <h2 class="reveal">The heart of a front-end</h2>
+      <p class="reveal">The heart of a front-end for emulator games is this — <strong>detailed info about the games you own, plenty of images and video, a beautiful selection screen, and the convenience of launching right as you browse.</strong></p>
+      <div class="pull reveal">Will you keep cartridges in a basket and pick by name alone — or admire the art on cases displayed on a gorgeous shelf, check out gameplay shots and videos, and dive in thinking "ooh, this looks fun!"?<span class="by">— That difference is exactly what a front-end is.</span></div>
+      <h2 class="reveal">What a front-end does</h2>
+      <p class="reveal">A front-end shows off various systems and games beautifully while launching the ROM (cartridge) on an emulator (console). The leading general-purpose front-end getting the most attention these days is <span class="hl">ES-DE</span>. It supports Windows, Android, Linux, Mac, Steam Deck and more, so you can <strong>carry the beautiful cabinet you set up on Windows straight over to an Android handheld.</strong> Using the same front-end across many devices is wonderfully convenient. And as mentioned in Part 1, RetroArch broadly belongs to this front-end category too.</p>
+      <h2 class="reveal">A front-end is NOT a "console"</h2>
+      <p class="reveal">A front-end is not itself a program that imitates a console. Its purpose is <strong>to launch an emulator while beautifully presenting your game library.</strong> So with only a front-end, you can't run a game even if you have the ROM. You bought the cartridges and put them in a pretty display case — but you don't actually have the console.</p>
+      <div class="pull reveal">A front-end is like a "desktop" that shows shortcut icons. In short, it's a <strong>guide.</strong></div>
+      <div class="callout reveal">That's why a front-end's settings always include the part where you <b>decide which emulator runs each system.</b> For example: run Super Famicom games with <b>SNES9X</b>! This is the heart of initial setup. Usually each front-end ships with defaults, too. And general front-ends (ES-DE, Daijishō, Pegasus…) will link to standalone emulators (ppsspp, pcsx2, etc.) if you have them, to run the ROMs. But… RetroArch is a little different here. (Argh, what now!!! 😵)</div>
+      <h2 class="reveal">RetroArch is a bit different</h2>
+      <p class="reveal">We said RetroArch holds <span class="hl-v">[cores]</span> that act as various standalone emulators. So RetroArch <strong>by itself has no ability to run a game.</strong> What actually emulates the game is this individual module called a <strong>Core</strong> (not a standalone emulator program). In the end RetroArch runs ROMs using its cores, and <strong>cannot launch other standalone emulators.</strong> That's the big difference from general front-ends.</p>
+      <h2 class="reveal">Cores — buying a console with one click</h2>
+      <p class="reveal">This [core] is something developers re-ported (converted and developed) for RetroArch, based on the source code or engine of an existing emulator. We just <strong>download + install it with a single click</strong> inside RetroArch. (What a wonderful world… buying a console with one click!!! 🛒)</p>
+      <a class="fig reveal" href="assets/p2_core_downloader.png" target="_blank" rel="noopener">
+        <img src="assets/p2_core_downloader.png" alt="RetroArch Core Downloader" loading="lazy" />
+        <span class="cap">RetroArch's Core Downloader — install a console's CPU (core) with one click</span>
+      </a>
+      <h2 class="reveal">Set it once, and it applies to every system</h2>
+      <p class="reveal">RetroArch runs all games via cores, and beyond mere linking it offers <strong>shaders, gamepad button config, video renderer, audio driver, save/load, screen translation</strong> and more — with the huge advantage that <span class="hl">setting it once applies across all cores.</span></p>
+      <div class="callout reveal">Use several standalone emulators instead, and? <b>The quit-game button is one thing on Super Famicom, another on Mega Drive…</b> eventually you have to memorize even "how to properly quit the game" separately for every emulator. 😩</div>
+      <h2 class="reveal">So RetroArch acts like a "unified emulator"</h2>
+      <p class="reveal">Because of this, unlike a typical front-end focused on showing your list with pretty themes, RetroArch takes on the <strong>character of a unified emulator.</strong> So general front-ends not only link to standalone emulators, but also <strong>treat RetroArch itself as "a single emulator, not a front-end"</strong> and connect to it that way.</p>
+      <a class="fig reveal" href="assets/p2_relation.png" target="_blank" rel="noopener">
+        <img src="assets/p2_relation.png" alt="Front-end and emulator relationship" loading="lazy" />
+        <span class="cap">Front-end ↔ Emulator — core download / direct linking is on us; porting the cores is on the developers</span>
+      </a>
+      <p class="reveal">In particular, since RetroArch holds so many emulators (cores), RetroArch-based cores are used as <strong>the default emulator of almost every front-end.</strong></p>
+      <a class="fig reveal" href="assets/p2_relation2.png" target="_blank" rel="noopener">
+        <img src="assets/p2_relation2.png" alt="Front-ends connect to RetroArch like an emulator" loading="lazy" />
+        <span class="cap">General front-ends connect to RetroArch (cores) as if it were a single emulator</span>
+      </a>
+      <div class="tbc reveal">
+        <div class="ic">▶ TO BE CONTINUED…</div>
+        <h3>Continues next time</h3>
+        <p>Now we step into the world of the actual devices in your hands — <strong>handhelds: SoC and OS.</strong></p>
+      </div>
+    </div>
   </article>
 
   <!-- ===================== PART 3 ===================== -->
   <article class="part" id="part-3">
-    <div class="article">
+    <!-- KO -->
+    <div class="article ko-only">
       <p class="kicker reveal">PART 3 — 게임기·SoC·OS 고르기</p>
-
       <p class="dropcap reveal">2부까지 읽으셨다면 프론트엔드와 에뮬레이터, 그리고 그 사이에 낀 듯한 레트로아크를 개략적으로 이해하셨을 겁니다. 이제 우리가 직접 손에 쥐는 <strong>휴대용 게임기</strong>와, 그 안의 <span class="hl">SoC</span>(시스템 온 칩 — CPU·GPU 등이 하나의 칩에), 그리고 <span class="hl">OS</span>까지 묶어서 보면 핸드헬드 에뮬 세계가 한층 또렷해집니다.</p>
-
       <p class="reveal">복잡한가요? ㅋㅋ 하지만 그리 어렵지 않습니다. 간단한 예로, 여러분이 PC를 사서 PSP 에뮬 <strong>PPSSPP</strong>를 깔았다고 합시다. 그러면 — <strong>Machine = PC, SoC = Intel/AMD, OS = Windows, 프론트엔드 = 없음, Emulator = PPSSPP</strong> 를 쓰고 계신 겁니다.</p>
-
       <p class="reveal">보통 <strong>기기에 따라 SoC가 정해지고 → SoC에 따라 OS가 어느 정도 정해지며(칩에 따라 2가지 OS 호환도) → 각 OS마다 실행 가능한 프론트엔드와 에뮬레이터</strong>가 있습니다.</p>
-
-      <div class="flow reveal" aria-label="Machine → SoC → OS → 프론트엔드 → 에뮬레이터 구성">
-        <div class="fstage"><div class="ft">MACHINE</div><div class="fi">🎮</div><ul><li>ROG Ally</li><li>Ayn Odin</li><li>Retroid Pocket</li><li>RG Cube / 556</li><li>Miyoo Mini</li><li>RG35XX</li></ul></div>
-        <div class="fstage"><div class="ft">SoC</div><div class="fi">🔲</div><ul><li>Snapdragon Gen2</li><li>Dimensity 1100</li><li>T820 / T618</li><li>RK3566</li><li>AMD (z1·8840u)</li></ul></div>
-        <div class="fstage"><div class="ft">OS</div><div class="fi">💿</div><ul><li>Windows</li><li>Android</li><li>Linux (Batocera</li><li>JELOS·ArkOS</li><li>rocknix…)</li></ul></div>
-        <div class="fstage"><div class="ft">FRONT-END</div><div class="fi">🖼️</div><ul><li>EmulationStation</li><li>ES-DE</li><li>AttractMode</li><li>Daijishō</li><li>LaunchBox</li></ul></div>
-        <div class="fstage"><div class="ft">EMULATOR</div><div class="fi">⚙️</div><ul><li>RetroArch</li><li>AetherSX2</li><li>PPSSPP</li><li>DraStic·Dolphin</li><li>Vita3K…</li></ul></div>
-      </div>
-
+      <a class="fig reveal" href="assets/p3_pipeline.png" target="_blank" rel="noopener">
+        <img src="assets/p3_pipeline.png" alt="Machine → SoC → OS → Front-End → Emulator 구성" loading="lazy" />
+        <span class="cap">Machine → SoC → OS → Front-End → Emulator</span>
+      </a>
       <h2 class="reveal">성능은 "흉내 내는 게임기"에 비례한다</h2>
       <p class="reveal">에뮬레이터의 권장 사양은 <strong>에뮬레이션하는 콘솔의 성능에 대체로 비례</strong>합니다. 패미컴을 흉내 내는 에뮬은 낮은 성능 칩으로도 돌지만, PS2급을 구동하려면 성능 좋은 칩이 필요한 식이죠.</p>
-
-      <div class="scale reveal" aria-label="콘솔 성능 스케일">
-        <div class="chips">
-          <span>Game Boy</span><span>NES</span><span>Genesis</span><span>GBA</span><span>SNES</span><span>PS1</span><span>N64</span><span>NDS</span><span>Dreamcast</span><span>PSP</span><span>Saturn</span><span>GameCube</span><span>Wii</span><span>3DS</span><span>PS2</span><span>Wii U</span><span>Switch</span><span>PS3</span>
-        </div>
-        <div class="bar"></div>
-        <div class="lab">→ 우측으로 갈수록 고사양</div>
-      </div>
-
+      <a class="fig reveal" href="assets/p3_perf_scale.png" target="_blank" rel="noopener">
+        <img src="assets/p3_perf_scale.png" alt="콘솔 성능 스케일" loading="lazy" />
+        <span class="cap">콘솔 성능 스케일 — 우측으로 갈수록 고사양</span>
+      </a>
       <div class="callout reveal">물론 예외도 있습니다. 에뮬 개발 성숙도나 에뮬레이션 난이도에 따라, <b>더 낮은 콘솔인데 요구 사양은 더 높은</b> 경우죠. 대표적인 게 <b>새턴(Saturn)</b> — 드림캐스트보다 오히려 더 높은 칩을 요구하기도 합니다.</div>
-
       <h2 class="reveal">"어떤 게임기를 살까?"</h2>
       <p class="reveal">초보자가 레트로 에뮬 세계에 들어오며 가장 먼저 하는 고민이 바로 이거 아닐까요? 지금은 핸드헬드가 너무 많이 나와 정신이 없을 정도입니다. 딱 5년 전만 해도 선택지가 좁았죠. 당시 인기 기기는 <strong>RG350, GKD350H</strong> — 대략 PS1을 겨우 돌리는 정도였고, 더 높은 성능이 필요하면 안드로이드 폰에 게임패드를 물리거나 <strong>GPD WIN2</strong> 같은 UMPC를 샀습니다. 지금은 수십 종의 기기가 있고, 특히 <span class="hl">안드로이드 기반</span>이 약간 대세가 되어가는 분위기죠.</p>
-
       <h2 class="reveal">OS는 크게 3가지</h2>
       <p class="reveal">기기는 수십 종이라도, 쓰이는 OS는 크게 <strong>Windows · Android · 커스텀 리눅스</strong> 셋으로 나뉩니다. (안드로이드/윈도우가 아니면 다 커스텀 리눅스라고 보면 됩니다.)</p>
-
       <div class="oscards reveal">
         <div class="oscard">
-          <div class="os-tag">OS · 01</div>
-          <h4>🪟 Windows</h4>
+          <div class="os-tag">OS · 01</div><h4>🪟 Windows</h4>
           <p class="pl pro">가장 많은 에뮬 + PC 게임까지, 게임엔 가장 강력</p>
           <p class="pl pro">성능 최강 · 화면 큼 (UMPC: ROG Ally·Legion Go·GPD WIN4·AYANEO Flip)</p>
           <p class="pl con">가격·무게·배터리 단점</p>
           <p class="pl con">SoC는 주로 AMD(8840u·z1 extreme). ARM 윈도우는 호환성 주의</p>
         </div>
         <div class="oscard">
-          <div class="os-tag">OS · 02</div>
-          <h4>🤖 Android</h4>
+          <div class="os-tag">OS · 02</div><h4>🤖 Android</h4>
           <p class="pl pro">윈도우 다음으로 에뮬이 풍부 · 스트리밍 · winlator로 일부 윈도우 게임</p>
           <p class="pl pro">무게·배터리·슬립 밸런스 최고 — 개인적 최애 (중간 포지션)</p>
           <p class="pl con">인풋랙이 약간 있음 (타이밍 게임 민감 시 거슬림)</p>
           <p class="pl con">칩: Snapdragon G3x Gen, Dimensity 1100, T820/T618, Helio-G99 (쿨링=쓰로틀링 주의)</p>
         </div>
         <div class="oscard">
-          <div class="os-tag">OS · 03</div>
-          <h4>🐧 커스텀 리눅스</h4>
+          <div class="os-tag">OS · 03</div><h4>🐧 커스텀 리눅스</h4>
           <p class="pl pro">가성비 최고 · 안드로이드보다 짧은 인풋랙 · 가벼움</p>
           <p class="pl pro">OnionOS·ArkOS·Batocera·JELOS·rocknix·AmberELEC·emuELEC</p>
           <p class="pl con">낯선 리눅스 · OS가 불완전한 경우 → 업데이트 챙기기</p>
           <p class="pl con">칩: rk(락칩) 다수. 다른 FE/에뮬 추가 설치는 일반 유저엔 어려움</p>
         </div>
       </div>
-
       <p class="reveal">조금 더 풀어보면 — <strong>Windows</strong>는 역사적으로 콘솔 에뮬 개발이 가장 먼저 시작돼 성숙도에서 따라올 OS가 없습니다. <strong>Android</strong>도 리눅스 커널 기반이지만 구글이 다양한 기기·기술을 통합해 사실상 별개의 OS로 봅니다. <strong>커스텀 리눅스</strong>는 우리가 흔히 사는 중국산(안드 아닌) 게임기들이 쓰는 OS로, 보통 <span class="hl">프론트엔드·에뮬레이터가 OS 설치 시 함께 포함</span>돼 있습니다.</p>
-
       <div class="callout reveal">커스텀 리눅스는 대부분 <b>EmulationStation</b> 계열을 써서, 몇 번 해보면 게임 넣는 방법이 그리 어렵지 않습니다. 다만 정해진 프론트엔드 규칙대로 넣어야 하죠. 내 기기가 어떤 OS를 쓸 수 있는지 검색해 보고, 보통 최신 버전을(가끔 구버전이 나을 때도 — 검색 필수) 쓰는 걸 추천합니다. 예: <b>Miyoo Mini → OnionOS</b>, <b>RGB30 → ArkOS</b>. 참고로 안드로이드 칩 일부는 리눅스도 지원해서, 스냅드래곤 865를 쓰면서 리눅스도 된다는 <b>레트로이드 포켓 5</b>가 큰 관심을 받고 있습니다.</div>
-
       <div class="divider reveal" aria-hidden="true">
         <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="7" y="6" width="34" height="36" rx="3" fill="#171a27" stroke="#2c3147" stroke-width="2"/><rect x="13" y="6" width="22" height="9" rx="2" fill="#8b5cf6" opacity=".5"/><circle cx="17" cy="28" r="3" fill="#22d3ee"/><circle cx="24" cy="28" r="3" fill="#fbbf24"/><circle cx="31" cy="28" r="3" fill="#fb7185"/></svg>
       </div>
-
       <h2 class="reveal">그래서, 다시 "세팅"</h2>
       <p class="reveal">기기를 고르고 OS를 올렸다면, 이제 1부에서 말한 그 <strong>"세팅"</strong> — 게임 롬과 이미지·설명 정보를 일일이 매핑해 나만의 멋진 장식장을 꾸미는 일 — 이 남습니다. 알팩 하나하나를 케이스에 포장하고 매뉴얼까지 넣는, 시간과 정성이 드는 그 작업 말이죠.</p>
-
       <div class="tbc reveal" style="border-color:var(--cyan)">
         <div class="ic" style="color:var(--cyan)">★ 그래서 만들었습니다</div>
         <h3>그 고된 "세팅"을 자동으로</h3>
         <p><strong>HAE-BANG Rom Setting Tools</strong>는 AI 매칭으로 롬을 알아보고, 이미지·영상·매뉴얼을 모아 멋진 장식장을 만들어 ES-DE·RetroArch·Pegasus와 휴대용 게임기로 그대로 보내줍니다.</p>
         <p style="margin-top:16px"><a class="btn btn-primary" href="index.html#download">HAE-BANG 둘러보기 →</a></p>
+      </div>
+    </div>
+    <!-- EN -->
+    <div class="article en-only">
+      <p class="kicker reveal">PART 3 — Choosing a Device · SoC · OS</p>
+      <p class="dropcap reveal">If you've read through Part 2, you've got a rough grasp of front-ends, emulators, and RetroArch caught somewhere in between. Now, looking at the <strong>handheld</strong> you actually hold — together with its <span class="hl">SoC</span> (System-on-Chip — CPU, GPU and more on one chip) and its <span class="hl">OS</span> — makes the handheld emulation world much clearer.</p>
+      <p class="reveal">Complicated? Haha. But it's not that hard. Simple example: say you buy a PC and install the PSP emulator <strong>PPSSPP</strong>. Then — <strong>Machine = PC, SoC = Intel/AMD, OS = Windows, Front-End = none, Emulator = PPSSPP</strong> is what you're using.</p>
+      <p class="reveal">Generally, <strong>the device determines the SoC → the SoC roughly determines the OS (some chips support two OSes) → and each OS has its runnable front-ends and emulators.</strong></p>
+      <a class="fig reveal" href="assets/p3_pipeline.png" target="_blank" rel="noopener">
+        <img src="assets/p3_pipeline.png" alt="Machine → SoC → OS → Front-End → Emulator" loading="lazy" />
+        <span class="cap">Machine → SoC → OS → Front-End → Emulator</span>
+      </a>
+      <h2 class="reveal">Performance scales with the "console you imitate"</h2>
+      <p class="reveal">An emulator's recommended specs <strong>roughly scale with the performance of the console it emulates.</strong> An emulator imitating a Famicom runs on a low-end chip, while running something like a PS2 needs a powerful chip.</p>
+      <a class="fig reveal" href="assets/p3_perf_scale.png" target="_blank" rel="noopener">
+        <img src="assets/p3_perf_scale.png" alt="Console performance scale" loading="lazy" />
+        <span class="cap">Console performance scale — higher spec toward the right</span>
+      </a>
+      <div class="callout reveal">There are exceptions, of course. Depending on the emulator's maturity and emulation difficulty, <b>a lower console can demand higher specs.</b> A classic example is the <b>Saturn</b> — it can require an even higher chip than the Dreamcast.</div>
+      <h2 class="reveal">"Which device should I buy?"</h2>
+      <p class="reveal">Isn't this the very first worry for beginners entering retro emulation? There are so many handhelds now it's dizzying. Just five years ago the choices were narrow. The popular devices then were the <strong>RG350 and GKD350H</strong> — barely able to run PS1. For more power, people hooked a gamepad to an Android phone or bought a UMPC like the <strong>GPD WIN2</strong>. Now there are dozens of devices, and <span class="hl">Android-based ones</span> are becoming somewhat mainstream.</p>
+      <h2 class="reveal">Three main OS categories</h2>
+      <p class="reveal">Even with dozens of devices, the OSes split into three big groups: <strong>Windows · Android · Custom Linux.</strong> (If it's not Android or Windows, consider it custom Linux.)</p>
+      <div class="oscards reveal">
+        <div class="oscard">
+          <div class="os-tag">OS · 01</div><h4>🪟 Windows</h4>
+          <p class="pl pro">Most emulators + PC games too — strongest for gaming</p>
+          <p class="pl pro">Top performance · big screen (UMPC: ROG Ally · Legion Go · GPD WIN4 · AYANEO Flip)</p>
+          <p class="pl con">Downsides: price, weight, battery</p>
+          <p class="pl con">SoC mostly AMD (8840u · z1 extreme). ARM Windows: watch compatibility</p>
+        </div>
+        <div class="oscard">
+          <div class="os-tag">OS · 02</div><h4>🤖 Android</h4>
+          <p class="pl pro">Richest emulators after Windows · streaming · some Windows games via winlator</p>
+          <p class="pl pro">Best balance of weight/battery/sleep — my personal favorite (the middle ground)</p>
+          <p class="pl con">Slight input lag (bothersome for timing-sensitive games)</p>
+          <p class="pl con">Chips: Snapdragon G3x Gen, Dimensity 1100, T820/T618, Helio-G99 (cooling = watch throttling)</p>
+        </div>
+        <div class="oscard">
+          <div class="os-tag">OS · 03</div><h4>🐧 Custom Linux</h4>
+          <p class="pl pro">Best value · shorter input lag than Android · lightweight</p>
+          <p class="pl pro">OnionOS · ArkOS · Batocera · JELOS · rocknix · AmberELEC · emuELEC</p>
+          <p class="pl con">Unfamiliar Linux · sometimes incomplete OS → keep up with updates</p>
+          <p class="pl con">Chips: mostly rk (Rockchip). Adding other FE/emus is hard for average users</p>
+        </div>
+      </div>
+      <p class="reveal">A bit more detail — <strong>Windows</strong> historically had console emulation development start earliest, so no OS matches its maturity. <strong>Android</strong> is also Linux-kernel-based, but Google integrated so many devices and technologies that it's effectively its own OS. <strong>Custom Linux</strong> is the OS used by the (non-Android) Chinese handhelds we commonly buy, and usually <span class="hl">the front-end and emulators come bundled with the OS install.</span></p>
+      <div class="callout reveal">Custom Linux mostly uses <b>EmulationStation</b>-family front-ends, so after a few tries, adding games isn't too hard. You just follow the front-end's defined rules. Search which OS your device supports, and generally use the latest version (sometimes an older one is better — search first). e.g., <b>Miyoo Mini → OnionOS</b>, <b>RGB30 → ArkOS</b>. Note that some Android chips also support Linux — the <b>Retroid Pocket 5</b>, which uses a Snapdragon 865 yet reportedly supports Linux, is drawing big interest.</div>
+      <div class="divider reveal" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="7" y="6" width="34" height="36" rx="3" fill="#171a27" stroke="#2c3147" stroke-width="2"/><rect x="13" y="6" width="22" height="9" rx="2" fill="#8b5cf6" opacity=".5"/><circle cx="17" cy="28" r="3" fill="#22d3ee"/><circle cx="24" cy="28" r="3" fill="#fbbf24"/><circle cx="31" cy="28" r="3" fill="#fb7185"/></svg>
+      </div>
+      <h2 class="reveal">And so — "setup," again</h2>
+      <p class="reveal">Once you've picked a device and loaded an OS, what remains is that <strong>"setup"</strong> from Part 1 — mapping each ROM to its images and descriptions to build your own gorgeous cabinet. That time-and-care-intensive job of packing each cartridge into a case and tucking in the manual.</p>
+      <div class="tbc reveal" style="border-color:var(--cyan)">
+        <div class="ic" style="color:var(--cyan)">★ So we built it</div>
+        <h3>Automating that grueling "setup"</h3>
+        <p><strong>HAE-BANG Rom Setting Tools</strong> recognizes your ROMs with smart matching, gathers images, video and manuals into a beautiful cabinet, and sends it straight to ES-DE, RetroArch, Pegasus and your handhelds.</p>
+        <p style="margin-top:16px"><a class="btn btn-primary" href="index.html#download">Explore HAE-BANG →</a></p>
       </div>
     </div>
   </article>
@@ -498,25 +567,76 @@
 <footer>
   <div class="wrap foot">
     <span>© <span id="yr"></span> HAE-BANG Rom Setting Tools</span>
-    <a href="index.html" class="muted">← 홈으로</a>
+    <a href="index.html" class="muted"><span class="ko-only">← 홈으로</span><span class="en-only">← Home</span></a>
   </div>
 </footer>
+
+<div class="lb" id="lb" aria-hidden="true">
+  <img id="lbImg" alt="" />
+  <div class="lb-hint"><span class="ko-only">아무 곳이나 클릭하면 닫힙니다</span><span class="en-only">Click anywhere to close</span></div>
+</div>
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
   var hdr = document.getElementById('hdr');
   addEventListener('scroll', function(){ hdr.classList.toggle('scrolled', scrollY > 8); }, {passive:true});
 
+  // 언어 토글 (index 와 동일한 localStorage 키 'hb_lang' 공유)
+  var langBtn = document.getElementById('langBtn');
+  function applyLang(l, force){
+    document.documentElement.classList.toggle('en', l === 'en');
+    document.documentElement.lang = l;
+    langBtn.textContent = (l === 'ko') ? 'EN' : '한';
+    try { localStorage.setItem('hb_lang', l); } catch(e){}
+    if (force) document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+  langBtn.addEventListener('click', function(){
+    applyLang(document.documentElement.classList.contains('en') ? 'ko' : 'en', true);
+  });
+  try { var saved = localStorage.getItem('hb_lang'); if (saved === 'en') applyLang('en', false); } catch(e){}
+
   // part tabs
   function showPart(n){
     document.querySelectorAll('.part').forEach(function(p){ p.classList.toggle('active', p.id === 'part-' + n); });
     document.querySelectorAll('.ptab').forEach(function(t){ t.classList.toggle('active', t.dataset.part === String(n)); });
-    // re-run reveal for newly shown
     document.querySelectorAll('.part.active .reveal').forEach(function(el){ io.observe(el); });
     scrollTo({top:0, behavior:'smooth'});
     try{ history.replaceState(null,'','#part-'+n); }catch(e){}
   }
   document.querySelectorAll('.ptab').forEach(function(t){ t.addEventListener('click', function(){ showPart(t.dataset.part); }); });
+
+  // 라이트박스: 클릭 위치에서 확대(FLIP), 클릭하면 원위치로 축소되며 닫힘
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lastRect = null;
+  function flipFrom(rect){
+    lbImg.style.transition='none'; lbImg.style.transform='none';
+    var f = lbImg.getBoundingClientRect();
+    var sx = rect.width/f.width, sy = rect.height/f.height, tx = rect.left-f.left, ty = rect.top-f.top;
+    lbImg.style.transformOrigin='top left';
+    lbImg.style.transform='translate('+tx+'px,'+ty+'px) scale('+sx+','+sy+')';
+    void lbImg.offsetWidth;
+    lbImg.style.transition='transform .4s cubic-bezier(.2,.85,.25,1)';
+    lbImg.style.transform='none';
+  }
+  function openLB(src, imgEl){
+    lastRect = imgEl.getBoundingClientRect(); lbImg.src = src; lb.classList.add('open');
+    if (lbImg.complete && lbImg.naturalWidth) flipFrom(lastRect); else lbImg.onload = function(){ flipFrom(lastRect); };
+  }
+  function closeLB(){
+    if (!lb.classList.contains('open')) return;
+    if (lastRect){
+      var f = lbImg.getBoundingClientRect();
+      var sx = lastRect.width/f.width, sy = lastRect.height/f.height, tx = lastRect.left-f.left, ty = lastRect.top-f.top;
+      lbImg.style.transition='transform .34s cubic-bezier(.4,0,.2,1)';
+      lbImg.style.transform='translate('+tx+'px,'+ty+'px) scale('+sx+','+sy+')';
+    }
+    lb.classList.remove('open');
+    setTimeout(function(){ lbImg.removeAttribute('src'); lbImg.style.transition='none'; lbImg.style.transform='none'; }, 380);
+  }
+  document.querySelectorAll('.fig').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); var img=a.querySelector('img'); openLB(a.getAttribute('href')||(img&&img.src), img||a); });
+  });
+  lb.addEventListener('click', closeLB);
+  document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeLB(); });
 
   // reveal
   var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, {threshold:.12});
