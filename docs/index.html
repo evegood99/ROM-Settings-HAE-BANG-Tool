@@ -104,6 +104,7 @@
   .win-bar .wt{margin-left:8px; font-size:11.5px; color:var(--faint); font-weight:600}
   .win-shot{display:block}
   .win-shot img{display:block; width:100%; height:auto}
+  .win-vid{display:block; width:100%; height:auto; background:#0a0c13}
   .win-body{display:grid; grid-template-columns:118px 1fr 150px; height:330px; font-size:11px}
   .w-side{background:#0c0e16; border-right:1px solid var(--border); padding:9px 8px; overflow:hidden}
   .w-side .sh{font-size:9px; letter-spacing:.12em; color:var(--faint); text-transform:uppercase; margin:2px 4px 8px; font-weight:700}
@@ -374,9 +375,10 @@
             <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
             <span class="wt">ROM Matching</span>
           </div>
-          <a class="win-shot" href="assets/rom_matching_view.png" target="_blank" rel="noopener">
-            <img src="assets/rom_matching_view.png" alt="ROM 매칭 화면" loading="lazy" />
-          </a>
+          <video class="win-vid" autoplay loop muted playsinline preload="metadata"
+                 poster="assets/rom_matching_view.png" aria-label="ROM 매칭 데모 영상">
+            <source src="assets/rom_matching_view.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>
