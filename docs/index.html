@@ -249,6 +249,37 @@
   .lb .lb-hint{position:fixed; bottom:20px; left:0; right:0; text-align:center; color:var(--faint);
     font-size:12.5px; letter-spacing:.02em; pointer-events:none}
 
+  /* 후원 버튼 + 모달 (프로그램의 후원 UI 형태) */
+  .donate-btn{display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:600; color:#fff;
+    background:linear-gradient(135deg, var(--rose), #f43f5e); border:none; border-radius:9px; padding:9px 16px;
+    cursor:pointer; transition:.18s; box-shadow:0 6px 18px -8px rgba(244,63,94,.7)}
+  .donate-btn:hover{transform:translateY(-1px); box-shadow:0 10px 24px -8px rgba(244,63,94,.9)}
+  .dm{position:fixed; inset:0; z-index:110; display:flex; align-items:center; justify-content:center; padding:24px;
+    background:rgba(4,5,9,.82); backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px);
+    opacity:0; pointer-events:none; transition:opacity .25s ease}
+  .dm.open{opacity:1; pointer-events:auto}
+  .dm-card{width:460px; max-width:94vw; background:var(--surface); border:1px solid var(--border2); border-radius:16px;
+    padding:24px 24px 22px; box-shadow:0 40px 120px -30px rgba(0,0,0,.9);
+    transform:translateY(10px) scale(.98); transition:transform .25s cubic-bezier(.2,.85,.25,1)}
+  .dm.open .dm-card{transform:none}
+  .dm-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px}
+  .dm-head h3{margin:0; font-size:18px; font-weight:700; color:var(--text)}
+  .dm-x{background:none; border:none; color:var(--faint); font-size:26px; line-height:1; cursor:pointer; transition:.15s}
+  .dm-x:hover{color:var(--text)}
+  .dm-desc{font-size:13.5px; line-height:1.6; color:var(--muted); margin:0 0 18px}
+  .dm-code-label{font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-bottom:7px}
+  .dm-code-row{display:flex; gap:8px; align-items:stretch}
+  .dm-code-row code{flex:1; min-width:0; background:var(--bg2); border:1px solid var(--border2); border-radius:9px;
+    padding:11px 12px; font-size:12px; color:var(--text); word-break:break-all; user-select:all;
+    font-family:ui-monospace,Menlo,Consolas,monospace}
+  .dm-copy{flex-shrink:0; padding:0 16px; font-size:13px; font-weight:600; color:#fff; background:var(--indigo);
+    border:none; border-radius:9px; cursor:pointer; transition:.15s; white-space:nowrap}
+  .dm-copy:hover{background:var(--violet)}
+  .dm-note{font-size:12.5px; line-height:1.55; color:var(--muted); margin:18px 0 6px; text-align:center}
+  .dm-mail{display:block; text-align:center; font-size:14px; font-weight:600; color:var(--cyan);
+    text-decoration:none; user-select:all}
+  .dm-mail:hover{text-decoration:underline}
+
   @media (max-width:920px){
     .hero-grid{grid-template-columns:1fr; gap:40px}
     .mock .win{transform:none}
@@ -282,7 +313,7 @@
       <a href="#features" data-ko="기능" data-en="Features">기능</a>
       <a href="#how" data-ko="작동 방식" data-en="How it works">작동 방식</a>
       <a href="#targets" data-ko="지원 대상" data-en="Supported">지원 대상</a>
-      <a href="#shots" data-ko="화면" data-en="Screens">화면</a>
+      <a href="guide.html" data-ko="가이드" data-en="Guide">가이드</a>
       <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
     </nav>
     <div class="nav-right">
@@ -558,13 +589,14 @@
         <a href="#features" data-ko="기능" data-en="Features">기능</a>
         <a href="#how" data-ko="작동 방식" data-en="How it works">작동 방식</a>
         <a href="#targets" data-ko="지원 대상" data-en="Supported">지원 대상</a>
+        <a href="guide.html" data-ko="가이드" data-en="Guide">가이드</a>
         <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
         <a href="#download" data-ko="다운로드" data-en="Download">다운로드</a>
       </div>
       <div class="foot-col">
         <h5 data-ko="후원" data-en="Support">후원</h5>
-        <p class="muted" style="font-size:13px;margin:0 0 8px" data-ko="후원해 주신 분들 — 무한이 · 거제 두람빠 · 날라랑 · 이만" data-en="Thanks to our supporters — 무한이 · 거제 두람빠 · 날라랑 · 이만">후원해 주신 분들 — 무한이 · 거제 두람빠 · 날라랑 · 이만</p>
-        <div class="donate"><span data-ko="후원 주소" data-en="Donation">후원 주소</span><br/><code>0nn00cOI1EIhNJ939naYeH9E1NAoqL8rRKJmyEJZmLWC8byyeXTbgUtvs6i44e2D</code></div>
+        <p class="muted" style="font-size:13px;margin:0 0 12px" data-ko="개발자에게 작은 응원을 보내 주세요." data-en="Send a small token of support to the developer.">개발자에게 작은 응원을 보내 주세요.</p>
+        <button id="donateBtn" class="donate-btn" data-ko="♥ 후원하기" data-en="♥ Donate">♥ 후원하기</button>
       </div>
     </div>
     <div class="foot-bottom">
@@ -582,6 +614,24 @@
 <div class="vlb" id="vlb" aria-hidden="true">
   <video id="vlbVid" loop playsinline controls poster="assets/rom_matching_view.png"></video>
   <div class="lb-hint" data-ko="바깥을 클릭하면 닫힙니다" data-en="Click outside to close">바깥을 클릭하면 닫힙니다</div>
+</div>
+
+<!-- 후원 모달 (프로그램의 후원 UI 형태: 후원 코드 표시 + 복사) -->
+<div class="dm" id="donateModal" aria-hidden="true">
+  <div class="dm-card">
+    <div class="dm-head">
+      <h3 data-ko="후원하기 ♥" data-en="Support ♥">후원하기 ♥</h3>
+      <button class="dm-x" id="donateClose" aria-label="close">&times;</button>
+    </div>
+    <p class="dm-desc" data-ko="이 프로그램이 도움이 되었다면 개발자에게 작은 응원의 후원을 보내 주세요. 감사합니다!" data-en="If this tool has helped you, please consider a small donation to the developer. Thank you!">이 프로그램이 도움이 되었다면 개발자에게 작은 응원의 후원을 보내 주세요. 감사합니다!</p>
+    <div class="dm-code-label" data-ko="후원 코드" data-en="Donation code">후원 코드</div>
+    <div class="dm-code-row">
+      <code id="donateCode">0nn00cOI1EIhNJ939naYeH9E1NAoqL8rRKJmyEJZmLWC8byyeXTbgUtvs6i44e2D</code>
+      <button class="dm-copy" id="donateCopy" data-ko="복사" data-en="Copy">복사</button>
+    </div>
+    <p class="dm-note" data-ko="후원해 주셨다면 아래 이메일로 알려 주세요. 추후 특전 안내를 위함입니다. 🙏" data-en="If you have donated, please let us know via the email below — for future perks. 🙏">후원해 주셨다면 아래 이메일로 알려 주세요. 추후 특전 안내를 위함입니다. 🙏</p>
+    <a class="dm-mail" href="mailto:evegood99@gmail.com?subject=HAE-BANG%20Tool%20Donation">✉ evegood99@gmail.com</a>
+  </div>
 </div>
 
 <script>
@@ -670,6 +720,34 @@
   });
   lb.addEventListener('click', closeLB);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLB(); });
+
+  // 후원 모달: Donate 버튼 → 후원 코드 표시 + 복사
+  var dm = document.getElementById('donateModal');
+  var donateBtn = document.getElementById('donateBtn');
+  var donateCopy = document.getElementById('donateCopy');
+  function closeDonate(){ if (dm) dm.classList.remove('open'); }
+  if (donateBtn) donateBtn.addEventListener('click', function(){ if (dm) dm.classList.add('open'); });
+  var dClose = document.getElementById('donateClose');
+  if (dClose) dClose.addEventListener('click', closeDonate);
+  if (dm) dm.addEventListener('click', function(e){ if (e.target === dm) closeDonate(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeDonate(); });
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea'); ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand('copy'); } catch(e){}
+    document.body.removeChild(ta);
+  }
+  if (donateCopy) donateCopy.addEventListener('click', function(){
+    var code = document.getElementById('donateCode').textContent.trim();
+    var flash = function(){
+      donateCopy.textContent = (lang === 'ko') ? '복사됨 ✓' : 'Copied ✓';
+      setTimeout(function(){ donateCopy.textContent = donateCopy.getAttribute('data-' + lang) || (lang === 'ko' ? '복사' : 'Copy'); }, 1400);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(flash).catch(function(){ fallbackCopy(code); flash(); });
+    } else { fallbackCopy(code); flash(); }
+  });
 
   // scroll reveal
   var io = new IntersectionObserver(function(entries){

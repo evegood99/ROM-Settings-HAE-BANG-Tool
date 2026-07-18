@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>사용 가이드 · HAE-BANG Rom Setting Tools</title>
+<meta name="description" content="HAE-BANG Rom Setting Tools 전체 기능 매뉴얼 — 시스템 추가·재스캔, 메타/미디어 편집, 믹스 이미지, 컨트롤러 설정, AI·ScreenScraper 설정, 내보내기까지 상세 안내." />
+<link rel="icon" href="assets/favicon.ico" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
+<style>
+  :root{
+    --bg:#07080d; --bg2:#0a0c14; --surface:#11131d; --surface2:#171a27;
+    --border:#222639; --border2:#2c3147;
+    --text:#e9ebf4; --muted:#9aa1b6; --faint:#6b7186;
+    --cyan:#22d3ee; --violet:#8b5cf6; --indigo:#6366f1; --gold:#fbbf24; --emerald:#34d399; --rose:#fb7185;
+    --grad:linear-gradient(120deg,#22d3ee 0%,#6366f1 50%,#8b5cf6 100%);
+    --maxw:1240px; --pixel:"Press Start 2P", system-ui, monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--text);
+    font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.8; overflow-x:hidden}
+  body::before{content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:radial-gradient(820px 480px at 82% -10%, rgba(139,92,246,.18), transparent 60%),
+      radial-gradient(680px 460px at 8% 2%, rgba(34,211,238,.12), transparent 55%)}
+  body::after{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.5;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,.016) 0 1px, transparent 1px 3px)}
+  a{color:inherit; text-decoration:none}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  .grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .muted{color:var(--muted)}
+  html:not(.en) .en-only{display:none !important}
+  html.en .ko-only{display:none !important}
+
+  header{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:rgba(8,9,15,.66); border-bottom:1px solid transparent; transition:.25s}
+  header.scrolled{border-bottom-color:var(--border); background:rgba(8,9,15,.86)}
+  .nav{display:flex; align-items:center; gap:16px; height:66px}
+  .brand{display:flex; align-items:center; gap:11px; font-weight:800}
+  .brand img{width:34px; height:34px; border-radius:9px; box-shadow:0 0 0 1px var(--border2)}
+  .brand .bt{font-size:15.5px}
+  .brand .bs{font-size:10.5px; color:var(--muted); font-weight:600}
+  .nav-links{display:flex; gap:6px; margin-left:18px}
+  .nav-links a{padding:8px 12px; border-radius:9px; font-size:14px; color:var(--muted); font-weight:600; transition:.18s}
+  .nav-links a:hover,.nav-links a.active{color:var(--text); background:var(--surface)}
+  .nav-right{margin-left:auto; display:flex; align-items:center; gap:10px}
+  .langbtn{font-size:12.5px; font-weight:800; letter-spacing:.04em; padding:9px 13px; border-radius:10px;
+    border:1px solid var(--border2); background:var(--surface); color:var(--text); cursor:pointer; transition:.18s}
+  .langbtn:hover{border-color:var(--cyan); transform:translateY(-1px)}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:700; border-radius:11px; cursor:pointer;
+    padding:10px 16px; font-size:14px; border:1px solid transparent; transition:.2s}
+  .btn-primary{background:var(--grad); color:#05070d}
+  .btn-primary:hover{transform:translateY(-2px)}
+
+  /* hero */
+  .ghero{border-bottom:1px solid var(--border); text-align:center; padding:54px 22px 40px; position:relative; overflow:hidden}
+  .ghero::before{content:""; position:absolute; inset:0; z-index:0; opacity:.5;
+    background:linear-gradient(transparent 0 23px, rgba(99,102,241,.06) 23px 24px),
+      linear-gradient(90deg, transparent 0 23px, rgba(99,102,241,.06) 23px 24px);
+    background-size:24px 24px; mask:radial-gradient(120% 100% at 50% 0,#000,transparent 72%)}
+  .ghero-in{position:relative; z-index:1; max-width:820px; margin:0 auto}
+  .badge{display:inline-flex; align-items:center; gap:9px; font-family:var(--pixel); font-size:10px; letter-spacing:.04em;
+    color:var(--cyan); border:1px solid var(--border2); background:var(--surface); padding:9px 14px; border-radius:999px}
+  .badge .blink{width:8px; height:8px; background:var(--emerald); border-radius:1px; box-shadow:0 0 8px var(--emerald); animation:blink 1.2s steps(1) infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .ghero h1{font-size:clamp(26px,4.2vw,42px); line-height:1.2; letter-spacing:-.02em; font-weight:800; margin:20px 0 12px}
+  .ghero p{color:var(--muted); font-size:clamp(15px,1.7vw,17px); margin:0 auto; max-width:620px}
+
+  /* layout: TOC + content */
+  .doc{display:grid; grid-template-columns:250px minmax(0,1fr); gap:40px; align-items:start; padding:38px 0 60px}
+  .toc{position:sticky; top:86px; align-self:start; max-height:calc(100vh - 110px); overflow:auto;
+    border:1px solid var(--border); border-radius:14px; background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.4)); padding:16px 14px}
+  .toc h5{margin:2px 0 10px; font-family:var(--pixel); font-size:9.5px; letter-spacing:.06em; color:var(--faint); padding-left:6px}
+  .toc a{display:block; padding:7px 10px; border-radius:8px; font-size:13.5px; color:var(--muted); font-weight:600; transition:.15s; line-height:1.4}
+  .toc a:hover{color:var(--text); background:var(--surface2)}
+  .toc a.active{color:#06070d; background:var(--grad)}
+  .toc .sub{padding-left:20px; font-size:12.5px; font-weight:500}
+
+  .content{max-width:840px; min-width:0}
+  .gsec{padding-top:14px; margin-bottom:16px; scroll-margin-top:84px}
+  .gsec h2{font-size:clamp(21px,2.6vw,27px); font-weight:800; letter-spacing:-.01em; margin:34px 0 14px; position:relative; padding-left:16px}
+  .gsec:first-child h2{margin-top:6px}
+  .gsec h2::before{content:""; position:absolute; left:0; top:.16em; bottom:.16em; width:5px; border-radius:3px; background:var(--grad)}
+  .gsec h3{font-size:17.5px; font-weight:800; margin:28px 0 10px; color:var(--gold)}
+  .gsec h3 .en-only, .gsec h3 .ko-only{color:var(--gold)}
+  .gsec p{margin:0 0 15px; color:#d6dae6; font-size:15.5px}
+  .gsec ul, .gsec ol{margin:0 0 16px; padding-left:4px; color:#d0d5e2; font-size:15px}
+  .gsec li{margin:6px 0; padding-left:24px; position:relative; list-style:none}
+  .gsec ul li::before{content:"▹"; position:absolute; left:4px; color:var(--cyan)}
+  .gsec ol{counter-reset:st}
+  .gsec ol li{counter-increment:st}
+  .gsec ol li::before{content:counter(st); position:absolute; left:0; top:1px; width:19px; height:19px; border-radius:6px;
+    background:var(--grad); color:#06070d; font-size:11px; font-weight:800; display:grid; place-items:center}
+  .gsec strong{color:#fff}
+  .hl{color:var(--cyan); font-weight:700}
+  .path{font-family:ui-monospace,Consolas,monospace; font-size:.92em; background:var(--bg2); border:1px solid var(--border2);
+    border-radius:6px; padding:1px 7px; color:#cfd4e4; white-space:nowrap}
+
+  .kicker{font-family:var(--pixel); font-size:9.5px; letter-spacing:.06em; color:var(--cyan); margin:0 0 6px}
+
+  /* callouts */
+  .note,.tip,.warn{margin:18px 0; padding:14px 18px; border:1px solid var(--border2); border-radius:12px; font-size:14.5px; color:#d6dae6;
+    background:radial-gradient(120% 130% at 0 0, rgba(99,102,241,.10), transparent 60%), var(--surface)}
+  .tip{background:radial-gradient(120% 130% at 0 0, rgba(52,211,153,.12), transparent 60%), var(--surface)}
+  .warn{background:radial-gradient(120% 130% at 0 0, rgba(251,113,133,.13), transparent 60%), var(--surface)}
+  .note b{color:var(--violet)} .tip b{color:var(--emerald)} .warn b{color:var(--rose)}
+
+  /* feature table */
+  .ftable{width:100%; border-collapse:collapse; margin:16px 0; font-size:14px; overflow:hidden; border-radius:12px; border:1px solid var(--border2)}
+  .ftable th,.ftable td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--border); vertical-align:top}
+  .ftable th{background:var(--surface2); color:var(--muted); font-weight:700; font-size:12.5px; letter-spacing:.02em}
+  .ftable td:first-child{color:#fff; font-weight:700; white-space:nowrap}
+  .ftable tr:last-child td{border-bottom:0}
+  .ftable td .muted{font-size:13px}
+
+  /* tag chips */
+  .chips{display:flex; flex-wrap:wrap; gap:7px; margin:12px 0 18px}
+  .chip{font-size:12px; font-weight:700; color:#cfe9ff; border:1px solid var(--border2); background:var(--surface2); padding:4px 10px; border-radius:999px}
+
+  .divider{height:1px; margin:40px 0; background:linear-gradient(90deg,transparent,var(--border2),transparent)}
+
+  footer{border-top:1px solid var(--border); padding:36px 0 46px; margin-top:30px; color:var(--faint); font-size:13px}
+  .foot{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; align-items:center}
+
+  .totop{position:fixed; right:22px; bottom:22px; z-index:40; width:44px; height:44px; border-radius:12px; border:1px solid var(--border2);
+    background:var(--surface); color:var(--text); font-size:18px; cursor:pointer; opacity:0; pointer-events:none; transition:.25s}
+  .totop.show{opacity:1; pointer-events:auto}
+  .totop:hover{border-color:var(--cyan); transform:translateY(-2px)}
+
+  @media (max-width:900px){
+    .doc{grid-template-columns:1fr; gap:0}
+    .toc{position:static; max-height:none; margin-bottom:20px; overflow:visible}
+    .toc .sub{display:inline-block; padding-left:10px}
+    .nav-links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img src="assets/icon.png" alt="HAE-BANG" />
+      <span><span class="bt">HAE-BANG</span><div class="bs"><span class="ko-only">롬 세팅 툴</span><span class="en-only">Rom Setting Tools</span></div></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html#features"><span class="ko-only">기능</span><span class="en-only">Features</span></a>
+      <a href="index.html#how"><span class="ko-only">작동 방식</span><span class="en-only">How it works</span></a>
+      <a href="guide.html" class="active"><span class="ko-only">가이드</span><span class="en-only">Guide</span></a>
+      <a href="story.html"><span class="ko-only">읽을거리</span><span class="en-only">Read</span></a>
+    </nav>
+    <div class="nav-right">
+      <button class="langbtn" id="langBtn">EN</button>
+      <a class="btn btn-primary" href="index.html#download"><span class="ko-only">다운로드</span><span class="en-only">Download</span></a>
+    </div>
+  </div>
+</header>
+
+<section class="ghero">
+  <div class="ghero-in">
+    <span class="badge"><span class="blink"></span>USER&nbsp;GUIDE</span>
+    <h1>
+      <span class="ko-only"><span class="grad-text">사용 가이드</span> — 모든 기능 한눈에</span>
+      <span class="en-only"><span class="grad-text">User Guide</span> — every feature, explained</span>
+    </h1>
+    <p>
+      <span class="ko-only">시스템 추가부터 메타·미디어 편집, 컨트롤러 설정, 전역 설정, 기기 내보내기까지 — HAE-BANG Rom Setting Tools가 다루는 모든 기능을 순서대로 정리한 매뉴얼입니다.</span>
+      <span class="en-only">From adding systems to editing metadata & media, controller mapping, global settings, and exporting to devices — a complete manual for everything HAE-BANG Rom Setting Tools can do.</span>
+    </p>
+  </div>
+</section>
+
+<div class="wrap doc">
+  <!-- ===== TOC ===== -->
+  <aside class="toc" id="toc">
+    <h5>CONTENTS</h5>
+    <a href="#start"><span class="ko-only">1. 시작하기 · 기본 개념</span><span class="en-only">1. Getting Started</span></a>
+    <a href="#system"><span class="ko-only">2. 시스템 관리</span><span class="en-only">2. Managing Systems</span></a>
+    <a class="sub" href="#add-system"><span class="ko-only">시스템 추가</span><span class="en-only">Add a system</span></a>
+    <a class="sub" href="#add-roms"><span class="ko-only">+폴더 / +파일 / 복사·이동</span><span class="en-only">+Folder / +Files / Copy·Move</span></a>
+    <a class="sub" href="#rescan"><span class="ko-only">재스캔</span><span class="en-only">Re-scan</span></a>
+    <a href="#library"><span class="ko-only">3. 게임 정보 & 미디어 보기</span><span class="en-only">3. Game Info & Media</span></a>
+    <a href="#meta"><span class="ko-only">4. 메타 편집기</span><span class="en-only">4. Meta Editor</span></a>
+    <a class="sub" href="#meta-find"><span class="ko-only">추천·검색·실시간 조회</span><span class="en-only">Recommend · Search · Scrape</span></a>
+    <a class="sub" href="#meta-text"><span class="ko-only">텍스트 편집</span><span class="en-only">Text fields</span></a>
+    <a class="sub" href="#meta-media"><span class="ko-only">미디어 편집</span><span class="en-only">Media editing</span></a>
+    <a href="#mix"><span class="ko-only">5. 믹스 이미지 편집</span><span class="en-only">5. Mix Image Editor</span></a>
+    <a href="#controller"><span class="ko-only">6. 컨트롤러 & 게임별 설정</span><span class="en-only">6. Controller & Per-game</span></a>
+    <a href="#settings"><span class="ko-only">7. 전역 설정</span><span class="en-only">7. Global Settings</span></a>
+    <a class="sub" href="#region"><span class="ko-only">리전 우선순위</span><span class="en-only">Region priority</span></a>
+    <a class="sub" href="#ai"><span class="ko-only">AI 설정</span><span class="en-only">AI settings</span></a>
+    <a class="sub" href="#scraper"><span class="ko-only">ScreenScraper</span><span class="en-only">ScreenScraper</span></a>
+    <a href="#export"><span class="ko-only">8. 내보내기</span><span class="en-only">8. Export</span></a>
+    <a href="#etc"><span class="ko-only">9. 후원 · 업데이트</span><span class="en-only">9. Support · Updates</span></a>
+  </aside>
+
+  <!-- ===== CONTENT ===== -->
+  <main class="content">
+
+    <!-- 1. GETTING STARTED -->
+    <section class="gsec" id="start">
+      <p class="kicker">01 — BASICS</p>
+      <h2><span class="ko-only">시작하기 · 기본 개념</span><span class="en-only">Getting Started</span></h2>
+      <p>
+        <span class="ko-only">이 프로그램은 콘솔 에뮬레이터용 <strong>ROM 파일에 메타데이터(제목·설명·이미지·영상·매뉴얼)를 자동으로 붙여</strong>, ES-DE·EmulationStation 같은 <strong>프론트엔드용 <span class="path">gamelist.xml</span></strong>을 만들고, 그 결과를 <strong>PC·안드로이드·리눅스 휴대용 기기</strong>로 내보내는 도구입니다.</span>
+        <span class="en-only">This tool automatically attaches <strong>metadata (title, description, images, video, manuals) to console-emulator ROM files</strong>, builds a <strong><span class="path">gamelist.xml</span> for front-ends</strong> like ES-DE / EmulationStation, and exports the result to <strong>PC, Android, or Linux handhelds</strong>.</span>
+      </p>
+      <h3><span class="ko-only">화면 구성</span><span class="en-only">Screen layout</span></h3>
+      <p>
+        <span class="ko-only">화면은 크게 <span class="hl">왼쪽의 시스템 목록</span>과 <span class="hl">오른쪽의 게임 목록/정보</span>로 나뉩니다. 시스템을 고르면 그 시스템의 게임들이 오른쪽에 뜨고, 게임을 고르면 정보·미디어·영상·매뉴얼을 볼 수 있습니다. 상단 우측에는 <strong>테마</strong>·<strong>언어(한/영, 재시작 없이 즉시 전환)</strong>·<strong>설정</strong>·<strong>후원 ♥</strong> 버튼이 있습니다.</span>
+        <span class="en-only">The screen is split into the <span class="hl">system list (left)</span> and the <span class="hl">game list / details (right)</span>. Pick a system to list its games; pick a game to see its info, media, video and manual. The top-right holds <strong>theme</strong>, <strong>language (KO/EN, switches instantly without a restart)</strong>, <strong>settings</strong>, and <strong>Donate ♥</strong>.</span>
+      </p>
+      <div class="tip">
+        <span class="ko-only"><b>기본 흐름</b> — ① 시스템 추가 → ② ROM 자동 매칭·미디어 다운로드 → ③ 필요하면 메타/미디어 편집 → ④ 기기로 내보내기.</span>
+        <span class="en-only"><b>Typical flow</b> — ① add a system → ② auto-match ROMs & download media → ③ tweak metadata/media if needed → ④ export to your device.</span>
+      </div>
+    </section>
+
+    <!-- 2. SYSTEM MANAGEMENT -->
+    <section class="gsec" id="system">
+      <p class="kicker">02 — SYSTEMS</p>
+      <h2><span class="ko-only">시스템 관리</span><span class="en-only">Managing Systems</span></h2>
+
+      <h3 id="add-system"><span class="ko-only">시스템 추가</span><span class="en-only">Add a system</span></h3>
+      <p>
+        <span class="ko-only">왼쪽 목록의 <strong>시스템 추가</strong>를 눌러 시작합니다. 추가할 <strong>콘솔 종류</strong>(예: 메가드라이브, 슈퍼패미컴, PSX…)를 고르고, 그 콘솔의 <strong>ROM 폴더</strong>를 지정하면 됩니다.</span>
+        <span class="en-only">Click <strong>Add System</strong> on the left panel. Choose the <strong>console type</strong> (e.g. Mega Drive, Super Famicom, PSX…) and point it at that console's <strong>ROM folder</strong>.</span>
+      </p>
+      <ol>
+        <li><span class="ko-only"><strong>콘솔 종류 선택</strong> — 지원 시스템 목록에서 선택합니다. 시스템별로 인식하는 ROM 확장자가 정해져 있습니다.</span><span class="en-only"><strong>Pick the console</strong> from the supported list. Each system knows which ROM extensions to recognize.</span></li>
+        <li><span class="ko-only"><strong>ROM 폴더 지정</strong> — 폴더를 고르면 하위의 ROM을 스캔합니다. (폴더 없이 <strong>빈 시스템</strong>으로 먼저 추가한 뒤 나중에 ROM을 넣어도 됩니다.)</span><span class="en-only"><strong>Choose the ROM folder</strong> — its ROMs are scanned. (You can also add an <strong>empty system</strong> first and add ROMs later.)</span></li>
+        <li><span class="ko-only"><strong>자동 매칭 + 미디어 다운로드</strong> — 파일명을 분석해 게임을 찾아 제목·장르·이미지·영상 등을 자동으로 채웁니다. 진행률은 0~20% 매칭, 20~95% 미디어 다운로드로 표시됩니다.</span><span class="en-only"><strong>Auto-match + media download</strong> — filenames are analyzed to identify each game and fill in title, genre, images, video, etc. Progress shows 0–20% matching, 20–95% media download.</span></li>
+      </ol>
+      <p>
+        <span class="ko-only">추가 후 시스템 행에서 <strong>설명(표시 이름)</strong>과 <strong>메타 폴더명</strong>을 편집할 수 있습니다. 폴더명은 내보낼 때 사용되는 시스템 폴더 이름입니다(비워 두면 표준 이름 사용).</span>
+        <span class="en-only">After adding, you can edit the system's <strong>display name</strong> and <strong>meta folder name</strong> on its row. The folder name is used as the system's folder when exporting (leave blank to use the standard name).</span>
+      </p>
+      <div class="note">
+        <span class="ko-only"><b>매칭 정확도</b> — 고유 알고리즘으로 <strong>한글 파일명을 포함해</strong> 수십 초 안에 수백 개 ROM을 매칭합니다. 매칭이 애매한 게임은 <strong>매칭 방식</strong> 열 색상으로 구분되며, 아래 <a href="#meta">메타 편집기</a>에서 직접 바로잡을 수 있습니다.</span>
+        <span class="en-only"><b>Accuracy</b> — a proprietary algorithm matches hundreds of ROMs in seconds, <strong>including Korean-named files</strong>. Uncertain matches are color-coded in the <strong>Matching</strong> column and can be fixed in the <a href="#meta">Meta Editor</a> below.</span>
+      </div>
+
+      <h3 id="add-roms"><span class="ko-only">게임 추가 · 복사 · 이동</span><span class="en-only">Adding, copying & moving games</span></h3>
+      <p><span class="ko-only">이미 만든 시스템에 게임을 더하거나 옮길 때 쓰는 기능입니다.</span><span class="en-only">Once a system exists, these add or move games within it.</span></p>
+      <table class="ftable">
+        <tr><th style="width:34%"><span class="ko-only">기능</span><span class="en-only">Feature</span></th><th><span class="ko-only">설명</span><span class="en-only">What it does</span></th></tr>
+        <tr><td><span class="ko-only">+ 롬폴더 추가</span><span class="en-only">+ Add ROM Folder</span></td><td><span class="ko-only">폴더를 골라 그 안의 ROM을 스캔해 현재 시스템에 추가합니다. 이미 있는 파일은 건너뜁니다.</span><span class="en-only">Pick a folder; its ROMs are scanned and added to the current system. Existing files are skipped.</span></td></tr>
+        <tr><td><span class="ko-only">+ 롬파일 추가</span><span class="en-only">+ Add ROM Files</span></td><td><span class="ko-only">개별 ROM 파일을 골라(또는 드래그드롭) 추가합니다.</span><span class="en-only">Select individual ROM files (or drag-and-drop) to add.</span></td></tr>
+        <tr><td><span class="ko-only">선택 게임 복사 / 이동</span><span class="en-only">Copy / Move selected</span></td><td><span class="ko-only">체크한 게임을 <strong>같은 종류의 다른 시스템</strong>으로 복사하거나 이동합니다. 같은 콘솔이라 미디어·캐시가 그대로 호환됩니다.</span><span class="en-only">Copy or move checked games to <strong>another system of the same type</strong>. Media and cache stay compatible since the console is identical.</span></td></tr>
+        <tr><td><span class="ko-only">새 시스템으로 복사 / 이동</span><span class="en-only">Copy / Move to new</span></td><td><span class="ko-only">같은 종류의 <strong>새 빈 시스템</strong>을 만들어 선택 게임을 옮깁니다. (장르·지역별로 목록을 나눌 때 유용)</span><span class="en-only">Creates a <strong>new empty system</strong> of the same type and moves the selected games there. (Handy for splitting lists by genre/region.)</span></td></tr>
+      </table>
+      <p>
+        <span class="ko-only">게임 목록에서는 <strong>모두 선택 / 해제</strong>, 체크박스 다중 선택, <strong>선택 게임 정보 삭제</strong>(ROM 파일은 지우지 않고 메타만 삭제), <strong>탐색기에서 열기</strong>도 지원합니다.</span>
+        <span class="en-only">The game list also supports <strong>check/uncheck all</strong>, multi-select checkboxes, <strong>Delete selected games' info</strong> (removes metadata only, never the ROM file), and <strong>Reveal in File Explorer</strong>.</span>
+      </p>
+
+      <h3 id="rescan"><span class="ko-only">재스캔</span><span class="en-only">Re-scan</span></h3>
+      <p><span class="ko-only">ROM 폴더가 바뀌었거나 매칭을 다시 돌리고 싶을 때 사용합니다. 세 가지 옵션이 있습니다.</span><span class="en-only">Use when the ROM folder changed or you want to re-run matching. Three options:</span></p>
+      <table class="ftable">
+        <tr><th style="width:38%"><span class="ko-only">옵션</span><span class="en-only">Option</span></th><th><span class="ko-only">동작</span><span class="en-only">Behavior</span></th></tr>
+        <tr><td><span class="ko-only">전체 재스캔</span><span class="en-only">Total re-scan</span></td><td><span class="ko-only">모든 게임을 다시 매칭합니다. <strong>직접 수정했던 메타가 자동 매칭으로 초기화</strong>되며, 사라진 ROM은 목록에서 제거됩니다.</span><span class="en-only">Re-matches every game. <strong>Manually edited metadata is reset to auto-match</strong>; missing ROMs are removed from the list.</span></td></tr>
+        <tr><td><span class="ko-only">재스캔 (수정한 게임 제외)</span><span class="en-only">Re-scan (keep edits)</span></td><td><span class="ko-only">직접 수정한 게임은 <strong>건드리지 않고</strong>, 나머지만 다시 매칭합니다. 사라진 ROM은 제거됩니다.</span><span class="en-only">Leaves your edited games <strong>untouched</strong> and re-matches the rest. Missing ROMs are removed.</span></td></tr>
+        <tr><td><span class="ko-only">삭제된 롬만 제거</span><span class="en-only">Prune deleted only</span></td><td><span class="ko-only">매칭은 하지 않고, 폴더에서 사라진 ROM만 목록에서 정리합니다.</span><span class="en-only">No matching — just removes list entries whose ROM files are gone.</span></td></tr>
+      </table>
+      <p><span class="ko-only">게임 하나만 다시 매칭하려면 그 게임에서 <strong>이 게임만 재스캔</strong>을, 여러 개는 체크 후 <strong>선택 게임 재스캔</strong>을 사용합니다.</span><span class="en-only">To re-match a single game use <strong>Re-scan only this game</strong>; for several, check them and use <strong>Re-scan checked</strong>.</span></p>
+    </section>
+
+    <!-- 3. GAME INFO & MEDIA -->
+    <section class="gsec" id="library">
+      <p class="kicker">03 — VIEWING</p>
+      <h2><span class="ko-only">게임 정보 & 미디어 보기</span><span class="en-only">Game Info & Media</span></h2>
+      <p><span class="ko-only">게임을 선택하면 오른쪽에 <strong>정보 · 미디어 · 영상 · 매뉴얼</strong> 탭이 나타납니다.</span><span class="en-only">Selecting a game reveals <strong>Info · Media · Video · Manual</strong> tabs on the right.</span></p>
+      <ul>
+        <li><span class="ko-only"><strong>게임정보</strong> — 제목(영/한), 설명, 장르, 출시일, 개발사, 플레이어 수.</span><span class="en-only"><strong>Info</strong> — title (EN/KR), description, genre, release date, developer, player count.</span></li>
+        <li><span class="ko-only"><strong>미디어</strong> — 아래 종류의 이미지를 넘겨 보고, 드래그로 이동·확대할 수 있습니다.</span><span class="en-only"><strong>Media</strong> — flip through the image types below; drag to pan / zoom.</span></li>
+        <li><span class="ko-only"><strong>게임영상</strong> — 트레일러/게임플레이 영상을 재생합니다.</span><span class="en-only"><strong>Video</strong> — plays the trailer / gameplay clip.</span></li>
+        <li><span class="ko-only"><strong>메뉴얼</strong> — 게임 설명서(PDF)를 페이지 뷰어로 보고, <strong>현재 페이지를 AI로 번역</strong>할 수 있습니다(설정에서 AI 입력 필요).</span><span class="en-only"><strong>Manual</strong> — view the game manual (PDF) page by page and <strong>AI-translate the current page</strong> (requires AI configured in Settings).</span></li>
+      </ul>
+      <p class="ko-only"><strong>미디어 종류</strong></p><p class="en-only"><strong>Media types</strong></p>
+      <div class="chips">
+        <span class="chip"><span class="ko-only">믹스 이미지</span><span class="en-only">Mix image</span></span>
+        <span class="chip"><span class="ko-only">타이틀 화면</span><span class="en-only">Title screen</span></span>
+        <span class="chip"><span class="ko-only">스크린샷</span><span class="en-only">Screenshot</span></span>
+        <span class="chip"><span class="ko-only">휠/로고</span><span class="en-only">Wheel/Logo</span></span>
+        <span class="chip"><span class="ko-only">앞표지(Cover)</span><span class="en-only">Cover</span></span>
+        <span class="chip"><span class="ko-only">케이스(Box Texture)</span><span class="en-only">Box texture</span></span>
+        <span class="chip"><span class="ko-only">3D 박스</span><span class="en-only">3D box</span></span>
+        <span class="chip"><span class="ko-only">카트리지/CD(Support)</span><span class="en-only">Support (cart/CD)</span></span>
+        <span class="chip"><span class="ko-only">영상</span><span class="en-only">Video</span></span>
+        <span class="chip"><span class="ko-only">매뉴얼(PDF)</span><span class="en-only">Manual (PDF)</span></span>
+      </div>
+      <div class="note"><span class="ko-only"><b>믹스 이미지</b>는 스크린샷·박스아트·로고·카트리지를 하나로 합성한 대표 이미지로, 프론트엔드에서 가장 보기 좋은 형태입니다. <a href="#mix">믹스 이미지 편집</a>에서 배치를 바꿀 수 있습니다.</span><span class="en-only">The <b>Mix image</b> composites screenshot, box art, logo and cartridge into one showcase image — the best-looking option in a front-end. Rearrange it in the <a href="#mix">Mix Image Editor</a>.</span></div>
+    </section>
+
+    <!-- 4. META EDITOR -->
+    <section class="gsec" id="meta">
+      <p class="kicker">04 — META EDITOR</p>
+      <h2><span class="ko-only">메타 편집기</span><span class="en-only">Meta Editor</span></h2>
+      <p><span class="ko-only">게임을 우클릭하거나 <strong>게임 메타 편집</strong>을 눌러 엽니다. 잘못 매칭됐거나 비어 있는 정보를 바로잡고, 원하는 이미지·영상·매뉴얼로 교체하는 곳입니다.</span><span class="en-only">Right-click a game or press <strong>Edit Meta</strong>. This is where you fix wrong/missing matches and swap in the images, video and manual you want.</span></p>
+
+      <h3 id="meta-find"><span class="ko-only">후보 찾기 — 추천 · 검색 · 실시간 조회</span><span class="en-only">Finding the right game</span></h3>
+      <ul>
+        <li><span class="ko-only"><strong>추천 리스트</strong> — 현재 파일명에 가장 가까운 후보들을 자동으로 보여줍니다.</span><span class="en-only"><strong>Recommend list</strong> — auto-suggests the closest candidates for the current filename.</span></li>
+        <li><span class="ko-only"><strong>전체 검색</strong> — 제목을 직접 입력해 마스터 DB에서 찾습니다.</span><span class="en-only"><strong>Search</strong> — type a title to search the master database directly.</span></li>
+        <li><span class="ko-only"><strong>ScreenScraper 실시간 조회</strong> — 로컬 DB에 없는 게임을 온라인(ScreenScraper)에서 즉시 검색해 적용합니다(<a href="#scraper">계정 설정</a> 필요).</span><span class="en-only"><strong>Live ScreenScraper lookup</strong> — for games not in the local DB, search online (ScreenScraper) and apply instantly (needs a <a href="#scraper">configured account</a>).</span></li>
+        <li><span class="ko-only"><strong>AI로 채우기</strong> — 텍스트 정보가 부족할 때 LLM으로 제목·설명 등을 보완합니다(<a href="#ai">AI 설정</a> 필요).</span><span class="en-only"><strong>AI fill</strong> — when text info is sparse, use an LLM to complete title/description (needs <a href="#ai">AI settings</a>).</span></li>
+      </ul>
+      <p><span class="ko-only">후보를 고르면 미리보기(믹스 이미지)가 뜨고, 원하는 <strong>리전</strong>을 선택할 수 있습니다.</span><span class="en-only">Choosing a candidate shows a preview (mix image) and lets you pick the desired <strong>region</strong>.</span></p>
+
+      <h3 id="meta-text"><span class="ko-only">텍스트 편집</span><span class="en-only">Text fields</span></h3>
+      <p><span class="ko-only">직접 고칠 수 있는 항목: <strong>제목(영문)</strong>, <strong>제목(한글)</strong>, <strong>게임 설명</strong>, <strong>장르</strong>, <strong>출시일</strong>, <strong>개발사</strong>, <strong>플레이어 수</strong>.</span><span class="en-only">Editable fields: <strong>Title (EN)</strong>, <strong>Title (KR)</strong>, <strong>Description</strong>, <strong>Genre</strong>, <strong>Release date</strong>, <strong>Developer</strong>, <strong>Players</strong>.</span></p>
+
+      <h3 id="meta-media"><span class="ko-only">미디어 편집</span><span class="en-only">Media editing</span></h3>
+      <p><span class="ko-only">각 미디어 슬롯(타이틀·스크린샷·휠·커버·케이스·3D박스·서포트·영상·매뉴얼)마다 다음을 할 수 있습니다.</span><span class="en-only">For each media slot (title, screenshot, wheel, cover, box texture, 3D box, support, video, manual) you can:</span></p>
+      <ul>
+        <li><span class="ko-only"><strong>불러오기</strong> — 내 PC 이미지 파일로 교체.</span><span class="en-only"><strong>Load</strong> — replace with an image file from your PC.</span></li>
+        <li><span class="ko-only"><strong>웹 이미지 검색 / URL</strong> — 인터넷에서 이미지를 찾아 가져오기. 구글 이미지 열기도 지원.</span><span class="en-only"><strong>Web image search / URL</strong> — fetch an image from the web; open Google Images too.</span></li>
+        <li><span class="ko-only"><strong>편집</strong> — 자르기, 배경 투명화, 정면화(서포트/케이스), 로고 투명 처리.</span><span class="en-only"><strong>Edit</strong> — crop, make background transparent, flatten (support/case), transparent-logo processing.</span></li>
+        <li><span class="ko-only"><strong>3D 박스 생성</strong> — 앞표지 이미지로 3D 박스 아트를 만듭니다.</span><span class="en-only"><strong>Generate 3D box</strong> — build 3D box art from the cover image.</span></li>
+        <li><span class="ko-only"><strong>영상 가져오기 · 자르기</strong> — YouTube 검색/URL로 영상을 받아 원하는 구간만 트림.</span><span class="en-only"><strong>Fetch / trim video</strong> — grab a clip via YouTube search/URL and trim to the segment you want.</span></li>
+      </ul>
+      <div class="note"><span class="ko-only"><b>원본에 반영 & 리전</b> — 새로 만든/교체한 미디어는 <strong>리전</strong>을 지정해 저장합니다. 파일은 <span class="path">{게임ID}_{종류}_{리전}</span> 규칙으로 정규화됩니다. <strong>원본 반영</strong> 옵션을 켜면 현재 목록뿐 아니라 원본 미디어 소스에도 업로드됩니다(작성자 전용).</span><span class="en-only"><b>Region & source</b> — new/replaced media is saved with a chosen <strong>region</strong>. Files are canonicalized as <span class="path">{gameID}_{type}_{region}</span>. Enabling <strong>Update source</strong> uploads to the original media source, not just your local list (author-only).</span></div>
+      <p><span class="ko-only"><strong>미매칭 전환</strong> — 잘못 매칭된 게임을 "매칭 안 됨" 상태로 되돌립니다. <strong>적용</strong>을 누르면 편집 내용이 저장되고 목록·믹스 이미지가 갱신됩니다.</span><span class="en-only"><strong>Convert to unmatched</strong> — resets a wrongly matched game to "unmatched." Press <strong>Apply</strong> to save edits and refresh the list & mix image.</span></p>
+    </section>
+
+    <!-- 5. MIX IMAGE EDITOR -->
+    <section class="gsec" id="mix">
+      <p class="kicker">05 — MIX IMAGE</p>
+      <h2><span class="ko-only">믹스 이미지 편집</span><span class="en-only">Mix Image Editor</span></h2>
+      <p><span class="ko-only">스크린샷·박스아트·로고·카트리지를 하나로 합친 <strong>대표 이미지</strong>의 배치를 직접 디자인합니다. 각 구성요소를 드래그로 옮기고 크기를 바꿀 수 있으며, 실시간 미리보기로 결과를 확인합니다.</span><span class="en-only">Design the layout of the <strong>showcase image</strong> that combines screenshot, box art, logo and cartridge. Drag and resize each component and see the result in a live preview.</span></p>
+      <ul>
+        <li><span class="ko-only"><strong>레이아웃</strong> — 구성요소(스크린샷/박스/로고/서포트)의 위치·크기·순서를 조정.</span><span class="en-only"><strong>Layout</strong> — position, size and order of components (screenshot / box / logo / support).</span></li>
+        <li><span class="ko-only"><strong>전역 / 시스템별 설정</strong> — 모든 게임에 공통으로 적용하거나 시스템마다 다른 레이아웃을 저장할 수 있습니다.</span><span class="en-only"><strong>Global / per-system</strong> — apply one layout to all games, or save a different layout per system.</span></li>
+      </ul>
+      <div class="tip"><span class="ko-only">한 번 레이아웃을 정하면 이후 추가되는 게임의 믹스 이미지에도 자동으로 같은 스타일이 적용됩니다.</span><span class="en-only">Once set, the same style automatically applies to the mix images of games you add later.</span></div>
+    </section>
+
+    <!-- 6. CONTROLLER -->
+    <section class="gsec" id="controller">
+      <p class="kicker">06 — CONTROLLER</p>
+      <h2><span class="ko-only">컨트롤러 & 게임별 설정</span><span class="en-only">Controller & Per-game Settings</span></h2>
+      <p><span class="ko-only">시스템·게임별 입력 설정을 만들어 함께 내보낼 수 있습니다.</span><span class="en-only">Create input configs per system/game and export them together.</span></p>
+      <table class="ftable">
+        <tr><th style="width:30%"><span class="ko-only">설정</span><span class="en-only">Config</span></th><th><span class="ko-only">대상 · 내용</span><span class="en-only">Scope · what it does</span></th></tr>
+        <tr><td><span class="ko-only">컨트롤러 키설정</span><span class="en-only">Controller mapping</span></td><td><span class="ko-only">시스템별 패드 리맵. 버튼 배치, 변형(variant), 키보드 행 매핑까지 지정해 리맵 파일로 내보냅니다.</span><span class="en-only">Per-system pad remap — button layout, variant, and keyboard-row mapping, exported as remap files.</span></td></tr>
+        <tr><td><span class="ko-only">DOS 패드 설정</span><span class="en-only">DOS pad map</span></td><td><span class="ko-only">DOSBox-Pure용 <strong>게임별</strong> 키보드→패드 매핑.</span><span class="en-only">Per-<strong>game</strong> keyboard→pad mapping for DOSBox-Pure.</span></td></tr>
+        <tr><td><span class="ko-only">아케이드 패드(.rmp)</span><span class="en-only">Arcade pad (.rmp)</span></td><td><span class="ko-only">MAME/FBNeo 등 아케이드 <strong>게임별</strong> .rmp 리맵.</span><span class="en-only">Per-<strong>game</strong> .rmp remaps for arcade (MAME/FBNeo, etc.).</span></td></tr>
+        <tr><td><span class="ko-only">Dolphin (Wii/GC)</span><span class="en-only">Dolphin (Wii/GC)</span></td><td><span class="ko-only">Dolphin <strong>게임별</strong> 컨트롤러(GameSettings INI) 구성.</span><span class="en-only">Per-<strong>game</strong> Dolphin controller (GameSettings INI) setup.</span></td></tr>
+      </table>
+    </section>
+
+    <!-- 7. GLOBAL SETTINGS -->
+    <section class="gsec" id="settings">
+      <p class="kicker">07 — SETTINGS</p>
+      <h2><span class="ko-only">전역 설정</span><span class="en-only">Global Settings</span></h2>
+
+      <h3 id="region"><span class="ko-only">리전 우선순위</span><span class="en-only">Region priority</span></h3>
+      <p><span class="ko-only">한 게임에 여러 지역판 미디어(일본/북미/유럽/한국 등)가 있을 때, <strong>어느 지역을 우선</strong>으로 받고 표시할지 순서를 정합니다. 시스템별로 다른 순서를 저장할 수도 있습니다.</span><span class="en-only">When a game has media for multiple regions (JP/US/EU/KR…), set the <strong>preferred order</strong> for downloading and display. You can save a different order per system.</span></p>
+
+      <h3 id="ai"><span class="ko-only">AI 설정</span><span class="en-only">AI settings</span></h3>
+      <p><span class="ko-only">매뉴얼 번역, AI로 메타 채우기 등에 쓰이는 LLM을 설정합니다.</span><span class="en-only">Configure the LLM used for manual translation, AI meta-fill, etc.</span></p>
+      <ul>
+        <li><span class="ko-only"><strong>제공자 / 모델 / API 키</strong> — ChatGPT 또는 Gemini 등을 선택하고 키를 입력합니다. <strong>검증</strong> 버튼으로 키가 유효한지 확인할 수 있습니다.</span><span class="en-only"><strong>Provider / model / API key</strong> — pick ChatGPT or Gemini, enter your key, and use <strong>Validate</strong> to confirm it works.</span></li>
+        <li><span class="ko-only"><strong>이미지 번역 옵션</strong> — 매뉴얼 페이지의 이미지 위 텍스트를 번역해 덮어씌우는 기능에 사용됩니다.</span><span class="en-only"><strong>Image-translation option</strong> — used to translate and overlay text on manual page images.</span></li>
+      </ul>
+
+      <h3 id="scraper"><span class="ko-only">ScreenScraper 계정</span><span class="en-only">ScreenScraper account</span></h3>
+      <p><span class="ko-only">로컬 DB에 없는 게임을 온라인에서 실시간 조회하려면 개인 <strong>ScreenScraper 계정</strong>(아이디/비밀번호)을 설정에 입력합니다. 개인 계정을 쓰면 개인 할당량으로 더 안정적으로 조회됩니다.</span><span class="en-only">To look up games not in the local DB online in real time, enter your personal <strong>ScreenScraper account</strong> (user/password) in Settings. Using your own account gives you a personal quota for more reliable lookups.</span></p>
+      <div class="note"><span class="ko-only"><b>언어 · 테마</b> — 설정에서 한/영과 라이트/다크 테마를 <strong>재시작 없이</strong> 즉시 바꿀 수 있습니다.</span><span class="en-only"><b>Language · theme</b> — switch KO/EN and light/dark theme <strong>instantly, no restart</strong>, from Settings.</span></div>
+    </section>
+
+    <!-- 8. EXPORT -->
+    <section class="gsec" id="export">
+      <p class="kicker">08 — EXPORT</p>
+      <h2><span class="ko-only">내보내기</span><span class="en-only">Export</span></h2>
+      <p><span class="ko-only">완성한 게임 목록과 미디어를 <span class="path">gamelist.xml</span>과 함께 기기로 내보냅니다. 한 개 이상의 시스템을 골라 시작합니다.</span><span class="en-only">Send your finished game list and media — together with <span class="path">gamelist.xml</span> — to a device. Pick one or more systems to begin.</span></p>
+
+      <h3><span class="ko-only">1) 대상 기기 선택</span><span class="en-only">1) Choose the target</span></h3>
+      <table class="ftable">
+        <tr><th style="width:34%"><span class="ko-only">대상</span><span class="en-only">Target</span></th><th><span class="ko-only">연결 방식</span><span class="en-only">Connection</span></th></tr>
+        <tr><td><span class="ko-only">내 컴퓨터</span><span class="en-only">My Computer</span></td><td><span class="ko-only">로컬 PC의 폴더로 내보내기.</span><span class="en-only">Export to a folder on this PC.</span></td></tr>
+        <tr><td><span class="ko-only">안드로이드 (USB)</span><span class="en-only">Android (USB)</span></td><td><span class="ko-only">USB로 연결한 안드로이드 기기(ES-DE 등). 기기에서 <strong>개발자 옵션 &gt; USB 디버깅 On</strong> 필요. 내장/외장 스토리지 선택.</span><span class="en-only">Android device over USB (ES-DE, etc.). Needs <strong>Developer Options &gt; USB Debugging on</strong>. Choose internal/external storage.</span></td></tr>
+        <tr><td><span class="ko-only">리눅스 (SFTP)</span><span class="en-only">Linux (SFTP)</span></td><td><span class="ko-only">커스텀 OS 휴대용 기기에 IP·아이디·비번으로 접속. OnionOS · Batocera · KNULLI · ROCKNIX · JELOS · muOS · RG34xxSP/TSP StockOS 등.</span><span class="en-only">Handhelds running custom OS via IP/user/password: OnionOS · Batocera · KNULLI · ROCKNIX · JELOS · muOS · RG34xxSP/TSP StockOS, etc.</span></td></tr>
+      </table>
+
+      <h3><span class="ko-only">2) 세부 옵션</span><span class="en-only">2) Options</span></h3>
+      <ul>
+        <li><span class="ko-only"><strong>프론트엔드</strong> — ES-DE 또는 EmulationStation 형식의 <span class="path">gamelist.xml</span> 생성.</span><span class="en-only"><strong>Front-end</strong> — generate a <span class="path">gamelist.xml</span> for ES-DE or EmulationStation.</span></li>
+        <li><span class="ko-only"><strong>스크린샷(대표 이미지) 타입</strong> — 기본 스크린샷 / 미디어 믹스 / 3D 박스 커버 / 카트리지(Support) / 로고(Wheel) / 앞표지(Cover) / 케이스(Box Texture) 중 선택.</span><span class="en-only"><strong>Showcase image type</strong> — base screenshot / mixed / 3D box cover / support / logo (wheel) / cover / box texture.</span></li>
+        <li><span class="ko-only"><strong>제목 · 설명 언어</strong> — 제목과 설명을 각각 한글/영문으로 내보냅니다.</span><span class="en-only"><strong>Title & description language</strong> — export title and description each in Korean or English.</span></li>
+        <li><span class="ko-only"><strong>ROM 복사</strong> — 메타뿐 아니라 ROM 파일 자체도 함께 복사할지 선택.</span><span class="en-only"><strong>Copy ROMs</strong> — optionally copy the ROM files themselves, not just metadata.</span></li>
+        <li><span class="ko-only"><strong>미디어 복사</strong> — 이미지/영상 미디어를 대상 기기에 복사(다시 복사 옵션 포함).</span><span class="en-only"><strong>Copy media</strong> — copy image/video media to the device (with a re-copy option).</span></li>
+        <li><span class="ko-only"><strong>컨트롤러 리맵 포함</strong> — 위에서 만든 게임별/시스템별 입력 설정을 함께 내보냅니다.</span><span class="en-only"><strong>Include remaps</strong> — export the per-game/per-system input configs you made above.</span></li>
+      </ul>
+      <div class="tip"><span class="ko-only">OS마다 폴더·파일 규칙이 다른데, 프로그램이 선택한 기기 OS에 맞춰 경로와 이름을 자동으로 맞춰 줍니다. 안드로이드 내보내기 시 내부적으로 adb를 사용하므로, 끝난 뒤 기기 폴더가 안내됩니다.</span><span class="en-only">Folder/file conventions differ per OS; the tool adapts paths and names to the chosen device OS automatically. Android export uses adb under the hood, and the target folder is shown when it finishes.</span></div>
+      <div class="warn"><span class="ko-only"><b>안드로이드 연결이 안 될 때</b> — 케이블 연결 상태에서 <strong>USB 디버깅을 껐다가 다시 켜</strong> 보세요. 기기에 뜨는 <strong>USB 디버깅 허용</strong> 창도 확인해야 합니다.</span><span class="en-only"><b>If Android won't connect</b> — with the cable plugged in, <strong>toggle USB Debugging off and on</strong>. Also accept the <strong>Allow USB debugging</strong> prompt on the device.</span></div>
+    </section>
+
+    <!-- 9. ETC -->
+    <section class="gsec" id="etc">
+      <p class="kicker">09 — MORE</p>
+      <h2><span class="ko-only">후원 · 업데이트</span><span class="en-only">Support · Updates</span></h2>
+      <p><span class="ko-only">이 프로그램은 개발자 1인이 기획·개발·DB 구축·서버 운영·테스트까지 모두 맡고 있습니다. 도움이 되었다면 <strong>후원 ♥</strong> 버튼으로 작은 응원을 보내 주세요. 새 버전이 나오면 프로그램이 업데이트를 안내합니다.</span><span class="en-only">This tool is built by a single developer handling planning, development, database, server ops and testing. If it helped you, consider a small token of support via the <strong>Donate ♥</strong> button. When a new version ships, the app will let you know.</span></p>
+      <div class="note"><span class="ko-only">더 궁금한 점이나 잘 안 되는 부분은 <a href="index.html#download">다운로드 페이지</a>의 안내와 <a href="story.html">읽을거리</a>를 참고하세요. 레트로 에뮬레이터 세팅의 큰 그림을 이해하는 데 도움이 됩니다.</span><span class="en-only">For more, see the guidance on the <a href="index.html#download">download page</a> and the <a href="story.html">reading article</a> — they help you grasp the big picture of retro emulator setup.</span></div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="yr"></span> HAE-BANG Rom Setting Tools</span>
+    <span><a href="index.html"><span class="ko-only">← 홈으로</span><span class="en-only">← Back to home</span></a></span>
+  </div>
+</footer>
+
+<button class="totop" id="totop" aria-label="Top">↑</button>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var hdr = document.getElementById('hdr');
+  addEventListener('scroll', function(){ hdr.classList.toggle('scrolled', scrollY > 8); }, {passive:true});
+
+  // 언어 토글 (index/story 와 동일한 localStorage 키 'hb_lang')
+  var langBtn = document.getElementById('langBtn');
+  function applyLang(l){
+    document.documentElement.classList.toggle('en', l === 'en');
+    document.documentElement.lang = l;
+    langBtn.textContent = (l === 'ko') ? 'EN' : '한';
+    try { localStorage.setItem('hb_lang', l); } catch(e){}
+  }
+  langBtn.addEventListener('click', function(){
+    applyLang(document.documentElement.classList.contains('en') ? 'ko' : 'en');
+  });
+  try { var saved = localStorage.getItem('hb_lang'); if (saved === 'en') applyLang('en'); } catch(e){}
+
+  // TOC scrollspy + smooth scroll
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var map = {};
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) map[id] = { link: a, el: el };
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      history.replaceState(null,'','#'+id);
+    });
+  });
+  var ids = Object.keys(map);
+  function spy(){
+    var cur = null;
+    ids.forEach(function(id){ if (map[id].el.getBoundingClientRect().top <= 120) cur = id; });
+    links.forEach(function(a){ a.classList.remove('active'); });
+    if (cur && map[cur]) map[cur].link.classList.add('active');
+  }
+  addEventListener('scroll', spy, {passive:true}); spy();
+
+  // to top
+  var tt = document.getElementById('totop');
+  addEventListener('scroll', function(){ tt.classList.toggle('show', scrollY > 500); }, {passive:true});
+  tt.addEventListener('click', function(){ scrollTo({top:0, behavior:'smooth'}); });
+</script>
+</body>
+</html>
