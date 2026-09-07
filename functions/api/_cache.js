@@ -12,7 +12,7 @@
  * 하면 이 값을 올린다. 그러면 예전 키는 아무도 찾지 않게 되어 즉시 갈린다.
  * 올리지 않으면 TTL 이 다 될 때까지 옛 응답이 나간다(연도 집계는 24시간).
  */
-const KEY_VERSION = '9';   // 9: DB 재적재 — 시스템 6종 추가(model3·wiiu·ps3·xbox·xbox360·switch), 게임·미디어 보강
+const KEY_VERSION = '10';  // 10: 스위치 미디어 보강(9,825→38,154행) — 표지 3,325개 추가
 
 export async function cached(ctx, ttl, build) {
   const req = ctx.request;
