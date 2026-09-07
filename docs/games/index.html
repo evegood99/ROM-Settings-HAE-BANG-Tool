@@ -109,7 +109,7 @@
   <div class="stats">
     <div class="stat"><b id="s-games">—</b><span>수록 게임</span></div>
     <div class="stat"><b id="s-plats">—</b><span>기종</span></div>
-    <div class="stat"><b>1971–2024</b><span>발매 연도</span></div>
+    <div class="stat"><b id="s-years">—</b><span>발매 연도</span></div>
   </div>
 </section>
 
@@ -199,6 +199,17 @@ async function loadRandom() {
   catch (e) { /* 기존 카드 유지 */ }
 }
 
+async function loadYears() {
+  try {
+    const { years } = await api('/api/years');
+    const ys = (years || []).map((y) => y.year).filter((y) => y >= 1971 && y <= 2035);
+    if (ys.length) {
+      document.getElementById('s-years').textContent =
+        Math.min(...ys) + '–' + Math.max(...ys);
+    }
+  } catch (e) { /* 통계 한 칸이라 실패해도 조용히 둔다 */ }
+}
+
 async function loadSystems() {
   const box = document.getElementById('plats');
   try {
@@ -225,6 +236,7 @@ async function loadSystems() {
 }
 loadToday();
 loadSystems();
+loadYears();
 </script>
 <script>
 /* 모바일 메뉴 — 상단 메뉴가 숨겨지는 폭에서 같은 항목을 펼쳐 보여준다.
