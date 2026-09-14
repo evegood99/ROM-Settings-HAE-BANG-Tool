@@ -145,6 +145,16 @@
   .live2{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-bottom:18px}
   .live2 .shot video{display:block; width:100%; aspect-ratio:16/9; background:#0a0c13}
   .dev-note{text-align:center; font-size:12.5px; color:var(--faint); margin-top:16px}
+  .chg{margin-top:34px; border:1px solid var(--border); border-radius:var(--radius); padding:24px 26px;
+    background:linear-gradient(180deg,var(--surface),var(--bg2))}
+  .chg .chg-head{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+  .chg .chg-head h3{margin:0; font-size:18px; font-weight:800}
+  .chg .chg-ver{display:inline-flex; align-items:center; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:800;
+    letter-spacing:.06em; color:#07080d; background:var(--emerald)}
+  .chg ul{margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:10px 22px}
+  .chg li{position:relative; padding-left:20px; color:var(--muted); font-size:14px; line-height:1.6}
+  .chg li::before{content:""; position:absolute; left:0; top:.62em; width:8px; height:8px; border-radius:50%; background:var(--grad)}
+  .chg li b{color:var(--text); font-weight:700}
 
   /* 특징 카드 */
   .fgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
@@ -176,6 +186,7 @@
     .shots{grid-template-columns:1fr}
     .live2{grid-template-columns:1fr}
     .fgrid{grid-template-columns:1fr}
+    .chg ul{grid-template-columns:1fr}
   }
   /* 모바일 메뉴 — 좁은 화면에서 상단 메뉴가 숨겨지므로 햄버거로 같은 항목을 낸다 */
   .menu-btn{display:none; align-items:center; justify-content:center; padding:0;
@@ -236,7 +247,6 @@
     </div>
       <button class="menu-btn" id="menuBtn" aria-label="메뉴" aria-expanded="false">☰</button>
     </div>
-  </div>
   <div class="mnav" id="mnav"><div class="in"></div></div>
 </header>
 
@@ -260,7 +270,7 @@
          data-ko="게임 케이스를 3D 진열장에 늘어놓고, 마음에 드는 케이스를 돌려 보고, 열어서 카트리지를 꺼내 콘솔에 꽂으면 — 게임이 시작됩니다. 어릴 적 그 감각 그대로의 에뮬레이터 런처를 만들고 있습니다."
          data-en="Shelve your games as 3D cases. Spin the one you like, open it, pull the cartridge and slot it into the console — the game begins. An emulator launcher that feels the way it did when you were a kid.">게임 케이스를 3D 진열장에 늘어놓고, 마음에 드는 케이스를 돌려 보고, 열어서 카트리지를 꺼내 콘솔에 꽂으면 — 게임이 시작됩니다. 어릴 적 그 감각 그대로의 에뮬레이터 런처를 만들고 있습니다.</p>
       <div class="hero-badges">
-        <span class="badge"><span class="dot"></span><span data-ko="베타 0.4 · 클로즈 베타 준비 중" data-en="Beta 0.4 · closed beta on the way">베타 0.4 · 클로즈 베타 준비 중</span></span>
+        <span class="badge"><span class="dot"></span><span data-ko="베타 0.5 · 클로즈 베타 준비 중" data-en="Beta 0.5 · closed beta on the way">베타 0.5 · 클로즈 베타 준비 중</span></span>
         <span class="badge">Windows · Android(APK)</span>
         <span class="badge" data-ko="50개 기종 · 실물 케이스" data-en="50 systems · true-to-life cases">50개 기종 · 실물 케이스</span>
         <span class="badge" data-ko="RetroArch 실행 검증 완료" data-en="RetroArch launch verified">RetroArch 실행 검증 완료</span>
@@ -298,25 +308,25 @@
 
       <!-- 실제 동작 영상 (개발 빌드를 Godot Movie Maker 로 녹화) -->
       <div class="demo-video reveal">
-        <video autoplay loop muted playsinline preload="metadata" poster="assets/hbl_demo_poster_v2.jpg"
+        <video autoplay loop muted playsinline preload="metadata" poster="assets/hbl_demo_poster_v3.jpg"
                aria-label="HB런처 동작 영상">
-          <source src="assets/hbl_demo_v2.mp4" type="video/mp4" />
+          <source src="assets/hbl_demo_v3.mp4" type="video/mp4" />
         </video>
         <div class="cap">
           <b data-ko="▶ 실제 동작 영상" data-en="▶ The launcher in motion">▶ 실제 동작 영상</b>
-          <span data-ko="기종 진열대를 훑고 → 케이스를 열어 앞뒤로 살펴보고 → TV로 플레이 영상을 띄우고 → 즐겨찾기에 꽂고 → 카트리지·디스크를 실물 본체에 꽂아 실행까지. 베타 0.4 빌드를 그대로 녹화한 2분 2초"
-                data-en="Browse the system shelf → open cases and look them over → play the gameplay video on the TV → pin a favourite to My Picks → then slot the cartridge or disc into the real console and launch. 2min 2sec recorded straight from the beta 0.4 build">기종 진열대를 훑고 → 케이스를 열어 앞뒤로 살펴보고 → TV로 플레이 영상을 띄우고 → 즐겨찾기에 꽂고 → 카트리지·디스크를 실물 본체에 꽂아 실행까지. 베타 0.4 빌드를 그대로 녹화한 2분 2초</span>
+          <span data-ko="기종 진열대를 훑고 → 케이스를 열어 앞뒤로 살펴보고 → 내장 화면으로 플레이 영상을 보다가 그 자리에서 게임 시작 → 카트리지·UMD를 실물 본체에 꽂아 실행까지. 베타 0.5 빌드를 그대로 녹화한 1분 8초"
+                data-en="Browse the system shelf → open cases and look them over → watch gameplay on the built-in screen and start the game right from there → then slot the cartridge or UMD into the real console. 1min 8sec recorded straight from the beta 0.5 build">기종 진열대를 훑고 → 케이스를 열어 앞뒤로 살펴보고 → 내장 화면으로 플레이 영상을 보다가 그 자리에서 게임 시작 → 카트리지·UMD를 실물 본체에 꽂아 실행까지. 베타 0.5 빌드를 그대로 녹화한 1분 8초</span>
         </div>
       </div>
 
       <!-- 실기기 영상 — 카메라로 찍은 실물. 소리가 있어 자동재생 대신 클릭 재생 -->
       <div class="live2 reveal">
         <div class="shot">
-          <video controls playsinline preload="none" poster="assets/hbl_ondevice_poster.jpg"
+          <video controls playsinline preload="none" poster="assets/hbl_ondevice_poster_v2.jpg"
                  aria-label="RG 476H 실기기 구동 영상">
-            <source src="assets/hbl_ondevice.mp4" type="video/mp4" />
+            <source src="assets/hbl_ondevice_v2.mp4" type="video/mp4" />
           </video>
-          <div class="cap"><b data-ko="▶ 실기기 구동 — RG 476H" data-en="▶ On real hardware — RG 476H">▶ 실기기 구동 — RG 476H</b><span data-ko="안드로이드 핸드헬드에서 그대로 — 진열대, TV 플레이 영상, 케이스 개봉, 게임 실행, 옵션까지" data-en="Straight on an Android handheld — the shelf, TV gameplay video, opening cases, launching a game, and the options">안드로이드 핸드헬드에서 그대로 — 진열대, TV 플레이 영상, 케이스 개봉, 게임 실행, 옵션까지</span></div>
+          <div class="cap"><b data-ko="▶ 실기기 구동 — RG 476H" data-en="▶ On real hardware — RG 476H">▶ 실기기 구동 — RG 476H</b><span data-ko="안드로이드 핸드헬드에서 그대로 — 진열대, 케이스 개봉, 본체에 꽂아 실행, 기종별 에뮬레이터 옵션까지. 베타 0.5 빌드, 2분 11초" data-en="Straight on an Android handheld — the shelf, opening cases, slotting media into the console to launch, and per-system emulator options. Beta 0.5 build, 2min 11sec">안드로이드 핸드헬드에서 그대로 — 진열대, 케이스 개봉, 본체에 꽂아 실행, 기종별 에뮬레이터 옵션까지. 베타 0.5 빌드, 2분 11초</span></div>
         </div>
         <div class="shot">
           <video controls playsinline preload="none" poster="assets/hbl_sync_poster.jpg"
@@ -337,8 +347,8 @@
           <div class="cap"><b data-ko="② 게임 고르기" data-en="② Browse the games">② 게임 고르기</b><span data-ko="한국어 제목·발매연도·제작사를 해방툴 DB에서 함께 가져온다" data-en="Korean title, year and publisher pulled from the Rom Tool database">한국어 제목·발매연도·제작사를 해방툴 DB에서 함께 가져온다</span></div>
         </div>
         <div class="shot reveal">
-          <div class="imgw"><img src="assets/hbl_b4_clamshell.jpg" alt="클램셸 케이스" loading="lazy" /></div>
-          <div class="cap"><b data-ko="③ 클램셸 — 메가드라이브" data-en="③ Clamshell — Mega Drive">③ 클램셸 — 메가드라이브</b><span data-ko="책처럼 열리면 뚜껑에 설명서, 뒷판에 카트리지" data-en="Opens like a book: manual in the lid, cartridge on the back panel">책처럼 열리면 뚜껑에 설명서, 뒷판에 카트리지</span></div>
+          <div class="imgw"><img src="assets/hbl_demo_poster_v3.jpg" alt="클램셸 케이스 — 메가드라이브 소닉" loading="lazy" /></div>
+          <div class="cap"><b data-ko="③ 클램셸 — 메가드라이브" data-en="③ Clamshell — Mega Drive">③ 클램셸 — 메가드라이브</b><span data-ko="책처럼 열리면 뚜껑에 설명서, 뒷판에 카트리지 — 그 자리에서 게임 정보·영상 보기·게임 시작" data-en="Opens like a book: manual in the lid, cartridge on the back panel — game info, video and launch right from there">책처럼 열리면 뚜껑에 설명서, 뒷판에 카트리지 — 그 자리에서 게임 정보·영상 보기·게임 시작</span></div>
         </div>
         <div class="shot reveal">
           <div class="imgw"><img src="assets/hbl_b4_cardboard.jpg" alt="종이곽" loading="lazy" /></div>
@@ -353,7 +363,22 @@
           <div class="cap"><b data-ko="⑥ 꽂으면 실행 — 실물 본체" data-en="⑥ Slot it in — real hardware">⑥ 꽂으면 실행 — 실물 본체</b><span data-ko="꺼낸 카트리지·디스크가 그 기종의 본체에 꽂히며 게임이 시작된다" data-en="The cartridge or disc you pulled goes into that system's own console — and the game begins">꺼낸 카트리지·디스크가 그 기종의 본체에 꽂히며 게임이 시작된다</span></div>
         </div>
       </div>
-      <p class="dev-note" data-ko="* 베타 0.4 빌드의 실제 화면입니다. 기종마다 실물 케이스 구조와 매체(카트리지·디스크·UMD·게임카드)를 실제 치수(mm)대로 만듭니다. Windows에서 RetroArch 실행, 안드로이드 핸드헬드 실기기(60fps) 구동까지 검증되었습니다." data-en="* Real captures of the beta 0.4 build. Every system gets its own true-to-life case and media (cartridge, disc, UMD, game card) built at real millimetre dimensions. Verified launching RetroArch on Windows and running at 60fps on a real Android handheld.">* 베타 0.4 빌드의 실제 화면입니다. 기종마다 실물 케이스 구조와 매체(카트리지·디스크·UMD·게임카드)를 실제 치수(mm)대로 만듭니다. Windows에서 RetroArch 실행, 안드로이드 핸드헬드 실기기(60fps) 구동까지 검증되었습니다.</p>
+      <p class="dev-note" data-ko="* 베타 0.5 빌드의 실제 화면입니다. 기종마다 실물 케이스 구조와 매체(카트리지·디스크·UMD·게임카드)를 실제 치수(mm)대로 만듭니다. Windows에서 RetroArch 실행, 안드로이드 핸드헬드 실기기(60fps) 구동까지 검증되었습니다." data-en="* Real captures of the beta 0.5 build. Every system gets its own true-to-life case and media (cartridge, disc, UMD, game card) built at real millimetre dimensions. Verified launching RetroArch on Windows and running at 60fps on a real Android handheld.">* 베타 0.5 빌드의 실제 화면입니다. 기종마다 실물 케이스 구조와 매체(카트리지·디스크·UMD·게임카드)를 실제 치수(mm)대로 만듭니다. Windows에서 RetroArch 실행, 안드로이드 핸드헬드 실기기(60fps) 구동까지 검증되었습니다.</p>
+
+      <!-- 베타 0.5 변경점 -->
+      <div class="chg reveal">
+        <div class="chg-head">
+          <span class="chg-ver" data-ko="베타 0.5" data-en="BETA 0.5">베타 0.5</span>
+          <h3 data-ko="이번 빌드에서 달라진 것" data-en="What changed in this build">이번 빌드에서 달라진 것</h3>
+        </div>
+        <ul>
+          <li data-ko="여러 게임기의 모델·텍스처와 본체 표시 크기를 다듬었습니다." data-en="Reworked models and textures for several systems, with better on-screen console sizing."><b>여러 게임기의 모델·텍스처</b>와 본체 표시 크기를 다듬었습니다.</li>
+          <li data-ko="NES 카트리지·PSP UMD 를 입체로 만들고, 삽입·배출 동작을 보정했습니다." data-en="NES cartridges and PSP UMDs are now fully 3D, with corrected insert and eject motion."><b>NES 카트리지·PSP UMD</b> 를 입체로 만들고, 삽입·배출 동작을 보정했습니다.</li>
+          <li data-ko="내장 화면에서 플레이 영상을 재생하고, 게임 시작·종료 때의 확대와 잡음 연출을 개선했습니다." data-en="Gameplay video plays on the built-in screen, and the zoom and static effects on game start and exit are improved."><b>내장 화면 영상 재생</b>, 게임 시작·종료 때의 확대와 잡음 연출을 개선했습니다.</li>
+          <li data-ko="A/B 버튼 안내를 더하고, 영상을 보다가 바로 게임을 시작할 수 있으며, 빠른 뒤로 가기 오류를 고쳤습니다." data-en="Added A/B button hints, you can start the game straight from the video, and the quick-back bug is fixed."><b>A/B 버튼 안내</b>, 영상에서 바로 게임 시작, 빠른 뒤로 가기 오류 수정.</li>
+          <li data-ko="에뮬레이터 목록을 해방툴 기준으로 갱신했습니다." data-en="The emulator list is refreshed to match the Rom Tool."><b>에뮬레이터 목록</b>을 해방툴 기준으로 갱신했습니다.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
