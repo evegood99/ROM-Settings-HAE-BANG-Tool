@@ -280,8 +280,8 @@
               </li>
               <li class="now">
                 <span class="rd" data-ko="후원자 전용" data-en="Sponsors">후원자 전용</span>
-                <span data-ko="v1.0.6 베타 — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.7 → … → 1.1). 시스템 제외 없음"
-                      data-en="v1.0.6 beta — via sponsor code. Keeps receiving minor updates (v1.0.7 → … → 1.1). No systems excluded"><b>v1.0.6 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.5 → … → 1.1). 시스템 제외 없음</span>
+                <span data-ko="v1.0.7 베타 — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.8 → … → 1.1). 시스템 제외 없음"
+                      data-en="v1.0.7 beta — via sponsor code. Keeps receiving minor updates (v1.0.8 → … → 1.1). No systems excluded"><b>v1.0.7 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.8 → … → 1.1). 시스템 제외 없음</span>
               </li>
               <li class="next-up">
                 <span class="rd" data-ko="v1.1 까지" data-en="Toward v1.1">v1.1 까지</span>
@@ -310,6 +310,49 @@
       </div>
 
       <div class="tl">
+
+        <!-- 2026-09-15 : 해방툴 v1.0.7 + PRO 예고 -->
+        <article class="tl-item hl reveal">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.09.15</div>
+          <h3 class="tl-title" data-ko="해방툴 v1.0.7 — 저화질 내보내기·게임 숨김·기기 경로 자동 맞춤, 그리고 PRO 예고" data-en="Rom Tool v1.0.7 — low-res export, hidden games, device paths that fix themselves, and a PRO preview">해방툴 v1.0.7 &mdash; 저화질 내보내기·게임 숨김·기기 경로 자동 맞춤, 그리고 PRO 예고</h3>
+          <div class="tags">
+            <span class="tag new" data-ko="신규" data-en="New">신규</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+          </div>
+          <div class="tl-body">
+            <p data-ko="편의 기능이 여럿 더해지고 오류를 대폭 손본 판입니다. 내보내기·가져오기, 데이터 편집, 화면 순으로 정리했습니다." data-en="A build heavy on conveniences and a long list of fixes — grouped here by export &amp; import, editing, and the screen.">편의 기능이 여럿 더해지고 오류를 대폭 손본 판입니다. 내보내기·가져오기, 데이터 편집, 화면 순으로 정리했습니다.</p>
+            <ul>
+              <li data-ko="내보낼 때 미디어와 영상을 저화질로 줄여 보낼 수 있습니다. 저장 공간이 빠듯한 핸드헬드에 이미지·영상을 가볍게 담을 때 [저화질 모드]를 켜세요."
+                  data-en="Exports can now shrink media and video to a low-res mode — handy for handhelds short on storage."><b>저화질 모드 내보내기.</b> 내보낼 때 미디어와 영상을 저화질로 줄여 보낼 수 있습니다 — 저장 공간이 빠듯한 핸드헬드에 이미지·영상을 가볍게 담을 때 켜세요.</li>
+              <li data-ko="게임 목록에서 게임을 숨길 수 있습니다. 숨긴 게임은 내보내기에서도 빠집니다 — 목록은 그대로 두고 기기에는 안 보내고 싶은 게임을 골라내세요."
+                  data-en="Games can be hidden from the list, and hidden games are left out of exports — keep them in the library, skip them on the device."><b>게임 숨김.</b> 게임 목록에서 게임을 숨길 수 있고, 숨긴 게임은 내보내기에서도 빠집니다 — 목록은 그대로 두고 기기에는 안 보내고 싶은 게임을 골라내세요.</li>
+              <li data-ko="시스템별 롬 경로를 기기 설정 그대로 보여 줍니다. ES-DE custom_systems 의 &lt;path&gt; 와 페가수스 game_dirs 를 읽어 기기가 실제로 보는 경로를 표시하고, 다른 경로로 바꾸면 물어본 뒤 기기 설정까지 자동으로 고쳐 줍니다."
+                  data-en="Per-system ROM paths now mirror the device's own settings — read from ES-DE custom_systems &lt;path&gt; and Pegasus game_dirs. Change a path and the Rom Tool asks, then updates the device's settings for you."><b>기기 설정 기준 롬 경로.</b> ES-DE custom_systems 의 &lt;path&gt; 와 페가수스 game_dirs 를 읽어 기기가 실제로 보는 시스템별 롬 경로를 보여 주고, 다른 경로로 바꾸면 물어본 뒤 기기 설정까지 자동으로 고쳐 줍니다.</li>
+              <li data-ko="프론트엔드 코어 설정에서 고를 수 있는 코어와 스탠드얼론 에뮬레이터가 늘었고, 가져오기에서 페가수스 롬 디렉토리의 시스템 인식률이 높아졌습니다."
+                  data-en="More cores and standalone emulators to pick from in the frontend core settings, and Pegasus ROM directories are recognised as systems more reliably on import."><b>코어·스탠드얼론 추가, 페가수스 인식 향상.</b> 프론트엔드 코어 설정에서 고를 수 있는 코어와 스탠드얼론 에뮬레이터가 늘었고, 가져오기에서 페가수스 롬 디렉토리의 시스템 인식률이 높아졌습니다.</li>
+              <li data-ko="영상 미디어를 바꿀 때 내 PC 에 있는 영상 파일을 그대로 쓸 수 있고, 원하는 구간만 잘라 넣을 수 있습니다."
+                  data-en="When replacing a game's video you can use a local video file and trim it to just the part you want."><b>로컬 영상 적용·자르기.</b> 영상 미디어를 바꿀 때 내 PC 에 있는 영상 파일을 그대로 쓸 수 있고, 원하는 구간만 잘라 넣을 수 있습니다.</li>
+              <li data-ko="화면 — 게임 목록과 미디어 정보 사이의 경계를 마우스로 끌어 크기를 조절할 수 있고, 게임 목록 컬럼 너비는 시스템을 바꿔도 최대한 유지됩니다. HB런처 단추는 따로 있던 자리에서 빠지고 [내보내기] 단추 아래로 들어갔습니다."
+                  data-en="Screen — drag the divider between the game list and media panel to resize, column widths survive switching systems, and the HB Launcher button moved under the Export button."><b>화면.</b> 게임 목록과 미디어 정보 사이의 경계를 마우스로 끌어 크기를 조절할 수 있고, 게임 목록 컬럼 너비는 시스템을 바꿔도 최대한 유지됩니다. HB런처 단추는 따로 있던 자리에서 빠지고 [내보내기] 단추 아래로 들어갔습니다.</li>
+              <li data-ko="오류 수정 — 우클릭 때 내부적으로 체크가 걸리던 것, cue·m3u 등으로 시스템을 추가할 때 일부 인코딩에서 나던 오류, 외부 기기 용량이 모자라면 바로 알리고 내보내기를 멈추도록, ADB 연결 인식 안정성, APK 설치를 Play 프로텍트나 USB 설치 앱 확인이 막으면 검증을 잠시 끄고 다시 설치, 실패·취소인데 [작업 완료]로 보이던 것, 로컬 배치 재스캔이 순식간에 끝나면 멈추던 것 — 그 밖에도 여러 종류의 오류를 대폭 손봤습니다."
+                  data-en="Fixes — a phantom check triggered on right-click; encoding errors when adding systems from cue/m3u files; exports now stop with a clear message when the device runs out of space; steadier ADB detection; if Play Protect or the USB-install check blocks an APK, verification is paused and the install retried; failed or cancelled jobs no longer show as done; local batch rescans no longer stall when they finish instantly — plus a wide sweep of other bugs."><b>오류 수정.</b> 우클릭 때 내부적으로 체크가 걸리던 것, cue·m3u 등으로 시스템을 추가할 때 일부 인코딩에서 나던 오류, 외부 기기 용량이 모자라면 바로 알리고 내보내기를 멈추도록, ADB 연결 인식 안정성, APK 설치를 Play 프로텍트나 USB 설치 앱 확인이 막으면 검증을 잠시 끄고 다시 설치, 실패·취소인데 [작업 완료]로 보이던 것, 로컬 배치 재스캔이 순식간에 끝나면 멈추던 것 — 그 밖에도 여러 종류의 오류를 대폭 손봤습니다.</li>
+              <li data-ko="지금 후원자 전용 베타 다운로드에서 받으실 수 있습니다. 스폰서 코드를 입력하면 목록에 v1.0.7 이 보입니다."
+                  data-en="Available now from the sponsor beta download — enter your sponsor code and v1.0.7 will be in the list."><b>지금 후원자 전용 베타 다운로드에서 받으실 수 있습니다.</b> 스폰서 코드를 입력하면 목록에 v1.0.7 이 보입니다.</li>
+            </ul>
+            <p data-ko="그리고 PRO 에디션 업그레이드가 조만간 진행됩니다. 개발 중인 1차 내용은 아래 두 가지이고, 앞으로 PRO 만의 차별화된 기능을 계속 더해 갈 예정입니다." data-en="And a PRO edition upgrade is coming soon. The first two features in development are below, with more PRO-only capabilities to follow."><b>그리고 PRO 에디션 업그레이드가 조만간 진행됩니다.</b> 개발 중인 1차 내용은 아래 두 가지이고, 앞으로 PRO 만의 차별화된 기능을 계속 더해 갈 예정입니다.</p>
+            <ul>
+              <li data-ko="[외부 기기로 전환] — 해방툴이 외부 기기(안드로이드·리눅스 커스텀 OS)에 직접 붙어, 그 기기의 ES-DE·페가수스 게임 목록을 그대로 해방툴 게임 목록으로 보여 줍니다. 메타 정보 편집, 미디어 업데이트, 재스캔, 실행기 설정, 게임 추가·삭제를 기기에 붙은 채로 바로 합니다. PC 가 허브 역할을 하기 어려울 때(하드디스크 여유가 없을 때 등), 또는 특정 기기만 빠르게 손보고 싶을 때 — 해방툴이 기기 자체에서 게임을 스캔하고 편집합니다."
+                  data-en="[Switch to device] — the Rom Tool attaches directly to an external device (Android or custom Linux OS) and shows that device's ES-DE / Pegasus game list as its own library. Edit metadata, update media, rescan, set up launchers, add and remove games — all directly on the device. When your PC can't act as the hub (no disk space, say) or you just want to touch up one device quickly, the Rom Tool scans and edits on the device itself."><b>[외부 기기로 전환]</b> — 해방툴이 외부 기기(안드로이드·리눅스 커스텀 OS)에 직접 붙어, 그 기기의 ES-DE·페가수스 게임 목록을 그대로 해방툴 게임 목록으로 보여 줍니다. 메타 정보 편집, 미디어 업데이트, 재스캔, 실행기 설정, 게임 추가·삭제를 기기에 붙은 채로 바로 합니다. PC 가 허브 역할을 하기 어려울 때(하드디스크 여유가 없을 때 등), 또는 특정 기기만 빠르게 손보고 싶을 때 — 해방툴이 기기 자체에서 게임을 스캔하고 편집합니다.</li>
+              <li data-ko="[HB파일] — 로컬로 추가한 시스템의 저장 정보를 파일로 저장하고 불러옵니다. 나만의 시스템 셋을 파일 단위로 관리할 수 있습니다."
+                  data-en="[HB file] — save the systems you added locally to a file and load them back. Manage your own system sets, one file each."><b>[HB파일]</b> — 로컬로 추가한 시스템의 저장 정보를 파일로 저장하고 불러옵니다. 나만의 시스템 셋을 파일 단위로 관리할 수 있습니다.</li>
+            </ul>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="haebang.html#download" data-ko="베타 다운로드로 이동 →" data-en="Go to beta download →">베타 다운로드로 이동 →</a>
+            </div>
+          </div>
+        </article>
 
         <!-- 2026-09-15 : HB런처 베타 0.5 -->
         <article class="tl-item hl reveal">
