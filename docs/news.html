@@ -280,8 +280,8 @@
               </li>
               <li class="now">
                 <span class="rd" data-ko="후원자 전용" data-en="Sponsors">후원자 전용</span>
-                <span data-ko="v1.0.8 베타 — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.9 → … → 1.1). 시스템 제외 없음"
-                      data-en="v1.0.8 beta — via sponsor code. Keeps receiving minor updates (v1.0.9 → … → 1.1). No systems excluded"><b>v1.0.8 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.9 → … → 1.1). 시스템 제외 없음</span>
+                <span data-ko="v1.0.9 베타 — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.10 → … → 1.1). 시스템 제외 없음"
+                      data-en="v1.0.9 beta — via sponsor code. Keeps receiving minor updates (v1.0.10 → … → 1.1). No systems excluded"><b>v1.0.9 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.10 → … → 1.1). 시스템 제외 없음</span>
               </li>
               <li class="next-up">
                 <span class="rd" data-ko="v1.1 까지" data-en="Toward v1.1">v1.1 까지</span>
@@ -311,8 +311,71 @@
 
       <div class="tl">
 
-        <!-- 2026-09-17 : 해방툴 v1.0.8 -->
+        <!-- 2026-09-22 : 해방툴 v1.0.9 -->
         <article class="tl-item hl reveal">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.09.22</div>
+          <h3 class="tl-title" data-ko="해방툴 v1.0.9 — 리눅스 포크별 내보내기, 하위 폴더 시스템 추가, 파일 교체, 그리고 PRO 의 Wi-Fi 기기·게임 아카이브" data-en="Rom Tool v1.0.9 — per-fork Linux export, sub-folder systems, file replace, and PRO Wi-Fi devices &amp; the game archive">해방툴 v1.0.9 &mdash; 리눅스 포크별 내보내기, 하위 폴더 시스템 추가, 파일 교체, 그리고 PRO 의 Wi-Fi 기기·게임 아카이브</h3>
+          <div class="tags">
+            <span class="tag new" data-ko="신규" data-en="New">신규</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+          </div>
+          <div class="tl-body">
+            <p data-ko="내보내기·가져오기와 시스템 추가에서 그동안 제보된 문제를 한꺼번에 정리한 판입니다. 게임 목록에는 파일 교체가 새로 들어갔고, PRO 에디션은 Wi-Fi 리눅스 기기와 게임 아카이브 전환으로 한 단계 더 나갔습니다." data-en="A clean-up release for export/import and system adding, based on the issues reported so far. The game list gains file replacement, and the PRO edition takes a step further with Wi-Fi Linux devices and the game-archive view.">내보내기·가져오기와 시스템 추가에서 그동안 제보된 문제를 한꺼번에 정리한 판입니다. 게임 목록에는 <b>파일 교체</b>가 새로 들어갔고, PRO 에디션은 <b>Wi-Fi 리눅스 기기</b>와 <b>게임 아카이브 전환</b>으로 한 단계 더 나갔습니다.</p>
+
+            <p data-ko="내보내기 · 가져오기" data-en="Export &amp; import"><b>내보내기 · 가져오기</b></p>
+            <ul>
+              <li data-ko="리눅스 선택지가 [Batocera · KNULLI] 와 [ROCKNIX · JELOS] 로 나뉩니다. 포크마다 롬 폴더 이름이 달라 일부 시스템이 기기에서 안 보이던 문제가 이것으로 해결됩니다."
+                  data-en="The Linux choice is now split into [Batocera · KNULLI] and [ROCKNIX · JELOS]. Each fork names its ROM folders differently, which is why some systems never showed up on the device — fixed."><b>리눅스 선택지 분리</b> — [Batocera · KNULLI] 와 [ROCKNIX · JELOS] 로 나뉩니다. 포크마다 롬 폴더 이름이 달라 일부 시스템이 안 보이던 문제가 해결됩니다.</li>
+              <li data-ko="롬 폴더 이름이 고정된 프론트엔드를 골랐을 때 다른 폴더 이름을 넣으면 경고하고, 맞는 이름으로 자동으로 바꿔 줍니다."
+                  data-en="With a frontend whose ROM folder names are fixed, entering a different folder name now warns you and corrects it automatically."><b>폴더 이름 자동 교정</b> — 롬 폴더 이름이 고정된 프론트엔드를 골랐을 때 다른 이름을 넣으면 경고하고, 맞는 이름으로 자동으로 바꿉니다.</li>
+              <li data-ko="RetroArch 재생목록에서 하위 폴더가 빠져 게임이 실행되지 않던 문제를 고쳤습니다."
+                  data-en="RetroArch playlists were dropping sub-folders, so games would not launch — fixed."><b>RetroArch 재생목록</b> — 하위 폴더가 빠져 실행이 안 되던 문제를 고쳤습니다.</li>
+              <li data-ko="FBNeo, Model 2 처럼 게임 이름만 받는 실행기의 롬 폴더 설정을 맞춰 줍니다."
+                  data-en="ROM folder settings are now set up correctly for launchers that take only a game name, such as FBNeo and Model 2."><b>이름만 받는 실행기</b> — FBNeo, Model 2 처럼 게임 이름만 받는 실행기의 롬 폴더 설정을 맞춰 줍니다.</li>
+              <li data-ko="가져오기에서 일부 아케이드 폴더를 알아보지 못하던 문제를 고쳤습니다."
+                  data-en="Import no longer misses certain arcade folders."><b>가져오기</b> — 일부 아케이드 폴더를 알아보지 못하던 문제를 고쳤습니다.</li>
+            </ul>
+
+            <p data-ko="시스템 추가" data-en="Adding systems"><b>시스템 추가</b></p>
+            <ul>
+              <li data-ko="롬 폴더 안에 장르 같은 카테고리용 하위 폴더가 있으면 구조를 바로 살펴, 폴더마다 시스템을 따로 추가합니다. 장르별로 나눠 둔 롬 폴더를 그대로 쓸 수 있습니다."
+                  data-en="If the ROM folder contains category sub-folders (by genre, say), the structure is read right away and a system is added per folder — ROM folders you already sorted by genre work as-is."><b>하위 폴더 = 시스템</b> — 롬 폴더 안에 장르 같은 카테고리용 하위 폴더가 있으면 구조를 바로 살펴, 폴더마다 시스템을 따로 추가합니다. 장르별로 나눠 둔 롬 폴더에 유리합니다.</li>
+              <li data-ko="미디어 다운로드 효율을 높였습니다."
+                  data-en="Media downloads are more efficient."><b>미디어 다운로드</b> 효율을 높였습니다.</li>
+              <li data-ko="같은 이름의 CHD 폴더, 압축을 푼 사본, bios 같은 곁다리 폴더를 걸러 내어 중복 등록을 없앴습니다."
+                  data-en="Side folders — a CHD folder of the same name, an unzipped copy, bios — are filtered out, so nothing is registered twice."><b>중복 등록 제거</b> — 같은 이름의 CHD 폴더, 압축 푼 사본, bios 같은 곁다리 폴더를 걸러 냅니다.</li>
+              <li data-ko="여러 장짜리 CD 게임을 여러 게임으로 오인하지 않습니다."
+                  data-en="Multi-disc CD games are no longer mistaken for several games."><b>멀티 디스크</b> — 여러 장짜리 CD 게임을 여러 게임으로 오인하지 않습니다.</li>
+            </ul>
+
+            <p data-ko="게임 목록" data-en="Game list"><b>게임 목록</b></p>
+            <ul>
+              <li data-ko="파일 교체가 추가되었습니다. 게임을 우클릭하고 [파일 교체]를 고르면, 그 게임에 연결된 파일 경로와 파일을 다른 파일로 바꿉니다."
+                  data-en="File replace: right-click a game and choose [Replace file] to swap the file (and path) linked to that game for another."><b>파일 교체</b> — 게임을 우클릭하고 [파일 교체]를 고르면, 그 게임에 연결된 파일 경로와 파일을 다른 파일로 바꿉니다.</li>
+              <li data-ko="PRO 의 [외부 기기로 전환] 상태에서도 됩니다 — 기기에 있는 파일을 로컬 파일로 교체하면 새 파일을 바로 기기로 보내고 기존 파일은 지웁니다. 새 파일명에 따라 메타 정보를 고치고, 페가수스처럼 파일명 기반으로 미디어 경로를 잡는 프론트엔드는 미디어 경로까지 함께 고칩니다."
+                  data-en="It also works while switched to a device (PRO): replace a file on the device with a local one and the new file is sent straight to the device, the old one removed, the metadata updated for the new filename — and for frontends that key media paths on the filename (Pegasus), the media paths are fixed too.">PRO 의 <b>[외부 기기로 전환]</b> 상태에서도 됩니다 — 기기의 파일을 로컬 파일로 교체하면 새 파일을 바로 기기로 보내고 기존 파일은 지웁니다. 새 파일명에 따라 메타 정보를 고치고, 페가수스처럼 파일명 기반으로 미디어 경로를 잡는 프론트엔드는 미디어 경로까지 함께 고칩니다.</li>
+              <li data-ko="지금 후원자 전용 베타 다운로드에서 받으실 수 있습니다. 스폰서 코드를 입력하면 목록에 v1.0.9 가 보입니다."
+                  data-en="Available now from the sponsor beta download — enter your sponsor code and v1.0.9 will be in the list."><b>지금 후원자 전용 베타 다운로드에서 받으실 수 있습니다.</b> 스폰서 코드를 입력하면 목록에 v1.0.9 가 보입니다.</li>
+            </ul>
+
+            <p data-ko="PRO 에디션에 더해진 것" data-en="Added to the PRO edition"><b>PRO 에디션에 더해진 것</b></p>
+            <ul>
+              <li data-ko="[외부 기기로 전환] — Wi-Fi(SFTP) 리눅스 핸드헬드를 지원합니다. Batocera · KNULLI · ROCKNIX · JELOS · ArkOS 의 EmulationStation 목록을 USB 연결과 똑같이 다룹니다. 기기에서도 M3U 병합이 되고, ES-DE 와 페가수스 모두 메타 정보까지 함께 고칩니다. 탐색기에서 파일을 지우거나 옮기면 목록이 바로 [롬 없음]으로 바뀌고, 시스템 추가 때 일부 잘못 잡히던 폴더 이름을 고쳤습니다."
+                  data-en="[Switch to device] — Wi-Fi (SFTP) Linux handhelds are supported: the EmulationStation lists of Batocera, KNULLI, ROCKNIX, JELOS and ArkOS are handled exactly like a USB connection. M3U merging works on the device too, fixing the metadata for both ES-DE and Pegasus; deleting or moving a file in the explorer flips the entry to [no ROM] at once; and some folder names that came out wrong when adding systems are corrected."><b>[외부 기기로 전환]</b> — <b>Wi-Fi(SFTP) 리눅스 핸드헬드</b>를 지원합니다. Batocera · KNULLI · ROCKNIX · JELOS · ArkOS 의 EmulationStation 목록을 USB 연결과 똑같이 다룹니다. 기기에서도 <b>M3U 병합</b>이 되고(ES-DE·페가수스 모두 메타 정보까지 함께), 탐색기에서 파일을 지우거나 옮기면 목록이 바로 [롬 없음]으로 바뀌며, 시스템 추가 때 일부 잘못 잡히던 폴더 이름을 고쳤습니다.</li>
+              <li data-ko="[게임 아카이브로 전환] — 새 기능입니다. 지원하는 모든 시스템의 게임 목록과 메타 정보·미디어를 해방툴 안에서 바로 봅니다. 롬을 추가하지 않아도, 어떤 기종에 어떤 게임이 있는지 해방툴에서 직접 확인할 수 있습니다."
+                  data-en="[Switch to game archive] — new. Browse the game list, metadata and media of every supported system right inside the Rom Tool. No ROMs needed — see which games exist for which system, directly in the tool."><b>[게임 아카이브로 전환]</b> — 새 기능입니다. 지원하는 <b>모든 시스템의 게임 목록과 메타 정보·미디어</b>를 해방툴 안에서 바로 봅니다. 롬을 추가하지 않아도, 어떤 기종에 어떤 게임이 있는지 해방툴에서 직접 확인할 수 있습니다.</li>
+            </ul>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="haebang.html#download" data-ko="베타 다운로드로 이동 →" data-en="Go to beta download →">베타 다운로드로 이동 →</a>
+              <a class="btn btn-ghost" href="guide.html" data-ko="문서 보기 →" data-en="Read the docs →">문서 보기 →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2026-09-17 : 해방툴 v1.0.8 -->
+        <article class="tl-item reveal">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.17</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.8 — 새 이미지 편집기, 리전 일괄·이용자 리전, 그리고 PRO 기능이 자라는 중" data-en="Rom Tool v1.0.8 — a new image editor, batch regions &amp; a user region, and PRO features taking shape">해방툴 v1.0.8 &mdash; 새 이미지 편집기, 리전 일괄·이용자 리전, 그리고 PRO 기능이 자라는 중</h3>
