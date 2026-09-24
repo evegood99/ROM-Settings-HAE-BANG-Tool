@@ -224,6 +224,15 @@
     .menu-btn{display:inline-flex}
     .mnav{display:block}
   }
+  .ytbtn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px;
+    border:1px solid var(--border2); background:var(--surface); color:#ff4d4d; transition:.18s}
+  .ytbtn:hover{color:#fff; background:#e0261c; border-color:#e0261c; transform:translateY(-1px)}
+  .vidbar{display:flex; align-items:center; gap:14px; margin:18px 0 26px; padding:14px 16px; border:1px solid var(--border2);
+    border-radius:14px; background:var(--surface); transition:.18s}
+  .vidbar:hover{border-color:#e0261c; transform:translateY(-1px)}
+  .vidbar .ic{flex:none; width:44px; height:44px; border-radius:11px; background:#e0261c; color:#fff; display:flex; align-items:center; justify-content:center}
+  .vidbar b{display:block; font-size:14.5px; font-weight:800; letter-spacing:-.01em}
+  .vidbar span{display:block; font-size:12.5px; color:var(--muted); margin-top:2px}
 </style>
 </head>
 <body>
@@ -244,6 +253,7 @@
       <a href="story.html" class="active"><span class="ko-only">읽을거리</span><span class="en-only">Read</span></a>
     </nav>
     <div class="nav-right">
+      <a class="ytbtn" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" title="해방 레트로 유튜브 채널" aria-label="YouTube"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
       <button class="langbtn" id="langBtn">EN</button>
     </div>
   
@@ -287,6 +297,7 @@
     <!-- KO -->
     <div class="article ko-only">
       <p class="kicker reveal">PART 1 — 게임팩에서 만능게임기까지</p>
+      <a class="vidbar reveal" href="https://youtu.be/roCR76dQJWQ" target="_blank" rel="noopener"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span><b>영상으로 보기 — 레트로 게임 세팅은 왜 이렇게 복잡해 보일까?</b><span>유튜브 · 해방 레트로 채널</span></span></a>
       <p class="dropcap reveal">에뮬레이터 세계에 처음 발을 들이면 대부분 시작이 막막합니다. 에뮬레이터는 뭐고, 레트로아크는 뭐고, 프론트엔드에 세팅까지… <em>"뭐가 이리 복잡해!"</em> 라는 말이 절로 나오는 게 당연합니다. 그러다 보니 그냥 누군가 다 만들어 둔 것을 받아 쓰는 경우도 많죠.</p>
       <p class="reveal">세상에는 사용법 위주의 글이 많습니다. 그래서 저는 조금 다르게, <strong>"왜 이런 프로그램들이 생겼는지"</strong> 이해의 폭을 넓혀 보자는 마음으로 이 글을 씁니다. 어릴 때부터 컴퓨터와 게임을 좋아한 분들 중에는 저처럼 에뮬레이터의 발전사와 함께 게임을 즐겨 온 분도 많을 겁니다. <span class="hl">ZSNES, NESticle</span>을 아신다면… 네, 고인물 인증입니다. 이 글은 이제 막 레트로 에뮬 세계에 발을 들인 분들, 옛 게임기의 추억이 있는 분들, 레트로 게임을 좋아하는 뉴비를 위해 최대한 쉽게 적었습니다.</p>
       <p class="reveal">그러니 초보자의 시선에서, 제 옛 행적(?)과 함께 끄적인 이 이야기를 찬찬히 즐기며 읽어 주시면 좋겠습니다.</p>
@@ -419,6 +430,7 @@
     <!-- KO -->
     <div class="article ko-only">
       <p class="kicker reveal">PART 2 — 프론트엔드와 레트로아크</p>
+      <a class="vidbar reveal" href="https://youtu.be/-OO5caU08jw" target="_blank" rel="noopener"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span><b>영상으로 보기 — 게임 목록은 뜨는데 왜 실행이 안 돼?</b><span>유튜브 · 해방 레트로 채널</span></span></a>
       <p class="dropcap reveal">1부를 짧게 요약하면 이렇습니다. 우리는 만능게임기(<strong>레트로아크</strong>)로 여러 종류의 게임팩(게임 롬)을 구동할 수 있다 — 각종 게임기의 CPU(코어)를 탑재하고 있으니까. 잘만 쓰면 엄청난 종류의 게임이 돌아간다! 그런데… 뭔가 허전합니다. 게임샵에서 고르듯 다양한 정보와 근사한 화면이 나오면 좋겠죠. 그래서 등장한 것이 <span class="hl">프론트엔드</span>였습니다. 자, 이제 프론트엔드를 좀 더 들여다봅시다.</p>
       <h2 class="reveal">프론트엔드의 핵심</h2>
       <p class="reveal">에뮬레이터 게임을 구동하는 프론트엔드의 핵심은 이렇습니다 — <strong>내가 가진 게임들의 자세한 정보, 다양한 이미지·영상, 미려한 게임 선택 화면, 그리고 구경하다 바로 실행하는 편리함.</strong></p>

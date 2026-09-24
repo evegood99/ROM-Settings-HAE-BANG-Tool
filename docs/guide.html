@@ -186,6 +186,9 @@
     color:var(--faint); transition:.18s; white-space:nowrap}
   .subbar a:hover,.subbar a.on{color:var(--text); background:var(--surface)}
   .subbar .sb-right{margin-left:auto}
+  .ytbtn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px;
+    border:1px solid var(--border2); background:var(--surface); color:#ff4d4d; transition:.18s}
+  .ytbtn:hover{color:#fff; background:#e0261c; border-color:#e0261c; transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -206,6 +209,7 @@
       <a href="story.html"><span class="ko-only">읽을거리</span><span class="en-only">Read</span></a>
     </nav>
     <div class="nav-right">
+      <a class="ytbtn" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" title="해방 레트로 유튜브 채널" aria-label="YouTube"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
       <button class="langbtn" id="langBtn">EN</button>
       <a class="btn btn-primary" href="haebang.html#download"><span class="ko-only">다운로드</span><span class="en-only">Download</span></a>
     </div>

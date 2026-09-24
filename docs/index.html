@@ -284,6 +284,28 @@
     .menu-btn{display:inline-flex}
     .mnav{display:block}
   }
+  .icon-btn.yt{color:#ff4d4d} .icon-btn.yt:hover{color:#fff; background:#e0261c; border-color:#e0261c}
+
+  /* ---------- Videos ---------- */
+  #videos .vwrap{display:grid; grid-template-columns:300px 1fr; gap:22px; align-items:start}
+  .ch-card{border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); padding:24px 22px; text-align:center}
+  .ch-card .yt-mark{width:56px; height:56px; border-radius:16px; background:#e0261c; color:#fff; display:inline-flex; align-items:center; justify-content:center; margin-bottom:14px}
+  .ch-card h3{margin:0 0 4px; font-size:17px; font-weight:800; letter-spacing:-.01em}
+  .ch-card .handle{font-size:13px; color:var(--muted); margin:0 0 14px}
+  .ch-card p{font-size:13.5px; color:var(--muted); margin:0 0 18px; line-height:1.6}
+  .ch-card .btn{width:100%; justify-content:center}
+  .vid-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+  .vcard{display:flex; flex-direction:column; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); overflow:hidden; transition:.2s}
+  .vcard:hover{transform:translateY(-4px); border-color:var(--border2); box-shadow:0 22px 50px -22px rgba(0,0,0,.8)}
+  .vthumb{position:relative; aspect-ratio:16/9; background:#0b0d14; overflow:hidden}
+  .vthumb img{width:100%; height:100%; object-fit:cover; display:block}
+  .vthumb .play{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:54px; height:38px; border-radius:10px; background:rgba(224,38,28,.92); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.45); transition:.2s}
+  .vcard:hover .vthumb .play{transform:translate(-50%,-50%) scale(1.08)}
+  .vmeta{padding:14px 16px 16px}
+  .vmeta .n-tag{display:inline-block; margin-bottom:8px}
+  .vmeta h4{margin:0; font-size:14.5px; font-weight:800; line-height:1.45; letter-spacing:-.01em}
+  @media (max-width:920px){ #videos .vwrap{grid-template-columns:1fr} .vid-grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:760px){ .vid-grid{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -307,6 +329,7 @@
       <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
     </nav>
     <div class="nav-right">
+      <a class="icon-btn yt" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" title="해방 레트로 유튜브 채널" aria-label="YouTube"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
       <button class="icon-btn lang" id="langBtn" title="Language" aria-label="Language">EN</button>
       <a class="btn btn-primary hide-s" href="haebang.html#download" data-ko="해방툴 다운로드" data-en="Get the Tool">해방툴 다운로드</a>
     </div>
@@ -378,6 +401,45 @@
   </section>
 
   <!-- 에코시스템 -->
+  <!-- Videos -->
+  <section id="videos">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">YOUTUBE</span>
+        <h2 data-ko="영상으로 보기" data-en="Watch on YouTube">영상으로 보기</h2>
+        <p data-ko="해방툴 사용법과 레트로 에뮬레이터 개념을, 쉽고 재미있게 풀어 올립니다."
+           data-en="How to use the Rom Tool, and the ideas behind retro emulation — explained simply.">해방툴 사용법과 레트로 에뮬레이터 개념을, 쉽고 재미있게 풀어 올립니다.</p>
+      </div>
+      <div class="vwrap">
+        <div class="ch-card reveal">
+          <span class="yt-mark"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></span>
+          <h3>해방 레트로</h3>
+          <p class="handle">@evegood_retro</p>
+          <p data-ko="해방툴 · 해방런처 · 에뮬레이터와 프론트엔드 이야기 · 레트로 게임 이야기"
+             data-en="Rom Tool · HB Launcher · emulators and front-ends · retro game stories">해방툴 · 해방런처 · 에뮬레이터와 프론트엔드 이야기 · 레트로 게임 이야기</p>
+          <a class="btn btn-primary" href="https://www.youtube.com/@evegood_retro?sub_confirmation=1" target="_blank" rel="noopener" data-ko="채널 구독하기" data-en="Subscribe">채널 구독하기</a>
+        </div>
+        <div class="vid-grid">
+        <a class="vcard reveal" href="https://youtu.be/PaoM01Gg0XI" target="_blank" rel="noopener">
+          <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/PaoM01Gg0XI/hqdefault.jpg" alt=""><span class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="vmeta"><span class="n-tag tool">해방툴</span><h4 data-ko="롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문" data-en="Retro handheld setup from one ROM folder — Rom Tool in 5 minutes">롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문</h4></div>
+        </a>
+        <a class="vcard reveal" href="https://youtu.be/roCR76dQJWQ" target="_blank" rel="noopener">
+          <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/roCR76dQJWQ/hqdefault.jpg" alt=""><span class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="vmeta"><span class="n-tag site">레트로 개념</span><h4 data-ko="레트로 게임 세팅은 왜 이렇게 복잡해 보일까? (PART 1)" data-en="Why does retro game setup look so complicated? (PART 1)">레트로 게임 세팅은 왜 이렇게 복잡해 보일까? (PART 1)</h4></div>
+        </a>
+        <a class="vcard reveal" href="https://youtu.be/-OO5caU08jw" target="_blank" rel="noopener">
+          <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/-OO5caU08jw/hqdefault.jpg" alt=""><span class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="vmeta"><span class="n-tag site">레트로 개념</span><h4 data-ko="게임 목록은 뜨는데 왜 실행이 안 돼? — 레트로아크·코어·프론트엔드 (PART 2)" data-en="The list shows but nothing runs — RetroArch, cores, front-ends (PART 2)">게임 목록은 뜨는데 왜 실행이 안 돼? — 레트로아크·코어·프론트엔드 (PART 2)</h4></div>
+        </a>
+        <a class="vcard reveal" href="https://youtu.be/-_Sv_RqxGN0" target="_blank" rel="noopener">
+          <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/-_Sv_RqxGN0/hqdefault.jpg" alt=""><span class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+          <div class="vmeta"><span class="n-tag launcher">HB런처</span><h4 data-ko="이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처" data-en="This is a game launcher? HB Launcher, cartridges and all">이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처</h4></div>
+        </a>
+        </div>
+      </div>
+    </div>
+  </section>
   <section id="ecosystem">
     <div class="wrap">
       <div class="sec-head reveal">
@@ -650,6 +712,7 @@
         <a href="news.html" data-ko="새로운 소식" data-en="News">새로운 소식</a>
         <a href="guide.html" data-ko="해방툴 가이드" data-en="Tool guide">해방툴 가이드</a>
         <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
+        <a href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" data-ko="유튜브 채널" data-en="YouTube channel">유튜브 채널</a>
       </div>
       <div class="foot-col">
         <h5 data-ko="후원" data-en="Support">후원</h5>

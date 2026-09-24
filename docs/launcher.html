@@ -220,6 +220,13 @@
     .menu-btn{display:inline-flex}
     .mnav{display:block}
   }
+  .icon-btn.yt{color:#ff4d4d} .icon-btn.yt:hover{color:#fff; background:#e0261c; border-color:#e0261c}
+  .ytline{display:flex; align-items:center; gap:14px; margin:18px auto 0; max-width:820px; padding:14px 18px;
+    border:1px solid var(--border2); border-radius:14px; background:var(--surface); transition:.18s}
+  .ytline:hover{border-color:#e0261c; transform:translateY(-1px)}
+  .ytline .ic{flex:none; width:44px; height:44px; border-radius:11px; background:#e0261c; color:#fff; display:flex; align-items:center; justify-content:center}
+  .ytline b{display:block; font-size:15px; font-weight:800; letter-spacing:-.01em}
+  .ytline small{display:block; font-size:12.5px; color:var(--muted); margin-top:2px}
 </style>
 </head>
 <body>
@@ -243,6 +250,7 @@
       <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
     </nav>
     <div class="nav-right">
+      <a class="icon-btn yt" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" title="해방 레트로 유튜브 채널" aria-label="YouTube"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
       <button class="icon-btn lang" id="langBtn" title="Language" aria-label="Language">EN</button>
     </div>
       <button class="menu-btn" id="menuBtn" aria-label="메뉴" aria-expanded="false">☰</button>
@@ -318,6 +326,7 @@
                 data-en="Browse the system shelf → open cases and look them over → watch gameplay on the built-in screen and start the game right from there → then slot the cartridge or UMD into the real console. 1min 8sec recorded straight from the beta 0.5 build">기종 진열대를 훑고 → 케이스를 열어 앞뒤로 살펴보고 → 내장 화면으로 플레이 영상을 보다가 그 자리에서 게임 시작 → 카트리지·UMD를 실물 본체에 꽂아 실행까지. 베타 0.5 빌드를 그대로 녹화한 1분 8초</span>
         </div>
       </div>
+      <a class="ytline reveal" href="https://youtu.be/-_Sv_RqxGN0" target="_blank" rel="noopener"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span><b data-ko="유튜브에서 보기 — 이게 게임 런처라고?" data-en="Watch on YouTube — this is a game launcher?">유튜브에서 보기 — 이게 게임 런처라고?</b><small data-ko="팩 넣는 감성까지 담은 해방런처 · 해방 레트로 채널" data-en="HB Launcher, cartridges and all · HAE-BANG RETRO">팩 넣는 감성까지 담은 해방런처 · 해방 레트로 채널</small></span></a>
 
       <!-- 실기기 영상 — 카메라로 찍은 실물. 소리가 있어 자동재생 대신 클릭 재생 -->
       <div class="live2 reveal">
@@ -443,6 +452,7 @@
       <a href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
       <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
       <a href="news.html" data-ko="새로운 소식" data-en="News">새로운 소식</a>
+      <a href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" data-ko="유튜브 채널" data-en="YouTube channel">유튜브 채널</a>
     </div>
     <div class="foot-bottom">
       <span>© <span id="yr"></span> HAE-BANG RETRO. All rights reserved.</span>
