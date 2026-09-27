@@ -282,8 +282,8 @@
               </li>
               <li class="now">
                 <span class="rd" data-ko="후원자 전용" data-en="Sponsors">후원자 전용</span>
-                <span data-ko="v1.0.9 베타 — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.10 → … → 1.1). 시스템 제외 없음"
-                      data-en="v1.0.9 beta — via sponsor code. Keeps receiving minor updates (v1.0.10 → … → 1.1). No systems excluded"><b>v1.0.9 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.10 → … → 1.1). 시스템 제외 없음</span>
+                <span data-ko="v1.0.10 베타 — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.11 → … → 1.1). 시스템 제외 없음"
+                      data-en="v1.0.10 beta — via sponsor code. Keeps receiving minor updates (v1.0.11 → … → 1.1). No systems excluded"><b>v1.0.10 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 계속 받습니다(v1.0.11 → … → 1.1). 시스템 제외 없음</span>
               </li>
               <li class="next-up">
                 <span class="rd" data-ko="v1.1 까지" data-en="Toward v1.1">v1.1 까지</span>
@@ -313,8 +313,98 @@
 
       <div class="tl">
 
-        <!-- 2026-09-22 : 해방툴 v1.0.9 -->
+        <!-- 2026-09-27 : 해방툴 v1.0.10 -->
         <article class="tl-item hl reveal">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.09.27</div>
+          <h3 class="tl-title" data-ko="해방툴 v1.0.10 — 파일 이름 매칭 정확도 98.5%, BIOS 점검, 롬없음 보기, 그리고 더 빨라진 PRO 외부 기기 전환" data-en="Rom Tool v1.0.10 — 98.5% filename matching, a BIOS check, a no-ROM view, and a faster PRO device mode">해방툴 v1.0.10 &mdash; 파일 이름 매칭 정확도 98.5%, BIOS 점검, 롬없음 보기, 그리고 더 빨라진 PRO 외부 기기 전환</h3>
+          <div class="tags">
+            <span class="tag new" data-ko="신규" data-en="New">신규</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+          </div>
+          <div class="tl-body">
+            <p data-ko="롬 파일 이름으로 게임을 찾는 매칭을 크게 손본 판입니다. 속편이 1편으로 잘못 잡히던 문제를 고쳐, 25개 기종 · 약 1만 6천 개의 실제 롬 파일 이름으로 시험한 전체 정확도가 77% 에서 98.5% 로 올랐습니다. Tools 에는 기기의 BIOS 를 파일 내용까지 확인하는 BIOS 점검이 새로 들어갔습니다."
+               data-en="A release that reworks filename matching. Sequels no longer fall back to the first game, and tested against about 16,000 real ROM filenames across 25 systems, overall accuracy rose from 77% to 98.5%. Tools gains a BIOS check that verifies a device's BIOS files down to their contents.">롬 파일 이름으로 게임을 찾는 <b>매칭</b>을 크게 손본 판입니다. 속편이 1편으로 잘못 잡히던 문제를 고쳐, 25개 기종 · 약 1만 6천 개의 실제 롬 파일 이름으로 시험한 전체 정확도가 <b>77% 에서 98.5%</b> 로 올랐습니다. Tools 에는 기기의 BIOS 를 파일 내용까지 확인하는 <b>BIOS 점검</b>이 새로 들어갔습니다.</p>
+
+            <p data-ko="게임 매칭" data-en="Game matching"><b>게임 매칭</b></p>
+            <ul>
+              <li data-ko="파일 이름 매칭 정확도 개선 — 롬 파일 이름으로 게임을 찾을 때 속편이 1편으로 잘못 잡히던 문제를 고쳤습니다."
+                  data-en="Better filename matching — when a game was looked up by its ROM filename, sequels were sometimes matched to the first game. Fixed."><b>파일 이름 매칭 정확도 개선</b> — 롬 파일 이름으로 게임을 찾을 때 속편이 1편으로 잘못 잡히던 문제를 고쳤습니다.</li>
+              <li data-ko="버전 표기가 붙은 파일도 정확히 찾습니다. 삼국지 DS 3 v1.2 (K) 처럼 이름 끝에 버전이 붙으면 엉뚱하게 삼국지 DS 2 로 잡히던 문제를 고쳤습니다."
+                  data-en="Files with a version tag are found correctly. A name like Sangokushi DS 3 v1.2 (K), with a version at the end, was wrongly matched to Sangokushi DS 2 — fixed."><b>버전 표기가 붙은 파일</b>도 정확히 찾습니다. <em>삼국지 DS 3 v1.2 (K)</em> 처럼 이름 끝에 버전이 붙으면 엉뚱하게 <em>삼국지 DS 2</em> 로 잡히던 문제를 고쳤습니다.</li>
+              <li data-ko="부제에 붙은 편 번호도 구분합니다. Trauma Center - Under the Knife 2 처럼 번호가 부제 쪽에 있으면 1편으로 잡히던 문제를 고쳤습니다. 20th Anniversary 처럼 편 번호가 아닌 숫자는 편 번호로 보지 않습니다."
+                  data-en="Sequel numbers in a subtitle are told apart. With the number on the subtitle side, as in Trauma Center - Under the Knife 2, the game was matched to the first one — fixed. Numbers that are not sequel numbers, such as 20th Anniversary, are not read as one."><b>부제에 붙은 편 번호</b>도 구분합니다. <em>Trauma Center - Under the Knife 2</em> 처럼 번호가 부제 쪽에 있으면 1편으로 잡히던 문제를 고쳤습니다. <em>20th Anniversary</em> 처럼 편 번호가 아닌 숫자는 편 번호로 보지 않습니다.</li>
+              <li data-ko="비슷한 제목을 더 정확히 가립니다. 엔드리스 프론티어 가 엔드리스 프론티어 엑시드 로 잡히던 것처럼, 제목이 비슷한 게임끼리 헷갈리던 경우를 줄였습니다."
+                  data-en="Similar titles are told apart better — fewer mix-ups such as Endless Frontier being matched to Endless Frontier EXCEED."><b>비슷한 제목</b>을 더 정확히 가립니다. <em>엔드리스 프론티어</em> 가 <em>엔드리스 프론티어 엑시드</em> 로 잡히던 것처럼, 제목이 비슷한 게임끼리 헷갈리던 경우를 줄였습니다.</li>
+              <li data-ko="잘못 들어가 있던 일부 게임 정보를 바로잡았습니다."
+                  data-en="Some game entries that were wrong in the database have been corrected.">잘못 들어가 있던 일부 게임 정보를 바로잡았습니다.</li>
+              <li data-ko="25개 기종, 약 1만 6천 개의 실제 롬 파일 이름으로 시험한 결과 — 전체 정확도 77% → 98.5%, 버전 표기가 붙은 파일 이름 평균 30%대 → 96% 이상. 이름이 틀렸던 게임은 재스캔하면 새 결과로 바뀝니다."
+                  data-en="Tested on about 16,000 real ROM filenames across 25 systems — overall accuracy 77% → 98.5%; filenames with a version tag, from the 30% range on average → over 96%. Games that were misnamed switch to the new result when you rescan.">25개 기종, 약 1만 6천 개의 실제 롬 파일 이름으로 시험한 결과 — <b>전체 정확도 77% → 98.5%</b>, 버전 표기가 붙은 파일 이름 <b>평균 30%대 → 96% 이상</b>. ※ 이름이 틀렸던 게임은 <b>재스캔</b>하면 새 결과로 바뀝니다.</li>
+            </ul>
+
+            <p data-ko="게임 목록" data-en="Game list"><b>게임 목록</b></p>
+            <ul>
+              <li data-ko="롬 없음 표시 — 목록에 있는데 롬 파일이 없는 게임에 [롬 없음] 배지를 붙입니다. [롬없음만] 단추를 누르면 그런 게임만 모아 볼 수 있습니다."
+                  data-en="No-ROM marker — games that are in the list but have no ROM file get a [No ROM] badge, and the [No ROM] button gathers just those games."><b>롬 없음 표시</b> — 목록에 있는데 롬 파일이 없는 게임에 [롬 없음] 배지를 붙입니다. [롬없음만] 단추를 누르면 그런 게임만 모아 볼 수 있습니다.</li>
+              <li data-ko="로딩 표시 — 게임이 많은 시스템을 열 때 로딩 창이 떠서, 멈춘 것인지 읽는 중인지 알 수 있습니다."
+                  data-en="Loading indicator — opening a system with lots of games shows a loading indicator, so you can tell it is reading rather than stuck."><b>로딩 표시</b> — 게임이 많은 시스템을 열 때 로딩 창이 떠서, 멈춘 것인지 읽는 중인지 알 수 있습니다.</li>
+            </ul>
+
+            <p data-ko="내보내기" data-en="Export"><b>내보내기</b></p>
+            <ul>
+              <li data-ko="로컬 PC 내보내기 — 이름은 같지만 용량이 다른 롬 파일을 같은 파일로 보고 건너뛰던 오류를 고쳤습니다."
+                  data-en="Local PC export — ROM files with the same name but a different size were treated as the same file and skipped. Fixed."><b>로컬 PC 내보내기</b> — 이름은 같지만 용량이 다른 롬 파일을 같은 파일로 보고 건너뛰던 오류를 고쳤습니다.</li>
+            </ul>
+
+            <p data-ko="기기 연결" data-en="Device connection"><b>기기 연결</b></p>
+            <ul>
+              <li data-ko="ADB 드라이버 점검 — 안드로이드 기기를 USB 로 연결할 때 PC 에 ADB 드라이버가 없으면 이를 알아내 설치 방법을 안내합니다."
+                  data-en="ADB driver check — when you connect an Android device over USB and the PC has no ADB driver, the tool detects it and shows how to install one."><b>ADB 드라이버 점검</b> — 안드로이드 기기를 USB 로 연결할 때 PC 에 ADB 드라이버가 없으면 이를 알아내 설치 방법을 안내합니다.</li>
+            </ul>
+
+            <p data-ko="Tools" data-en="Tools"><b>Tools</b></p>
+            <ul>
+              <li data-ko="BIOS 점검 (신규) — 연결한 안드로이드 기기(USB)와 리눅스 기기(Wi-Fi) 에서 시스템별로 BIOS 가 제자리에 있는지 파일 내용까지 확인합니다. 게임이 켜지지 않는 문제를 미리 점검할 수 있습니다."
+                  data-en="BIOS check (new) — on a connected Android (USB) or Linux (Wi-Fi) device, checks system by system that each BIOS is in the right place, down to the file contents — catch games that won't boot before you run into them."><b>BIOS 점검 (신규)</b> — 연결한 안드로이드 기기(USB)와 리눅스 기기(Wi-Fi) 에서 시스템별로 BIOS 가 제자리에 있는지 <b>파일 내용까지</b> 확인합니다. 게임이 켜지지 않는 문제를 미리 점검할 수 있습니다.</li>
+              <li data-ko="파일이 다른 폴더에 있으면 옮길 위치를 알려 줍니다."
+                  data-en="If a file sits in another folder, it tells you where to move it.">파일이 다른 폴더에 있으면 옮길 위치를 알려 줍니다.</li>
+              <li data-ko="PS Vita · Switch · PS3 · Wii U 는 에뮬레이터에 펌웨어·키가 설치돼 있는지도 확인합니다."
+                  data-en="For PS Vita, Switch, PS3 and Wii U it also checks that firmware and keys are installed in the emulator.">PS Vita · Switch · PS3 · Wii U 는 에뮬레이터에 <b>펌웨어·키</b>가 설치돼 있는지도 확인합니다.</li>
+              <li data-ko="지금 후원자 전용 베타 다운로드에서 받으실 수 있습니다. 스폰서 코드를 입력하면 목록에 v1.0.10 이 보입니다."
+                  data-en="Available now from the sponsor beta download — enter your sponsor code and v1.0.10 will be in the list."><b>지금 후원자 전용 베타 다운로드에서 받으실 수 있습니다.</b> 스폰서 코드를 입력하면 목록에 v1.0.10 이 보입니다.</li>
+            </ul>
+
+            <p data-ko="PRO 에디션 — 외부 기기로 전환" data-en="PRO edition — Switch to device"><b>PRO 에디션 — 외부 기기로 전환</b></p>
+            <ul>
+              <li data-ko="시스템을 더 빨리 엽니다 — 시스템을 열 때 롬 폴더 안의 미디어까지 전부 읽던 것을, 게임 목록에 필요한 롬만 읽도록 바꿨습니다. 대형 MAME 폴더처럼 파일이 많은 시스템에서 특히 빨라집니다."
+                  data-en="Systems open faster — opening a system used to read every media file inside the ROM folder too; now only the ROMs the game list needs are read. Especially quicker on file-heavy systems such as a large MAME folder."><b>시스템을 더 빨리 엽니다</b> — 시스템을 열 때 롬 폴더 안의 미디어까지 전부 읽던 것을, 게임 목록에 필요한 롬만 읽도록 바꿨습니다. 대형 MAME 폴더처럼 파일이 많은 시스템에서 특히 빨라집니다.</li>
+              <li data-ko="시스템 목록 보기 개선 — 이름이 긴 시스템은 두 줄로 나눠 보여 주고, 게임 수가 가려지지 않게 했습니다."
+                  data-en="Better system list — long system names wrap onto two lines, and the game count is no longer hidden."><b>시스템 목록 보기 개선</b> — 이름이 긴 시스템은 두 줄로 나눠 보여 주고, 게임 수가 가려지지 않게 했습니다.</li>
+              <li data-ko="게임 수 표시 수정 — 목록 옆 게임 수가 실제로 열었을 때의 개수와 다르게 나오던 문제를 고쳤습니다."
+                  data-en="Game count fixed — the count beside the list could differ from the number you saw when you opened the system."><b>게임 수 표시 수정</b> — 목록 옆 게임 수가 실제로 열었을 때의 개수와 다르게 나오던 문제를 고쳤습니다.</li>
+              <li data-ko="재스캔 창이 늦게 뜨던 문제 수정 — 시스템에서 [재스캔]을 누르면 한참 뒤에야 창이 뜨던 문제를 고쳤습니다."
+                  data-en="Rescan dialog opens promptly — pressing [Rescan] on a system could take a long while before the dialog appeared. Fixed."><b>재스캔 창이 늦게 뜨던 문제 수정</b> — 시스템에서 [재스캔]을 누르면 한참 뒤에야 창이 뜨던 문제를 고쳤습니다.</li>
+              <li data-ko="재스캔 미디어 기본 선택 — 재스캔할 때 그 시스템에 이미 있는 미디어 종류가 기본으로 체크됩니다."
+                  data-en="Rescan media preselected — when you rescan, the media kinds that system already has are ticked by default."><b>재스캔 미디어 기본 선택</b> — 재스캔할 때 그 시스템에 이미 있는 미디어 종류가 기본으로 체크됩니다.</li>
+              <li data-ko="재스캔 다운로드 수정 — 재스캔할 때 체크하지 않은 미디어까지 받던 문제를 고쳐, 고른 미디어만 받습니다."
+                  data-en="Rescan downloads fixed — media you had not ticked was downloaded too; now only the media you choose is fetched."><b>재스캔 다운로드 수정</b> — 재스캔할 때 체크하지 않은 미디어까지 받던 문제를 고쳐, 고른 미디어만 받습니다.</li>
+            </ul>
+
+            <p data-ko="PRO 에디션 — 게임 아카이브" data-en="PRO edition — Game archive"><b>PRO 에디션 — 게임 아카이브</b></p>
+            <ul>
+              <li data-ko="게임 제목 표시 수정 — 게임을 고르면 제목 대신 id 같은 값이 보이던 문제를 고쳤습니다."
+                  data-en="Game titles fixed — selecting a game could show an id-like value instead of its title."><b>게임 제목 표시 수정</b> — 게임을 고르면 제목 대신 id 같은 값이 보이던 문제를 고쳤습니다.</li>
+            </ul>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="haebang.html#download" data-ko="베타 다운로드로 이동 →" data-en="Go to beta download →">베타 다운로드로 이동 →</a>
+              <a class="btn btn-ghost" href="guide.html" data-ko="문서 보기 →" data-en="Read the docs →">문서 보기 →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2026-09-22 : 해방툴 v1.0.9 -->
+        <article class="tl-item reveal">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.22</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.9 — 리눅스 포크별 내보내기, 하위 폴더 시스템 추가, 파일 교체, 그리고 PRO 의 Wi-Fi 기기·게임 아카이브" data-en="Rom Tool v1.0.9 — per-fork Linux export, sub-folder systems, file replace, and PRO Wi-Fi devices &amp; the game archive">해방툴 v1.0.9 &mdash; 리눅스 포크별 내보내기, 하위 폴더 시스템 추가, 파일 교체, 그리고 PRO 의 Wi-Fi 기기·게임 아카이브</h3>
