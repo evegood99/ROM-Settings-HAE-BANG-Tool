@@ -354,17 +354,12 @@
     var PT = {
       ko: {
         title: 'PRO 업그레이드 ✦', close: '닫기', dialog: 'PRO 업그레이드',
-        desc: 'PRO 에디션은 해방툴을 오래 이어 갈 수 있게 힘을 보태 주시는 분들께 드리는 버전입니다. PRO 에서는 아래 기능을 더 쓰실 수 있어요.',
-        f1b: '외부 기기로 전환',
-        f1s: '안드로이드·리눅스 휴대용 기기에 직접 붙어, 그 기기의 게임 목록·메타·미디어를 해방툴에서 바로 고칩니다.',
-        f2b: '게임 아카이브로 전환',
-        f2s: '롬이 없어도 지원하는 모든 시스템의 게임 목록과 메타 정보·미디어를 해방툴 안에서 봅니다.',
-        f3b: 'HB파일 · 계속 늘어나는 PRO 기능',
-        f3s: '내 시스템 셋을 파일(.hbs)로 저장·불러오기. PRO 기능은 베타와 함께 계속 보완·추가됩니다.',
+        desc: 'PRO 에디션은 해방툴을 오래 이어 갈 수 있게 힘을 보태 주시는 분들께 드리는 버전입니다.',
+        doc_btn: 'PRO 기능 보기 (문서) →',
         how_title: 'PRO 업그레이드 방법',
         how_p: 'PRO 업그레이드는 <b>30,000원</b>(해외는 <b>US$23</b>) 후원으로 함께하실 수 있어요. 아래 QR(해외는 PayPal)로 보내 주신 뒤 폼으로 알려 주시면, ' +
           '확인하는 대로 <b>PRO 업그레이드 코드</b>와 함께 <b>후원 스폰서 코드</b>(사전·베타 다운로드)도 같이 보내드립니다.',
-        note: '코드는 받으신 뒤 48시간 안에 해방툴의 [PRO UPGRADE] 창에 넣어 주세요. 코드 하나는 PC 한 대에 적용되고, 한번 PRO 가 되면 새 버전에서도 그대로 유지됩니다.',
+        note: '코드 하나는 PC 한 대에 적용되고, 한번 PRO 가 되면 새 버전에서도 그대로 유지됩니다. 윈도우 재설치 및 서브 PC 등을 위하여 추가 요청 시 2~3회 정도 추가 발급해 드립니다.',
         naver: 'Naver Pay', kakao: 'Kakao Pay',
         scan: '카메라 또는 페이 앱으로 QR을 스캔해 보내실 수 있어요. (네이버·카카오페이는 한국 안에서만 됩니다)',
         pp_title: '해외에서 — PayPal',
@@ -384,17 +379,12 @@
       },
       en: {
         title: 'PRO upgrade ✦', close: 'Close', dialog: 'PRO upgrade',
-        desc: 'The PRO edition is for people who help keep HAE-BANG Tool going. PRO adds the features below.',
-        f1b: 'Switch to device',
-        f1s: 'Attach straight to an Android or Linux handheld and edit its game list, metadata and media from the Rom Tool.',
-        f2b: 'Switch to game archive',
-        f2s: 'Browse the game list, metadata and media of every supported system inside the Rom Tool - no ROMs needed.',
-        f3b: 'HB file · more PRO features over time',
-        f3s: 'Save and load your system sets as a file (.hbs). PRO features keep improving and growing with the beta.',
+        desc: 'The PRO edition is for people who help keep HAE-BANG Tool going.',
+        doc_btn: 'See PRO features (docs) →',
         how_title: 'How to upgrade',
         how_p: 'You can join PRO with a <b>US$23</b> (30,000 KRW in Korea) contribution. Send it with the QR codes below (PayPal from outside Korea) and let me know with the form - ' +
           'I will send your <b>PRO upgrade code</b> together with a <b>sponsor code</b> (early and beta downloads) once I have checked.',
-        note: 'Enter the code in the Rom Tool\'s [PRO UPGRADE] window within 48 hours of receiving it. One code covers one PC, and PRO stays with later versions.',
+        note: 'One code covers one PC, and PRO stays with later versions. For a Windows reinstall or a second PC, just ask - two or three extra codes can be issued.',
         naver: 'Naver Pay', kakao: 'Kakao Pay',
         scan: 'Scan a QR code with your camera or pay app. (Naver Pay and Kakao Pay work inside Korea only.)',
         pp_title: 'From outside Korea — PayPal',
@@ -424,11 +414,7 @@
             '<button class="dm-x" id="pm-x" data-pt-aria="close">&times;</button>' +
           '</div>' +
           '<p class="dm-desc" data-pt="desc"></p>' +
-          '<ul class="dm-use">' +
-            '<li><b data-pt="f1b"></b><span data-pt="f1s"></span></li>' +
-            '<li><b data-pt="f2b"></b><span data-pt="f2s"></span></li>' +
-            '<li><b data-pt="f3b"></b><span data-pt="f3s"></span></li>' +
-          '</ul>' +
+          '<p class="pm-doc"><a class="btn" href="' + P + 'guide.html#pro" data-pt="doc_btn"></a></p>' +
           '<div class="dm-code">' +
             '<b data-pt="how_title"></b>' +
             '<p data-pt="how_p"></p>' +
@@ -473,7 +459,10 @@
       st.textContent = MODAL_CSS.replace(/#dm/g, '#pm') +
         '#pm .dm-code{margin:0 0 16px}' +
         '#pm .dm-code .pm-note{margin:0; font-size:12px; color:var(--faint,#6b7280)}' +
-        '#pm .dm-use b{color:var(--gold,#fbbf24)}' +
+        '#pm .pm-doc{margin:0 0 16px}' +
+        '#pm .pm-doc .btn{display:inline-flex; align-items:center; padding:8px 14px; border-radius:10px;' +
+          'border:1px solid rgba(251,191,36,.45); color:var(--text,#e8ebf2); font-size:13px; font-weight:700}' +
+        '#pm .pm-doc .btn:hover{border-color:var(--gold,#fbbf24); color:var(--gold,#fbbf24)}' +
         '#pm.en .dm-pp{order:-1; margin:4px 0 16px}';
       document.head.appendChild(st);
       document.body.insertAdjacentHTML('beforeend', PM_HTML);

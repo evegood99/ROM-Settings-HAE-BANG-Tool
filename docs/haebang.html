@@ -324,7 +324,10 @@
   .tier.hot .ver{color:#f472b6}
   .tier.pro{border-color:transparent; background:linear-gradient(180deg,rgba(251,191,36,.10),rgba(251,191,36,.02)); box-shadow:0 0 0 1px rgba(251,191,36,.45) inset}
   .tier.pro .ver{color:var(--gold)}
-  .tier.pro .pro-cta{margin:4px 0 14px}
+  .tier.pro .pro-cta{margin:4px 0 4px; display:flex; flex-wrap:wrap; gap:10px}
+  .tier.pro .btn-pro-doc{display:inline-flex; align-items:center; padding:9px 15px; border-radius:10px;
+    font-size:13.5px; font-weight:700; color:var(--text,#e8ebf2); border:1px solid rgba(251,191,36,.45); transition:.15s}
+  .tier.pro .btn-pro-doc:hover{border-color:var(--gold,#fbbf24); color:var(--gold,#fbbf24)}
   .tier.pro .btn-pro{display:inline-flex; align-items:center; gap:6px; padding:9px 15px; border-radius:10px; cursor:pointer;
     font-family:inherit; font-size:13.5px; font-weight:800; color:#07080d; border:0;
     background:linear-gradient(120deg,var(--gold,#fbbf24),#f59e0b); transition:.15s}
@@ -799,17 +802,8 @@
               <h4 data-ko="PRO 에디션" data-en="PRO edition">PRO 에디션</h4>
               <span class="ver" data-ko="제공 중 · 업그레이드 키" data-en="Available · upgrade key">제공 중 · 업그레이드 키</span>
             </div>
-            <p class="lead" data-ko="후원자께 발급하는 <b>PRO 업그레이드 키</b>를 해방툴의 <b>[PRO UPGRADE]</b> 단추에 넣으면 그 PC 가 PRO 가 됩니다(받은 뒤 48시간 안에 · PC 한 대). 한번 PRO 가 되면 새 버전에서도 그대로 유지되고, PRO 기능은 베타와 함께 계속 보완·추가됩니다."
-               data-en="Enter the <b>PRO upgrade key</b> issued to sponsors with the Rom Tool's <b>[PRO UPGRADE]</b> button and that PC becomes PRO (within 48 hours of receiving it · one PC). Once PRO, it stays PRO in later versions, and PRO features keep improving and growing with the beta.">후원자께 발급하는 <b>PRO 업그레이드 키</b>를 해방툴의 <b>[PRO UPGRADE]</b> 단추에 넣으면 그 PC 가 PRO 가 됩니다(받은 뒤 48시간 안에 · PC 한 대). 한번 PRO 가 되면 새 버전에서도 그대로 유지되고, PRO 기능은 베타와 함께 계속 보완·추가됩니다.</p>
-            <p class="pro-cta"><button type="button" class="btn-pro" data-pro data-ko="PRO 업그레이드 요청하기 ✦" data-en="Request PRO upgrade ✦">PRO 업그레이드 요청하기 ✦</button></p>
-            <ul>
-              <li data-ko="<b>[외부 기기로 전환]</b> — 해방툴이 안드로이드·리눅스 커스텀 OS 기기에 직접 붙어, 그 기기의 ES-DE·페가수스 게임 목록을 그대로 띄우고 메타 편집·미디어 업데이트·재스캔·실행기 설정·게임 추가/삭제를 기기에서 바로 합니다. PC 가 허브가 되기 어렵거나(디스크 여유 없음 등) 특정 기기만 빠르게 손볼 때. <i>v1.0.8:</i> 등록 안 된 롬 폴더 자동 감지·추가, ES-DE↔페가수스 모드 전환, 페가수스 메타·미디어 편집, [롬 없음] 배지, 리전 순위·롬 삭제. <i>v1.0.9:</i> Wi-Fi(SFTP) 리눅스 핸드헬드(Batocera·KNULLI·ROCKNIX·JELOS·ArkOS), 기기에서 M3U 병합, 파일 교체, 탐색기 삭제·이동 시 [롬 없음] 즉시 반영. <i>v1.0.10:</i> 시스템을 열 때 미디어는 읽지 않아 훨씬 빨라짐(대형 MAME 폴더), 긴 시스템 이름 두 줄 표시, 게임 수 표시·재스캔 창 수정, 재스캔은 그 시스템에 이미 있는 미디어 종류를 기본으로 골라 고른 것만 받음."
-                  data-en="<b>Switch to device</b> — the Rom Tool attaches straight to an Android or custom-Linux device, shows its ES-DE / Pegasus game list as-is, and edits metadata, updates media, rescans, sets up launchers and adds/removes games right on the device. For when your PC can't be the hub (no disk space, say) or you just want to touch up one device. <i>v1.0.8:</i> auto-detects unregistered ROM folders, ES-DE↔Pegasus mode switch, Pegasus metadata/media editing, a [no ROM] badge, region priority and ROM deletion. <i>v1.0.9:</i> Wi-Fi (SFTP) Linux handhelds (Batocera, KNULLI, ROCKNIX, JELOS, ArkOS), on-device M3U merge, file replace, instant [no ROM] when a file is deleted or moved in the explorer. <i>v1.0.10:</i> systems open much faster because media is no longer read on open (big MAME folders), long system names wrap to two lines, game counts and the rescan dialog fixed, and rescans preselect the media kinds the system already has and fetch only what you tick."><b>[외부 기기로 전환]</b> — 해방툴이 안드로이드·리눅스 커스텀 OS 기기에 직접 붙어, 그 기기의 ES-DE·페가수스 게임 목록을 그대로 띄우고 메타 편집·미디어 업데이트·재스캔·실행기 설정·게임 추가/삭제를 기기에서 바로 합니다. PC 가 허브가 되기 어렵거나(디스크 여유 없음 등) 특정 기기만 빠르게 손볼 때. <i>v1.0.8:</i> 등록 안 된 롬 폴더 자동 감지·추가, ES-DE↔페가수스 모드 전환, 페가수스 메타·미디어 편집, [롬 없음] 배지, 리전 순위·롬 삭제. <i>v1.0.9:</i> Wi-Fi(SFTP) 리눅스 핸드헬드(Batocera·KNULLI·ROCKNIX·JELOS·ArkOS), 기기에서 M3U 병합, 파일 교체, 탐색기 삭제·이동 시 [롬 없음] 즉시 반영. <i>v1.0.10:</i> 시스템을 열 때 미디어는 읽지 않아 훨씬 빨라짐(대형 MAME 폴더), 긴 시스템 이름 두 줄 표시, 게임 수 표시·재스캔 창 수정, 재스캔은 그 시스템에 이미 있는 미디어 종류를 기본으로 골라 고른 것만 받음.</li>
-              <li data-ko="<b>[게임 아카이브로 전환]</b> — 지원하는 모든 시스템의 게임 목록과 메타 정보·미디어를 해방툴 안에서 바로 봅니다. 롬을 추가하지 않아도 어떤 기종에 어떤 게임이 있는지 직접 확인합니다. <i>v1.0.9 신설.</i> <i>v1.0.10:</i> 게임 제목 대신 id 가 보이던 문제 수정."
-                  data-en="<b>Switch to game archive</b> — browse the game list, metadata and media of every supported system right inside the Rom Tool. No ROMs needed to see which games exist for which system. <i>New in v1.0.9.</i> <i>v1.0.10:</i> fixed an id showing in place of the game title."><b>[게임 아카이브로 전환]</b> — 지원하는 모든 시스템의 게임 목록과 메타 정보·미디어를 해방툴 안에서 바로 봅니다. 롬을 추가하지 않아도 어떤 기종에 어떤 게임이 있는지 직접 확인합니다. <i>v1.0.9 신설.</i> <i>v1.0.10:</i> 게임 제목 대신 id 가 보이던 문제 수정.</li>
-              <li data-ko="<b>[HB파일]</b> — 로컬로 추가한 시스템의 저장 정보를 파일(.hbs)로 저장하고 불러옵니다. 나만의 시스템 셋을 파일 단위로 관리합니다. <i>v1.0.8:</i> 불러올 때 기존 시스템을 자동 보관본으로 남기고, 보관본 폴더를 관리(되돌리기·정리)합니다."
-                  data-en="<b>HB file</b> — save the systems you added locally to a file (.hbs) and load them back. Manage your own system sets, one file each. <i>v1.0.8:</i> loading archives your current systems automatically, with restore and clean-up of the archive folder."><b>[HB파일]</b> — 로컬로 추가한 시스템의 저장 정보를 파일(.hbs)로 저장하고 불러옵니다. 나만의 시스템 셋을 파일 단위로 관리합니다. <i>v1.0.8:</i> 불러올 때 기존 시스템을 자동 보관본으로 남기고, 보관본 폴더를 관리(되돌리기·정리)합니다.</li>
-            </ul>
+            <p class="lead" data-ko="한번 PRO 가 되면 새 버전에서도 그대로 유지됩니다." data-en="Once PRO, it stays PRO in later versions.">한번 PRO 가 되면 새 버전에서도 그대로 유지됩니다.</p>
+            <p class="pro-cta"><a class="btn-pro-doc" href="guide.html#pro" data-ko="PRO 기능 보기 (문서) →" data-en="See PRO features (docs) →">PRO 기능 보기 (문서) →</a><button type="button" class="btn-pro" data-pro data-ko="PRO 업그레이드 요청하기 ✦" data-en="Request PRO upgrade ✦">PRO 업그레이드 요청하기 ✦</button></p>
           </div>
         </div>
 
