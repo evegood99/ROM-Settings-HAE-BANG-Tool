@@ -745,7 +745,9 @@
   document.getElementById('langBtn').addEventListener('click', function(){
     applyLang(lang === 'ko' ? 'en' : 'ko');
   });
-  try { var saved = localStorage.getItem('hb_lang'); if (saved) applyLang(saved); } catch(e){}
+  // ?lang=ko|en 이 있으면 그것이 먼저(해방툴 앱이 제 언어로 후원·PRO 창을 연다) — applyLang 이 hb_lang 에 남겨 다음 쪽도 따른다
+  try { var qlang = (location.search.match(/[?&]lang=(ko|en)(?:&|$)/) || [])[1];
+        var saved = qlang || localStorage.getItem('hb_lang'); if (saved) applyLang(saved); } catch(e){}
 
   // header shadow on scroll
   var hdr = document.getElementById('hdr');
