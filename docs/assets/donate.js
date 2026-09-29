@@ -362,14 +362,14 @@
         f3b: 'HB파일 · 계속 늘어나는 PRO 기능',
         f3s: '내 시스템 셋을 파일(.hbs)로 저장·불러오기. PRO 기능은 베타와 함께 계속 보완·추가됩니다.',
         how_title: 'PRO 업그레이드 방법',
-        how_p: 'PRO 업그레이드는 <b>30,000원</b> 후원으로 함께하실 수 있어요. 아래 QR(해외는 PayPal)로 보내 주신 뒤 폼으로 알려 주시면, ' +
+        how_p: 'PRO 업그레이드는 <b>30,000원</b>(해외는 <b>US$23</b>) 후원으로 함께하실 수 있어요. 아래 QR(해외는 PayPal)로 보내 주신 뒤 폼으로 알려 주시면, ' +
           '확인하는 대로 <b>PRO 업그레이드 코드</b>와 함께 <b>후원 스폰서 코드</b>(사전·베타 다운로드)도 같이 보내드립니다.',
         note: '코드는 받으신 뒤 48시간 안에 해방툴의 [PRO UPGRADE] 창에 넣어 주세요. 코드 하나는 PC 한 대에 적용되고, 한번 PRO 가 되면 새 버전에서도 그대로 유지됩니다.',
         naver: 'Naver Pay', kakao: 'Kakao Pay',
         scan: '카메라 또는 페이 앱으로 QR을 스캔해 보내실 수 있어요. (네이버·카카오페이는 한국 안에서만 됩니다)',
         pp_title: '해외에서 — PayPal',
-        pp_desc: '한국 밖에서는 PayPal.me 로 30,000원 상당을 보내 주시면 됩니다.',
-        pp_btn: 'PayPal 로 보내기 ↗',
+        pp_desc: '한국 밖에서는 PayPal 로 US$23 을 보내 주시면 됩니다(아래 단추를 누르면 금액이 채워져 있어요).',
+        pp_btn: 'PayPal 로 US$23 보내기 ↗',
         form_title: '✉ PRO 업그레이드 요청 — 이메일을 남기시면 PRO 업그레이드 코드를 보내드립니다',
         name_ph: '이름 (닉네임)', email_ph: '코드를 받을 이메일',
         msg_ph: '남길 내용 (선택) — 보내신 분 이름·수단·시각 등',
@@ -392,14 +392,14 @@
         f3b: 'HB file · more PRO features over time',
         f3s: 'Save and load your system sets as a file (.hbs). PRO features keep improving and growing with the beta.',
         how_title: 'How to upgrade',
-        how_p: 'You can join PRO with a <b>30,000 KRW</b> contribution. Send it with the QR codes below (PayPal from outside Korea) and let me know with the form - ' +
+        how_p: 'You can join PRO with a <b>US$23</b> (30,000 KRW in Korea) contribution. Send it with the QR codes below (PayPal from outside Korea) and let me know with the form - ' +
           'I will send your <b>PRO upgrade code</b> together with a <b>sponsor code</b> (early and beta downloads) once I have checked.',
         note: 'Enter the code in the Rom Tool\'s [PRO UPGRADE] window within 48 hours of receiving it. One code covers one PC, and PRO stays with later versions.',
         naver: 'Naver Pay', kakao: 'Kakao Pay',
         scan: 'Scan a QR code with your camera or pay app. (Naver Pay and Kakao Pay work inside Korea only.)',
         pp_title: 'From outside Korea — PayPal',
-        pp_desc: 'From outside Korea, send the equivalent of 30,000 KRW with PayPal.me.',
-        pp_btn: 'Send with PayPal ↗',
+        pp_desc: 'From outside Korea, send US$23 with PayPal (the button below fills in the amount).',
+        pp_btn: 'Send US$23 with PayPal ↗',
         form_title: '✉ Request PRO upgrade — leave your email and I will send the PRO upgrade code',
         name_ph: 'Name (nickname)', email_ph: 'Email for the code',
         msg_ph: 'Message (optional) — sender name, method, time…',
@@ -445,7 +445,7 @@
             '<div class="dm-pp">' +
               '<b data-pt="pp_title"></b>' +
               '<p data-pt="pp_desc"></p>' +
-              '<a class="btn" href="' + PAYPAL + '" target="_blank" rel="noopener" data-pt="pp_btn"></a>' +
+              '<a class="btn" href="' + PAYPAL + '/23USD" target="_blank" rel="noopener" data-pt="pp_btn"></a>' +
             '</div>' +
           '</div>' +
           '<form class="dm-form" id="pm-form" autocomplete="off" novalidate>' +
