@@ -51,8 +51,8 @@ export default {
     if (!ver || !ver.success) return json({ ok: false, error: 'captcha_failed' }, 403);
 
     // ── 이메일 발송 (send_email 바인딩 — 토큰 불필요) ──
-    // kind: 'donate' 는 후원 모달의 '후원 알리기', 그 외는 일반 문의
-    const kindLabel = body.kind === 'donate' ? '후원 알림' : '문의';
+    // kind: 'donate' 는 후원 모달의 '후원 알리기', 'pro' 는 PRO 업그레이드 창의 요청, 그 외는 일반 문의
+    const kindLabel = body.kind === 'donate' ? '후원 알림' : body.kind === 'pro' ? 'PRO 업그레이드 요청' : '문의';
     const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const text =
       '종류: ' + kindLabel + '\n' +

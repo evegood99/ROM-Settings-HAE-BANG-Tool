@@ -324,6 +324,11 @@
   .tier.hot .ver{color:#f472b6}
   .tier.pro{border-color:transparent; background:linear-gradient(180deg,rgba(251,191,36,.10),rgba(251,191,36,.02)); box-shadow:0 0 0 1px rgba(251,191,36,.45) inset}
   .tier.pro .ver{color:var(--gold)}
+  .tier.pro .pro-cta{margin:4px 0 14px}
+  .tier.pro .btn-pro{display:inline-flex; align-items:center; gap:6px; padding:9px 15px; border-radius:10px; cursor:pointer;
+    font-family:inherit; font-size:13.5px; font-weight:800; color:#07080d; border:0;
+    background:linear-gradient(120deg,var(--gold,#fbbf24),#f59e0b); transition:.15s}
+  .tier.pro .btn-pro:hover{transform:translateY(-1px); filter:brightness(1.06)}
   .tier.pro .soon{display:inline-block; margin-left:6px; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:800; letter-spacing:.06em; color:#07080d; background:var(--gold); vertical-align:2px}
   .tier .lead{font-size:13px; margin:6px 0 12px; opacity:.85}
   .tier ul{margin:0; padding-left:18px}
@@ -796,6 +801,7 @@
             </div>
             <p class="lead" data-ko="후원자께 발급하는 <b>PRO 업그레이드 키</b>를 해방툴의 <b>[PRO UPGRADE]</b> 단추에 넣으면 그 PC 가 PRO 가 됩니다(받은 뒤 48시간 안에 · PC 한 대). 한번 PRO 가 되면 새 버전에서도 그대로 유지되고, PRO 기능은 베타와 함께 계속 보완·추가됩니다."
                data-en="Enter the <b>PRO upgrade key</b> issued to sponsors with the Rom Tool's <b>[PRO UPGRADE]</b> button and that PC becomes PRO (within 48 hours of receiving it · one PC). Once PRO, it stays PRO in later versions, and PRO features keep improving and growing with the beta.">후원자께 발급하는 <b>PRO 업그레이드 키</b>를 해방툴의 <b>[PRO UPGRADE]</b> 단추에 넣으면 그 PC 가 PRO 가 됩니다(받은 뒤 48시간 안에 · PC 한 대). 한번 PRO 가 되면 새 버전에서도 그대로 유지되고, PRO 기능은 베타와 함께 계속 보완·추가됩니다.</p>
+            <p class="pro-cta"><button type="button" class="btn-pro" data-pro data-ko="PRO 업그레이드 요청하기 ✦" data-en="Request PRO upgrade ✦">PRO 업그레이드 요청하기 ✦</button></p>
             <ul>
               <li data-ko="<b>[외부 기기로 전환]</b> — 해방툴이 안드로이드·리눅스 커스텀 OS 기기에 직접 붙어, 그 기기의 ES-DE·페가수스 게임 목록을 그대로 띄우고 메타 편집·미디어 업데이트·재스캔·실행기 설정·게임 추가/삭제를 기기에서 바로 합니다. PC 가 허브가 되기 어렵거나(디스크 여유 없음 등) 특정 기기만 빠르게 손볼 때. <i>v1.0.8:</i> 등록 안 된 롬 폴더 자동 감지·추가, ES-DE↔페가수스 모드 전환, 페가수스 메타·미디어 편집, [롬 없음] 배지, 리전 순위·롬 삭제. <i>v1.0.9:</i> Wi-Fi(SFTP) 리눅스 핸드헬드(Batocera·KNULLI·ROCKNIX·JELOS·ArkOS), 기기에서 M3U 병합, 파일 교체, 탐색기 삭제·이동 시 [롬 없음] 즉시 반영. <i>v1.0.10:</i> 시스템을 열 때 미디어는 읽지 않아 훨씬 빨라짐(대형 MAME 폴더), 긴 시스템 이름 두 줄 표시, 게임 수 표시·재스캔 창 수정, 재스캔은 그 시스템에 이미 있는 미디어 종류를 기본으로 골라 고른 것만 받음."
                   data-en="<b>Switch to device</b> — the Rom Tool attaches straight to an Android or custom-Linux device, shows its ES-DE / Pegasus game list as-is, and edits metadata, updates media, rescans, sets up launchers and adds/removes games right on the device. For when your PC can't be the hub (no disk space, say) or you just want to touch up one device. <i>v1.0.8:</i> auto-detects unregistered ROM folders, ES-DE↔Pegasus mode switch, Pegasus metadata/media editing, a [no ROM] badge, region priority and ROM deletion. <i>v1.0.9:</i> Wi-Fi (SFTP) Linux handhelds (Batocera, KNULLI, ROCKNIX, JELOS, ArkOS), on-device M3U merge, file replace, instant [no ROM] when a file is deleted or moved in the explorer. <i>v1.0.10:</i> systems open much faster because media is no longer read on open (big MAME folders), long system names wrap to two lines, game counts and the rescan dialog fixed, and rescans preselect the media kinds the system already has and fetch only what you tick."><b>[외부 기기로 전환]</b> — 해방툴이 안드로이드·리눅스 커스텀 OS 기기에 직접 붙어, 그 기기의 ES-DE·페가수스 게임 목록을 그대로 띄우고 메타 편집·미디어 업데이트·재스캔·실행기 설정·게임 추가/삭제를 기기에서 바로 합니다. PC 가 허브가 되기 어렵거나(디스크 여유 없음 등) 특정 기기만 빠르게 손볼 때. <i>v1.0.8:</i> 등록 안 된 롬 폴더 자동 감지·추가, ES-DE↔페가수스 모드 전환, 페가수스 메타·미디어 편집, [롬 없음] 배지, 리전 순위·롬 삭제. <i>v1.0.9:</i> Wi-Fi(SFTP) 리눅스 핸드헬드(Batocera·KNULLI·ROCKNIX·JELOS·ArkOS), 기기에서 M3U 병합, 파일 교체, 탐색기 삭제·이동 시 [롬 없음] 즉시 반영. <i>v1.0.10:</i> 시스템을 열 때 미디어는 읽지 않아 훨씬 빨라짐(대형 MAME 폴더), 긴 시스템 이름 두 줄 표시, 게임 수 표시·재스캔 창 수정, 재스캔은 그 시스템에 이미 있는 미디어 종류를 기본으로 골라 고른 것만 받음.</li>

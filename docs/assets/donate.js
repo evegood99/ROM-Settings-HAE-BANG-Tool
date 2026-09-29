@@ -97,6 +97,8 @@
       'background:linear-gradient(120deg,rgba(244,63,94,.22),rgba(244,63,94,.10)); transition:.18s}' +
     '.btn-donate:hover{border-color:#fb7185; color:#fff;' +
       'background:linear-gradient(120deg,rgba(244,63,94,.34),rgba(244,63,94,.18))}' +
+    '';
+  var MODAL_CSS =
     '#dm{position:fixed; inset:0; z-index:210; display:flex; align-items:center; justify-content:center;' +
       'padding:24px; background:rgba(4,5,10,.86); backdrop-filter:blur(6px);' +
       'opacity:0; pointer-events:none; transition:.2s}' +
@@ -161,7 +163,8 @@
       'flex-wrap:wrap; margin-top:2px}' +
     '#dm .dm-status{font-size:12.5px; min-height:16px; margin:8px 0 0}' +
     '#dm .dm-status.ok{color:#6ee7b7}' +
-    '#dm .dm-status.err{color:#fb7185}' +
+    '#dm .dm-status.err{color:#fb7185}';
+  CSS = CSS + MODAL_CSS +
     // 이 버튼이 늘면서 헤더가 좁은 화면에서 넘쳤다 — 여기서 같이 줄인다.
     // (페이지 쪽 CSS 에 두면 이 주입 CSS 가 뒤에 와서 덮어 버린다)
     // 다운로드는 접는다. .hide-s 규칙이 홈에만 있고 소식·가이드·읽을거리엔
@@ -226,6 +229,8 @@
       '</div>' +
     '</div>';
 
+  var tsIds = {}, tsLoading = false, tsQueue = [];
+
   function init() {
     if (document.getElementById('dm')) return;
 
@@ -271,16 +276,18 @@
     }
 
     // ── Turnstile — 모달을 처음 열 때만 로드/렌더한다 (모든 페이지에 미리 싣지 않기) ──
-    var tsId = null, tsLoading = false;
-    function mountTs() {
-      if (tsId !== null) return;
+    // 창이 둘(후원 #dm · PRO #pm)이라 위젯 자리마다 id 를 따로 갖는다. 스크립트는 한 번만 싣고, 싣는 동안 온 자리는 모아 둔다
+    function mountTs(sel) {
+      sel = sel || '#dm-ts';
+      if (tsIds[sel] !== undefined) return;
       if (window.turnstile) {
-        try { tsId = window.turnstile.render('#dm-ts', { sitekey: TS_SITEKEY, theme: 'dark' }); } catch (e) {}
+        try { tsIds[sel] = window.turnstile.render(sel, { sitekey: TS_SITEKEY, theme: 'dark' }); } catch (e) {}
         return;
       }
+      if (tsQueue.indexOf(sel) < 0) tsQueue.push(sel);
       if (tsLoading) return;
       tsLoading = true;
-      window.__dmTsReady = function () { tsLoading = false; mountTs(); };
+      window.__dmTsReady = function () { tsLoading = false; var q = tsQueue.slice(); tsQueue = []; q.forEach(mountTs); };
       var s = document.createElement('script');
       s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=__dmTsReady&render=explicit';
       s.async = true;
@@ -292,7 +299,7 @@
       dm.setAttribute('aria-hidden', on ? 'false' : 'true');
       // 모달이 떠 있는 동안 뒤 목록이 같이 스크롤되지 않도록 잠근다.
       document.body.style.overflow = on ? 'hidden' : '';
-      if (on) mountTs();
+      if (on) mountTs('#dm-ts');
     }
 
     // ── 후원 알리기 폼 — /api/contact 워커로 발송 (mailto 대체) ──
@@ -308,7 +315,7 @@
       if (!name || !email) { say(t('need_fields'), 'err'); return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say(t('bad_email'), 'err'); return; }
       var tk = '';
-      try { tk = (window.turnstile && tsId !== null) ? window.turnstile.getResponse(tsId) : ''; } catch (err) {}
+      try { tk = (window.turnstile && tsIds['#dm-ts'] !== undefined) ? window.turnstile.getResponse(tsIds['#dm-ts']) : ''; } catch (err) {}
       if (!tk) { say(t('need_captcha'), 'err'); return; }
       btn.disabled = true;
       say(t('sending'));
@@ -323,7 +330,7 @@
         if (d && d.ok) {
           say(t('sent'), 'ok');
           f.reset();
-          try { window.turnstile.reset(tsId); } catch (err) {}
+          try { window.turnstile.reset(tsIds['#dm-ts']); } catch (err) {}
         } else {
           say(t('fail'), 'err');
         }
@@ -340,6 +347,211 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && dm.classList.contains('open')) open(false);
     });
+
+
+    // ── PRO 업그레이드 창(#pm) — 후원 창과 같은 모양·같은 결제 수단, 알리는 폼만 'PRO 업그레이드 요청' ──
+    // [data-pro] 를 누르거나 ?pro=1 / #pro 로 들어오면 열린다(해방툴 앱의 PRO UPGRADE 창 → '하러 가기').
+    var PT = {
+      ko: {
+        title: 'PRO 업그레이드 ✦', close: '닫기', dialog: 'PRO 업그레이드',
+        desc: 'PRO 에디션은 해방툴을 오래 이어 갈 수 있게 힘을 보태 주시는 분들께 드리는 버전입니다. PRO 에서는 아래 기능을 더 쓰실 수 있어요.',
+        f1b: '외부 기기로 전환',
+        f1s: '안드로이드·리눅스 휴대용 기기에 직접 붙어, 그 기기의 게임 목록·메타·미디어를 해방툴에서 바로 고칩니다.',
+        f2b: '게임 아카이브로 전환',
+        f2s: '롬이 없어도 지원하는 모든 시스템의 게임 목록과 메타 정보·미디어를 해방툴 안에서 봅니다.',
+        f3b: 'HB파일 · 계속 늘어나는 PRO 기능',
+        f3s: '내 시스템 셋을 파일(.hbs)로 저장·불러오기. PRO 기능은 베타와 함께 계속 보완·추가됩니다.',
+        how_title: 'PRO 업그레이드 방법',
+        how_p: 'PRO 업그레이드는 <b>30,000원</b> 후원으로 함께하실 수 있어요. 아래 QR(해외는 PayPal)로 보내 주신 뒤 폼으로 알려 주시면, ' +
+          '확인하는 대로 <b>PRO 업그레이드 코드</b>와 함께 <b>후원 스폰서 코드</b>(사전·베타 다운로드)도 같이 보내드립니다.',
+        note: '코드는 받으신 뒤 48시간 안에 해방툴의 [PRO UPGRADE] 창에 넣어 주세요. 코드 하나는 PC 한 대에 적용되고, 한번 PRO 가 되면 새 버전에서도 그대로 유지됩니다.',
+        naver: 'Naver Pay', kakao: 'Kakao Pay',
+        scan: '카메라 또는 페이 앱으로 QR을 스캔해 보내실 수 있어요. (네이버·카카오페이는 한국 안에서만 됩니다)',
+        pp_title: '해외에서 — PayPal',
+        pp_desc: '한국 밖에서는 PayPal.me 로 30,000원 상당을 보내 주시면 됩니다.',
+        pp_btn: 'PayPal 로 보내기 ↗',
+        form_title: '✉ PRO 업그레이드 요청 — 이메일을 남기시면 PRO 업그레이드 코드를 보내드립니다',
+        name_ph: '이름 (닉네임)', email_ph: '코드를 받을 이메일',
+        msg_ph: '남길 내용 (선택) — 보내신 분 이름·수단·시각 등',
+        send: '요청하기 ✉',
+        need_fields: '이름과 이메일을 채워 주세요.', bad_email: '이메일 주소를 확인해 주세요.',
+        need_captcha: '로봇이 아님을 확인해 주세요.', sending: '보내는 중…',
+        sent: '요청을 전달했습니다! 확인 후 PRO 업그레이드 코드와 스폰서 코드를 이메일로 보내드릴게요. 고맙습니다 ♥',
+        fail: '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+        noserver: '서버에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요.',
+        default_msg: '(내용 없음)',
+        tag: '[PRO 업그레이드 요청]'
+      },
+      en: {
+        title: 'PRO upgrade ✦', close: 'Close', dialog: 'PRO upgrade',
+        desc: 'The PRO edition is for people who help keep HAE-BANG Tool going. PRO adds the features below.',
+        f1b: 'Switch to device',
+        f1s: 'Attach straight to an Android or Linux handheld and edit its game list, metadata and media from the Rom Tool.',
+        f2b: 'Switch to game archive',
+        f2s: 'Browse the game list, metadata and media of every supported system inside the Rom Tool - no ROMs needed.',
+        f3b: 'HB file · more PRO features over time',
+        f3s: 'Save and load your system sets as a file (.hbs). PRO features keep improving and growing with the beta.',
+        how_title: 'How to upgrade',
+        how_p: 'You can join PRO with a <b>30,000 KRW</b> contribution. Send it with the QR codes below (PayPal from outside Korea) and let me know with the form - ' +
+          'I will send your <b>PRO upgrade code</b> together with a <b>sponsor code</b> (early and beta downloads) once I have checked.',
+        note: 'Enter the code in the Rom Tool\'s [PRO UPGRADE] window within 48 hours of receiving it. One code covers one PC, and PRO stays with later versions.',
+        naver: 'Naver Pay', kakao: 'Kakao Pay',
+        scan: 'Scan a QR code with your camera or pay app. (Naver Pay and Kakao Pay work inside Korea only.)',
+        pp_title: 'From outside Korea — PayPal',
+        pp_desc: 'From outside Korea, send the equivalent of 30,000 KRW with PayPal.me.',
+        pp_btn: 'Send with PayPal ↗',
+        form_title: '✉ Request PRO upgrade — leave your email and I will send the PRO upgrade code',
+        name_ph: 'Name (nickname)', email_ph: 'Email for the code',
+        msg_ph: 'Message (optional) — sender name, method, time…',
+        send: 'Request ✉',
+        need_fields: 'Please fill in your name and email.', bad_email: 'Please check the email address.',
+        need_captcha: 'Please confirm you are not a robot.', sending: 'Sending…',
+        sent: 'Request sent! I will check and email your PRO upgrade code and sponsor code. Thank you ♥',
+        fail: 'Sending failed. Please try again shortly.',
+        noserver: 'Could not reach the server. Please try again shortly.',
+        default_msg: '(no message)',
+        tag: '[PRO upgrade request]'
+      }
+    };
+    var PT_HTML = { how_p: 1 };
+    function tp(k) { return (PT[lang()] || PT.ko)[k] || ''; }
+
+    var PM_HTML =
+      '<div class="dm" id="pm" aria-hidden="true">' +
+        '<div class="dm-card" role="dialog" aria-modal="true" data-pt-aria="dialog">' +
+          '<div class="dm-head">' +
+            '<h3 data-pt="title"></h3>' +
+            '<button class="dm-x" id="pm-x" data-pt-aria="close">&times;</button>' +
+          '</div>' +
+          '<p class="dm-desc" data-pt="desc"></p>' +
+          '<ul class="dm-use">' +
+            '<li><b data-pt="f1b"></b><span data-pt="f1s"></span></li>' +
+            '<li><b data-pt="f2b"></b><span data-pt="f2s"></span></li>' +
+            '<li><b data-pt="f3b"></b><span data-pt="f3s"></span></li>' +
+          '</ul>' +
+          '<div class="dm-code">' +
+            '<b data-pt="how_title"></b>' +
+            '<p data-pt="how_p"></p>' +
+            '<p class="pm-note" data-pt="note"></p>' +
+          '</div>' +
+          '<div class="dm-pay">' +
+            '<div class="dm-qr">' +
+              '<figure><img src="' + P + 'assets/donate_naver.png" alt="Naver Pay QR" loading="lazy" />' +
+                '<figcaption data-pt="naver"></figcaption></figure>' +
+              '<figure><img src="' + P + 'assets/donate_kakao.png" alt="Kakao Pay QR" loading="lazy" />' +
+                '<figcaption data-pt="kakao"></figcaption></figure>' +
+            '</div>' +
+            '<p class="dm-scan" data-pt="scan"></p>' +
+            '<div class="dm-pp">' +
+              '<b data-pt="pp_title"></b>' +
+              '<p data-pt="pp_desc"></p>' +
+              '<a class="btn" href="' + PAYPAL + '" target="_blank" rel="noopener" data-pt="pp_btn"></a>' +
+            '</div>' +
+          '</div>' +
+          '<form class="dm-form" id="pm-form" autocomplete="off" novalidate>' +
+            '<b data-pt="form_title"></b>' +
+            '<div class="dm-row">' +
+              '<input class="dm-in" id="pm-name" type="text" maxlength="100" data-pt-ph="name_ph" />' +
+              '<input class="dm-in" id="pm-email" type="email" maxlength="200" data-pt-ph="email_ph" />' +
+            '</div>' +
+            '<textarea class="dm-in" id="pm-msg" maxlength="2000" data-pt-ph="msg_ph"></textarea>' +
+            '<input name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" ' +
+              'style="position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; opacity:0" />' +
+            '<div class="dm-form-foot">' +
+              '<div id="pm-ts"></div>' +
+              '<button class="dm-send" id="pm-send" type="submit" data-pt="send"></button>' +
+            '</div>' +
+            '<p class="dm-status" id="pm-status" role="status" aria-live="polite"></p>' +
+          '</form>' +
+        '</div>' +
+      '</div>';
+
+    function initPro() {
+      if (document.getElementById('pm')) return;
+      // 후원 창의 모양(#dm …)을 그대로 #pm 에 — 두 창이 같은 모습으로 보인다
+      var st = document.createElement('style');
+      st.textContent = MODAL_CSS.replace(/#dm/g, '#pm') +
+        '#pm .dm-code{margin:0 0 16px}' +
+        '#pm .dm-code .pm-note{margin:0; font-size:12px; color:var(--faint,#6b7280)}' +
+        '#pm .dm-use b{color:var(--gold,#fbbf24)}' +
+        '#pm.en .dm-pp{order:-1; margin:4px 0 16px}';
+      document.head.appendChild(st);
+      document.body.insertAdjacentHTML('beforeend', PM_HTML);
+      var pm = document.getElementById('pm');
+
+      function applyPT() {
+        pm.classList.toggle('en', lang() === 'en');
+        var els = pm.querySelectorAll('[data-pt]');
+        for (var i = 0; i < els.length; i++) {
+          var k = els[i].getAttribute('data-pt');
+          if (PT_HTML[k]) els[i].innerHTML = tp(k); else els[i].textContent = tp(k);
+        }
+        var phs = pm.querySelectorAll('[data-pt-ph]');
+        for (var j = 0; j < phs.length; j++) phs[j].setAttribute('placeholder', tp(phs[j].getAttribute('data-pt-ph')));
+        var ars = pm.querySelectorAll('[data-pt-aria]');
+        for (var m = 0; m < ars.length; m++) ars[m].setAttribute('aria-label', tp(ars[m].getAttribute('data-pt-aria')));
+      }
+      applyPT();
+      if (window.MutationObserver) {
+        new MutationObserver(applyPT).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+      }
+
+      function openPro(on) {
+        pm.classList.toggle('open', on);
+        pm.setAttribute('aria-hidden', on ? 'false' : 'true');
+        document.body.style.overflow = on ? 'hidden' : '';
+        if (on) mountTs('#pm-ts');
+      }
+
+      var f = document.getElementById('pm-form');
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var stt = document.getElementById('pm-status');
+        var btn = document.getElementById('pm-send');
+        function say(m, c) { stt.textContent = m || ''; stt.className = 'dm-status' + (c ? ' ' + c : ''); }
+        var name = document.getElementById('pm-name').value.trim();
+        var email = document.getElementById('pm-email').value.trim();
+        // 워커가 옛 판이어도(종류를 모름) 받은 메일에서 PRO 요청임을 알아보게 본문 맨 앞에 표시한다
+        var msg = tp('tag') + ' ' + (document.getElementById('pm-msg').value.trim() || tp('default_msg'));
+        if (!name || !email) { say(tp('need_fields'), 'err'); return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say(tp('bad_email'), 'err'); return; }
+        var tk = '';
+        try { tk = (window.turnstile && tsIds['#pm-ts'] !== undefined) ? window.turnstile.getResponse(tsIds['#pm-ts']) : ''; } catch (err) {}
+        if (!tk) { say(tp('need_captcha'), 'err'); return; }
+        btn.disabled = true;
+        say(tp('sending'));
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ kind: 'pro', name: name, email: email, message: msg,
+            turnstile: tk, website: f.website.value }),
+        }).then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (d) {
+          btn.disabled = false;
+          if (d && d.ok) {
+            say(tp('sent'), 'ok');
+            f.reset();
+            try { window.turnstile.reset(tsIds['#pm-ts']); } catch (err) {}
+          } else {
+            say(tp('fail'), 'err');
+          }
+        }).catch(function () {
+          btn.disabled = false;
+          say(tp('noserver'), 'err');
+        });
+      });
+      document.querySelectorAll('[data-pro]').forEach(function (b) {
+        b.addEventListener('click', function (e) { e.preventDefault(); openPro(true); });
+      });
+      document.getElementById('pm-x').addEventListener('click', function () { openPro(false); });
+      pm.addEventListener('click', function (e) { if (e.target === pm) openPro(false); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && pm.classList.contains('open')) openPro(false);
+      });
+      // 해방툴(앱)의 PRO UPGRADE 창 → 'PRO 업그레이드 하러 가기' 로 넘어온 경우 바로 연다
+      if (/[?&]pro=1(?:&|$)/.test(location.search) || location.hash === '#pro') openPro(true);
+    }
+    initPro();
 
     // 해방툴(앱)의 후원 창에서 '홈페이지에서 후원 알리기'로 넘어온 경우 바로 열어 준다.
     // 앱은 로컬 WebView 라 Turnstile 위젯을 띄울 수 없어, 알리는 폼은 이쪽에서 받는다.
