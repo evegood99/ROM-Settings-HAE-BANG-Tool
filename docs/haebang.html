@@ -337,6 +337,8 @@
   .tier ul{margin:0; padding-left:18px}
   .tier li{font-size:13.5px; line-height:1.75; margin:0 0 2px}
   .tier li b{font-weight:800}
+  .tier li .vflow{display:block; font-variant-numeric:tabular-nums; white-space:nowrap; font-size:12.5px; color:var(--muted,#9aa1b6)}
+  @media (max-width:420px){ .tier li .vflow{white-space:normal} }
   .tier-note{margin:18px 0 0; font-size:14px; line-height:1.8}
   .tier-note b{color:#f472b6}
   .roadmap{margin:22px 0 0; text-align:left; border:1px solid var(--border); border-radius:var(--radius); padding:0 20px}
@@ -789,8 +791,8 @@
             <ul>
               <li data-ko="<b>최신 v1.0.10 배포 중</b> — 파일 이름 매칭 정확도 98.5% · BIOS 점검 · 롬없음 보기 · ADB 드라이버 안내 · 리눅스 포크별 내보내기 · 하위 폴더 시스템 추가 · 파일 교체 · 새 이미지 편집기"
                   data-en="<b>v1.0.10 available now</b> — 98.5% filename matching, BIOS check, no-ROM view, ADB driver help, per-fork Linux export, sub-folder systems, file replace, new image editor"><b>최신 v1.0.10 배포 중</b> — 파일 이름 매칭 정확도 98.5% · BIOS 점검 · 롬없음 보기 · ADB 드라이버 안내 · 리눅스 포크별 내보내기 · 하위 폴더 시스템 추가 · 파일 교체 · 새 이미지 편집기</li>
-              <li data-ko="<b>마이너 업데이트를 계속</b> 받습니다 — v1.0.10 → v1.0.11 → … → v1.0.x → 1.1"
-                  data-en="<b>Continuous minor updates</b> — v1.0.10 → v1.0.11 → … → v1.0.x → 1.1">마이너 업데이트를 계속 받습니다 — v1.0.10 → v1.0.11 → … → v1.0.x → 1.1</li>
+              <li data-ko="<b>마이너 업데이트를 계속</b> 받습니다 —<span class='vflow'>v1.0.0 → … → v1.0.x(후원자 베타) → v1.1(공개)</span><span class='vflow'>v1.1.0 → … → v1.1.x(후원자 베타) → v1.2(공개)</span>"
+                  data-en="<b>Continuous minor updates</b> —<span class='vflow'>v1.0.0 → … → v1.0.x (sponsor beta) → v1.1 (public)</span><span class='vflow'>v1.1.0 → … → v1.1.x (sponsor beta) → v1.2 (public)</span>"><b>마이너 업데이트를 계속</b> 받습니다 —<span class="vflow">v1.0.0 → … → v1.0.x(후원자 베타) → v1.1(공개)</span><span class="vflow">v1.1.0 → … → v1.1.x(후원자 베타) → v1.2(공개)</span></li>
               <li data-ko="메이저 업데이트도 <b>공개 버전보다 먼저</b> 도착합니다."
                   data-en="Major updates also arrive <b>ahead of the public release</b>.">메이저 업데이트도 <b>공개 버전보다 먼저</b> 도착합니다.</li>
               <li data-ko="<b>시스템 제외가 없습니다</b> — 지원하는 모든 기종을 그대로."
