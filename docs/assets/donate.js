@@ -350,7 +350,8 @@
 
 
     // ── PRO 업그레이드 창(#pm) — 후원 창과 같은 모양·같은 결제 수단, 알리는 폼만 'PRO 업그레이드 요청' ──
-    // [data-pro] 를 누르거나 ?pro=1 / #pro 로 들어오면 열린다(해방툴 앱의 PRO UPGRADE 창 → '하러 가기').
+    // [data-pro] 를 누르거나 ?pro=1 로 들어오면 열린다(해방툴 앱의 PRO UPGRADE 창 → '하러 가기').
+    // #pro 해시는 쓰지 않는다 — 문서의 PRO 절(guide.html#pro)과 겹쳐 문서로 가는 링크마다 창이 떴다.
     var PT = {
       ko: {
         title: 'PRO 업그레이드 ✦', close: '닫기', dialog: 'PRO 업그레이드',
@@ -538,7 +539,7 @@
         if (e.key === 'Escape' && pm.classList.contains('open')) openPro(false);
       });
       // 해방툴(앱)의 PRO UPGRADE 창 → 'PRO 업그레이드 하러 가기' 로 넘어온 경우 바로 연다
-      if (/[?&]pro=1(?:&|$)/.test(location.search) || location.hash === '#pro') openPro(true);
+      if (/[?&]pro=1(?:&|$)/.test(location.search)) openPro(true);
     }
     initPro();
 
