@@ -358,7 +358,7 @@
         desc: 'PRO 에디션은 해방툴을 오래 이어 갈 수 있게 힘을 보태 주시는 분들께 드리는 버전입니다.',
         doc_btn: 'PRO 기능 보기 (문서) →',
         how_title: 'PRO 업그레이드 방법',
-        how_p: 'PRO 업그레이드는 <b>30,000원</b>(해외는 <b>US$23</b>) 후원으로 함께하실 수 있어요. 아래 QR(해외는 PayPal)로 보내 주신 뒤 폼으로 알려 주시면, ' +
+        how_p: 'PRO 업그레이드는 <b>30,000원</b>(해외는 <b>US$23</b>) 후원으로 함께하실 수 있어요. 아래 QR(해외는 PayPal)로 보내 주신 뒤 하단의 PRO 업그레이드 요청 칸에 이름, 이메일, 내용을 적으시고 <b>요청하기</b> 버튼으로 보내 주시면, ' +
           '확인하는 대로 <b>PRO 업그레이드 코드</b>와 함께 <b>후원 스폰서 코드</b>(사전·베타 다운로드)도 같이 보내드립니다.',
         note: '코드 하나는 PC 한 대에 적용되고, 한번 PRO 가 되면 새 버전에서도 그대로 유지됩니다. 윈도우 재설치 및 서브 PC 등을 위하여 추가 요청 시 2~3회 정도 추가 발급해 드립니다.',
         naver: 'Naver Pay', kakao: 'Kakao Pay',
@@ -383,7 +383,7 @@
         desc: 'The PRO edition is for people who help keep HAE-BANG Tool going.',
         doc_btn: 'See PRO features (docs) →',
         how_title: 'How to upgrade',
-        how_p: 'You can join PRO with a <b>US$23</b> (30,000 KRW in Korea) contribution. Send it with the QR codes below (PayPal from outside Korea) and let me know with the form - ' +
+        how_p: 'You can join PRO with a <b>US$23</b> (30,000 KRW in Korea) contribution. Send it with the QR codes below (PayPal from outside Korea), then fill in your name, email and message in the PRO upgrade request at the bottom and press <b>Request</b> - ' +
           'I will send your <b>PRO upgrade code</b> together with a <b>sponsor code</b> (early and beta downloads) once I have checked.',
         note: 'One code covers one PC, and PRO stays with later versions. For a Windows reinstall or a second PC, just ask - two or three extra codes can be issued.',
         naver: 'Naver Pay', kakao: 'Kakao Pay',
