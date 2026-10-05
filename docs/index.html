@@ -9,6 +9,7 @@
      <head> 위쪽에 두어 화면이 그려지기 전에 옮겨지게 한다. -->
 <link rel="canonical" href="https://evegoodretro.com/" />
 <script>
+document.documentElement.className += ' js';   // 첫 화면 배너 등장 효과는 JS 가 돌 때만 숨겨 두고 시작한다
 (function () {
   if (location.hostname.indexOf('github.io') < 0) return;   // 정식 도메인에서는 아무 일 없음
   var p = location.pathname.replace(/^\/ROM-Settings-HAE-BANG-Tool/, '') || '/';
@@ -81,39 +82,102 @@
   .btn-ghost:hover{border-color:var(--cyan); color:#fff; transform:translateY(-2px)}
 
   /* ---------- Hero ---------- */
-  .hero{padding:84px 0 30px; text-align:center}
-  .hero .eyebrow{display:inline-block; margin-bottom:16px}
-  /* HAE-BANG RETRO 워드마크 — 아이콘 + 초록 그라데이션 글자에 밝은 띠가 지나가는 샤인 스윕.
-     글자는 이미지가 아니라 텍스트라서 어떤 해상도에서도 선명하다(배경띠 위치만 움직인다).
-     아이콘은 정사각이라 마스크 없이 border-radius 로 잘라 같은 띠를 얹는다. */
-  .hero-brandmark{display:flex; align-items:center; justify-content:center; gap:17px; margin-bottom:24px;
-    animation:logoIn .85s cubic-bezier(.2,.85,.25,1) both}
-  /* 아이콘은 배경을 완전히 지운 누끼 PNG(실물만). 샤인 띠도 알파를 마스크로 써서
-     게임기 실루엣대로만 지나간다. 글로우는 CSS 그림자로 준다. */
-  .hbr-ico{position:relative; display:inline-block; flex:0 0 auto}
-  .hbr-ico img{display:block; width:136px; height:auto;
-    filter:drop-shadow(0 8px 22px rgba(34,197,94,.30))}
-  .hbr-ico::after{content:""; position:absolute; inset:0; pointer-events:none;
-    background:linear-gradient(112deg, transparent 34%, rgba(226,255,238,.5) 48%, transparent 60%);
-    background-size:260% 100%; background-position:135% 0;
-    -webkit-mask:url(assets/hb_retro_v2.png) no-repeat center/contain;
-    mask:url(assets/hb_retro_v2.png) no-repeat center/contain;
-    animation:hbrShine 5.5s ease-in-out 1.2s infinite}
-  .hbr-word{font-size:clamp(32px,4.8vw,54px); font-weight:900; letter-spacing:.4px; line-height:1; white-space:nowrap;
-    background:linear-gradient(110deg,#15803d 0%,#22c55e 20%,#4ade80 33%,#dcffe9 45%,#4ade80 57%,#22c55e 70%,#15803d 100%);
-    background-size:240% 100%; background-position:120% 0;
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    filter:drop-shadow(0 6px 24px rgba(34,197,94,.38)) drop-shadow(0 2px 10px rgba(74,222,128,.25));
-    animation:hbrShine 5.5s ease-in-out 1.2s infinite}
-  @keyframes hbrShine{0%,52%{background-position:120% 0} 82%,100%{background-position:-60% 0}}
-  @keyframes logoIn{from{opacity:0; transform:translateY(14px) scale(.97)} to{opacity:1; transform:none}}
-  @media (max-width:560px){
-    .hero-brandmark{gap:11px}
-    .hbr-ico img{width:92px}
-    .hbr-word{font-size:clamp(24px,7.6vw,32px)}
+  .hero{padding:0 0 30px; text-align:center; position:relative}
+  /* 유튜브 채널 배너(2560×1440 그림 한 장)를 무대로 쓴다. 장면(.hb-scene)은 언제나 16:9 그대로 무대를 덮고
+     (cover — 컨테이너 단위로 계산), 빛 효과는 장면 안에 그림 좌표(%)로 얹어 어떤 화면 크기에서도 그림과 맞는다.
+     겹 순서: 장면 위치 › 마우스·스크롤 시차(JS) › 처음 다가오기 › 천천히 숨쉬기 › 그림 + 빛 */
+  .hb-stage{position:relative; height:clamp(520px, 56.25vw, calc(100vh - 36px)); margin-top:-66px;
+    overflow:hidden; container-type:size; background:#05060a; isolation:isolate}
+  .hb-scene{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:calc(max(100cqw, 177.78cqh) * 1.08); height:calc(max(100cqh, 56.25cqw) * 1.08)}
+  .hb-par,.hb-zoom,.hb-breath{position:absolute; inset:0; will-change:transform}
+  .js .hb-zoom{opacity:0; transform:scale(1.12); filter:brightness(.25)}
+  .hb-stage.go .hb-zoom{animation:hbIn 2.6s cubic-bezier(.16,.84,.24,1) forwards}
+  .hb-stage.go .hb-breath{animation:hbBreath 26s ease-in-out 2.6s infinite alternate}
+  @keyframes hbIn{0%{opacity:0; transform:scale(1.12); filter:brightness(.25)} 35%{opacity:1}
+    100%{opacity:1; transform:scale(1); filter:brightness(1)}}
+  @keyframes hbBreath{from{transform:scale(1)} to{transform:scale(1.035)}}
+  .hb-img{position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:cover; user-select:none}
+  /* 빛 — 전부 그림 좌표(2560×1440 기준 %). screen 으로 섞어 밝은 곳만 더 빛난다 */
+  .hb-glow{position:absolute; border-radius:50%; mix-blend-mode:screen; pointer-events:none; opacity:0}
+  .hb-stage.go .hb-glow{opacity:1}
+  .g-sign{left:30.5%; top:29%; width:17.4%; height:33.6%;
+    background:radial-gradient(closest-side, rgba(74,222,128,.42), rgba(34,197,94,.14) 55%, transparent);
+    animation:neon 6.5s linear 2.4s infinite}
+  .g-crt{left:73%; top:7.5%; width:16%; height:23%;
+    background:radial-gradient(closest-side, rgba(74,222,128,.30), transparent 70%); animation:neon 9s linear 3.1s infinite reverse}
+  .g-mon{left:-2%; top:9%; width:28%; height:43%;
+    background:radial-gradient(closest-side, rgba(220,240,255,.16), transparent 72%); animation:breathe 5.5s ease-in-out infinite alternate}
+  .g-hand{left:74.5%; top:30%; width:21.5%; height:32%;
+    background:radial-gradient(closest-side, rgba(180,255,210,.20), transparent 70%); animation:breathe 4.6s ease-in-out 1s infinite alternate}
+  .g-lamp{left:86.5%; top:16%; width:10.5%; height:20%;
+    background:radial-gradient(closest-side, rgba(255,190,90,.42), rgba(255,150,40,.12) 55%, transparent); animation:lamp 7s steps(1,end) 2s infinite}
+  .g-led{left:44.6%; top:58.9%; width:2.2%; height:3.6%;
+    background:radial-gradient(closest-side, rgba(255,184,77,.8), transparent); animation:breathe 2.2s ease-in-out infinite alternate}
+  @keyframes breathe{from{opacity:.45} to{opacity:1}}
+  @keyframes neon{0%,18%,22%,60%,64%,100%{opacity:1} 19%,21%{opacity:.35} 62%{opacity:.55}}
+  @keyframes lamp{0%,71%,75%,100%{opacity:1} 72%{opacity:.55} 74%{opacity:.8}}
+  /* 회로 위로 지나가는 빛 — 왼쪽은 PC 화면 → HB 로고, 오른쪽은 로고 → 휴대기기(정리해서 기기로 보내는 흐름) */
+  .hb-flow{position:absolute; inset:0; width:100%; height:100%; mix-blend-mode:screen; pointer-events:none; opacity:0}
+  .hb-stage.go .hb-flow{opacity:1; transition:opacity 1s 1.8s}
+  .hb-flow path{fill:none; stroke-linecap:round; stroke-dasharray:9 191; stroke-dashoffset:9;
+    animation:pulse 3.4s cubic-bezier(.55,.05,.45,.95) infinite}
+  .hb-flow .halo{stroke:#4ade80; stroke-width:14; opacity:.55}
+  .hb-flow .core{stroke:#eafff1; stroke-width:3.4}
+  .hb-flow .d1{animation-delay:2.2s} .hb-flow .d2{animation-delay:2.75s} .hb-flow .d3{animation-delay:3.3s}
+  .hb-flow .d4{animation-delay:3.9s} .hb-flow .d5{animation-delay:4.45s} .hb-flow .d6{animation-delay:5s}
+  @keyframes pulse{0%{stroke-dashoffset:9} 62%,100%{stroke-dashoffset:-100}}
+  /* 가운데 로고 · 글자 위로 7초마다 지나가는 빛줄기(overlay — 밝은 글자만 더 밝아진다) */
+  .hb-sweep{position:absolute; left:33.4%; top:35.6%; width:31.9%; height:21.4%; overflow:hidden; pointer-events:none}
+  .hb-sweep::before{content:""; position:absolute; top:-20%; bottom:-20%; left:0; width:22%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,.75) 50%, transparent);
+    mix-blend-mode:overlay; transform:translateX(-160%) skewX(-14deg); opacity:0}
+  .hb-stage.go .hb-sweep::before{animation:sweep 7s cubic-bezier(.45,.05,.35,1) 2.9s infinite}
+  @keyframes sweep{0%{transform:translateX(-160%) skewX(-14deg); opacity:1} 26%{transform:translateX(520%) skewX(-14deg); opacity:1}
+    27%,100%{transform:translateX(520%) skewX(-14deg); opacity:0}}
+  /* 화면 결: 주사선 · 비네트 · 위(메뉴) · 아래(본문으로 이어짐) 그늘. 스크롤하면 --dim 만큼 어두워진다 */
+  .hb-dust{position:absolute; inset:-30px; width:calc(100% + 60px); height:calc(100% + 60px); pointer-events:none; mix-blend-mode:screen}
+  .hb-fx{position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(5,6,10,.62) 0, rgba(5,6,10,0) 150px),
+      linear-gradient(180deg, rgba(7,8,13,0) 58%, rgba(7,8,13,.82) 84%, var(--bg) 100%),
+      radial-gradient(130% 95% at 50% 44%, transparent 58%, rgba(0,0,0,.5) 100%)}
+  .hb-fx::before{content:""; position:absolute; inset:0; opacity:.22;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,.55) 0 1px, transparent 1px 3px)}
+  .hb-fx::after{content:""; position:absolute; inset:0; background:var(--bg); opacity:var(--dim,0)}
+  .hero-body{position:relative; z-index:2; margin-top:-148px}
+  /* 배너 가운데에 같은 문구가 그려져 있으므로 한국어 · 넓은 화면에서는 제목을 화면에서만 감춘다(검색 · 낭독에는 남는다).
+     영어로 바꾸거나(배너 글자는 한국어), 배너 글자가 작아지는 좁은 화면에서는 보인다. */
+  html:not([lang=en]) .hero-title{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);
+    clip-path:inset(50%); white-space:nowrap; margin:0}
+  .js .hero-body > *{opacity:0; transform:translateY(16px)}
+  .hb-stage.go + .hero-body > *{animation:riseIn .9s cubic-bezier(.2,.85,.25,1) forwards}
+  .hb-stage.go + .hero-body > :nth-child(2){animation-delay:1.25s}
+  .hb-stage.go + .hero-body > :nth-child(3){animation-delay:1.4s}
+  .hb-stage.go + .hero-body > :nth-child(4){animation-delay:1.55s}
+  .hb-stage.go + .hero-body > :nth-child(1){animation-delay:1.1s}
+  @keyframes riseIn{to{opacity:1; transform:none}}
+  .btn-yt{border-color:rgba(255,77,77,.45); color:#fff; background:rgba(224,38,28,.16)}
+  .btn-yt:hover{background:#e0261c; border-color:#e0261c; transform:translateY(-2px)}
+  /* 첫 화면에서는 메뉴 줄을 투명하게 — 배너가 화면 맨 위까지 이어진다 */
+  header:not(.scrolled){background:linear-gradient(180deg, rgba(5,6,10,.55), rgba(5,6,10,0)); backdrop-filter:none; -webkit-backdrop-filter:none}
+  @media (max-width:760px){
+    .hb-stage{height:clamp(420px, 116vw, 600px)}
+    .hero-body{margin-top:-118px}
   }
-  h1.hero-title{font-size:clamp(36px,5.6vw,62px); line-height:1.08; letter-spacing:-.02em; font-weight:800; margin:0 auto 20px; max-width:820px}
-  .hero-tag{font-size:clamp(15.5px,2vw,18.5px); color:var(--muted); max-width:640px; margin:0 auto 32px}
+  @media (max-width:560px){
+    html:not([lang=en]) .hero-title{position:static; width:auto; height:auto; overflow:visible; clip:auto; clip-path:none;
+      white-space:normal; margin:0 auto 14px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .js .hb-zoom{opacity:1; transform:none; filter:none}
+    .hb-stage.go .hb-zoom,.hb-stage.go .hb-breath,.hb-glow,.hb-flow path,.hb-stage.go .hb-sweep::before{animation:none}
+    .hb-flow,.hb-dust{display:none}
+    .js .hero-body > *{opacity:1; transform:none}
+    .hb-stage.go + .hero-body > *{animation:none}
+  }
+  h1.hero-title{font-size:clamp(30px,4.6vw,52px); line-height:1.1; letter-spacing:-.02em; font-weight:800; margin:0 auto 18px; max-width:820px}
+  .hero-tag{font-size:clamp(15.5px,2vw,18.5px); color:#c3c8d6; max-width:640px; margin:0 auto 28px; text-shadow:0 2px 14px rgba(0,0,0,.6)}
   .hero-cta{display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:center}
   .hero-badges{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:22px}
   .badge{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700; color:var(--muted);
@@ -342,11 +406,46 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap">
-      <div class="hero-brandmark">
-        <span class="hbr-ico"><img src="assets/hb_retro_v2.png" alt="HAE-BANG RETRO" /></span>
-        <span class="hbr-word">HAE-BANG RETRO</span>
+    <!-- 유튜브 채널 배너(2560×1440) — 빛 효과는 그림 좌표에 맞춰 얹는다(CSS .hb-*) -->
+    <div class="hb-stage" id="hbStage">
+      <div class="hb-scene">
+        <div class="hb-par">
+          <div class="hb-zoom">
+            <div class="hb-breath">
+              <picture>
+                <source type="image/webp" srcset="assets/hero_banner_960.webp 960w, assets/hero_banner_1600.webp 1600w, assets/hero_banner_2560.webp 2560w"
+                        sizes="(max-width:760px) 220vw, 108vw" />
+                <img class="hb-img" src="assets/hero_banner_1600.jpg" width="2560" height="1440" fetchpriority="high" decoding="async"
+                     alt="해방레트로 — HB RETRO 로고와 '레트로 게임의 모든 여정, 한 곳에서.' · 해방툴 · HB런처 · 게임 아카이브 · evegoodretro.com" />
+              </picture>
+              <span class="hb-glow g-mon"></span><span class="hb-glow g-hand"></span><span class="hb-glow g-crt"></span>
+              <span class="hb-glow g-lamp"></span><span class="hb-glow g-led"></span><span class="hb-glow g-sign"></span>
+              <svg class="hb-flow" viewBox="0 0 2560 1440" preserveAspectRatio="none" aria-hidden="true">
+                <defs><filter id="hbBlur" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="7" /></filter></defs>
+                <g filter="url(#hbBlur)">
+                  <path class="halo d1" pathLength="100" d="M600 592L632 593L676 630L830 636L856 658L878 660" />
+                  <path class="halo d2" pathLength="100" d="M600 647L644 649L668 667L740 668L776 692L872 692" />
+                  <path class="halo d3" pathLength="100" d="M600 693L720 693L762 723L852 723" />
+                  <path class="halo d4" pathLength="100" d="M1640 664L1656 664L1684 689L1820 689L1844 667L1904 667L1922 648" />
+                  <path class="halo d5" pathLength="100" d="M1676 654L1700 653L1722 634L1866 630L1890 612L1918 612L1934 594" />
+                  <path class="halo d6" pathLength="100" d="M1676 742L1750 742L1774 722L1824 721L1856 698L1906 696L1922 706" />
+                </g>
+                <path class="core d1" pathLength="100" d="M600 592L632 593L676 630L830 636L856 658L878 660" />
+                <path class="core d2" pathLength="100" d="M600 647L644 649L668 667L740 668L776 692L872 692" />
+                <path class="core d3" pathLength="100" d="M600 693L720 693L762 723L852 723" />
+                <path class="core d4" pathLength="100" d="M1640 664L1656 664L1684 689L1820 689L1844 667L1904 667L1922 648" />
+                <path class="core d5" pathLength="100" d="M1676 654L1700 653L1722 634L1866 630L1890 612L1918 612L1934 594" />
+                <path class="core d6" pathLength="100" d="M1676 742L1750 742L1774 722L1824 721L1856 698L1906 696L1922 706" />
+              </svg>
+              <span class="hb-sweep"></span>
+            </div>
+          </div>
+        </div>
       </div>
+      <canvas class="hb-dust" aria-hidden="true"></canvas>
+      <div class="hb-fx"></div>
+    </div>
+    <div class="wrap hero-body">
       <h1 class="hero-title">
         <span data-ko="레트로 게임의 모든 여정," data-en="Your whole retro journey,">레트로 게임의 모든 여정,</span><br />
         <span class="grad-text" data-ko="한 곳에서." data-en="in one place.">한 곳에서.</span>
@@ -357,6 +456,7 @@
       <div class="hero-cta">
         <a class="btn btn-primary" href="haebang.html" data-ko="해방툴 알아보기" data-en="Explore the Rom Tool">해방툴 알아보기</a>
         <a class="btn btn-ghost" href="#ecosystem" data-ko="어떻게 이어질까?" data-en="How it connects">어떻게 이어질까?</a>
+        <a class="btn btn-yt" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg><span data-ko="유튜브 채널" data-en="YouTube">유튜브 채널</span></a>
       </div>
       <div class="hero-badges">
         <span class="badge"><span class="dot"></span><span data-ko="해방툴 v1.1 공개 배포 중" data-en="Rom Tool v1.1 out now">해방툴 v1.1 공개 배포 중</span></span>
@@ -748,6 +848,65 @@
   // ?lang=ko|en 이 있으면 그것이 먼저(해방툴 앱이 제 언어로 후원·PRO 창을 연다) — applyLang 이 hb_lang 에 남겨 다음 쪽도 따른다
   try { var qlang = (location.search.match(/[?&]lang=(ko|en)(?:&|$)/) || [])[1];
         var saved = qlang || localStorage.getItem('hb_lang'); if (saved) applyLang(saved); } catch(e){}
+
+  // ---------- 첫 화면 배너 ----------
+  // 그림이 준비되면 .go 로 등장 효과를 켜고, 마우스(살짝 반대로)·스크롤(느리게)에 따라 장면과 먼지 층을 다르게 움직인다.
+  // 화면 밖이거나 탭이 숨으면 멈추고, '동작 줄이기' 설정이면 효과 없이 그림만 보인다.
+  (function () {
+    var st = document.getElementById('hbStage'); if (!st) return;
+    var img = st.querySelector('.hb-img'), par = st.querySelector('.hb-par'), cv = st.querySelector('.hb-dust');
+    var started = false;
+    function go() { if (!started) { started = true; st.classList.add('go'); } }
+    if (img.complete && img.naturalWidth) go();
+    else { img.addEventListener('load', go); img.addEventListener('error', go); setTimeout(go, 1800); }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var mx = 0, my = 0, tx = 0, ty = 0, on = true, raf = 0, last = 0;
+    if (fine) window.addEventListener('mousemove', function (e) {
+      mx = e.clientX / window.innerWidth * 2 - 1; my = e.clientY / window.innerHeight * 2 - 1;
+    }, {passive: true});
+
+    // 픽셀 먼지 — 초록 · 민트 · 호박색 작은 네모가 천천히 떠오르며 깜빡인다
+    var ctx = cv.getContext('2d'), dots = [], W = 0, H = 0, dpr = 1;
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      W = cv.clientWidth; H = cv.clientHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      var n = W < 760 ? 22 : 48; dots = [];
+      for (var i = 0; i < n; i++) dots.push(seed({}, true));
+    }
+    var COL = ['74,222,128', '134,239,172', '52,211,153', '251,191,36'];
+    function seed(d, any) {
+      d.x = Math.random() * W; d.y = any ? Math.random() * H : H + 10;
+      d.s = Math.random() < .75 ? 2 : (Math.random() < .7 ? 3 : 4);
+      d.v = 6 + Math.random() * 16; d.w = Math.random() * 6.28; d.c = COL[Math.random() < .86 ? (Math.random() * 3) | 0 : 3];
+      d.a = .25 + Math.random() * .55; return d;
+    }
+    size(); window.addEventListener('resize', size);
+
+    function frame(t) {
+      raf = 0; if (!on) return;
+      var dt = Math.min((t - (last || t)) / 1000, .05); last = t;
+      tx += (mx - tx) * .05; ty += (my - ty) * .05;
+      var sy = Math.min(window.scrollY, st.offsetHeight), h = st.offsetHeight || 1;
+      par.style.transform = 'translate3d(' + (-tx * 16).toFixed(2) + 'px,' + (-ty * 10 + sy * .28).toFixed(2) + 'px,0)';
+      cv.style.transform = 'translate3d(' + (-tx * 34).toFixed(2) + 'px,' + (-ty * 22 + sy * .1).toFixed(2) + 'px,0)';
+      st.style.setProperty('--dim', (sy / h * .9).toFixed(3));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < dots.length; i++) {
+        var d = dots[i]; d.y -= d.v * dt; d.w += dt * 1.3; d.x += Math.sin(d.w) * .25;
+        if (d.y < -10) seed(d, false);
+        ctx.fillStyle = 'rgba(' + d.c + ',' + (d.a * (.55 + .45 * Math.sin(d.w * 1.7))).toFixed(3) + ')';
+        ctx.fillRect(Math.round(d.x), Math.round(d.y), d.s, d.s);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function run() { if (on && !raf && started) { last = 0; raf = requestAnimationFrame(frame); } }
+    var inView = true;
+    new IntersectionObserver(function (es) { inView = es[0].isIntersecting; on = inView && !document.hidden; run(); }).observe(st);
+    document.addEventListener('visibilitychange', function () { on = inView && !document.hidden; run(); });
+    var wait = setInterval(function () { if (started) { clearInterval(wait); run(); } }, 100);
+  })();
 
   // header shadow on scroll
   var hdr = document.getElementById('hdr');
