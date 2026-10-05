@@ -83,20 +83,19 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
 
   /* ---------- Hero ---------- */
   .hero{padding:0 0 30px; text-align:center; position:relative}
-  /* 유튜브 채널 배너(2560×1440 그림 한 장)를 무대로 쓴다. 장면(.hb-scene)은 언제나 16:9 그대로 무대를 덮고
-     (cover — 컨테이너 단위로 계산), 빛 효과는 장면 안에 그림 좌표(%)로 얹어 어떤 화면 크기에서도 그림과 맞는다.
-     겹 순서: 장면 위치 › 마우스·스크롤 시차(JS) › 처음 다가오기 › 천천히 숨쉬기 › 그림 + 빛 */
-  .hb-stage{position:relative; height:clamp(520px, 56.25vw, calc(100vh - 36px)); margin-top:-66px;
+  /* 유튜브 채널 배너(2560×1440 그림 한 장)를 무대로 쓴다 — 배너가 한눈에 다 보이게: 무대는 16:9 그대로이되
+     첫 화면(100vh)을 넘지 않고, 장면(.hb-scene)은 좌우를 자르지 않는다(넓은 모니터에서 위아래만 조금, 마우스 시차 몫 1.5%).
+     빛 효과는 장면 안에 그림 좌표(%)로 얹어 어떤 화면 크기에서도 그림과 맞는다.
+     겹 순서: 장면 위치 › 마우스·스크롤 시차(JS) › 처음 다가오기 › 그림 + 빛 */
+  .hb-stage{position:relative; height:min(56.25vw, 100vh); margin-top:-66px;
     overflow:hidden; container-type:size; background:#05060a; isolation:isolate}
-  .hb-scene{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-    width:calc(max(100cqw, 177.78cqh) * 1.08); height:calc(max(100cqh, 56.25cqw) * 1.08)}
-  .hb-par,.hb-zoom,.hb-breath{position:absolute; inset:0; will-change:transform}
-  .js .hb-zoom{opacity:0; transform:scale(1.12); filter:brightness(.25)}
-  .hb-stage.go .hb-zoom{animation:hbIn 2.6s cubic-bezier(.16,.84,.24,1) forwards}
-  .hb-stage.go .hb-breath{animation:hbBreath 26s ease-in-out 2.6s infinite alternate}
-  @keyframes hbIn{0%{opacity:0; transform:scale(1.12); filter:brightness(.25)} 35%{opacity:1}
+  .hb-scene{position:absolute; left:50%; top:47%; transform:translate(-50%,-47%);
+    width:calc(max(100cqw, 177.78cqh) * 1.015); height:calc(max(100cqh, 56.25cqw) * 1.015)}
+  .hb-par,.hb-zoom{position:absolute; inset:0; will-change:transform}
+  .js .hb-zoom{opacity:0; transform:scale(1.06); filter:brightness(.25)}
+  .hb-stage.go .hb-zoom{animation:hbIn 2.4s cubic-bezier(.16,.84,.24,1) forwards}
+  @keyframes hbIn{0%{opacity:0; transform:scale(1.06); filter:brightness(.25)} 35%{opacity:1}
     100%{opacity:1; transform:scale(1); filter:brightness(1)}}
-  @keyframes hbBreath{from{transform:scale(1)} to{transform:scale(1.035)}}
   .hb-img{position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:cover; user-select:none}
   /* 빛 — 전부 그림 좌표(2560×1440 기준 %). screen 으로 섞어 밝은 곳만 더 빛난다 */
   .hb-glow{position:absolute; border-radius:50%; mix-blend-mode:screen; pointer-events:none; opacity:0}
@@ -139,13 +138,13 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   .hb-dust{position:absolute; inset:-30px; width:calc(100% + 60px); height:calc(100% + 60px); pointer-events:none; mix-blend-mode:screen}
   .hb-fx{position:absolute; inset:0; pointer-events:none;
     background:
-      linear-gradient(180deg, rgba(5,6,10,.62) 0, rgba(5,6,10,0) 150px),
-      linear-gradient(180deg, rgba(7,8,13,0) 58%, rgba(7,8,13,.82) 84%, var(--bg) 100%),
-      radial-gradient(130% 95% at 50% 44%, transparent 58%, rgba(0,0,0,.5) 100%)}
-  .hb-fx::before{content:""; position:absolute; inset:0; opacity:.22;
+      linear-gradient(180deg, rgba(5,6,10,.5) 0, rgba(5,6,10,0) 120px),
+      linear-gradient(180deg, rgba(7,8,13,0) 80%, rgba(7,8,13,.7) 93%, var(--bg) 100%),
+      radial-gradient(140% 105% at 50% 46%, transparent 66%, rgba(0,0,0,.36) 100%)}
+  .hb-fx::before{content:""; position:absolute; inset:0; opacity:.14;
     background:repeating-linear-gradient(0deg, rgba(0,0,0,.55) 0 1px, transparent 1px 3px)}
   .hb-fx::after{content:""; position:absolute; inset:0; background:var(--bg); opacity:var(--dim,0)}
-  .hero-body{position:relative; z-index:2; margin-top:-148px}
+  .hero-body{position:relative; z-index:2; margin-top:-34px}
   /* 배너 가운데에 같은 문구가 그려져 있으므로 한국어 · 넓은 화면에서는 제목을 화면에서만 감춘다(검색 · 낭독에는 남는다).
      영어로 바꾸거나(배너 글자는 한국어), 배너 글자가 작아지는 좁은 화면에서는 보인다. */
   html:not([lang=en]) .hero-title{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);
@@ -161,9 +160,10 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   .btn-yt:hover{background:#e0261c; border-color:#e0261c; transform:translateY(-2px)}
   /* 첫 화면에서는 메뉴 줄을 투명하게 — 배너가 화면 맨 위까지 이어진다 */
   header:not(.scrolled){background:linear-gradient(180deg, rgba(5,6,10,.55), rgba(5,6,10,0)); backdrop-filter:none; -webkit-backdrop-filter:none}
+  /* 좁은 화면 — 배너 전체(16:9)를 메뉴 줄 아래에 그대로 */
   @media (max-width:760px){
-    .hb-stage{height:clamp(420px, 116vw, 600px)}
-    .hero-body{margin-top:-118px}
+    .hb-stage{height:56.25vw; margin-top:0}
+    .hero-body{margin-top:18px}
   }
   @media (max-width:560px){
     html:not([lang=en]) .hero-title{position:static; width:auto; height:auto; overflow:visible; clip:auto; clip-path:none;
@@ -171,7 +171,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   }
   @media (prefers-reduced-motion:reduce){
     .js .hb-zoom{opacity:1; transform:none; filter:none}
-    .hb-stage.go .hb-zoom,.hb-stage.go .hb-breath,.hb-glow,.hb-flow path,.hb-stage.go .hb-sweep::before{animation:none}
+    .hb-stage.go .hb-zoom,.hb-glow,.hb-flow path,.hb-stage.go .hb-sweep::before{animation:none}
     .hb-flow,.hb-dust{display:none}
     .js .hero-body > *{opacity:1; transform:none}
     .hb-stage.go + .hero-body > *{animation:none}
@@ -411,7 +411,6 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       <div class="hb-scene">
         <div class="hb-par">
           <div class="hb-zoom">
-            <div class="hb-breath">
               <picture>
                 <source type="image/webp" srcset="assets/hero_banner_960.webp 960w, assets/hero_banner_1600.webp 1600w, assets/hero_banner_2560.webp 2560w"
                         sizes="(max-width:760px) 220vw, 108vw" />
@@ -438,7 +437,6 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
                 <path class="core d6" pathLength="100" d="M1676 742L1750 742L1774 722L1824 721L1856 698L1906 696L1922 706" />
               </svg>
               <span class="hb-sweep"></span>
-            </div>
           </div>
         </div>
       </div>
@@ -889,7 +887,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       var dt = Math.min((t - (last || t)) / 1000, .05); last = t;
       tx += (mx - tx) * .05; ty += (my - ty) * .05;
       var sy = Math.min(window.scrollY, st.offsetHeight), h = st.offsetHeight || 1;
-      par.style.transform = 'translate3d(' + (-tx * 16).toFixed(2) + 'px,' + (-ty * 10 + sy * .28).toFixed(2) + 'px,0)';
+      par.style.transform = 'translate3d(' + (-tx * st.offsetWidth * .006).toFixed(2) + 'px,' + (-ty * h * .005 + sy * .28).toFixed(2) + 'px,0)';   // 장면 여유(1.5%) 안에서만
       cv.style.transform = 'translate3d(' + (-tx * 34).toFixed(2) + 'px,' + (-ty * 22 + sy * .1).toFixed(2) + 'px,0)';
       st.style.setProperty('--dim', (sy / h * .9).toFixed(3));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
