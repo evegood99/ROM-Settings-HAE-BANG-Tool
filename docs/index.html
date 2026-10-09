@@ -187,7 +187,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   /* ---------- Sections ---------- */
   section{padding:58px 0}
   .sec-head{text-align:center; max-width:720px; margin:0 auto 42px}
-  .sec-head h2{font-size:clamp(26px,3.6vw,38px); font-weight:800; letter-spacing:-.02em; margin:12px 0 12px}
+  .sec-head h2{font-size:clamp(26px,3.6vw,38px); font-weight:800; letter-spacing:-.02em; margin:12px 0 12px; word-break:keep-all}
   .sec-head p{color:var(--muted); font-size:16px; margin:0}
 
   /* ---------- 최근 소식 ---------- */
@@ -206,26 +206,119 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   .n-more{font-size:13px; font-weight:800; color:var(--cyan)}
   .news-foot{text-align:center; margin-top:26px}
 
-  /* ---------- 에코시스템 다이어그램 ---------- */
-  .eco-wrap{border:1px solid var(--border); border-radius:20px; padding:30px 22px 18px;
-    background:radial-gradient(120% 130% at 50% -10%, rgba(99,102,241,.13), transparent 60%), var(--bg2);
-    overflow:hidden}
-  .eco-svg{display:block; width:100%; height:auto}
-  .eco-svg text{font-family:"Pretendard Variable",Pretendard,system-ui,sans-serif}
-  .eco-svg .flow{fill:none; stroke-width:2; stroke-dasharray:7 7; animation:ecoDash 1.15s linear infinite}
-  @keyframes ecoDash{to{stroke-dashoffset:-14}}
-  .eco-svg .node-box{fill:#11131d; stroke:#2c3147; stroke-width:1.4}
-  .eco-svg .node-title{fill:#e9ebf4; font-size:17px; font-weight:800}
-  .eco-svg .node-sub{fill:#9aa1b6; font-size:12px; font-weight:600}
-  .eco-svg .node-role{font-size:11px; font-weight:800; letter-spacing:.14em}
-  .eco-svg .edge-label{fill:#6b7186; font-size:11px; font-weight:700}
-  .eco-svg .chip{font-size:10px; font-weight:800}
-  /* 모바일 전용 세로 도식 — 데스크톱과 같은 시각 언어, 좁은 화면용 레이아웃 */
-  .eco-svg-m{display:none; max-width:430px; margin:0 auto}
-  .eco-svg-m .node-title{font-size:15px}
-  .eco-svg-m .node-sub{font-size:11px}
-  .eco-svg-m .edge-label{font-size:10px}
-  .eco-svg-m .chip{font-size:9.5px}
+  /* ---------- 어떻게 이어질까 — 내 롬 폴더 → 해방툴 → 내 게임기 ----------
+     파일 이름이 해방툴로 들어가 표지로 나와 게임기 화면에 하나씩 꽂힌다(JS 가 차례로 .on/.in 을 붙인다).
+     아래 바탕 띠(게임 아카이브 · 한글화 패치)에서 해방툴로 정보가 올라간다. 좁은 화면은 세로로. */
+  .jx{position:relative; border:1px solid var(--border); border-radius:24px; padding:34px 30px 24px; overflow:hidden;
+    background:radial-gradient(70% 90% at 50% 0%, rgba(34,197,94,.11), transparent 62%),
+               radial-gradient(50% 70% at 100% 100%, rgba(99,102,241,.10), transparent 60%), var(--bg2)}
+  /* 세 줄(단계 이름 · 그림 · 설명) × 다섯 칸(폴더 · 줄 · 해방툴 · 줄 · 게임기) — 그림 줄 가운데에 이음줄이 놓인다 */
+  .jx-row{display:grid; grid-template-columns:minmax(230px,280px) minmax(48px,1fr) 210px minmax(48px,1fr) minmax(330px,380px);
+    grid-template-areas:"s1 . s2 . s3" "v1 l1 v2 l2 v3" "c1 . c2 . c3"}
+  .jx-row > *{position:relative; z-index:1; min-width:0}
+  .a-s1{grid-area:s1} .a-s2{grid-area:s2; justify-self:center} .a-s3{grid-area:s3}
+  .a-v1{grid-area:v1; align-self:stretch} .a-v2{grid-area:v2; align-self:center; justify-self:center} .a-v3{grid-area:v3; align-self:center}
+  .a-l1{grid-area:l1; align-self:center} .a-l2{grid-area:l2; align-self:center}
+  .a-c1{grid-area:c1} .a-c2{grid-area:c2} .a-c3{grid-area:c3}
+  .jx-step{display:flex; align-items:center; gap:9px; margin:0 0 12px; font-size:12.5px; font-weight:800; letter-spacing:.06em; color:var(--muted)}
+  .jx-step b{display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--surface2);
+    color:var(--text); border:1px solid var(--border2); font-size:12px}
+  .jx-cap{margin:14px 0 0; font-size:15.5px; font-weight:800; line-height:1.45}
+  .jx-cap small{display:block; font-size:12.5px; font-weight:600; color:var(--muted); margin-top:3px}
+  /* ① 롬 폴더 창 */
+  .jx-folder{display:flex; flex-direction:column; border:1px solid var(--border2); border-radius:14px; background:#0c0e16; box-shadow:var(--shadow); overflow:hidden}
+  .jx-folder .bar{display:flex; align-items:center; gap:6px; padding:9px 12px; background:#151827; border-bottom:1px solid var(--border);
+    font-size:12px; color:var(--muted); font-weight:700}
+  .jx-folder .bar i{width:9px; height:9px; border-radius:50%; background:#353a50}
+  .jx-folder .bar span{margin-left:6px}
+  .jx-files{flex:1; display:flex; flex-direction:column; justify-content:space-evenly; list-style:none; margin:0; padding:7px 6px 8px}
+  .jx-files li{display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:8px; color:#aab1c5;
+    font:12.5px/1.25 ui-monospace,SFMono-Regular,Consolas,monospace; transition:background .35s, color .35s}
+  .jx-files li::before{content:""; flex:0 0 auto; width:12px; height:15px; border-radius:2px 5px 2px 2px; background:#2b3046}
+  .jx-files li span{min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .jx-files li.on{background:rgba(74,222,128,.13); color:#effff4}
+  .jx-files li.on::before{background:#4ade80}
+  .jx-files li.done{color:#596078}
+  .jx-files li.done::after{content:"✓"; margin-left:auto; padding-left:6px; color:#4ade80; font-weight:900}
+  /* ② 가운데 — 이음줄 · 해방툴 */
+  .jx-link{position:relative; height:2px; margin:0 12px;
+    background:repeating-linear-gradient(90deg, rgba(74,222,128,.5) 0 7px, transparent 7px 14px); background-size:28px 2px;
+    animation:jxDash 1.1s linear infinite}
+  @keyframes jxDash{to{background-position:28px 0}}
+  .jx-link::after{content:""; position:absolute; right:-2px; top:-4px; border:5px solid transparent; border-left:7px solid rgba(74,222,128,.75); border-right:0}
+  .jx-pk{position:absolute; left:0; top:50%; transform:translate(-50%,-50%); opacity:0; pointer-events:none; white-space:nowrap}
+  .jx-pk.file{font:11px/1 ui-monospace,Consolas,monospace; color:#eafff1; background:#10241a; border:1px solid rgba(74,222,128,.6);
+    padding:5px 8px; border-radius:7px; box-shadow:0 0 18px rgba(74,222,128,.35); max-width:150px; overflow:hidden; text-overflow:ellipsis}
+  .jx-pk.cover{width:30px; height:40px; border-radius:4px; overflow:hidden; box-shadow:0 0 0 1px rgba(255,255,255,.25), 0 0 22px rgba(74,222,128,.55)}
+  .jx-pk.cover img{width:100%; height:100%; object-fit:cover; object-position:top; display:block}
+  .jx-hub{position:relative}
+  .jx-hub .icowrap{position:relative; width:128px; height:128px; margin:0 auto}
+  .jx-hub .ico{position:relative; width:128px; height:128px; border-radius:30px; overflow:hidden;
+    box-shadow:0 0 0 1px rgba(74,222,128,.4), 0 18px 50px -10px rgba(34,197,94,.55)}
+  .jx-hub .ico img{width:100%; height:100%; object-fit:cover; display:block}
+  .jx-hub .ring{position:absolute; inset:-22px; border-radius:50%;
+    border:1.5px dashed rgba(74,222,128,.35); animation:jxSpin 22s linear infinite; pointer-events:none}
+  @keyframes jxSpin{to{transform:rotate(360deg)}}
+  .jx-hub.pulse .ico{animation:jxPulse .55s ease}
+  @keyframes jxPulse{50%{transform:scale(1.07); box-shadow:0 0 0 2px rgba(74,222,128,.8), 0 0 60px rgba(74,222,128,.65)}}
+  .jx-c2{display:flex; flex-direction:column; align-items:center; text-align:center; align-self:stretch; padding-top:16px}
+  .jx-feats{display:flex; flex-wrap:wrap; justify-content:center; gap:5px}
+  .jx-feats span{font-size:11px; font-weight:700; color:#bdf5d2; background:rgba(74,222,128,.09); border:1px solid rgba(74,222,128,.26);
+    border-radius:999px; padding:3px 8px; white-space:nowrap}
+  .jx-up{flex:1; width:2px; min-height:24px; margin:10px 0 -26px;
+    background:repeating-linear-gradient(0deg, rgba(56,189,248,.55) 0 7px, transparent 7px 14px); background-size:2px 28px;
+    animation:jxUp 1.1s linear infinite}
+  @keyframes jxUp{to{background-position:0 -28px}}
+  /* ③ 게임기 */
+  .jx-dev{position:relative; padding:14px 52px; border-radius:36px; background:linear-gradient(160deg,#2b3047,#151827 70%);
+    border:1px solid #363c58; box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.09)}
+  .jx-dev .dpad{position:absolute; left:15px; top:44%; width:24px; height:24px}
+  .jx-dev .dpad::before,.jx-dev .dpad::after{content:""; position:absolute; background:#0d0f17; border-radius:3px}
+  .jx-dev .dpad::before{left:8px; top:0; width:8px; height:24px} .jx-dev .dpad::after{left:0; top:8px; width:24px; height:8px}
+  .jx-dev .abxy{position:absolute; right:12px; top:41%; width:30px; height:30px}
+  .jx-dev .abxy i{position:absolute; width:10px; height:10px; border-radius:50%; background:#0d0f17}
+  .jx-dev .abxy i:nth-child(1){left:10px; top:0; background:#4ade80} .jx-dev .abxy i:nth-child(2){left:20px; top:10px; background:#fb7185}
+  .jx-dev .abxy i:nth-child(3){left:10px; top:20px; background:#38bdf8} .jx-dev .abxy i:nth-child(4){left:0; top:10px; background:#fbbf24}
+  .jx-screen{position:relative; border-radius:12px; background:#090b12; border:2px solid #04050a; overflow:hidden}
+  .jx-screen .top{display:flex; justify-content:space-between; padding:7px 10px 3px; font-size:10px; font-weight:800; color:#8a92ab; letter-spacing:.04em}
+  .jx-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:7px; padding:5px 10px 8px}
+  .jx-tile{position:relative; aspect-ratio:3/4; border-radius:5px; overflow:hidden; background:#151826;
+    opacity:.12; transform:scale(.86); transition:opacity .45s, transform .5s cubic-bezier(.2,.9,.3,1.35), box-shadow .5s}
+  .jx-tile img{width:100%; height:100%; object-fit:cover; object-position:top; display:block}
+  .jx-tile.in{opacity:1; transform:none; box-shadow:0 6px 14px rgba(0,0,0,.55)}
+  .jx-tile.new{box-shadow:0 0 0 2px #4ade80, 0 0 26px rgba(74,222,128,.6)}
+  .jx-tile .kr{position:absolute; right:4px; top:4px; font-size:9px; font-weight:900; color:#06210f; background:#4ade80; padding:1px 5px; border-radius:4px}
+  .jx-capbar{display:flex; align-items:center; gap:7px; min-height:30px; padding:6px 10px 8px; font-size:12px; color:#c9cfdf; white-space:nowrap; overflow:hidden}
+  .jx-capbar b{color:#fff; overflow:hidden; text-overflow:ellipsis}
+  .jx-capbar em{font-style:normal; font-size:10px; font-weight:900; color:#06210f; background:#4ade80; padding:1px 6px; border-radius:4px}
+  .jx-shelf{position:absolute; left:0; right:0; top:0; bottom:40px; opacity:0; transition:opacity .9s; background:#090b12}
+  .jx-shelf img{width:100%; height:100%; object-fit:cover; display:block}
+  .jx-screen.shelf .jx-shelf{opacity:1}
+  .jx-fe{display:flex; flex-wrap:wrap; gap:5px; margin-top:12px}
+  .jx-fe span{font-size:11px; font-weight:700; color:var(--muted); border:1px solid var(--border2); border-radius:999px; padding:3px 9px}
+  .jx-fe span.hbl{color:#fcd34d; border-color:rgba(251,191,36,.4); background:rgba(251,191,36,.08)}
+  /* 바탕 띠 — 해방툴이 가져오는 곳 */
+  .jx-base{position:relative; z-index:1; display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:26px; padding:15px 18px;
+    border:1px solid rgba(56,189,248,.28); border-radius:16px; background:linear-gradient(90deg, rgba(56,189,248,.08), rgba(74,222,128,.06))}
+  .jx-base .tx{flex:1; min-width:240px; font-size:13.5px; color:var(--muted); line-height:1.55}
+  .jx-base .tx b{color:var(--text)}
+  .jx-base .btn{padding:8px 14px; font-size:13px}
+  @media (max-width:1060px){
+    .jx{padding:28px 18px 20px}
+    .jx-row{grid-template-columns:minmax(0,420px); justify-content:center;
+      grid-template-areas:"s1" "v1" "c1" "l1" "s2" "v2" "c2" "l2" "s3" "v3" "c3"}
+    .a-s2{justify-self:start} .a-v1{align-self:auto}
+    .jx-up{display:none}
+    .jx-c2{padding-top:14px}
+    .jx-link{justify-self:center; width:2px; height:46px; margin:14px 0;
+      background:repeating-linear-gradient(180deg, rgba(74,222,128,.5) 0 7px, transparent 7px 14px); background-size:2px 28px; animation:jxDashV 1.1s linear infinite}
+    @keyframes jxDashV{to{background-position:0 28px}}
+    .jx-link::after{right:auto; left:-4px; top:auto; bottom:-2px; border:5px solid transparent; border-top:7px solid rgba(74,222,128,.75); border-bottom:0}
+    .jx-pk{left:50%; top:0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .jx-link,.jx-up,.jx-hub .ring{animation:none}
+  }
 
   /* ---------- 라인업 카드 ---------- */
   .lineup{display:grid; grid-template-columns:1fr 1fr; gap:18px}
@@ -312,10 +405,6 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     .news-grid{grid-template-columns:1fr}
     .lineup{grid-template-columns:1fr}
   }
-  @media (max-width:760px){
-    .eco-svg-d{display:none}
-    .eco-svg-m{display:block}
-  }
   /* 모바일 메뉴 — 좁은 화면에서 상단 메뉴가 숨겨지므로 햄버거로 같은 항목을 낸다 */
   .menu-btn{display:none; align-items:center; justify-content:center; padding:0;
     width:38px; height:38px; border-radius:10px; border:1px solid var(--border2);
@@ -350,26 +439,37 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   }
   .icon-btn.yt{color:#ff4d4d} .icon-btn.yt:hover{color:#fff; background:#e0261c; border-color:#e0261c}
 
-  /* ---------- Videos ---------- */
-  #videos .vwrap{display:grid; grid-template-columns:300px 1fr; gap:22px; align-items:start}
-  .ch-card{border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); padding:24px 22px; text-align:center}
-  .ch-card .yt-mark{width:56px; height:56px; border-radius:16px; background:#e0261c; color:#fff; display:inline-flex; align-items:center; justify-content:center; margin-bottom:14px}
-  .ch-card h3{margin:0 0 4px; font-size:17px; font-weight:800; letter-spacing:-.01em}
-  .ch-card .handle{font-size:13px; color:var(--muted); margin:0 0 14px}
-  .ch-card p{font-size:13.5px; color:var(--muted); margin:0 0 18px; line-height:1.6}
-  .ch-card .btn{width:100%; justify-content:center}
-  .vid-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
-  .vcard{display:flex; flex-direction:column; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); overflow:hidden; transition:.2s}
-  .vcard:hover{transform:translateY(-4px); border-color:var(--border2); box-shadow:0 22px 50px -22px rgba(0,0,0,.8)}
+  /* ---------- Videos — 유튜브 재생목록(해방툴 · 해방런처) 탭 ----------
+     영상 목록은 재생목록 그대로(최신이 위). 새 영상을 재생목록에 넣으면 여기도 손으로 더한다.
+     쇼츠는 한국어판 · 영어판이 따로라 화면 언어에 맞는 것만 보인다(.lang-ko / .lang-en). */
+  .yt-bar{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:18px}
+  .yt-tabs{display:inline-flex; gap:4px; padding:4px; border-radius:14px; background:var(--surface); border:1px solid var(--border)}
+  .yt-tabs button{font:inherit; font-size:14px; font-weight:800; color:var(--muted); background:none; border:0; padding:8px 15px 8px 9px;
+    border-radius:10px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:.18s}
+  .yt-tabs button img{width:24px; height:24px; border-radius:6px; object-fit:cover}
+  .yt-tabs button:hover{color:var(--text)}
+  .yt-tabs button[aria-selected="true"]{color:var(--text); background:var(--surface2); box-shadow:inset 0 -2px 0 #e0261c}
+  .yt-links{display:flex; gap:8px; flex-wrap:wrap}
+  .yt-links .btn{padding:9px 14px; font-size:13px}
+  .yt-panel{display:grid; grid-template-columns:1.5fr 1fr; gap:18px; align-items:start}
+  .yt-panel[hidden]{display:none}
+  .yt-feat{display:block; border:1px solid var(--border); border-radius:var(--radius); background:var(--surface); overflow:hidden; transition:.2s}
+  .yt-feat:hover{transform:translateY(-3px); border-color:var(--border2); box-shadow:0 22px 50px -22px rgba(0,0,0,.8)}
+  .yt-feat h4{margin:0; padding:14px 18px 17px; font-size:17px; font-weight:800; line-height:1.42; letter-spacing:-.01em}
   .vthumb{position:relative; aspect-ratio:16/9; background:#0b0d14; overflow:hidden}
   .vthumb img{width:100%; height:100%; object-fit:cover; display:block}
-  .vthumb .play{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:54px; height:38px; border-radius:10px; background:rgba(224,38,28,.92); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.45); transition:.2s}
-  .vcard:hover .vthumb .play{transform:translate(-50%,-50%) scale(1.08)}
-  .vmeta{padding:14px 16px 16px}
-  .vmeta .n-tag{display:inline-block; margin-bottom:8px}
-  .vmeta h4{margin:0; font-size:14.5px; font-weight:800; line-height:1.45; letter-spacing:-.01em}
-  @media (max-width:920px){ #videos .vwrap{grid-template-columns:1fr} .vid-grid{grid-template-columns:repeat(2,1fr)} }
-  @media (max-width:760px){ .vid-grid{grid-template-columns:1fr} }
+  .vthumb .play{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:62px; height:44px; border-radius:12px; background:rgba(224,38,28,.92); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.45); transition:.2s}
+  .yt-feat:hover .vthumb .play{transform:translate(-50%,-50%) scale(1.08)}
+  .vthumb .latest{position:absolute; left:12px; top:12px; font-size:11px; font-weight:900; letter-spacing:.06em; color:#fff; background:#e0261c; padding:3px 8px; border-radius:6px}
+  .yt-list{display:flex; flex-direction:column; gap:8px}
+  .yt-item{display:flex; align-items:center; gap:12px; padding:7px; border:1px solid var(--border); border-radius:12px; background:var(--surface); transition:.18s}
+  .yt-item:hover{border-color:var(--border2); background:var(--surface2); transform:translateX(3px)}
+  .yt-item .th{position:relative; flex:0 0 116px; aspect-ratio:16/9; border-radius:8px; overflow:hidden; background:#0b0d14}
+  .yt-item .th img{width:100%; height:100%; object-fit:cover; display:block}
+  .yt-item .tt{font-size:13.5px; font-weight:700; line-height:1.42; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+  .yt-item .sh{position:absolute; left:5px; bottom:5px; font-size:9.5px; font-weight:900; color:#fff; background:#e0261c; padding:1px 5px; border-radius:4px}
+  html[lang="en"] .lang-ko, html:not([lang="en"]) .lang-en{display:none !important}
+  @media (max-width:880px){ .yt-panel{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -498,197 +598,141 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     </div>
   </section>
 
-  <!-- 에코시스템 -->
-  <!-- Videos -->
+  <!-- Videos — 유튜브 재생목록 두 개(해방툴 · 해방런처)만 -->
   <section id="videos">
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow">YOUTUBE</span>
         <h2 data-ko="영상으로 보기" data-en="Watch on YouTube">영상으로 보기</h2>
-        <p data-ko="해방툴 사용법과 레트로 에뮬레이터 개념을, 쉽고 재미있게 풀어 올립니다."
-           data-en="How to use the Rom Tool, and the ideas behind retro emulation — explained simply.">해방툴 사용법과 레트로 에뮬레이터 개념을, 쉽고 재미있게 풀어 올립니다.</p>
+        <p data-ko="해방툴과 해방런처, 유튜브 재생목록에서 골라 보세요."
+           data-en="Pick a video from the Rom Tool and HB Launcher playlists.">해방툴과 해방런처, 유튜브 재생목록에서 골라 보세요.</p>
       </div>
-      <div class="vwrap">
-        <div class="ch-card reveal">
-          <span class="yt-mark"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></span>
-          <h3>해방 레트로</h3>
-          <p class="handle">@evegood_retro</p>
-          <p data-ko="해방툴 · 해방런처 · 에뮬레이터와 프론트엔드 이야기 · 레트로 게임 이야기"
-             data-en="Rom Tool · HB Launcher · emulators and front-ends · retro game stories">해방툴 · 해방런처 · 에뮬레이터와 프론트엔드 이야기 · 레트로 게임 이야기</p>
-          <a class="btn btn-primary" href="https://www.youtube.com/@evegood_retro?sub_confirmation=1" target="_blank" rel="noopener" data-ko="채널 구독하기" data-en="Subscribe">채널 구독하기</a>
+      <div class="yt reveal">
+        <div class="yt-bar">
+          <div class="yt-tabs" role="tablist" aria-label="YouTube playlists">
+            <button type="button" role="tab" id="ytTabTool" aria-controls="ytPanTool" aria-selected="true" data-pl="tool"
+                    data-url="https://www.youtube.com/playlist?list=PLGjp8KApz6SY"><img src="assets/eco/ic_tool.webp" alt="" /><span data-ko="해방툴" data-en="Rom Tool">해방툴</span></button>
+            <button type="button" role="tab" id="ytTabHbl" aria-controls="ytPanHbl" aria-selected="false" tabindex="-1" data-pl="hbl"
+                    data-url="https://www.youtube.com/playlist?list=PLc-_6Tm7aCL4"><img src="assets/eco/ic_hbl.webp" alt="" /><span data-ko="해방런처" data-en="HB Launcher">해방런처</span></button>
+          </div>
+          <div class="yt-links">
+            <a class="btn btn-ghost" id="ytAll" href="https://www.youtube.com/playlist?list=PLGjp8KApz6SY" target="_blank" rel="noopener" data-ko="재생목록 전체 보기 →" data-en="Whole playlist →">재생목록 전체 보기 →</a>
+            <a class="btn btn-yt" href="https://www.youtube.com/@evegood_retro?sub_confirmation=1" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg><span data-ko="채널 구독하기" data-en="Subscribe">채널 구독하기</span></a>
+          </div>
         </div>
-        <div class="vid-grid">
-        <a class="vcard reveal" href="https://youtu.be/WmTsGXOMTbI" target="_blank" rel="noopener">
-          <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/WmTsGXOMTbI/hqdefault.jpg" alt=""><span class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
-          <div class="vmeta"><span class="n-tag tool">해방툴</span><h4 data-ko="해방툴로 내 갤럭시 폴드를 게임기로 완벽 변신! 완전 초보를 위한 특별 가이드" data-en="Turn your Galaxy Fold into a game console with the Rom Tool — a special guide for complete beginners">해방툴로 내 갤럭시 폴드를 게임기로 완벽 변신! 완전 초보를 위한 특별 가이드</h4></div>
-        </a>
-        <a class="vcard reveal" href="https://youtu.be/PaoM01Gg0XI" target="_blank" rel="noopener">
-          <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/PaoM01Gg0XI/hqdefault.jpg" alt=""><span class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
-          <div class="vmeta"><span class="n-tag tool">해방툴</span><h4 data-ko="롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문" data-en="Retro handheld setup from one ROM folder — Rom Tool in 5 minutes">롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문</h4></div>
-        </a>
-        <a class="vcard reveal" href="https://youtu.be/roCR76dQJWQ" target="_blank" rel="noopener">
-          <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/roCR76dQJWQ/hqdefault.jpg" alt=""><span class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
-          <div class="vmeta"><span class="n-tag site">레트로 개념</span><h4 data-ko="레트로 게임 세팅은 왜 이렇게 복잡해 보일까? (PART 1)" data-en="Why does retro game setup look so complicated? (PART 1)">레트로 게임 세팅은 왜 이렇게 복잡해 보일까? (PART 1)</h4></div>
-        </a>
-        <a class="vcard reveal" href="https://youtu.be/-_Sv_RqxGN0" target="_blank" rel="noopener">
-          <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/-_Sv_RqxGN0/hqdefault.jpg" alt=""><span class="play"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
-          <div class="vmeta"><span class="n-tag launcher">HB런처</span><h4 data-ko="이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처" data-en="This is a game launcher? HB Launcher, cartridges and all">이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처</h4></div>
-        </a>
+
+        <!-- 해방툴 재생목록 (PLGjp8KApz6SY) -->
+        <div class="yt-panel" id="ytPanTool" role="tabpanel" aria-labelledby="ytTabTool" data-pl="tool">
+          <a class="yt-feat" href="https://youtu.be/qPPjFI_pUow" target="_blank" rel="noopener">
+            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/qPPjFI_pUow/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/qPPjFI_pUow/hqdefault.jpg'" alt="" /><span class="latest" data-ko="최신" data-en="LATEST">최신</span><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <h4 data-ko="에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지" data-en="Emulator Game Won't Launch? #1 Android — ES-DE · Pegasus + RetroArch: the 4 most common mistakes">에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지</h4>
+          </a>
+          <div class="yt-list">
+            <a class="yt-item" href="https://youtu.be/JkSZGcfJC6s" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/JkSZGcfJC6s/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="대한글화시대!! 게임 한글 패치를 너무나 쉽게! — 해방툴 우클릭으로 끝!" data-en="KR Patch Ages!! Korean game patches made easy — one right-click in the Rom Tool">대한글화시대!! 게임 한글 패치를 너무나 쉽게! — 해방툴 우클릭으로 끝!</span></a>
+            <a class="yt-item" href="https://youtu.be/sTJwebzYnJ0" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/sTJwebzYnJ0/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="대한글화시대! 패키지 이미지도 한글로 멋지게 — 해방툴 v1.1.1 베타 개발 소식" data-en="Package art in Korean, too — Rom Tool v1.1.1 beta dev news">대한글화시대! 패키지 이미지도 한글로 멋지게 — 해방툴 v1.1.1 베타 개발 소식</span></a>
+            <a class="yt-item" href="https://youtu.be/1lYsyr_Q5Zk" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/1lYsyr_Q5Zk/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="리눅스 게임기(RG35XX · 미유미니)에 게임 넣고 빼기 — 완전 초보를 위한 해방툴 특별 가이드" data-en="Adding and removing games on Linux handhelds (RG35XX, Miyoo Mini) — a Rom Tool guide for beginners">리눅스 게임기(RG35XX · 미유미니)에 게임 넣고 빼기 — 완전 초보를 위한 해방툴 특별 가이드</span></a>
+            <a class="yt-item" href="https://youtu.be/WmTsGXOMTbI" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/WmTsGXOMTbI/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="해방툴로 내 갤럭시 폴드를 게임기로 완벽 변신! 완전 초보를 위한 특별 가이드" data-en="Turn your Galaxy Fold into a game console with the Rom Tool — a guide for complete beginners">해방툴로 내 갤럭시 폴드를 게임기로 완벽 변신! 완전 초보를 위한 특별 가이드</span></a>
+            <a class="yt-item" href="https://youtu.be/PaoM01Gg0XI" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/PaoM01Gg0XI/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문" data-en="Retro handheld setup from one ROM folder — Rom Tool in 5 minutes">롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문</span></a>
+            <a class="yt-item lang-ko" href="https://www.youtube.com/shorts/nCWCFktpCys" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/nCWCFktpCys/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">게임 정리부터 게임기로 내보내기까지</span></a>
+            <a class="yt-item lang-en" href="https://www.youtube.com/shorts/bVlun-vY-a4" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/bVlun-vY-a4/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">Your ROM Collection, Finally Organized</span></a>
+          </div>
+        </div>
+
+        <!-- 해방런처 재생목록 (PLc-_6Tm7aCL4) -->
+        <div class="yt-panel" id="ytPanHbl" role="tabpanel" aria-labelledby="ytTabHbl" data-pl="hbl" hidden>
+          <a class="yt-feat" href="https://youtu.be/-_Sv_RqxGN0" target="_blank" rel="noopener">
+            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/-_Sv_RqxGN0/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/-_Sv_RqxGN0/hqdefault.jpg'" alt="" /><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <h4 data-ko="이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처" data-en="This is a game launcher? HB Launcher, cartridges and all">이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처</h4>
+          </a>
+          <div class="yt-list">
+            <a class="yt-item lang-ko" href="https://www.youtube.com/shorts/EHSeai0xHwY" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/EHSeai0xHwY/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">이게 게임 런처라고?</span></a>
+            <a class="yt-item lang-en" href="https://www.youtube.com/shorts/Ij5A8Mlle3g" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/Ij5A8Mlle3g/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">This Is a Game Launcher?! Unbox Retro Nostalgia with HB Launcher</span></a>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- 에코시스템 — 내 롬 폴더 → 해방툴 → 내 게임기 (#ecosystem 은 첫 화면 '어떻게 이어질까?' 단추가 가리킨다) -->
   <section id="ecosystem">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow" data-ko="에코시스템" data-en="Ecosystem">에코시스템</span>
-        <h2 data-ko="구경하고, 세팅하고, 플레이하고" data-en="Browse, set up, play">구경하고, 세팅하고, 플레이하고</h2>
-        <p data-ko="하나의 게임 데이터베이스와 미디어 서버가 웹 · PC · 게임기를 잇습니다. 어디서 시작하든, 마지막은 언제나 즐거운 플레이입니다."
-           data-en="One game database and media server connects the web, your PC and your handheld. Wherever you start, it ends in play.">하나의 게임 데이터베이스와 미디어 서버가 웹 · PC · 게임기를 잇습니다. 어디서 시작하든, 마지막은 언제나 즐거운 플레이입니다.</p>
+        <span class="eyebrow" data-ko="어떻게 이어질까?" data-en="How it connects">어떻게 이어질까?</span>
+        <h2 data-ko="롬 파일만 있으면, 나머지는 해방레트로가" data-en="Bring your ROMs. HAE-BANG RETRO does the rest.">롬 파일만 있으면, 나머지는 해방레트로가</h2>
+        <p data-ko="파일 이름뿐이던 게임들이 표지 · 한글 제목 · 영상까지 갖춘 라이브러리가 되어 내 게임기로 들어갑니다."
+           data-en="Games that were only file names become a library with box art, Korean titles and videos — right on your handheld.">파일 이름뿐이던 게임들이 표지 · 한글 제목 · 영상까지 갖춘 라이브러리가 되어 내 게임기로 들어갑니다.</p>
       </div>
 
-      <div class="eco-wrap reveal">
-        <!-- 데스크톱: SVG 다이어그램 -->
-        <svg class="eco-svg eco-svg-d" viewBox="0 0 960 620" role="img" aria-label="HAE-BANG RETRO ecosystem diagram">
-          <defs>
-            <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="#4c5470"/>
-            </marker>
-            <linearGradient id="cloudLine" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/>
-            </linearGradient>
-          </defs>
+      <div class="jx reveal" id="jx">
+        <div class="jx-row">
+          <!-- ① 내 롬 폴더 -->
+          <p class="jx-step a-s1"><b>1</b><span data-ko="내 롬 폴더" data-en="YOUR ROM FOLDER">내 롬 폴더</span></p>
+          <div class="jx-folder a-v1" aria-hidden="true">
+            <div class="bar"><i></i><i></i><i></i><span>📁 ROMs</span></div>
+            <ul class="jx-files">
+              <li><span>Sonic The Hedgehog 2 (World).md</span></li>
+              <li><span>Seiken Densetsu 3 (Japan).sfc</span></li>
+              <li><span>Bare Knuckle II (Japan).md</span></li>
+              <li><span>kof94.zip</span></li>
+              <li><span>Advance Wars (USA).gba</span></li>
+              <li><span>Super Mario World (Japan).sfc</span></li>
+            </ul>
+          </div>
+          <p class="jx-cap a-c1"><span data-ko="파일 이름뿐인 게임들" data-en="Just file names">파일 이름뿐인 게임들</span>
+            <small data-ko="표지도, 설명도 없이 어디에 넣을지 막막한 상태" data-en="No art, no info, no idea where they go">표지도, 설명도 없이 어디에 넣을지 막막한 상태</small></p>
+          <div class="jx-link a-l1" id="jxL1" aria-hidden="true"></div>
 
-          <!-- 연결선 (노드 아래 레이어) -->
-          <path class="flow" d="M400,122 C330,175 235,205 185,268" stroke="#22d3ee" opacity=".65" marker-end="url(#arw)"/>
-          <!-- ⚠️ 수직 직선에는 그라디언트 stroke 금지 — 바운딩박스 폭이 0이라 SVG 규격상 아예 그려지지 않는다 -->
-          <path class="flow" d="M480,122 L480,268" stroke="#3b82f6" opacity=".9" marker-end="url(#arw)"/>
-          <path class="flow" d="M560,122 C630,175 725,205 775,268" stroke="#8b5cf6" opacity=".65" marker-end="url(#arw)"/>
-          <path class="flow" d="M480,392 L480,496" stroke="#34d399" opacity=".8" marker-end="url(#arw)"/>
-          <path class="flow" d="M790,392 C775,455 660,470 620,498" stroke="#fbbf24" opacity=".6" marker-end="url(#arw)"/>
-          <path class="flow" d="M160,496 C 215,455 330,440 402,394" stroke="#fb7185" opacity=".6" marker-end="url(#arw)"/>
+          <!-- ② 해방툴 -->
+          <p class="jx-step a-s2"><b>2</b><span data-ko="해방툴" data-en="ROM TOOL">해방툴</span></p>
+          <div class="jx-hub a-v2" id="jxHub">
+            <div class="icowrap"><div class="ico"><img src="assets/eco/hub_tool.webp" width="360" height="341" alt="해방툴" /></div><span class="ring" aria-hidden="true"></span></div>
+          </div>
+          <div class="jx-c2 a-c2">
+            <div class="jx-feats">
+              <span data-ko="자동 매칭" data-en="Auto-match">자동 매칭</span>
+              <span data-ko="표지 · 영상" data-en="Box art · video">표지 · 영상</span>
+              <span data-ko="한글 제목 · 설명" data-en="Korean titles">한글 제목 · 설명</span>
+              <span data-ko="게임기로 전송" data-en="Send to device">게임기로 전송</span>
+            </div>
+            <p class="jx-cap"><span data-ko="알아서 찾고, 한글로 채워 보냅니다" data-en="Finds each game, fills it in, sends it">알아서 찾고, 한글로 채워 보냅니다</span></p>
+            <div class="jx-up" aria-hidden="true"></div>
+          </div>
+          <div class="jx-link a-l2" id="jxL2" aria-hidden="true"></div>
 
-          <!-- 연결선 라벨 -->
-          <text class="edge-label" x="497" y="200" data-ko="게임 정보 · 미디어" data-en="Game data · media">게임 정보 · 미디어</text>
-          <text class="edge-label" x="497" y="452" data-ko="세팅한 라이브러리 전송" data-en="Send your set-up library">세팅한 라이브러리 전송</text>
-          <text class="edge-label" x="742" y="470" data-ko="기기에서 실행" data-en="Runs on device">기기에서 실행</text>
-          <text class="edge-label" x="118" y="462" data-ko="한글판 정보 · 매칭 연동" data-en="KR-patch info · matching">한글판 정보 · 매칭 연동</text>
+          <!-- ③ 내 게임기 -->
+          <p class="jx-step a-s3"><b>3</b><span data-ko="내 게임기" data-en="YOUR HANDHELD">내 게임기</span></p>
+          <div class="jx-dev a-v3">
+            <span class="dpad" aria-hidden="true"></span><span class="abxy" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <div class="jx-screen" id="jxScreen">
+              <div class="top" aria-hidden="true"><span>GAMES</span><span>6</span></div>
+              <div class="jx-grid">
+                <div class="jx-tile" data-tko="소닉 더 헤지혹 2" data-ten="Sonic the Hedgehog 2" data-sko="메가드라이브" data-sen="Mega Drive"><img src="assets/eco/sonic2.webp" alt="소닉 더 헤지혹 2" loading="lazy" /></div>
+                <div class="jx-tile" data-tko="성검전설 3" data-ten="Seiken Densetsu 3" data-sko="슈퍼패미컴" data-sen="Super Famicom"><img src="assets/eco/seiken3.webp" alt="성검전설 3" loading="lazy" /></div>
+                <div class="jx-tile" data-tko="베어너클 II" data-ten="Bare Knuckle II" data-sko="메가드라이브" data-sen="Mega Drive" data-kr="1"><img src="assets/eco/bk2_kr.webp" alt="베어너클 II 한글 표지" loading="lazy" /><span class="kr">KR</span></div>
+                <div class="jx-tile" data-tko="킹 오브 파이터즈 '94" data-ten="The King of Fighters '94" data-sko="아케이드" data-sen="Arcade"><img src="assets/eco/kof94.webp" alt="킹 오브 파이터즈 '94" loading="lazy" /></div>
+                <div class="jx-tile" data-tko="어드밴스 워즈" data-ten="Advance Wars" data-sko="게임보이 어드밴스" data-sen="Game Boy Advance" data-kr="1"><img src="assets/eco/awars_kr.webp" alt="어드밴스 워즈 한글 표지" loading="lazy" /><span class="kr">KR</span></div>
+                <div class="jx-tile" data-tko="슈퍼 마리오 월드" data-ten="Super Mario World" data-sko="슈퍼패미컴" data-sen="Super Famicom"><img src="assets/eco/smw.webp" alt="슈퍼 마리오 월드" loading="lazy" /></div>
+              </div>
+              <div class="jx-shelf" aria-hidden="true"><img src="assets/eco/hbl_shelf.webp" alt="" loading="lazy" /></div>
+              <div class="jx-capbar" id="jxCap"><b data-ko="6개 게임 · 표지와 한글 제목 준비 완료" data-en="6 games · box art and titles ready">6개 게임 · 표지와 한글 제목 준비 완료</b></div>
+            </div>
+          </div>
+          <div class="a-c3">
+            <div class="jx-fe" aria-label="ES-DE · Pegasus · Batocera · muOS · OnionOS · ROCKNIX · HB런처">
+              <span>ES-DE</span><span>Pegasus</span><span>Batocera</span><span>muOS</span><span>OnionOS</span><span>ROCKNIX</span><span class="hbl" data-ko="HB런처" data-en="HB Launcher">HB런처</span>
+            </div>
+            <p class="jx-cap"><span data-ko="표지와 한글 제목으로, 바로 플레이" data-en="Box art, Korean titles — just play">표지와 한글 제목으로, 바로 플레이</span>
+              <small data-ko="안드로이드 · 리눅스 게임기와 PC, 그리고 3D 케이스로 진열하는 HB런처까지" data-en="Android and Linux handhelds, PC — and HB Launcher with its 3D case shelf">안드로이드 · 리눅스 게임기와 PC, 그리고 3D 케이스로 진열하는 HB런처까지</small></p>
+          </div>
+        </div>
 
-          <!-- ☁ 클라우드 -->
-          <g>
-            <rect class="node-box" x="320" y="26" width="320" height="96" rx="16" stroke="url(#cloudLine)"/>
-            <text class="node-title" x="480" y="66" text-anchor="middle" data-ko="☁️  HAE-BANG 클라우드" data-en="☁️  HAE-BANG Cloud">☁️  HAE-BANG 클라우드</text>
-            <text class="node-sub" x="480" y="94" text-anchor="middle" data-ko="게임 정보 · 한글 데이터 · 이미지 · 영상 · 매뉴얼" data-en="Game data · Korean text · art · video · manuals">게임 정보 · 한글 데이터 · 이미지 · 영상 · 매뉴얼</text>
-          </g>
-
-          <!-- 🌐 게임 아카이브 -->
-          <g>
-            <text class="node-role" x="170" y="256" text-anchor="middle" fill="#22d3ee">SEE · <tspan data-ko="구경하기" data-en="BROWSE">구경하기</tspan></text>
-            <rect class="node-box" x="40" y="268" width="260" height="124" rx="14"/>
-            <rect x="40" y="268" width="260" height="4" rx="2" fill="#22d3ee" opacity=".8"/>
-            <text class="node-title" x="170" y="310" text-anchor="middle" data-ko="🌐 게임 아카이브" data-en="🌐 Game Archive">🌐 게임 아카이브</text>
-            <text class="node-sub" x="170" y="338" text-anchor="middle" data-ko="웹에서 게임 정보와" data-en="Explore games and media">웹에서 게임 정보와</text>
-            <text class="node-sub" x="170" y="356" text-anchor="middle" data-ko="미디어를 탐색" data-en="right in your browser">미디어를 탐색</text>
-            <text class="chip" x="170" y="380" text-anchor="middle" fill="#6ee7b7" data-ko="운영 중" data-en="Open now">운영 중</text>
-          </g>
-
-          <!-- 🛠 해방툴 -->
-          <g>
-            <text class="node-role" x="480" y="256" text-anchor="middle" fill="#6366f1">SET · <tspan data-ko="세팅하기" data-en="SET UP">세팅하기</tspan></text>
-            <rect class="node-box" x="350" y="268" width="260" height="124" rx="14"/>
-            <rect x="350" y="268" width="260" height="4" rx="2" fill="#6366f1" opacity=".9"/>
-            <text class="node-title" x="480" y="310" text-anchor="middle" data-ko="🛠️ 해방툴 (PC)" data-en="🛠️ Rom Tool (PC)">🛠️ 해방툴 (PC)</text>
-            <text class="node-sub" x="480" y="338" text-anchor="middle" data-ko="롬 정리 · 자동 매칭" data-en="Organize ROMs · auto-match">롬 정리 · 자동 매칭</text>
-            <text class="node-sub" x="480" y="356" text-anchor="middle" data-ko="미디어 · 한글 메타 세팅" data-en="media &amp; Korean metadata">미디어 · 한글 메타 세팅</text>
-            <text class="chip" x="480" y="380" text-anchor="middle" fill="#6ee7b7" data-ko="v1.1 공개" data-en="v1.1 out now">v1.1 공개</text>
-          </g>
-
-          <!-- 🕹 HB런처 -->
-          <g>
-            <text class="node-role" x="790" y="256" text-anchor="middle" fill="#fbbf24">PLAY · <tspan data-ko="플레이하기" data-en="PLAY">플레이하기</tspan></text>
-            <rect class="node-box" x="660" y="268" width="260" height="124" rx="14"/>
-            <rect x="660" y="268" width="260" height="4" rx="2" fill="#fbbf24" opacity=".85"/>
-            <text class="node-title" x="790" y="310" text-anchor="middle" data-ko="🕹️ HB런처" data-en="🕹️ HB Launcher">🕹️ HB런처</text>
-            <text class="node-sub" x="790" y="338" text-anchor="middle" data-ko="3D 케이스로 진열하고" data-en="Shelve games as 3D cases,">3D 케이스로 진열하고</text>
-            <text class="node-sub" x="790" y="356" text-anchor="middle" data-ko="꽂아서 바로 실행" data-en="slot one in and play">꽂아서 바로 실행</text>
-            <text class="chip" x="790" y="380" text-anchor="middle" fill="#fcd34d" data-ko="알파 0.3 · Win / Android" data-en="Alpha 0.3 · Win / Android">알파 0.3 · Win / Android</text>
-          </g>
-
-          <!-- 🎮 게임기 -->
-          <g>
-            <rect class="node-box" x="290" y="500" width="380" height="88" rx="14" stroke="#34d399" stroke-opacity=".55"/>
-            <text class="node-title" x="480" y="538" text-anchor="middle" data-ko="🎮 내 휴대용 게임기 · PC" data-en="🎮 Your handheld · PC">🎮 내 휴대용 게임기 · PC</text>
-            <text class="node-sub" x="480" y="564" text-anchor="middle">ES-DE · Batocera · OnionOS · muOS · ROCKNIX · KNULLI …</text>
-          </g>
-
-          <!-- 🧩 한글화 패치 -->
-          <g>
-            <rect class="node-box" x="40" y="496" width="220" height="84" rx="14" stroke="#fb7185" stroke-opacity=".5"/>
-            <text class="node-title" x="150" y="530" text-anchor="middle" data-ko="🧩 한글화 패치" data-en="🧩 Korean Patches">🧩 한글화 패치</text>
-            <text class="node-sub" x="150" y="556" text-anchor="middle" data-ko="대한글화시대 · 운영 중" data-en="Fan-translation hub · open">대한글화시대 · 운영 중</text>
-          </g>
-        </svg>
-
-        <!-- 모바일: 세로 도식 — 왼쪽 줄기에서 각 제품으로 분기하는 노선도 스타일 -->
-        <svg class="eco-svg eco-svg-m" viewBox="0 0 360 910" role="img" aria-label="HAE-BANG RETRO ecosystem diagram (mobile)">
-          <defs>
-            <!-- display:none 인 데스크톱 SVG 의 defs 는 일부 브라우저에서 참조가 끊겨 별도로 둔다 -->
-            <marker id="arwm" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0,0 L10,5 L0,10 z" fill="#4c5470"/>
-            </marker>
-            <linearGradient id="cloudLineM" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/>
-            </linearGradient>
-          </defs>
-
-          <!-- 줄기와 분기 -->
-          <path class="flow" d="M40,108 L40,806" stroke="#3b82f6" opacity=".5"/>
-          <path class="flow" d="M40,196 L54,196" stroke="#22d3ee" opacity=".9" marker-end="url(#arwm)"/>
-          <path class="flow" d="M40,330 L54,330" stroke="#6366f1" opacity=".95" marker-end="url(#arwm)"/>
-          <path class="flow" d="M40,590 L54,590" stroke="#fbbf24" opacity=".9" marker-end="url(#arwm)"/>
-          <path class="flow" d="M40,806 L54,806" stroke="#34d399" opacity=".95" marker-end="url(#arwm)"/>
-          <path class="flow" d="M110,376 L110,432" stroke="#fb7185" opacity=".75" marker-end="url(#arwm)"/>
-
-          <text class="edge-label" x="52" y="136" data-ko="게임 정보 · 미디어" data-en="Game data · media">게임 정보 · 미디어</text>
-          <text class="edge-label" x="124" y="410" data-ko="한글판 매칭 연동" data-en="KR matching tie-in">한글판 매칭 연동</text>
-          <text class="edge-label" x="52" y="742" data-ko="라이브러리 전송 · 기기에서 실행" data-en="Send library · runs on device">라이브러리 전송 · 기기에서 실행</text>
-
-          <!-- ☁ 클라우드 -->
-          <rect class="node-box" x="20" y="16" width="320" height="92" rx="14" stroke="url(#cloudLineM)"/>
-          <text class="node-title" x="180" y="56" text-anchor="middle" data-ko="☁️ HAE-BANG 클라우드" data-en="☁️ HAE-BANG Cloud">☁️ HAE-BANG 클라우드</text>
-          <text class="node-sub" x="180" y="84" text-anchor="middle" data-ko="게임 정보 · 한글 데이터 · 미디어" data-en="Game data · Korean text · media">게임 정보 · 한글 데이터 · 미디어</text>
-
-          <!-- 🌐 게임 아카이브 -->
-          <rect class="node-box" x="58" y="150" width="282" height="92" rx="12"/>
-          <rect x="58" y="150" width="282" height="4" rx="2" fill="#22d3ee" opacity=".8"/>
-          <text class="node-title" x="76" y="186" data-ko="🌐 게임 아카이브 — 구경하기" data-en="🌐 Game Archive — browse">🌐 게임 아카이브 — 구경하기</text>
-          <text class="node-sub" x="76" y="210" data-ko="웹에서 게임 정보·미디어 탐색" data-en="Explore games in your browser">웹에서 게임 정보·미디어 탐색</text>
-          <text class="chip" x="76" y="230" fill="#6ee7b7" data-ko="운영 중" data-en="Open now">운영 중</text>
-
-          <!-- 🛠 해방툴 -->
-          <rect class="node-box" x="58" y="284" width="282" height="92" rx="12"/>
-          <rect x="58" y="284" width="282" height="4" rx="2" fill="#6366f1" opacity=".9"/>
-          <text class="node-title" x="76" y="320" data-ko="🛠️ 해방툴 (PC) — 세팅하기" data-en="🛠️ Rom Tool (PC) — set up">🛠️ 해방툴 (PC) — 세팅하기</text>
-          <text class="node-sub" x="76" y="344" data-ko="롬 정리 · 자동 매칭 · 미디어 세팅" data-en="Organize · auto-match · media">롬 정리 · 자동 매칭 · 미디어 세팅</text>
-          <text class="chip" x="76" y="364" fill="#6ee7b7" data-ko="v1.1 공개" data-en="v1.1 out now">v1.1 공개</text>
-
-          <!-- 🧩 한글화 패치 (해방툴 연동) -->
-          <rect class="node-box" x="96" y="432" width="244" height="76" rx="12" stroke="#fb7185" stroke-opacity=".5"/>
-          <text class="node-title" x="114" y="464" data-ko="🧩 한글화 패치" data-en="🧩 Korean Patches">🧩 한글화 패치</text>
-          <text class="node-sub" x="114" y="488" data-ko="대한글화시대 · 운영 중" data-en="Fan-translation hub · open">대한글화시대 · 운영 중</text>
-
-          <!-- 🕹 HB런처 -->
-          <rect class="node-box" x="58" y="544" width="282" height="92" rx="12"/>
-          <rect x="58" y="544" width="282" height="4" rx="2" fill="#fbbf24" opacity=".85"/>
-          <text class="node-title" x="76" y="580" data-ko="🕹️ HB런처 — 플레이하기" data-en="🕹️ HB Launcher — play">🕹️ HB런처 — 플레이하기</text>
-          <text class="node-sub" x="76" y="604" data-ko="3D 케이스 진열 · 꽂아서 바로 실행" data-en="3D case shelf · slot in and play">3D 케이스 진열 · 꽂아서 바로 실행</text>
-          <text class="chip" x="76" y="624" fill="#fcd34d" data-ko="알파 0.3 · Win / Android" data-en="Alpha 0.3 · Win / Android">알파 0.3 · Win / Android</text>
-
-          <!-- 🎮 게임기 -->
-          <rect class="node-box" x="58" y="760" width="282" height="92" rx="12" stroke="#34d399" stroke-opacity=".55"/>
-          <text class="node-title" x="76" y="796" data-ko="🎮 내 휴대용 게임기 · PC" data-en="🎮 Your handheld · PC">🎮 내 휴대용 게임기 · PC</text>
-          <text class="node-sub" x="76" y="822">ES-DE · Batocera · OnionOS · muOS …</text>
-        </svg>
+        <!-- 바탕 — 해방툴이 정보를 가져오는 곳 -->
+        <div class="jx-base">
+          <div class="tx"><span data-ko="표지 · 영상 · 설명서와 한글 제목은 해방레트로 게임 아카이브(9만 5천여 게임)에서, 한글 패치 정보는 대한글화시대에서 가져옵니다. 웹에서도 바로 구경할 수 있어요."
+               data-en="Box art, videos, manuals and Korean titles come from the HAE-BANG RETRO Game Archive (95,000+ games), and Korean patch info from our fan-translation hub — both open on the web, too.">표지 · 영상 · 설명서와 한글 제목은 해방레트로 게임 아카이브(9만 5천여 게임)에서, 한글 패치 정보는 대한글화시대에서 가져옵니다. 웹에서도 바로 구경할 수 있어요.</span></div>
+          <a class="btn btn-ghost" href="https://evegoodretro.com/games/" data-ko="🌐 게임 아카이브 →" data-en="🌐 Game Archive →">🌐 게임 아카이브 →</a>
+          <a class="btn btn-ghost" href="https://evegoodretro.com/patches/" data-ko="🧩 한글화 패치 →" data-en="🧩 KR Patches →">🧩 한글화 패치 →</a>
+        </div>
       </div>
     </div>
   </section>
@@ -904,6 +948,109 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     new IntersectionObserver(function (es) { inView = es[0].isIntersecting; on = inView && !document.hidden; run(); }).observe(st);
     document.addEventListener('visibilitychange', function () { on = inView && !document.hidden; run(); });
     var wait = setInterval(function () { if (started) { clearInterval(wait); run(); } }, 100);
+  })();
+
+  // ---------- 유튜브 재생목록 탭 ----------
+  (function () {
+    var tabs = [].slice.call(document.querySelectorAll('.yt-tabs [role="tab"]')); if (!tabs.length) return;
+    var all = document.getElementById('ytAll');
+    function pick(b, focus) {
+      tabs.forEach(function (x) {
+        var on = x === b;
+        x.setAttribute('aria-selected', on ? 'true' : 'false'); x.tabIndex = on ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
+      all.href = b.getAttribute('data-url');
+      if (focus) b.focus();
+    }
+    tabs.forEach(function (b, i) {
+      b.addEventListener('click', function () { pick(b); });
+      b.addEventListener('keydown', function (e) {   // ← → 로 탭 옮기기
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault(); pick(tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length], true);
+        }
+      });
+    });
+  })();
+
+  // ---------- 어떻게 이어질까 — 롬 파일이 해방툴을 거쳐 게임기 화면에 표지로 꽂힌다 ----------
+  // 한 게임마다: 폴더 줄 켜기 → 파일 이름이 왼쪽 줄을 타고 해방툴로 → 해방툴이 반짝 → 표지가 오른쪽 줄을 타고 게임기로 → 칸에 꽂힘.
+  // 여섯 개가 다 들어가면 HB런처 3D 진열 화면을 잠깐 보여 주고 처음부터. 화면 밖에선 멈추고, '동작 줄이기' 면 다 들어간 모습만.
+  (function () {
+    var jx = document.getElementById('jx'); if (!jx) return;
+    var rows = [].slice.call(jx.querySelectorAll('.jx-files li')), tiles = [].slice.call(jx.querySelectorAll('.jx-tile'));
+    var L1 = document.getElementById('jxL1'), L2 = document.getElementById('jxL2'), hub = document.getElementById('jxHub');
+    var screen = document.getElementById('jxScreen'), cap = document.getElementById('jxCap');
+    function en() { return document.documentElement.lang === 'en'; }
+    function esc(s) { return s.replace(/[&<>"]/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]; }); }
+    function done() {   // 다 들어간 모습(기본 · 동작 줄이기)
+      rows.forEach(function (r) { r.className = 'done'; }); tiles.forEach(function (t) { t.className = 'jx-tile in'; });
+      screen.classList.remove('shelf');
+      cap.innerHTML = '<b>' + (en() ? '6 games · box art and titles ready' : '6개 게임 · 표지와 한글 제목 준비 완료') + '</b>';
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { done(); return; }
+
+    var timers = [], running = false;
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function stop() {
+      timers.forEach(clearTimeout); timers = []; running = false;
+      [].slice.call(jx.querySelectorAll('.jx-pk')).forEach(function (el) { el.remove(); });
+    }
+    function fly(link, el, ms) {   // 이음줄 방향(가로/세로)에 맞춰 줄 끝까지 이동
+      link.appendChild(el);
+      var vert = link.offsetHeight > link.offsetWidth, k = vert ? 'top' : 'left';
+      var a = {}, b = {}, c = {}, d = {};
+      a[k] = '0%'; a.opacity = 0; b[k] = '12%'; b.opacity = 1; c[k] = '88%'; c.opacity = 1; d[k] = '100%'; d.opacity = 0;
+      if (el.animate) el.animate([a, b, c, d], {duration: ms, easing: 'ease-in-out', fill: 'forwards'});
+      later(function () { el.remove(); }, ms + 20);
+    }
+    function reset() {
+      screen.classList.remove('shelf');
+      rows.forEach(function (r) { r.className = ''; }); tiles.forEach(function (t) { t.className = 'jx-tile'; });
+      cap.innerHTML = '<b>' + (en() ? 'Waiting for games…' : '게임을 기다리는 중…') + '</b>';
+    }
+    function step(i) {
+      if (i >= rows.length) {
+        tiles.forEach(function (t) { t.classList.remove('new'); });
+        cap.innerHTML = '<b>' + (en() ? '6 games · box art and titles ready' : '6개 게임 · 표지와 한글 제목 준비 완료') + '</b>';
+        later(function () {
+          screen.classList.add('shelf');
+          cap.innerHTML = '<b>' + (en() ? 'In HB Launcher' : 'HB런처로 보면') + '</b>' + (en() ? '3D case shelf' : '3D 케이스로 진열');
+        }, 1600);
+        later(function () { reset(); later(function () { step(0); }, 900); }, 5800);
+        return;
+      }
+      var row = rows[i], tile = tiles[i];
+      row.className = 'on';
+      var pk = document.createElement('span'); pk.className = 'jx-pk file'; pk.textContent = row.textContent.trim();
+      fly(L1, pk, 760);
+      later(function () {
+        hub.classList.remove('pulse'); void hub.offsetWidth; hub.classList.add('pulse');
+        var cv = document.createElement('span'); cv.className = 'jx-pk cover';
+        var im = document.createElement('img'); im.alt = ''; im.src = tile.querySelector('img').getAttribute('src'); cv.appendChild(im);
+        fly(L2, cv, 700);
+      }, 720);
+      later(function () {
+        row.className = 'done';
+        tiles.forEach(function (t) { t.classList.remove('new'); });
+        tile.className = 'jx-tile in new';
+        var nm = en() ? tile.getAttribute('data-ten') : tile.getAttribute('data-tko');
+        var sy = en() ? tile.getAttribute('data-sen') : tile.getAttribute('data-sko');
+        cap.innerHTML = '<b>' + esc(nm) + '</b>' + esc(sy) + (tile.getAttribute('data-kr') ? '<em>' + (en() ? 'KR cover' : '한글 표지') + '</em>' : '');
+      }, 1400);
+      later(function () { step(i + 1); }, 1850);
+    }
+    function start() { if (running) return; running = true; reset(); later(function () { step(0); }, 500); }
+    var seen = false;
+    new IntersectionObserver(function (es) {
+      seen = es[0].isIntersecting;
+      if (seen && !document.hidden) start(); else if (running) { stop(); done(); }
+    }, {threshold: .25}).observe(jx);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { if (running) { stop(); done(); } } else if (seen) start();
+    });
+    document.getElementById('langBtn').addEventListener('click', function () { if (!running) done(); });   // 멈춰 있을 때도 화면 글자를 새 언어로
+    done();
   })();
 
   // header shadow on scroll
