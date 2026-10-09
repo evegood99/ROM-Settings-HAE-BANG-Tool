@@ -1032,10 +1032,13 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       return [WM_NODES[from]].concat(seg, [WM_NODES[to]]);
     }
 
-    var timers = [], raf = 0, auto = !reduce, active = false;
+    var timers = [], raf = 0, tourT = 0, auto = !reduce, active = false;
     function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+    function resume(ms) {   // 다음 둘러보기는 늘 하나만 예약한다(겹치면 걷기가 두 줄로 돈다)
+      clearTimeout(tourT); tourT = setTimeout(function () { auto = true; tour(); }, ms);
+    }
     function halt() {   // 멈추면 마스코트는 늘 지금 장소에 보이게(걷던 중 · 옮기던 중이었어도)
-      timers.forEach(clearTimeout); timers = []; cancelAnimationFrame(raf); raf = 0; mascot.classList.remove('step');
+      timers.forEach(clearTimeout); timers = []; clearTimeout(tourT); cancelAnimationFrame(raf); raf = 0; mascot.classList.remove('step');
       var p = WM_NODES[cur]; place(p[0], p[1]); mascot.style.opacity = 1;
     }
     function walk(pts, done) {   // 초당 320 그림 픽셀로 걷기, 130ms 마다 발 바꾸기
@@ -1056,26 +1059,26 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     }
     var hold = false;   // 대화 상자에 마우스 · 포커스가 있으면 카드를 넘기지 않는다(누르려던 링크가 사라지지 않게)
     function tour() {
-      if (!auto || !active || hold) return;
+      if (!auto || !active || hold || raf) return;
       if (cur === 'launcher') {   // 도착 — 잠깐 뒤 출발점으로
         mascot.style.opacity = 0;
-        later(function () { var p = WM_NODES.studio; place(p[0], p[1]); mascot.classList.remove('flip'); mascot.style.opacity = 1; show('studio'); later(tour, 5200); }, 500);
+        later(function () { var p = WM_NODES.studio; place(p[0], p[1]); mascot.classList.remove('flip'); mascot.style.opacity = 1; show('studio'); resume(5200); }, 500);
         return;
       }
       var next = LEGS[cur][1];
-      walk(leg(cur), function () { show(next); later(tour, next === 'launcher' ? 6200 : 5200); });
+      walk(leg(cur), function () { show(next); resume(next === 'launcher' ? 6200 : 5200); });
     }
     function jump(id) {   // 눌러서 옮기기 — 사라졌다 그 자리에 나타난다
       halt(); auto = false;
       mascot.style.opacity = 0;
       later(function () { var p = WM_NODES[id]; place(p[0], p[1]); mascot.style.opacity = 1; }, reduce ? 0 : 300);
       show(id);
-      if (!reduce) later(function () { auto = true; tour(); }, 15000);   // 15초 손대지 않으면 다시 돈다
+      if (!reduce) resume(15000);   // 15초 손대지 않으면 다시 돈다
     }
     for (var k in spots) spots[k].addEventListener('click', function () { jump(this.getAttribute('data-id')); });
     var dialog = wm.querySelector('.wm-dialog');
     function holdOn() { if (!hold) { hold = true; halt(); } }
-    function holdOff() { if (hold) { hold = false; if (!reduce) later(function () { auto = true; tour(); }, 6000); } }
+    function holdOff() { if (hold) { hold = false; if (!reduce) resume(6000); } }
     dialog.addEventListener('mouseenter', holdOn);
     dialog.addEventListener('focusin', holdOn);
     dialog.addEventListener('mouseleave', function () { if (!dialog.contains(document.activeElement)) holdOff(); });
@@ -1088,7 +1091,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     var seen = false;
     function wake() {
       var on = seen && !document.hidden;
-      if (on && !active) { active = true; auto = true; later(tour, 3800); }   // 다시 보이면(눌러 멈췄어도) 돌기 시작
+      if (on && !active) { active = true; resume(3800); }   // 다시 보이면(눌러 멈췄어도) 돌기 시작
       else if (!on && active) { active = false; halt(); }
     }
     new IntersectionObserver(function (es) { seen = es[es.length - 1].isIntersecting; wake(); }, {threshold: .3}).observe(wm);
