@@ -587,61 +587,6 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     </div>
   </section>
 
-  <!-- Videos — 유튜브 재생목록 두 개(해방툴 · 해방런처)만 -->
-  <section id="videos">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <span class="eyebrow">YOUTUBE</span>
-        <h2 data-ko="영상으로 보기" data-en="Watch on YouTube">영상으로 보기</h2>
-        <p data-ko="해방툴과 해방런처, 유튜브 재생목록에서 골라 보세요."
-           data-en="Pick a video from the Rom Tool and HB Launcher playlists.">해방툴과 해방런처, 유튜브 재생목록에서 골라 보세요.</p>
-      </div>
-      <div class="yt reveal">
-        <div class="yt-bar">
-          <div class="yt-tabs" role="tablist" aria-label="YouTube playlists">
-            <button type="button" role="tab" id="ytTabTool" aria-controls="ytPanTool" aria-selected="true" data-pl="tool"
-                    data-url="https://www.youtube.com/playlist?list=PLGjp8KApz6SY"><img src="assets/eco/ic_tool.webp" alt="" /><span data-ko="해방툴" data-en="Rom Tool">해방툴</span></button>
-            <button type="button" role="tab" id="ytTabHbl" aria-controls="ytPanHbl" aria-selected="false" tabindex="-1" data-pl="hbl"
-                    data-url="https://www.youtube.com/playlist?list=PLc-_6Tm7aCL4"><img src="assets/eco/ic_hbl.webp" alt="" /><span data-ko="해방런처" data-en="HB Launcher">해방런처</span></button>
-          </div>
-          <div class="yt-links">
-            <a class="btn btn-ghost" id="ytAll" href="https://www.youtube.com/playlist?list=PLGjp8KApz6SY" target="_blank" rel="noopener" data-ko="재생목록 전체 보기 →" data-en="Whole playlist →">재생목록 전체 보기 →</a>
-            <a class="btn btn-yt" href="https://www.youtube.com/@evegood_retro?sub_confirmation=1" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg><span data-ko="채널 구독하기" data-en="Subscribe">채널 구독하기</span></a>
-          </div>
-        </div>
-
-        <!-- 해방툴 재생목록 (PLGjp8KApz6SY) -->
-        <div class="yt-panel" id="ytPanTool" role="tabpanel" aria-labelledby="ytTabTool" data-pl="tool">
-          <a class="yt-feat" href="https://youtu.be/qPPjFI_pUow" target="_blank" rel="noopener">
-            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/qPPjFI_pUow/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/qPPjFI_pUow/hqdefault.jpg'" alt="" /><span class="latest" data-ko="최신" data-en="LATEST">최신</span><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
-            <h4 data-ko="에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지" data-en="Emulator Game Won't Launch? #1 Android — ES-DE · Pegasus + RetroArch: the 4 most common mistakes">에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지</h4>
-          </a>
-          <div class="yt-list">
-            <a class="yt-item" href="https://youtu.be/JkSZGcfJC6s" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/JkSZGcfJC6s/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="대한글화시대!! 게임 한글 패치를 너무나 쉽게! — 해방툴 우클릭으로 끝!" data-en="KR Patch Ages!! Korean game patches made easy — one right-click in the Rom Tool">대한글화시대!! 게임 한글 패치를 너무나 쉽게! — 해방툴 우클릭으로 끝!</span></a>
-            <a class="yt-item" href="https://youtu.be/sTJwebzYnJ0" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/sTJwebzYnJ0/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="대한글화시대! 패키지 이미지도 한글로 멋지게 — 해방툴 v1.1.1 베타 개발 소식" data-en="Package art in Korean, too — Rom Tool v1.1.1 beta dev news">대한글화시대! 패키지 이미지도 한글로 멋지게 — 해방툴 v1.1.1 베타 개발 소식</span></a>
-            <a class="yt-item" href="https://youtu.be/1lYsyr_Q5Zk" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/1lYsyr_Q5Zk/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="리눅스 게임기(RG35XX · 미유미니)에 게임 넣고 빼기 — 완전 초보를 위한 해방툴 특별 가이드" data-en="Adding and removing games on Linux handhelds (RG35XX, Miyoo Mini) — a Rom Tool guide for beginners">리눅스 게임기(RG35XX · 미유미니)에 게임 넣고 빼기 — 완전 초보를 위한 해방툴 특별 가이드</span></a>
-            <a class="yt-item" href="https://youtu.be/WmTsGXOMTbI" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/WmTsGXOMTbI/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="해방툴로 내 갤럭시 폴드를 게임기로 완벽 변신! 완전 초보를 위한 특별 가이드" data-en="Turn your Galaxy Fold into a game console with the Rom Tool — a guide for complete beginners">해방툴로 내 갤럭시 폴드를 게임기로 완벽 변신! 완전 초보를 위한 특별 가이드</span></a>
-            <a class="yt-item" href="https://youtu.be/PaoM01Gg0XI" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/PaoM01Gg0XI/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문" data-en="Retro handheld setup from one ROM folder — Rom Tool in 5 minutes">롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문</span></a>
-            <a class="yt-item lang-ko" href="https://www.youtube.com/shorts/nCWCFktpCys" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/nCWCFktpCys/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">게임 정리부터 게임기로 내보내기까지</span></a>
-            <a class="yt-item lang-en" href="https://www.youtube.com/shorts/bVlun-vY-a4" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/bVlun-vY-a4/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">Your ROM Collection, Finally Organized</span></a>
-          </div>
-        </div>
-
-        <!-- 해방런처 재생목록 (PLc-_6Tm7aCL4) -->
-        <div class="yt-panel" id="ytPanHbl" role="tabpanel" aria-labelledby="ytTabHbl" data-pl="hbl" hidden>
-          <a class="yt-feat" href="https://youtu.be/-_Sv_RqxGN0" target="_blank" rel="noopener">
-            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/-_Sv_RqxGN0/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/-_Sv_RqxGN0/hqdefault.jpg'" alt="" /><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
-            <h4 data-ko="이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처" data-en="This is a game launcher? HB Launcher, cartridges and all">이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처</h4>
-          </a>
-          <div class="yt-list">
-            <a class="yt-item lang-ko" href="https://www.youtube.com/shorts/EHSeai0xHwY" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/EHSeai0xHwY/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">이게 게임 런처라고?</span></a>
-            <a class="yt-item lang-en" href="https://www.youtube.com/shorts/Ij5A8Mlle3g" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/Ij5A8Mlle3g/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">This Is a Game Launcher?! Unbox Retro Nostalgia with HB Launcher</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- HAE-BANG RETRO WORLD — 해방레트로 전체를 16비트 월드맵 한 장으로 (#ecosystem 은 첫 화면 '어떻게 이어질까?' 단추가 가리킨다) -->
   <section id="ecosystem">
     <div class="wrap">
@@ -700,7 +645,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
                 <p data-ko="처음이라면 여기서 출발! 게임기 세팅부터 한글 패치, 게임이 실행 안 될 때 해결법까지 영상으로 차근차근 보여 드려요."
                    data-en="New here? Start with the videos — setting up a handheld, Korean patches, and what to do when a game won't launch, step by step.">처음이라면 여기서 출발! 게임기 세팅부터 한글 패치, 게임이 실행 안 될 때 해결법까지 영상으로 차근차근 보여 드려요.</p>
                 <div class="cta">
-                  <a class="btn btn-primary" href="#videos" data-ko="영상 보기 ↑" data-en="Watch videos ↑">영상 보기 ↑</a>
+                  <a class="btn btn-primary" href="#videos" data-ko="영상 보기 ↓" data-en="Watch videos ↓">영상 보기 ↓</a>
                   <a class="btn btn-ghost" href="https://www.youtube.com/@evegood_retro?sub_confirmation=1" target="_blank" rel="noopener" data-ko="채널 구독 →" data-en="Subscribe →">채널 구독 →</a>
                 </div>
               </div>
@@ -755,6 +700,61 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
           </div>
         </div>
         <p class="wm-hint" data-ko="장소를 누르면 마스코트가 걸어가고, 대화 상자의 ◀ ▶ 로도 옮겨 다닐 수 있어요." data-en="Tap a place and the mascot walks there — or use ◀ ▶ in the dialog box.">장소를 누르면 마스코트가 걸어가고, 대화 상자의 ◀ ▶ 로도 옮겨 다닐 수 있어요.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Videos — 유튜브 재생목록 두 개(해방툴 · 해방런처)만 -->
+  <section id="videos">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">YOUTUBE</span>
+        <h2 data-ko="영상으로 보기" data-en="Watch on YouTube">영상으로 보기</h2>
+        <p data-ko="해방툴과 해방런처, 유튜브 재생목록에서 골라 보세요."
+           data-en="Pick a video from the Rom Tool and HB Launcher playlists.">해방툴과 해방런처, 유튜브 재생목록에서 골라 보세요.</p>
+      </div>
+      <div class="yt reveal">
+        <div class="yt-bar">
+          <div class="yt-tabs" role="tablist" aria-label="YouTube playlists">
+            <button type="button" role="tab" id="ytTabTool" aria-controls="ytPanTool" aria-selected="true" data-pl="tool"
+                    data-url="https://www.youtube.com/playlist?list=PLGjp8KApz6SY"><img src="assets/eco/ic_tool.webp" alt="" /><span data-ko="해방툴" data-en="Rom Tool">해방툴</span></button>
+            <button type="button" role="tab" id="ytTabHbl" aria-controls="ytPanHbl" aria-selected="false" tabindex="-1" data-pl="hbl"
+                    data-url="https://www.youtube.com/playlist?list=PLc-_6Tm7aCL4"><img src="assets/eco/ic_hbl.webp" alt="" /><span data-ko="해방런처" data-en="HB Launcher">해방런처</span></button>
+          </div>
+          <div class="yt-links">
+            <a class="btn btn-ghost" id="ytAll" href="https://www.youtube.com/playlist?list=PLGjp8KApz6SY" target="_blank" rel="noopener" data-ko="재생목록 전체 보기 →" data-en="Whole playlist →">재생목록 전체 보기 →</a>
+            <a class="btn btn-yt" href="https://www.youtube.com/@evegood_retro?sub_confirmation=1" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg><span data-ko="채널 구독하기" data-en="Subscribe">채널 구독하기</span></a>
+          </div>
+        </div>
+
+        <!-- 해방툴 재생목록 (PLGjp8KApz6SY) -->
+        <div class="yt-panel" id="ytPanTool" role="tabpanel" aria-labelledby="ytTabTool" data-pl="tool">
+          <a class="yt-feat" href="https://youtu.be/qPPjFI_pUow" target="_blank" rel="noopener">
+            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/qPPjFI_pUow/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/qPPjFI_pUow/hqdefault.jpg'" alt="" /><span class="latest" data-ko="최신" data-en="LATEST">최신</span><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <h4 data-ko="에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지" data-en="Emulator Game Won't Launch? #1 Android — ES-DE · Pegasus + RetroArch: the 4 most common mistakes">에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지</h4>
+          </a>
+          <div class="yt-list">
+            <a class="yt-item" href="https://youtu.be/JkSZGcfJC6s" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/JkSZGcfJC6s/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="대한글화시대!! 게임 한글 패치를 너무나 쉽게! — 해방툴 우클릭으로 끝!" data-en="KR Patch Ages!! Korean game patches made easy — one right-click in the Rom Tool">대한글화시대!! 게임 한글 패치를 너무나 쉽게! — 해방툴 우클릭으로 끝!</span></a>
+            <a class="yt-item" href="https://youtu.be/sTJwebzYnJ0" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/sTJwebzYnJ0/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="대한글화시대! 패키지 이미지도 한글로 멋지게 — 해방툴 v1.1.1 베타 개발 소식" data-en="Package art in Korean, too — Rom Tool v1.1.1 beta dev news">대한글화시대! 패키지 이미지도 한글로 멋지게 — 해방툴 v1.1.1 베타 개발 소식</span></a>
+            <a class="yt-item" href="https://youtu.be/1lYsyr_Q5Zk" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/1lYsyr_Q5Zk/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="리눅스 게임기(RG35XX · 미유미니)에 게임 넣고 빼기 — 완전 초보를 위한 해방툴 특별 가이드" data-en="Adding and removing games on Linux handhelds (RG35XX, Miyoo Mini) — a Rom Tool guide for beginners">리눅스 게임기(RG35XX · 미유미니)에 게임 넣고 빼기 — 완전 초보를 위한 해방툴 특별 가이드</span></a>
+            <a class="yt-item" href="https://youtu.be/WmTsGXOMTbI" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/WmTsGXOMTbI/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="해방툴로 내 갤럭시 폴드를 게임기로 완벽 변신! 완전 초보를 위한 특별 가이드" data-en="Turn your Galaxy Fold into a game console with the Rom Tool — a guide for complete beginners">해방툴로 내 갤럭시 폴드를 게임기로 완벽 변신! 완전 초보를 위한 특별 가이드</span></a>
+            <a class="yt-item" href="https://youtu.be/PaoM01Gg0XI" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/PaoM01Gg0XI/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문" data-en="Retro handheld setup from one ROM folder — Rom Tool in 5 minutes">롬 폴더 하나로 끝내는 레트로 게임기 세팅 — 해방툴 5분 입문</span></a>
+            <a class="yt-item lang-ko" href="https://www.youtube.com/shorts/nCWCFktpCys" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/nCWCFktpCys/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">게임 정리부터 게임기로 내보내기까지</span></a>
+            <a class="yt-item lang-en" href="https://www.youtube.com/shorts/bVlun-vY-a4" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/bVlun-vY-a4/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">Your ROM Collection, Finally Organized</span></a>
+          </div>
+        </div>
+
+        <!-- 해방런처 재생목록 (PLc-_6Tm7aCL4) -->
+        <div class="yt-panel" id="ytPanHbl" role="tabpanel" aria-labelledby="ytTabHbl" data-pl="hbl" hidden>
+          <a class="yt-feat" href="https://youtu.be/-_Sv_RqxGN0" target="_blank" rel="noopener">
+            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/-_Sv_RqxGN0/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/-_Sv_RqxGN0/hqdefault.jpg'" alt="" /><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <h4 data-ko="이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처" data-en="This is a game launcher? HB Launcher, cartridges and all">이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처</h4>
+          </a>
+          <div class="yt-list">
+            <a class="yt-item lang-ko" href="https://www.youtube.com/shorts/EHSeai0xHwY" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/EHSeai0xHwY/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">이게 게임 런처라고?</span></a>
+            <a class="yt-item lang-en" href="https://www.youtube.com/shorts/Ij5A8Mlle3g" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/Ij5A8Mlle3g/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">This Is a Game Launcher?! Unbox Retro Nostalgia with HB Launcher</span></a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
