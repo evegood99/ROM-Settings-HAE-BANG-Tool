@@ -988,9 +988,10 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       screen.classList.remove('shelf');
       cap.innerHTML = '<b>' + (en() ? '6 games · box art and titles ready' : '6개 게임 · 표지와 한글 제목 준비 완료') + '</b>';
     }
+    var timers = [], running = false;
+    document.getElementById('langBtn').addEventListener('click', function () { if (!running) done(); });   // 멈춰 있을 때(동작 줄이기 포함)도 화면 글자를 새 언어로
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { done(); return; }
 
-    var timers = [], running = false;
     function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
     function stop() {
       timers.forEach(clearTimeout); timers = []; running = false;
@@ -1049,7 +1050,6 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) { if (running) { stop(); done(); } } else if (seen) start();
     });
-    document.getElementById('langBtn').addEventListener('click', function () { if (!running) done(); });   // 멈춰 있을 때도 화면 글자를 새 언어로
     done();
   })();
 
