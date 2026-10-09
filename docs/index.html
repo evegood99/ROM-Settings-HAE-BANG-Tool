@@ -1034,7 +1034,10 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
 
     var timers = [], raf = 0, auto = !reduce, active = false;
     function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
-    function halt() { timers.forEach(clearTimeout); timers = []; cancelAnimationFrame(raf); raf = 0; mascot.classList.remove('step'); }
+    function halt() {   // 멈추면 마스코트는 늘 지금 장소에 보이게(걷던 중 · 옮기던 중이었어도)
+      timers.forEach(clearTimeout); timers = []; cancelAnimationFrame(raf); raf = 0; mascot.classList.remove('step');
+      var p = WM_NODES[cur]; place(p[0], p[1]); mascot.style.opacity = 1;
+    }
     function walk(pts, done) {   // 초당 320 그림 픽셀로 걷기, 130ms 마다 발 바꾸기
       var L = [0];
       for (var i = 1; i < pts.length; i++) L.push(L[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
@@ -1051,8 +1054,9 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       }
       raf = requestAnimationFrame(frame);
     }
+    var hold = false;   // 대화 상자에 마우스 · 포커스가 있으면 카드를 넘기지 않는다(누르려던 링크가 사라지지 않게)
     function tour() {
-      if (!auto || !active) return;
+      if (!auto || !active || hold) return;
       if (cur === 'launcher') {   // 도착 — 잠깐 뒤 출발점으로
         mascot.style.opacity = 0;
         later(function () { var p = WM_NODES.studio; place(p[0], p[1]); mascot.classList.remove('flip'); mascot.style.opacity = 1; show('studio'); later(tour, 5200); }, 500);
@@ -1069,6 +1073,13 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       if (!reduce) later(function () { auto = true; tour(); }, 15000);   // 15초 손대지 않으면 다시 돈다
     }
     for (var k in spots) spots[k].addEventListener('click', function () { jump(this.getAttribute('data-id')); });
+    var dialog = wm.querySelector('.wm-dialog');
+    function holdOn() { if (!hold) { hold = true; halt(); } }
+    function holdOff() { if (hold) { hold = false; if (!reduce) later(function () { auto = true; tour(); }, 6000); } }
+    dialog.addEventListener('mouseenter', holdOn);
+    dialog.addEventListener('focusin', holdOn);
+    dialog.addEventListener('mouseleave', function () { if (!dialog.contains(document.activeElement)) holdOff(); });
+    dialog.addEventListener('focusout', function (e) { if (!dialog.contains(e.relatedTarget) && !dialog.matches(':hover')) holdOff(); });
     wm.querySelector('.wm-prev').addEventListener('click', function () { jump(ORDER[(ORDER.indexOf(cur) + ORDER.length - 1) % ORDER.length]); });
     wm.querySelector('.wm-next').addEventListener('click', function () { jump(ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length]); });
 
