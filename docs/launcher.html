@@ -16,7 +16,7 @@
 })();
 </script>
 <title>HB런처 — 3D 케이스 게임 런처 | HAE-BANG RETRO</title>
-<meta name="description" content="게임 케이스를 3D로 진열하고, 케이스를 열어 카트리지를 콘솔에 꽂으면 게임이 시작되는 새로운 에뮬레이터 런처. RetroArch 호환, Windows·Android. 해방툴과 직결. 현재 개발 중." />
+<meta name="description" content="게임 패키지를 손에 쥐던 아날로그 감성 그대로 — 케이스를 꺼내 열고, 매체를 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처. 55개 기종 실물 케이스, RetroArch 호환, Windows·Android. 해방툴 필수. v0.6 준비 중." />
 <meta property="og:title" content="HB런처 — 3D 케이스 게임 런처" />
 <meta property="og:description" content="케이스를 열고, 꽂고, 플레이. HAE-BANG RETRO의 새 프로젝트." />
 <meta property="og:type" content="website" />
@@ -172,14 +172,42 @@
   .sec-head h2{font-size:clamp(24px,3.4vw,36px); font-weight:800; letter-spacing:-.02em; margin:12px 0 12px}
   .sec-head p{color:var(--muted); font-size:15.5px; margin:0}
 
-  /* 컨셉 4단계 */
-  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
-  .step{position:relative; border:1px solid var(--border); border-radius:14px; padding:22px 16px; background:var(--surface)}
-  .step .si{font-size:26px; margin-bottom:10px}
-  .step h4{margin:0 0 5px; font-size:15.5px; font-weight:800}
-  .step p{margin:0; font-size:13px; color:var(--muted)}
-  .step:not(:last-child)::after{content:"→"; position:absolute; right:-12px; top:50%; transform:translateY(-50%);
-    color:var(--faint); font-size:16px; z-index:2}
+  /* 컨셉 — 그때(패키지를 품에 안던 아이)와 지금(HB런처를 켠 아이)이 같은 설렘 */
+  .tn{position:relative; margin:0 auto 34px; max-width:1100px; border:1px solid var(--border2); border-radius:20px; overflow:hidden;
+    background:#141018; box-shadow:var(--shadow)}
+  .tn img{display:block; width:100%; height:auto; aspect-ratio:12/5; object-fit:cover}
+  .tn figcaption{position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between; gap:14px;
+    padding:46px 22px 16px; background:linear-gradient(180deg,transparent,rgba(6,7,12,.82))}
+  .tn figcaption > span{max-width:46%; font-size:14px; line-height:1.5; color:#f3eee4}
+  .tn figcaption b{display:block; font-size:12px; letter-spacing:.14em; color:var(--gold); font-weight:800; margin-bottom:2px}
+  .tn figcaption > span:last-child{text-align:right}
+  .tn figcaption > span:last-child b{color:#4ade80}
+  /* 컨셉 4단계 — 아이 그림 + 한 줄 */
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+  .step{position:relative; border:1px solid var(--border); border-radius:16px; overflow:hidden; background:var(--surface)}
+  .step img{display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; background:#1a1520}
+  .step .sb{padding:14px 16px 18px}
+  .step .sn{display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%; margin-bottom:8px;
+    font-size:12.5px; font-weight:800; color:#07080d; background:var(--gold)}
+  .step h4{margin:0 0 5px; font-size:16px; font-weight:800}
+  .step p{margin:0; font-size:13.5px; color:var(--muted); line-height:1.6}
+  .analog-note{max-width:760px; margin:26px auto 0; text-align:center; font-size:14.5px; color:var(--muted); line-height:1.75}
+  .analog-note b{color:var(--text)}
+
+  /* 해방툴 필수 — 라이브러리는 해방툴이 만든다 */
+  .need{display:grid; grid-template-columns:1.15fr 1fr; gap:34px; align-items:center; border:1px solid rgba(74,222,128,.28);
+    border-radius:22px; padding:26px; background:radial-gradient(90% 120% at 0% 0%, rgba(74,222,128,.09), transparent 60%), var(--surface)}
+  .need img{display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; border-radius:14px; border:1px solid var(--border2)}
+  .need h2{font-size:clamp(22px,3vw,30px); font-weight:800; letter-spacing:-.02em; margin:10px 0 10px}
+  .need > div > p{margin:0 0 16px; color:var(--muted); font-size:15px; line-height:1.7}
+  .need ol{margin:0; padding:0; list-style:none; display:grid; gap:10px}
+  .need li{display:flex; gap:12px; align-items:flex-start; font-size:14.5px; color:var(--muted); line-height:1.6}
+  .need li b{color:var(--text)}
+  .need li i{flex:none; font-style:normal; display:grid; place-items:center; width:26px; height:26px; border-radius:8px;
+    font-size:13px; font-weight:800; color:#04130b; background:#4ade80}
+  .must-tag{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:800; letter-spacing:.06em; padding:4px 11px;
+    border-radius:999px; color:#04130b; background:#4ade80}
+  .badge.must{color:#bbf7d0; border-color:rgba(74,222,128,.45); background:rgba(74,222,128,.1)}
 
   /* 동작 영상 */
   .demo-video{max-width:840px; margin:0 auto 20px; border:1px solid var(--border2); border-radius:14px;
@@ -190,31 +218,8 @@
   .demo-video .cap b{font-size:14px; font-weight:800}
   .demo-video .cap span{font-size:12.5px; color:var(--muted)}
 
-  /* 렌더 샷 */
-  .shots{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-  .shot{border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--surface)}
-  .shot .imgw{aspect-ratio:16/9; overflow:hidden; background:#0a0c13}
-  .shot .imgw img{width:100%; height:100%; object-fit:cover; display:block}
-  .shot .cap{padding:12px 15px; border-top:1px solid var(--border)}
-  .shot .cap b{display:block; font-size:13.5px; font-weight:700}
-  .shot .cap span{font-size:12px; color:var(--muted)}
-  /* 실기기 영상 2단 — 카메라 촬영(소리 있음)이라 자동재생 대신 클릭 재생 */
-  .live2{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-bottom:18px}
-  .live2 .shot video{display:block; width:100%; aspect-ratio:16/9; background:#0a0c13}
-  .dev-note{text-align:center; font-size:12.5px; color:var(--faint); margin-top:16px}
-  .chg{margin-top:34px; border:1px solid var(--border); border-radius:var(--radius); padding:24px 26px;
-    background:linear-gradient(180deg,var(--surface),var(--bg2))}
-  .chg .chg-head{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px}
-  .chg .chg-head h3{margin:0; font-size:18px; font-weight:800}
-  .chg .chg-ver{display:inline-flex; align-items:center; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:800;
-    letter-spacing:.06em; color:#07080d; background:var(--emerald)}
-  .chg ul{margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:10px 22px}
-  .chg li{position:relative; padding-left:20px; color:var(--muted); font-size:14px; line-height:1.6}
-  .chg li::before{content:""; position:absolute; left:0; top:.62em; width:8px; height:8px; border-radius:50%; background:var(--grad)}
-  .chg li b{color:var(--text); font-weight:700}
-
-  /* 특징 카드 */
-  .fgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+  /* 특징 카드 — 한눈에(3열) */
+  .fgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
   .fcard{border:1px solid var(--border); border-radius:var(--radius); padding:24px 22px;
     background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.55))}
   .fcard .ico{width:44px; height:44px; border-radius:12px; display:grid; place-items:center; margin-bottom:14px;
@@ -239,11 +244,17 @@
 
   @media (max-width:920px){
     .steps{grid-template-columns:1fr 1fr}
-    .step:not(:last-child)::after{display:none}
-    .shots{grid-template-columns:1fr}
-    .live2{grid-template-columns:1fr}
+    .fgrid{grid-template-columns:1fr 1fr}
+    .need{grid-template-columns:1fr; gap:22px; padding:18px}
+  }
+  @media (max-width:640px){
+    .tn img{aspect-ratio:auto}
+    .tn figcaption{position:static; padding:14px 16px; background:var(--surface); border-top:1px solid var(--border)}
+    .tn figcaption > span{max-width:none; font-size:13px}
     .fgrid{grid-template-columns:1fr}
-    .chg ul{grid-template-columns:1fr}
+  }
+  @media (max-width:440px){
+    .steps{grid-template-columns:1fr}
   }
   /* 모바일 메뉴 — 좁은 화면에서 상단 메뉴가 숨겨지므로 햄버거로 같은 항목을 낸다 */
   .menu-btn{display:none; align-items:center; justify-content:center; padding:0;
@@ -278,12 +289,6 @@
     .mnav{display:block}
   }
   .icon-btn.yt{color:#ff4d4d} .icon-btn.yt:hover{color:#fff; background:#e0261c; border-color:#e0261c}
-  .ytline{display:flex; align-items:center; gap:14px; margin:18px auto 0; max-width:820px; padding:14px 18px;
-    border:1px solid var(--border2); border-radius:14px; background:var(--surface); transition:.18s}
-  .ytline:hover{border-color:#e0261c; transform:translateY(-1px)}
-  .ytline .ic{flex:none; width:44px; height:44px; border-radius:11px; background:#e0261c; color:#fff; display:flex; align-items:center; justify-content:center}
-  .ytline b{display:block; font-size:15px; font-weight:800; letter-spacing:-.01em}
-  .ytline small{display:block; font-size:12.5px; color:var(--muted); margin-top:2px}
 </style>
 </head>
 <body>
@@ -333,14 +338,14 @@
         <span class="grad-text" data-ko="플레이." data-en="play.">플레이.</span>
       </h1>
       <p class="hero-tag"
-         data-ko="게임 케이스를 3D 진열장에 늘어놓고, 마음에 드는 케이스를 돌려 보고, 열어서 카트리지를 꺼내 콘솔에 꽂으면 — 게임이 시작됩니다. 어릴 적 그 감각 그대로의 에뮬레이터 런처를 만들고 있습니다."
-         data-en="Shelve your games as 3D cases. Spin the one you like, open it, pull the cartridge and slot it into the console — the game begins. An emulator launcher that feels the way it did when you were a kid.">게임 케이스를 3D 진열장에 늘어놓고, 마음에 드는 케이스를 돌려 보고, 열어서 카트리지를 꺼내 콘솔에 꽂으면 — 게임이 시작됩니다. 어릴 적 그 감각 그대로의 에뮬레이터 런처를 만들고 있습니다.</p>
+         data-ko="새 게임을 사 오던 날, 비닐을 뜯고 케이스를 열어 설명서를 넘기고 팩을 꽂던 그 손맛. HB런처는 그 아날로그 감성을 최대한 느낄 수 있도록 — 진열장에서 케이스를 꺼내 앞뒤를 살피고, 열어서 매체를 꺼내 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처입니다."
+         data-en="Remember the day you brought a new game home — tearing the wrap, opening the case, flipping the manual, slotting the cartridge? HB Launcher is built to bring back that analog feel: take a case off the shelf, turn it over, open it, pull out the media and slot it into the console — and the game begins.">새 게임을 사 오던 날, 비닐을 뜯고 케이스를 열어 설명서를 넘기고 팩을 꽂던 그 손맛. HB런처는 그 아날로그 감성을 최대한 느낄 수 있도록 — 진열장에서 케이스를 꺼내 앞뒤를 살피고, 열어서 매체를 꺼내 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처입니다.</p>
       <div class="hero-badges">
-        <span class="badge"><span class="dot"></span><span data-ko="베타 0.5 · 클로즈 베타 준비 중" data-en="Beta 0.5 · closed beta on the way">베타 0.5 · 클로즈 베타 준비 중</span></span>
+        <span class="badge"><span class="dot"></span><span data-ko="v0.6 준비 중" data-en="v0.6 coming soon">v0.6 준비 중</span></span>
         <span class="badge">Windows · Android(APK)</span>
-        <span class="badge" data-ko="50개 기종 · 실물 케이스" data-en="50 systems · true-to-life cases">50개 기종 · 실물 케이스</span>
+        <span class="badge" data-ko="55개 기종 · 실물 케이스" data-en="55 systems · true-to-life cases">55개 기종 · 실물 케이스</span>
         <span class="badge" data-ko="RetroArch 실행 검증 완료" data-en="RetroArch launch verified">RetroArch 실행 검증 완료</span>
-        <span class="badge" data-ko="해방툴 직결" data-en="Wired to the Rom Tool">해방툴 직결</span>
+        <span class="badge must" data-ko="해방툴 필수" data-en="Requires the Rom Tool">해방툴 필수</span>
       </div>
       <div class="hero-cta">
         <button type="button" class="btn btn-primary" data-hbl-dl="win">
@@ -355,141 +360,140 @@
     </div>
   </section>
 
-  <!-- 컨셉 -->
+  <!-- 컨셉 — 아날로그 감성: 패키지를 품에 안던 설렘 = HB런처를 켜는 설렘 -->
   <section id="concept">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow" data-ko="컨셉" data-en="Concept">컨셉</span>
-        <h2 data-ko="게임을 '고르는 것'부터 놀이가 되도록" data-en="Choosing a game becomes play itself">게임을 '고르는 것'부터 놀이가 되도록</h2>
-        <p data-ko="텍스트 목록에서 파일명을 고르는 대신, 장식장에서 게임을 꺼내는 경험을 그대로 옮깁니다."
-           data-en="Instead of picking a filename from a list, you take a game off the shelf — the real thing, recreated.">텍스트 목록에서 파일명을 고르는 대신, 장식장에서 게임을 꺼내는 경험을 그대로 옮깁니다.</p>
+        <span class="eyebrow" data-ko="컨셉 · 아날로그 감성" data-en="Concept · the analog feel">컨셉 · 아날로그 감성</span>
+        <h2 data-ko="패키지를 품에 안던 그 설렘, 그대로" data-en="That new-game-box feeling, kept intact">패키지를 품에 안던 그 설렘, 그대로</h2>
+        <p data-ko="파일 이름이 늘어선 목록 대신, 손에 잡히는 게임 패키지. 롬 파일을 다시 '내 물건'처럼 느끼게 하는 것이 HB런처의 전부입니다."
+           data-en="Not a list of file names — a game package you can almost hold. Making your ROMs feel like things you own again is what HB Launcher is all about.">파일 이름이 늘어선 목록 대신, 손에 잡히는 게임 패키지. 롬 파일을 다시 '내 물건'처럼 느끼게 하는 것이 HB런처의 전부입니다.</p>
       </div>
+      <figure class="tn reveal">
+        <img src="assets/hbl_art_then_now.webp" width="2400" height="1000" loading="lazy"
+             srcset="assets/hbl_art_then_now_1200.webp 1200w, assets/hbl_art_then_now.webp 2400w" sizes="(max-width:1140px) 100vw, 1100px"
+             alt="새 게임 패키지를 품에 안은 아이와, HB런처가 켜진 게임기를 품에 안은 같은 아이" />
+        <figcaption>
+          <span><b data-ko="그때" data-en="THEN">그때</b><span data-ko="새 게임 패키지를 품에 안고 집으로 달려가던 날" data-en="Running home hugging a brand-new game box">새 게임 패키지를 품에 안고 집으로 달려가던 날</span></span>
+          <span><b data-ko="지금" data-en="NOW">지금</b><span data-ko="HB런처를 켜면, 그날의 설렘이 다시" data-en="Switch on HB Launcher, and that thrill is back">HB런처를 켜면, 그날의 설렘이 다시</span></span>
+        </figcaption>
+      </figure>
       <div class="steps">
-        <div class="step reveal"><div class="si">🗃️</div><h4 data-ko="기종을 고르고" data-en="Pick a system">기종을 고르고</h4><p data-ko="쌓아 둔 케이스 더미와 기종 로고로 50개 기종을 넘긴다" data-en="Flip through 50 systems by their case stacks and logos">쌓아 둔 케이스 더미와 기종 로고로 50개 기종을 넘긴다</p></div>
-        <div class="step reveal"><div class="si">🔎</div><h4 data-ko="앞뒤로 살펴보고" data-en="Look it over">앞뒤로 살펴보고</h4><p data-ko="한국어 제목·발매연도와 함께, 앞표지에서 뒷표지까지 굴려 본다" data-en="Korean title and release year, and roll it from front cover to back">한국어 제목·발매연도와 함께, 앞표지에서 뒷표지까지 굴려 본다</p></div>
-        <div class="step reveal"><div class="si">📦</div><h4 data-ko="케이스를 열면" data-en="Open the case">케이스를 열면</h4><p data-ko="기종마다 실물처럼 — 클램셸·종이곽·쥬얼케이스·빅박스" data-en="True to each system — clamshell, cardboard, jewel case, big box">기종마다 실물처럼 — 클램셸·종이곽·쥬얼케이스·빅박스</p></div>
-        <div class="step reveal"><div class="si">💿</div><h4 data-ko="넣으면 시작" data-en="Load it and play">넣으면 시작</h4><p data-ko="카트리지·디스크·UMD·게임카드를 실물 규격 그대로 꺼내 꽂는다" data-en="Cartridge, disc, UMD or game card — pulled out at true size and loaded">카트리지·디스크·UMD·게임카드를 실물 규격 그대로 꺼내 꽂는다</p></div>
+        <div class="step reveal">
+          <img src="assets/hbl_art_step_shelf.webp" width="960" height="720" loading="lazy" alt="진열장에서 게임 케이스를 꺼내는 아이" />
+          <div class="sb"><span class="sn">1</span>
+            <h4 data-ko="진열장에서 고르고" data-en="Pick from the shelf">진열장에서 고르고</h4>
+            <p data-ko="기종마다 쌓인 케이스 더미에서 오늘 할 게임을 꺼냅니다." data-en="Pull tonight's game from the stack of cases for each system.">기종마다 쌓인 케이스 더미에서 오늘 할 게임을 꺼냅니다.</p></div>
+        </div>
+        <div class="step reveal">
+          <img src="assets/hbl_art_step_look.webp" width="960" height="720" loading="lazy" alt="게임 케이스를 들어 뒷면을 살펴보는 아이" />
+          <div class="sb"><span class="sn">2</span>
+            <h4 data-ko="앞뒤로 살펴보고" data-en="Turn it over">앞뒤로 살펴보고</h4>
+            <p data-ko="앞표지·책등·뒷표지를 돌려 보며 한국어 제목과 발매연도를 확인합니다." data-en="Front cover, spine and back — with the Korean title and release year.">앞표지·책등·뒷표지를 돌려 보며 한국어 제목과 발매연도를 확인합니다.</p></div>
+        </div>
+        <div class="step reveal">
+          <img src="assets/hbl_art_step_open.webp" width="960" height="720" loading="lazy" alt="케이스를 열어 설명서와 카트리지를 보는 아이" />
+          <div class="sb"><span class="sn">3</span>
+            <h4 data-ko="케이스를 열면" data-en="Open the case">케이스를 열면</h4>
+            <p data-ko="클램셸·종이곽·쥬얼케이스 — 실물처럼 열리고 설명서와 매체가 나옵니다." data-en="Clamshell, cardboard box or jewel case — it opens like the real thing, manual and media inside.">클램셸·종이곽·쥬얼케이스 — 실물처럼 열리고 설명서와 매체가 나옵니다.</p></div>
+        </div>
+        <div class="step reveal">
+          <img src="assets/hbl_art_step_insert.webp" width="960" height="720" loading="lazy" alt="본체에 카트리지를 꽂자 브라운관 TV가 켜지는 장면" />
+          <div class="sb"><span class="sn">4</span>
+            <h4 data-ko="꽂으면 시작" data-en="Slot it in, play">꽂으면 시작</h4>
+            <p data-ko="카트리지·디스크·UMD·게임카드를 본체에 꽂으면 브라운관이 켜지며 게임이 시작됩니다." data-en="Slot the cartridge, disc, UMD or game card into the console — the CRT flickers on and the game begins.">카트리지·디스크·UMD·게임카드를 본체에 꽂으면 브라운관이 켜지며 게임이 시작됩니다.</p></div>
+        </div>
       </div>
+      <p class="analog-note reveal" data-ko="케이스와 매체는 기종마다 실물 치수(mm) 그대로 — 손에 쥐던 크기와 무게감까지 화면 위에 되살렸습니다."
+         data-en="Every case and medium is modelled at its real size in millimetres — down to the size and heft you remember in your hands.">케이스와 매체는 기종마다 실물 치수(mm) 그대로 — 손에 쥐던 크기와 무게감까지 화면 위에 되살렸습니다.</p>
     </div>
   </section>
 
-  <!-- 개발 렌더 -->
+  <!-- v0.6 동작 영상 (Windows 빌드를 Godot Movie Maker 로 녹화) -->
   <section id="preview">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow" data-ko="개발 미리보기" data-en="Dev preview">개발 미리보기</span>
+        <span class="eyebrow" data-ko="v0.6 동작 화면 · Windows" data-en="v0.6 in action · Windows">v0.6 동작 화면 · Windows</span>
         <h2 data-ko="지금 이만큼 만들어졌습니다" data-en="Where the build is today">지금 이만큼 만들어졌습니다</h2>
-        <p data-ko="아래 영상과 이미지는 목업이 아니라 개발 중인 빌드를 그대로 녹화한 실제 화면입니다." data-en="The video and images below are real captures of the development build — not mockups.">아래 영상과 이미지는 목업이 아니라 개발 중인 빌드를 그대로 녹화한 실제 화면입니다.</p>
+        <p data-ko="목업이 아니라 v0.6 빌드를 그대로 녹화한 실제 화면입니다." data-en="Not a mockup — recorded straight from the v0.6 build.">목업이 아니라 v0.6 빌드를 그대로 녹화한 실제 화면입니다.</p>
       </div>
-
-      <!-- 실제 동작 영상 (개발 빌드를 Godot Movie Maker 로 녹화) -->
       <div class="demo-video reveal">
-        <video autoplay loop muted playsinline preload="metadata" poster="assets/hbl_demo_poster_v3.jpg"
-               aria-label="HB런처 동작 영상">
-          <source src="assets/hbl_demo_v3.mp4" type="video/mp4" />
+        <video autoplay loop muted playsinline preload="metadata" poster="assets/hbl_demo_poster_v4.jpg"
+               aria-label="HB런처 v0.6 동작 영상">
+          <source src="assets/hbl_demo_v4.mp4" type="video/mp4" />
         </video>
         <div class="cap">
-          <b data-ko="▶ 실제 동작 영상" data-en="▶ The launcher in motion">▶ 실제 동작 영상</b>
-          <span data-ko="기종 진열대를 훑고 → 케이스를 열어 앞뒤로 살펴보고 → 내장 화면으로 플레이 영상을 보다가 그 자리에서 게임 시작 → 카트리지·UMD를 실물 본체에 꽂아 실행까지. 베타 0.5 빌드를 그대로 녹화한 1분 8초"
-                data-en="Browse the system shelf → open cases and look them over → watch gameplay on the built-in screen and start the game right from there → then slot the cartridge or UMD into the real console. 1min 8sec recorded straight from the beta 0.5 build">기종 진열대를 훑고 → 케이스를 열어 앞뒤로 살펴보고 → 내장 화면으로 플레이 영상을 보다가 그 자리에서 게임 시작 → 카트리지·UMD를 실물 본체에 꽂아 실행까지. 베타 0.5 빌드를 그대로 녹화한 1분 8초</span>
+          <b data-ko="▶ v0.6 실제 동작 영상" data-en="▶ v0.6 in motion">▶ v0.6 실제 동작 영상</b>
+          <span data-ko="진열장 훑기 → 메가드라이브 클램셸(앞·뒤표지) → 슈퍼패미컴 종이곽 → PS1 쥬얼케이스 → 게임큐브. 꽂으면 내장 브라운관에 플레이 영상이 흐르고, 옵션과 해방툴 연결까지. Windows판 1분 13초"
+                data-en="Sweep the shelf → Mega Drive clamshell (front and back covers) → Super Famicom cardboard box → PS1 jewel case → GameCube. Slot it in and gameplay plays on the built-in CRT — then options and the Rom Tool link. Windows build, 1min 13sec">진열장 훑기 → 메가드라이브 클램셸(앞·뒤표지) → 슈퍼패미컴 종이곽 → PS1 쥬얼케이스 → 게임큐브. 꽂으면 내장 브라운관에 플레이 영상이 흐르고, 옵션과 해방툴 연결까지. Windows판 1분 13초</span>
         </div>
-      </div>
-      <a class="ytline reveal" href="https://youtu.be/-_Sv_RqxGN0" target="_blank" rel="noopener"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span><b data-ko="유튜브에서 보기 — 이게 게임 런처라고?" data-en="Watch on YouTube — this is a game launcher?">유튜브에서 보기 — 이게 게임 런처라고?</b><small data-ko="팩 넣는 감성까지 담은 해방런처 · 해방 레트로 채널" data-en="HB Launcher, cartridges and all · HAE-BANG RETRO">팩 넣는 감성까지 담은 해방런처 · 해방 레트로 채널</small></span></a>
-
-      <!-- 실기기 영상 — 카메라로 찍은 실물. 소리가 있어 자동재생 대신 클릭 재생 -->
-      <div class="live2 reveal">
-        <div class="shot">
-          <video controls playsinline preload="none" poster="assets/hbl_ondevice_poster_v2.jpg"
-                 aria-label="RG 476H 실기기 구동 영상">
-            <source src="assets/hbl_ondevice_v2.mp4" type="video/mp4" />
-          </video>
-          <div class="cap"><b data-ko="▶ 실기기 구동 — RG 476H" data-en="▶ On real hardware — RG 476H">▶ 실기기 구동 — RG 476H</b><span data-ko="안드로이드 핸드헬드에서 그대로 — 진열대, 케이스 개봉, 본체에 꽂아 실행, 기종별 에뮬레이터 옵션까지. 베타 0.5 빌드, 2분 11초" data-en="Straight on an Android handheld — the shelf, opening cases, slotting media into the console to launch, and per-system emulator options. Beta 0.5 build, 2min 11sec">안드로이드 핸드헬드에서 그대로 — 진열대, 케이스 개봉, 본체에 꽂아 실행, 기종별 에뮬레이터 옵션까지. 베타 0.5 빌드, 2분 11초</span></div>
-        </div>
-        <div class="shot">
-          <video controls playsinline preload="none" poster="assets/hbl_sync_poster.jpg"
-                 aria-label="해방툴에서 HB런처로 전송하는 영상">
-            <source src="assets/hbl_sync.mp4" type="video/mp4" />
-          </video>
-          <div class="cap"><b data-ko="▶ 해방툴 → HB런처 전송" data-en="▶ Rom Tool → HB Launcher">▶ 해방툴 → HB런처 전송</b><span data-ko="해방툴의 [HB런처] 내보내기가 롬·미디어를 기기로 밀어 넣는다 — 기기 화면에 진행이 그대로 뜨고, 끝나면 새 시스템이 진열대에 선다" data-en="The Rom Tool's HB Launcher export pushes ROMs and media to the device — progress shows right on the device screen, and the new systems stand on the shelf when it's done">해방툴의 [HB런처] 내보내기가 롬·미디어를 기기로 밀어 넣는다 — 기기 화면에 진행이 그대로 뜨고, 끝나면 새 시스템이 진열대에 선다</span></div>
-        </div>
-      </div>
-
-      <div class="shots">
-        <div class="shot reveal">
-          <div class="imgw"><img src="assets/hbl_b4_shelf.jpg" alt="기종 진열대" loading="lazy" /></div>
-          <div class="cap"><b data-ko="① 기종 진열대" data-en="① The system shelf">① 기종 진열대</b><span data-ko="쌓아 둔 케이스 더미와 기종 로고 — 해방툴이 다루는 50개 기종 전부" data-en="Stacks of cases and the system logo — all 50 systems the Rom Tool handles">쌓아 둔 케이스 더미와 기종 로고 — 해방툴이 다루는 50개 기종 전부</span></div>
-        </div>
-        <div class="shot reveal">
-          <div class="imgw"><img src="assets/hbl_b4_list.jpg" alt="게임 목록" loading="lazy" /></div>
-          <div class="cap"><b data-ko="② 게임 고르기" data-en="② Browse the games">② 게임 고르기</b><span data-ko="한국어 제목·발매연도·제작사를 해방툴 DB에서 함께 가져온다" data-en="Korean title, year and publisher pulled from the Rom Tool database">한국어 제목·발매연도·제작사를 해방툴 DB에서 함께 가져온다</span></div>
-        </div>
-        <div class="shot reveal">
-          <div class="imgw"><img src="assets/hbl_demo_poster_v3.jpg" alt="클램셸 케이스 — 메가드라이브 소닉" loading="lazy" /></div>
-          <div class="cap"><b data-ko="③ 클램셸 — 메가드라이브" data-en="③ Clamshell — Mega Drive">③ 클램셸 — 메가드라이브</b><span data-ko="책처럼 열리면 뚜껑에 설명서, 뒷판에 카트리지 — 그 자리에서 게임 정보·영상 보기·게임 시작" data-en="Opens like a book: manual in the lid, cartridge on the back panel — game info, video and launch right from there">책처럼 열리면 뚜껑에 설명서, 뒷판에 카트리지 — 그 자리에서 게임 정보·영상 보기·게임 시작</span></div>
-        </div>
-        <div class="shot reveal">
-          <div class="imgw"><img src="assets/hbl_b4_cardboard.jpg" alt="종이곽" loading="lazy" /></div>
-          <div class="cap"><b data-ko="④ 종이곽 — 슈퍼패미컴" data-en="④ Cardboard box — Super Famicom">④ 종이곽 — 슈퍼패미컴</b><span data-ko="곽을 눕혀 열고 설명서와 팩을 옆으로 꺼내 늘어놓는다" data-en="The box tips over, and the manual and cartridge slide out side by side">곽을 눕혀 열고 설명서와 팩을 옆으로 꺼내 늘어놓는다</span></div>
-        </div>
-        <div class="shot reveal">
-          <div class="imgw"><img src="assets/hbl_b4_jewel.jpg" alt="쥬얼케이스" loading="lazy" /></div>
-          <div class="cap"><b data-ko="⑤ 쥬얼케이스 — PS1" data-en="⑤ Jewel case — PS1">⑤ 쥬얼케이스 — PS1</b><span data-ko="투명 케이스가 열리며 책자와 디스크가 드러난다" data-en="The clear case opens to reveal the booklet and disc">투명 케이스가 열리며 책자와 디스크가 드러난다</span></div>
-        </div>
-        <div class="shot reveal">
-          <div class="imgw"><img src="assets/hbl_b4_launch.jpg" alt="본체에 꽂아 실행" loading="lazy" /></div>
-          <div class="cap"><b data-ko="⑥ 꽂으면 실행 — 실물 본체" data-en="⑥ Slot it in — real hardware">⑥ 꽂으면 실행 — 실물 본체</b><span data-ko="꺼낸 카트리지·디스크가 그 기종의 본체에 꽂히며 게임이 시작된다" data-en="The cartridge or disc you pulled goes into that system's own console — and the game begins">꺼낸 카트리지·디스크가 그 기종의 본체에 꽂히며 게임이 시작된다</span></div>
-        </div>
-      </div>
-      <p class="dev-note" data-ko="* 베타 0.5 빌드의 실제 화면입니다. 기종마다 실물 케이스 구조와 매체(카트리지·디스크·UMD·게임카드)를 실제 치수(mm)대로 만듭니다. Windows에서 RetroArch 실행, 안드로이드 핸드헬드 실기기(60fps) 구동까지 검증되었습니다." data-en="* Real captures of the beta 0.5 build. Every system gets its own true-to-life case and media (cartridge, disc, UMD, game card) built at real millimetre dimensions. Verified launching RetroArch on Windows and running at 60fps on a real Android handheld.">* 베타 0.5 빌드의 실제 화면입니다. 기종마다 실물 케이스 구조와 매체(카트리지·디스크·UMD·게임카드)를 실제 치수(mm)대로 만듭니다. Windows에서 RetroArch 실행, 안드로이드 핸드헬드 실기기(60fps) 구동까지 검증되었습니다.</p>
-
-      <!-- 베타 0.5 변경점 -->
-      <div class="chg reveal">
-        <div class="chg-head">
-          <span class="chg-ver" data-ko="베타 0.5" data-en="BETA 0.5">베타 0.5</span>
-          <h3 data-ko="이번 빌드에서 달라진 것" data-en="What changed in this build">이번 빌드에서 달라진 것</h3>
-        </div>
-        <ul>
-          <li data-ko="여러 게임기의 모델·텍스처와 본체 표시 크기를 다듬었습니다." data-en="Reworked models and textures for several systems, with better on-screen console sizing."><b>여러 게임기의 모델·텍스처</b>와 본체 표시 크기를 다듬었습니다.</li>
-          <li data-ko="NES 카트리지·PSP UMD 를 입체로 만들고, 삽입·배출 동작을 보정했습니다." data-en="NES cartridges and PSP UMDs are now fully 3D, with corrected insert and eject motion."><b>NES 카트리지·PSP UMD</b> 를 입체로 만들고, 삽입·배출 동작을 보정했습니다.</li>
-          <li data-ko="내장 화면에서 플레이 영상을 재생하고, 게임 시작·종료 때의 확대와 잡음 연출을 개선했습니다." data-en="Gameplay video plays on the built-in screen, and the zoom and static effects on game start and exit are improved."><b>내장 화면 영상 재생</b>, 게임 시작·종료 때의 확대와 잡음 연출을 개선했습니다.</li>
-          <li data-ko="A/B 버튼 안내를 더하고, 영상을 보다가 바로 게임을 시작할 수 있으며, 빠른 뒤로 가기 오류를 고쳤습니다." data-en="Added A/B button hints, you can start the game straight from the video, and the quick-back bug is fixed."><b>A/B 버튼 안내</b>, 영상에서 바로 게임 시작, 빠른 뒤로 가기 오류 수정.</li>
-          <li data-ko="에뮬레이터 목록을 해방툴 기준으로 갱신했습니다." data-en="The emulator list is refreshed to match the Rom Tool."><b>에뮬레이터 목록</b>을 해방툴 기준으로 갱신했습니다.</li>
-        </ul>
       </div>
     </div>
   </section>
 
-  <!-- 특징 -->
+  <!-- 해방툴 필수 — 라이브러리(롬·표지·설명서·영상)는 해방툴이 만들어 보낸다 -->
+  <section id="rom-tool">
+    <div class="wrap">
+      <div class="need reveal">
+        <img src="assets/hbl_art_link.webp" width="1280" height="720" loading="lazy" alt="PC의 해방툴에서 게임 케이스들이 게임기로 날아가는 장면" />
+        <div>
+          <span class="must-tag" data-ko="해방툴 필수" data-en="Requires the Rom Tool">해방툴 필수</span>
+          <h2 data-ko="진열장은 해방툴이 채웁니다" data-en="The Rom Tool fills your shelf">진열장은 해방툴이 채웁니다</h2>
+          <p data-ko="HB런처는 해방툴과 함께 씁니다. 표지·책등·뒷표지·설명서·영상이 담긴 라이브러리는 해방툴이 만들어 보내 줍니다."
+             data-en="HB Launcher works together with the Rom Tool — it builds and sends the library with covers, spines, back covers, manuals and videos.">HB런처는 해방툴과 함께 씁니다. 표지·책등·뒷표지·설명서·영상이 담긴 라이브러리는 해방툴이 만들어 보내 줍니다.</p>
+          <ol>
+            <li><i>1</i><span data-ko="해방툴에서 롬을 추가하면 게임 정보와 미디어가 자동으로 맞춰집니다." data-en="Add your ROMs in the Rom Tool — game info and media are matched automatically.">해방툴에서 롬을 추가하면 게임 정보와 미디어가 자동으로 맞춰집니다.</span></li>
+            <li><i>2</i><span data-ko="[HB런처]로 내보내기 — 안드로이드 기기는 USB·무선으로, Windows는 내 컴퓨터로 바로 보냅니다." data-en="Export to HB Launcher — over USB or Wi-Fi to an Android device, or straight to this PC on Windows.">[HB런처]로 내보내기 — 안드로이드 기기는 USB·무선으로, Windows는 내 컴퓨터로 바로 보냅니다.</span></li>
+            <li><i>3</i><span data-ko="HB런처를 켜면 기종별 진열장이 완성되어 있습니다." data-en="Open HB Launcher and the shelves are ready, system by system.">HB런처를 켜면 기종별 진열장이 완성되어 있습니다.</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 특징 — 한눈에 -->
   <section id="features">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow" data-ko="계획된 특징" data-en="Planned features">계획된 특징</span>
-        <h2 data-ko="보기만 예쁜 런처가 아닙니다" data-en="Not just a pretty launcher">보기만 예쁜 런처가 아닙니다</h2>
+        <span class="eyebrow" data-ko="특징" data-en="Features">특징</span>
+        <h2 data-ko="HB런처, 한눈에" data-en="HB Launcher at a glance">HB런처, 한눈에</h2>
       </div>
       <div class="fgrid">
         <div class="fcard reveal">
+          <div class="ico">📦</div>
+          <h3 data-ko="실물 그대로의 케이스" data-en="True-to-life cases">실물 그대로의 케이스</h3>
+          <p data-ko="클램셸·종이곽·쥬얼케이스·빅박스. 기종마다 케이스 구조를 실물 치수(mm)대로 만들었습니다."
+             data-en="Clamshells, cardboard boxes, jewel cases, big boxes — each system's case built at real millimetre sizes.">클램셸·종이곽·쥬얼케이스·빅박스. 기종마다 케이스 구조를 실물 치수(mm)대로 만들었습니다.</p>
+        </div>
+        <div class="fcard reveal">
+          <div class="ico">💿</div>
+          <h3 data-ko="꺼내서 꽂는 매체" data-en="Media you pull out and slot in">꺼내서 꽂는 매체</h3>
+          <p data-ko="카트리지·디스크·UMD·게임카드를 꺼내 그 기종의 본체에 꽂으면 게임이 시작됩니다."
+             data-en="Pull the cartridge, disc, UMD or game card and slot it into that system's own console to play.">카트리지·디스크·UMD·게임카드를 꺼내 그 기종의 본체에 꽂으면 게임이 시작됩니다.</p>
+        </div>
+        <div class="fcard reveal">
+          <div class="ico">🗂️</div>
+          <h3 data-ko="55개 기종" data-en="55 systems">55개 기종</h3>
+          <p data-ko="패미컴·메가드라이브·PS1부터 게임큐브·PSP·3DS, DOS·아미가 빅박스, 아케이드까지 기종별 진열장."
+             data-en="From Famicom, Mega Drive and PS1 to GameCube, PSP and 3DS, DOS and Amiga big boxes, and arcade — a shelf for each.">패미컴·메가드라이브·PS1부터 게임큐브·PSP·3DS, DOS·아미가 빅박스, 아케이드까지 기종별 진열장.</p>
+        </div>
+        <div class="fcard reveal">
+          <div class="ico">📺</div>
+          <h3 data-ko="내장 브라운관" data-en="A built-in CRT">내장 브라운관</h3>
+          <p data-ko="꽂으면 브라운관이 켜지며 플레이 영상이 흐르고, 보다가 그 자리에서 바로 게임을 시작합니다."
+             data-en="Slot it in and the CRT flickers on with gameplay video — start the game right from there.">꽂으면 브라운관이 켜지며 플레이 영상이 흐르고, 보다가 그 자리에서 바로 게임을 시작합니다.</p>
+        </div>
+        <div class="fcard reveal">
           <div class="ico">🕹️</div>
-          <h3 data-ko="RetroArch 기본 + 확장 연결" data-en="RetroArch first, extensible beyond">RetroArch 기본 + 확장 연결</h3>
-          <p data-ko="RetroArch를 기본 호환으로 하고, 시스템별 스탠드얼론 에뮬레이터는 연결 정보를 통해 추가합니다. 새 에뮬레이터 대응은 앱 업데이트 없이 데이터 갱신만으로 이뤄지도록 설계하고 있습니다."
-             data-en="RetroArch works out of the box, and per-system standalone emulators plug in via connection profiles — designed so new emulators arrive as data updates, not app updates.">RetroArch를 기본 호환으로 하고, 시스템별 스탠드얼론 에뮬레이터는 연결 정보를 통해 추가합니다. 새 에뮬레이터 대응은 앱 업데이트 없이 데이터 갱신만으로 이뤄지도록 설계하고 있습니다.</p>
+          <h3 data-ko="RetroArch + 단독 에뮬레이터" data-en="RetroArch + standalone emulators">RetroArch + 단독 에뮬레이터</h3>
+          <p data-ko="기본은 RetroArch, 기종마다 단독 에뮬레이터를 골라 실행할 수 있습니다."
+             data-en="RetroArch out of the box, with a standalone emulator selectable per system.">기본은 RetroArch, 기종마다 단독 에뮬레이터를 골라 실행할 수 있습니다.</p>
         </div>
         <div class="fcard reveal">
-          <div class="ico">🔗</div>
-          <h3 data-ko="해방툴과 다이렉트 연결" data-en="Direct link with the Rom Tool">해방툴과 다이렉트 연결</h3>
-          <p data-ko="안드로이드 기기에 HB런처가 있으면 해방툴이 롬과 미디어를 기기로 바로 밀어 넣습니다. 해방툴에서 세팅한 라이브러리는 매칭 과정 없이 즉시 진열장이 됩니다."
-             data-en="With HB Launcher on your Android device, the Rom Tool pushes ROMs and media straight to it. A library set up in the Rom Tool becomes your shelf instantly — no re-matching.">안드로이드 기기에 HB런처가 있으면 해방툴이 롬과 미디어를 기기로 바로 밀어 넣습니다. 해방툴에서 세팅한 라이브러리는 매칭 과정 없이 즉시 진열장이 됩니다.</p>
-        </div>
-        <div class="fcard reveal">
-          <div class="ico">🧠</div>
-          <h3 data-ko="해방툴이 다루는 50개 기종 전부" data-en="All 50 systems the Rom Tool handles">해방툴이 다루는 50개 기종 전부</h3>
-          <p data-ko="패미컴·메가드라이브부터 PC엔진·새턴·PS1, GBA·원더스완·네오지오 포켓, DOS·아미가 빅박스까지. 기종마다 케이스 형태와 매체가 다르고, 같은 기종 안에서도 판본에 따라 상자가 달라지는 것까지 반영합니다."
-             data-en="From Famicom and Mega Drive to PC Engine, Saturn and PS1; GBA, WonderSwan and Neo Geo Pocket; DOS and Amiga big boxes. Each system has its own case shape and media — down to editions of the same system shipping in different boxes.">패미컴·메가드라이브부터 PC엔진·새턴·PS1, GBA·원더스완·네오지오 포켓, DOS·아미가 빅박스까지. 기종마다 케이스 형태와 매체가 다르고, 같은 기종 안에서도 판본에 따라 상자가 달라지는 것까지 반영합니다.</p>
-        </div>
-        <div class="fcard reveal">
-          <div class="ico">🎯</div>
-          <h3 data-ko="게임패드 우선 · 핸드헬드 우선" data-en="Gamepad-first, handheld-first">게임패드 우선 · 핸드헬드 우선</h3>
-          <p data-ko="모든 조작을 패드 버튼만으로. 안드로이드 게임 핸드헬드의 저사양 GPU에서도 부드럽게 돌도록 처음부터 가볍게 만들고 있습니다."
-             data-en="Everything works from the pad alone, and it's built light from day one to run smoothly on low-power Android handheld GPUs.">모든 조작을 패드 버튼만으로. 안드로이드 게임 핸드헬드의 저사양 GPU에서도 부드럽게 돌도록 처음부터 가볍게 만들고 있습니다.</p>
+          <div class="ico">🎮</div>
+          <h3 data-ko="패드 하나로 · Windows · Android" data-en="One gamepad · Windows · Android">패드 하나로 · Windows · Android</h3>
+          <p data-ko="모든 조작을 패드 버튼만으로. 안드로이드 핸드헬드와 Windows PC에서 같은 진열장을 씁니다."
+             data-en="Everything works from the pad. The same shelf on an Android handheld or a Windows PC.">모든 조작을 패드 버튼만으로. 안드로이드 핸드헬드와 Windows PC에서 같은 진열장을 씁니다.</p>
         </div>
       </div>
     </div>
