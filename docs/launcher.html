@@ -107,6 +107,48 @@
     border:1px solid var(--border); background:var(--surface); padding:6px 11px; border-radius:999px}
   .badge .dot{width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold)}
   .hero-badges{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:22px 0 0}
+  /* ---------- 다운로드 (Windows zip · Android APK 구매 코드) ---------- */
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:26px 0 0}
+  .dlg{display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:920px; margin:0 auto}
+  .dlc{position:relative; display:flex; flex-direction:column; border:1px solid var(--border); border-radius:var(--radius); padding:26px 24px 24px;
+    background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.55))}
+  .dlc.apk{border-color:rgba(251,191,36,.35)}
+  .dlc-top{display:flex; align-items:center; gap:12px; margin-bottom:12px}
+  .dlc-ico{width:46px; height:46px; border-radius:12px; display:grid; place-items:center; flex:0 0 auto; background:var(--surface2); border:1px solid var(--border2)}
+  .dlc h3{margin:0; font-size:19px; font-weight:800; letter-spacing:-.01em}
+  .dlc .st{margin-left:auto; font-size:11px; font-weight:800; padding:3px 9px; border-radius:999px; background:rgba(148,163,184,.15); color:#cbd5e1; white-space:nowrap}
+  .dlc p{margin:0 0 18px; color:var(--muted); font-size:14px; line-height:1.65; flex:1}
+  .dlc .btn{align-self:flex-start}
+  .dl-note{max-width:920px; margin:16px auto 0; text-align:center; font-size:12.5px; color:var(--faint); line-height:1.6}
+  .hm{position:fixed; inset:0; z-index:110; display:flex; align-items:center; justify-content:center; padding:24px;
+    background:rgba(4,5,9,.82); -webkit-backdrop-filter:blur(9px); backdrop-filter:blur(9px); opacity:0; pointer-events:none; transition:opacity .25s ease}
+  .hm.open{opacity:1; pointer-events:auto}
+  .hm [hidden]{display:none !important}
+  .hm-card{width:460px; max-width:94vw; background:var(--surface); border:1px solid var(--border2); border-radius:16px; padding:24px 24px 22px;
+    box-shadow:0 40px 120px -30px rgba(0,0,0,.9); transform:translateY(10px) scale(.98); transition:transform .25s cubic-bezier(.2,.85,.25,1)}
+  .hm.open .hm-card{transform:none}
+  .hm-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px}
+  .hm-head h3{margin:0; font-size:18px; font-weight:800}
+  .hm-x{background:none; border:none; color:var(--faint); font-size:26px; line-height:1; cursor:pointer}
+  .hm-x:hover{color:var(--text)}
+  .hm-desc{font-size:13.5px; line-height:1.6; color:var(--muted); margin:0 0 14px}
+  .hm-soon{display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border-radius:12px; margin:0 0 16px;
+    background:rgba(251,191,36,.08); border:1px solid rgba(251,191,36,.35); color:#fde68a; font-size:13.5px; line-height:1.6}
+  .hm-soon b{display:block; color:#fcd34d; font-size:14.5px; margin-bottom:2px}
+  .hm-field{display:flex; gap:8px; margin:0 0 10px}
+  .hm-input{flex:1; min-width:0; font:600 14px/1.2 ui-monospace,Consolas,monospace; letter-spacing:.04em; color:var(--text); background:var(--bg2);
+    border:1px solid var(--border2); border-radius:10px; padding:11px 13px; outline:none}
+  .hm-input:focus{border-color:var(--cyan)}
+  .hm-input:disabled,.hm-field .btn:disabled{opacity:.45; cursor:not-allowed}
+  .hm-msg{min-height:18px; margin:0 0 6px; font-size:13px}
+  .hm-msg.ok{color:#6ee7b7} .hm-msg.err{color:#fda4af} .hm-msg.wait{color:var(--muted)}
+  .hm-files{display:flex; flex-direction:column; gap:8px; margin:6px 0 4px}
+  .hm-files a{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; border:1px solid var(--border2); background:var(--bg2); font-size:13px}
+  .hm-files a .nm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-family:ui-monospace,Consolas,monospace}
+  .hm-files a .sz{color:var(--faint)} .hm-files a .dl{color:var(--cyan); font-weight:800}
+  .hm-foot{display:flex; justify-content:flex-end; gap:8px; margin-top:8px}
+  .hm-foot .btn{padding:9px 15px; font-size:13px}
+  @media (max-width:760px){ .dlg{grid-template-columns:1fr} }
   h1.hero-title{font-size:clamp(34px,5.4vw,58px); line-height:1.1; letter-spacing:-.02em; font-weight:800; margin:14px auto 18px; max-width:800px}
   .hero-tag{font-size:clamp(15.5px,2vw,18.5px); color:var(--muted); max-width:640px; margin:0 auto}
 
@@ -284,6 +326,16 @@
         <span class="badge" data-ko="RetroArch 실행 검증 완료" data-en="RetroArch launch verified">RetroArch 실행 검증 완료</span>
         <span class="badge" data-ko="해방툴 직결" data-en="Wired to the Rom Tool">해방툴 직결</span>
       </div>
+      <div class="hero-cta">
+        <button type="button" class="btn btn-primary" data-hbl-dl="win">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          <span data-ko="Windows용 다운로드" data-en="Download for Windows">Windows용 다운로드</span>
+        </button>
+        <button type="button" class="btn btn-ghost" data-hbl-dl="apk">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.2"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>
+          <span data-ko="Android APK 다운로드" data-en="Android APK Download">Android APK 다운로드</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -427,6 +479,44 @@
     </div>
   </section>
 
+  <!-- 다운로드 — Windows 는 압축 파일(zip) 바로 받기, Android 는 구매 코드로 APK 받기. 지금은 둘 다 '준비 중'(스크립트의 HBL_DL) -->
+  <section id="download">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow" data-ko="다운로드" data-en="Download">다운로드</span>
+        <h2 data-ko="HB런처 받기" data-en="Get HB Launcher">HB런처 받기</h2>
+        <p data-ko="PC에서는 Windows판을, 안드로이드 게임기에서는 APK를 받으세요." data-en="Windows build for your PC, APK for your Android handheld.">PC에서는 Windows판을, 안드로이드 게임기에서는 APK를 받으세요.</p>
+      </div>
+      <div class="dlg">
+        <div class="dlc reveal">
+          <div class="dlc-top">
+            <span class="dlc-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.5 10.5 4.4v7.1H3zM11.5 4.3 21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg></span>
+            <h3 data-ko="Windows" data-en="Windows">Windows</h3>
+            <span class="st" data-ko="준비 중" data-en="Coming soon">준비 중</span>
+          </div>
+          <p data-ko="Windows용 압축 파일(zip)로 받습니다. 압축을 풀고 바로 실행하세요." data-en="Comes as a Windows zip archive — unzip and run.">Windows용 압축 파일(zip)로 받습니다. 압축을 풀고 바로 실행하세요.</p>
+          <button type="button" class="btn btn-primary" data-hbl-dl="win">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <span data-ko="Windows용 다운로드 (zip)" data-en="Download for Windows (zip)">Windows용 다운로드 (zip)</span>
+          </button>
+        </div>
+        <div class="dlc apk reveal">
+          <div class="dlc-top">
+            <span class="dlc-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.2 9.5h9.6a1 1 0 0 1 1 1v6.3a1 1 0 0 1-1 1h-.8v2.4a1.2 1.2 0 0 1-2.4 0v-2.4h-3.2v2.4a1.2 1.2 0 0 1-2.4 0v-2.4h-.8a1 1 0 0 1-1-1v-6.3a1 1 0 0 1 1-1zM4.4 9.5a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-2.4 0v-4.6a1.2 1.2 0 0 1 1.2-1.2zm15.2 0a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-2.4 0v-4.6a1.2 1.2 0 0 1 1.2-1.2zM8.1 4.2l-.9-1.5.6-.3.9 1.5A6.8 6.8 0 0 1 12 3.2c1.2 0 2.3.3 3.3.7l.9-1.5.6.3-.9 1.5A5.8 5.8 0 0 1 17.8 8.6H6.2A5.8 5.8 0 0 1 8.1 4.2zM9.5 6.4a.6.6 0 1 0 0-1.2.6.6 0 0 0 0 1.2zm5 0a.6.6 0 1 0 0-1.2.6.6 0 0 0 0 1.2z"/></svg></span>
+            <h3 data-ko="Android (APK)" data-en="Android (APK)">Android (APK)</h3>
+            <span class="st" data-ko="준비 중" data-en="Coming soon">준비 중</span>
+          </div>
+          <p data-ko="구매 시 발급되는 APK 코드를 입력하면 받을 수 있습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요." data-en="Enter the APK code issued with your purchase to download. Install it on your Android handheld and fill the library with the Rom Tool's HB Launcher export.">구매 시 발급되는 APK 코드를 입력하면 받을 수 있습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요.</p>
+          <button type="button" class="btn btn-ghost" data-hbl-dl="apk">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.2"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>
+            <span data-ko="코드 입력하고 APK 받기" data-en="Enter code &amp; get the APK">코드 입력하고 APK 받기</span>
+          </button>
+        </div>
+      </div>
+      <p class="dl-note" data-ko="배포가 시작되면 새로운 소식 페이지에서 알려 드립니다." data-en="We'll announce on the News page when downloads open.">배포가 시작되면 새로운 소식 페이지에서 알려 드립니다.</p>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section>
     <div class="wrap">
@@ -442,6 +532,28 @@
     </div>
   </section>
 </main>
+
+<!-- HB런처 다운로드 창 — Windows 준비 중 안내 / APK 구매 코드 입력(준비 중이면 입력칸을 막고 안내만) -->
+<div class="hm" id="hblDl" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="hblDlTitle">
+  <div class="hm-card">
+    <div class="hm-head">
+      <h3 id="hblDlTitle"></h3>
+      <button type="button" class="hm-x" id="hblDlClose" aria-label="close">&times;</button>
+    </div>
+    <p class="hm-desc" id="hblDlDesc"></p>
+    <div class="hm-soon" id="hblDlSoon"><span aria-hidden="true">🛠️</span><span><b id="hblDlSoonT"></b><span id="hblDlSoonD"></span></span></div>
+    <form class="hm-field" id="hblDlForm" autocomplete="off">
+      <input class="hm-input" id="hblDlCode" type="text" autocapitalize="characters" spellcheck="false" maxlength="64" placeholder="APK-CODE" aria-label="APK code" />
+      <button class="btn btn-primary" id="hblDlGo" type="submit"></button>
+    </form>
+    <p class="hm-msg" id="hblDlMsg" role="status" aria-live="polite"></p>
+    <div class="hm-files" id="hblDlFiles" hidden></div>
+    <div class="hm-foot">
+      <a class="btn btn-ghost" href="news.html" data-ko="새로운 소식 보기" data-en="See the news">새로운 소식 보기</a>
+      <button type="button" class="btn btn-ghost" id="hblDlOk" data-ko="닫기" data-en="Close">닫기</button>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="wrap">
@@ -483,6 +595,149 @@
     entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:0.12});
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+<script>
+/* HB런처 다운로드 — 지금은 두 단추 모두 '준비 중' 창만 연다.
+   · Windows: winUrl 에 압축 파일(zip) 주소를 넣으면 단추가 바로 내려받는다(예: https://media.evegoodretro.com/release/<파일>.zip).
+   · APK: 구매 코드 검사는 전부 Worker 에서 한다 — 이 페이지는 공개 정적 파일이므로 코드를 여기에 두지 않는다.
+     apkReady 를 true 로 바꾸면 입력칸이 열리고 아래 주소로 확인한다(후원 베타 /spon/* 와 같은 모양, Worker 쪽 /hbl/* 는 아직 없음).
+       POST {apkApi}/hbl/auth  {code}  → {ok, token, files:[{name,size}]}
+       GET  {apkApi}/hbl/dl?f=<name>&t=<token> */
+(function () {
+  var HBL_DL = { winUrl: '', apkReady: false, apkApi: 'https://media.evegoodretro.com' };
+
+  var TX = {
+    win: {
+      title: ['Windows용 HB런처', 'HB Launcher for Windows'],
+      desc:  ['Windows용 압축 파일(zip)로 배포할 예정입니다. 압축을 풀고 바로 실행하면 됩니다.',
+              'It will ship as a Windows zip archive — unzip and run.'],
+      soonT: ['준비 중입니다', 'Coming soon'],
+      soonD: ['곧 이 단추로 바로 받을 수 있게 됩니다. 배포가 시작되면 새로운 소식에서 알려 드릴게요.',
+              'This button will download it directly soon. We\'ll announce it on the News page.']
+    },
+    apk: {
+      title: ['Android APK 받기', 'Get the Android APK'],
+      desc:  ['구매 시 발급되는 APK 코드를 입력하면 내려받을 수 있습니다.',
+              'Enter the APK code issued with your purchase to download.'],
+      soonT: ['준비 중입니다', 'Coming soon'],
+      soonD: ['APK 코드 발급이 시작되면 이 창에서 코드를 입력해 받을 수 있습니다. 시작되면 새로운 소식에서 알려 드릴게요.',
+              'Once APK codes are issued, you\'ll enter yours here to download. We\'ll announce it on the News page.']
+    }
+  };
+
+  var m = document.getElementById('hblDl');
+  if (!m) return;
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('hblDlForm'), code = $('hblDlCode'), go = $('hblDlGo'), msg = $('hblDlMsg'), files = $('hblDlFiles');
+  var kind = null, opener = null;
+
+  function T(pair) { return pair[lang === 'en' ? 1 : 0]; }
+  function say(text, cls) { msg.textContent = text || ''; msg.className = 'hm-msg' + (cls ? ' ' + cls : ''); }
+  function fmtSize(n) {
+    n = +n || 0;
+    if (n < 1024) return n + ' B';
+    var u = ['KB', 'MB', 'GB'], i = -1;
+    do { n /= 1024; i++; } while (n >= 1024 && i < u.length - 1);
+    return n.toFixed(n < 10 ? 1 : 0) + ' ' + u[i];
+  }
+  // 창의 글(제목 · 설명 · 준비 중 안내 · 확인 단추)을 지금 언어로 다시 채운다 — 언어를 바꿀 때도 부른다.
+  function paint() {
+    if (!kind) return;
+    var t = TX[kind], soon = (kind === 'win') ? !HBL_DL.winUrl : !HBL_DL.apkReady;
+    $('hblDlTitle').textContent = T(t.title);
+    $('hblDlDesc').textContent = T(t.desc);
+    $('hblDlSoonT').textContent = T(t.soonT);
+    $('hblDlSoonD').textContent = T(t.soonD);
+    $('hblDlSoon').hidden = !soon;
+    form.hidden = msg.hidden = (kind !== 'apk');
+    code.disabled = go.disabled = soon;
+    go.textContent = T(['확인', 'Verify']);
+  }
+  function focusables() {
+    return Array.prototype.filter.call(m.querySelectorAll('button, a[href], input'), function (el) {
+      return !el.disabled && el.offsetParent !== null;
+    });
+  }
+  function open(k, from) {
+    kind = k; opener = from || null;
+    say(''); files.hidden = true; files.innerHTML = ''; code.value = '';
+    paint();
+    m.classList.add('open'); m.setAttribute('aria-hidden', 'false');
+    setTimeout(function () { (code.disabled || form.hidden ? $('hblDlClose') : code).focus(); }, 60);
+  }
+  function close() {
+    if (!m.classList.contains('open')) return;
+    m.classList.remove('open'); m.setAttribute('aria-hidden', 'true');
+    kind = null;
+    if (opener) { opener.focus(); opener = null; }
+  }
+
+  document.querySelectorAll('[data-hbl-dl]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var k = b.getAttribute('data-hbl-dl');
+      if (k === 'win' && HBL_DL.winUrl) { window.location.href = HBL_DL.winUrl; return; }
+      open(k, b);
+    });
+  });
+  $('hblDlClose').addEventListener('click', close);
+  $('hblDlOk').addEventListener('click', close);
+  m.addEventListener('click', function (e) { if (e.target === m) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (!m.classList.contains('open')) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key !== 'Tab') return;
+    var f = focusables(); if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    else if (!m.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+  });
+  // 언어 단추는 위의 applyLang 이 먼저 처리한다(먼저 단 리스너가 먼저 돈다) — 창이 열려 있으면 글만 다시 채운다.
+  $('langBtn').addEventListener('click', paint);
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (kind !== 'apk' || !HBL_DL.apkReady) return;
+    var c = (code.value || '').trim();
+    if (!c) { say(T(['코드를 입력하세요.', 'Please enter a code.']), 'err'); code.focus(); return; }
+    go.disabled = true;
+    say(T(['확인 중…', 'Verifying…']), 'wait');
+    files.hidden = true; files.innerHTML = '';
+    fetch(HBL_DL.apkApi + '/hbl/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: c })
+    }).then(function (r) {
+      return r.json().catch(function () { return { ok: false }; });
+    }).then(function (d) {
+      go.disabled = false;
+      if (!d || !d.ok) {
+        say(T(['코드가 올바르지 않습니다. 다시 확인해 주세요.', 'That code is not valid. Please check and try again.']), 'err');
+        return;
+      }
+      var list = d.files || [];
+      if (!list.length) {
+        say(T(['아직 올라온 APK 가 없습니다. 조금만 기다려 주세요.', 'No APK has been published yet. Please check back soon.']), 'wait');
+        return;
+      }
+      say(T(['확인되었습니다. 아래에서 내려받으세요.', 'Verified — download below.']), 'ok');
+      list.forEach(function (f) {
+        var a = document.createElement('a');
+        a.href = HBL_DL.apkApi + '/hbl/dl?f=' + encodeURIComponent(f.name) + '&t=' + encodeURIComponent(d.token);
+        a.setAttribute('download', '');
+        var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = f.name;
+        var sz = document.createElement('span'); sz.className = 'sz'; sz.textContent = fmtSize(f.size);
+        var dl = document.createElement('span'); dl.className = 'dl'; dl.textContent = '↓ ' + T(['받기', 'Get']);
+        a.appendChild(nm); a.appendChild(sz); a.appendChild(dl);
+        files.appendChild(a);
+      });
+      files.hidden = false;
+    }).catch(function () {
+      go.disabled = false;
+      say(T(['서버에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요.', 'Could not reach the server. Please try again shortly.']), 'err');
+    });
+  });
+})();
 </script>
 <script>
 /* 모바일 메뉴 — 상단 메뉴가 숨겨지는 폭에서 같은 항목을 펼쳐 보여준다.
