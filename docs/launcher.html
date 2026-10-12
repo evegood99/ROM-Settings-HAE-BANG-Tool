@@ -121,8 +121,9 @@
   .dlc .btn{align-self:flex-start}
   .dl-note{max-width:920px; margin:16px auto 0; text-align:center; font-size:12.5px; color:var(--faint); line-height:1.6}
   .hm{position:fixed; inset:0; z-index:110; display:flex; align-items:center; justify-content:center; padding:24px;
-    background:rgba(4,5,9,.82); -webkit-backdrop-filter:blur(9px); backdrop-filter:blur(9px); opacity:0; pointer-events:none; transition:opacity .25s ease}
-  .hm.open{opacity:1; pointer-events:auto}
+    background:rgba(4,5,9,.82); -webkit-backdrop-filter:blur(9px); backdrop-filter:blur(9px); opacity:0; pointer-events:none;
+    visibility:hidden; transition:opacity .25s ease, visibility 0s linear .25s}  /* 닫힌 창의 단추에 Tab 이 닿지 않게 */
+  .hm.open{opacity:1; pointer-events:auto; visibility:visible; transition:opacity .25s ease}
   .hm [hidden]{display:none !important}
   .hm-card{width:460px; max-width:94vw; background:var(--surface); border:1px solid var(--border2); border-radius:16px; padding:24px 24px 22px;
     box-shadow:0 40px 120px -30px rgba(0,0,0,.9); transform:translateY(10px) scale(.98); transition:transform .25s cubic-bezier(.2,.85,.25,1)}
