@@ -208,6 +208,14 @@
   .must-tag{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:800; letter-spacing:.06em; padding:4px 11px;
     border-radius:999px; color:#04130b; background:#4ade80}
   .badge.must{color:#bbf7d0; border-color:rgba(74,222,128,.45); background:rgba(74,222,128,.1)}
+  /* 무선으로 보내기 */
+  .wifi-demo{margin-top:34px}
+  .wd-head{text-align:center; max-width:760px; margin:0 auto 18px}
+  .wd-head h3{font-size:clamp(20px,2.6vw,27px); font-weight:800; letter-spacing:-.02em; margin:10px 0 8px}
+  .wd-head p{margin:0; color:var(--muted); font-size:14.5px; line-height:1.7}
+  .wd-tag{display:inline-flex; font-size:12px; font-weight:800; letter-spacing:.06em; padding:4px 11px; border-radius:999px;
+    color:#0b1530; background:#60a5fa}
+  .wifi-demo .demo-video{max-width:960px}
 
   /* 동작 영상 */
   .demo-video{max-width:840px; margin:0 auto 20px; border:1px solid var(--border2); border-radius:14px;
@@ -448,6 +456,29 @@
           </ol>
         </div>
       </div>
+
+      <!-- 무선으로 보내기 — 실제 녹화(해방툴 + RG 476H). 자막이 박힌 영상이라 언어마다 따로 — 아래 스크립트가 lang 에 맞춰 고른다 -->
+      <div class="wifi-demo reveal">
+        <div class="wd-head">
+          <span class="wd-tag" data-ko="무선 내보내기" data-en="Wireless export">무선 내보내기</span>
+          <h3 data-ko="선 없이, IP 입력 없이 — 무선으로 보내기" data-en="No cable, no typing an IP — send it over Wi-Fi">선 없이, IP 입력 없이 — 무선으로 보내기</h3>
+          <p data-ko="게임기에서 SELECT 한 번, 해방툴에서 [자동 찾기] 한 번. 같은 Wi-Fi의 게임기를 찾아 IP까지 자동으로 연결하고 그대로 보냅니다."
+             data-en="Press SELECT on the handheld, click [Auto find] in the Rom Tool. It finds the handheld on your Wi-Fi, connects — IP and all — and sends.">게임기에서 SELECT 한 번, 해방툴에서 [자동 찾기] 한 번. 같은 Wi-Fi의 게임기를 찾아 IP까지 자동으로 연결하고 그대로 보냅니다.</p>
+        </div>
+        <div class="demo-video">
+          <video id="wifiVid" autoplay loop muted playsinline preload="metadata" poster="assets/hbl_wifi_poster_ko.jpg"
+                 data-src-ko="assets/hbl_wifi_ko.mp4" data-src-en="assets/hbl_wifi_en.mp4"
+                 data-poster-ko="assets/hbl_wifi_poster_ko.jpg" data-poster-en="assets/hbl_wifi_poster_en.jpg"
+                 aria-label="HB런처 무선 내보내기 영상">
+            <source src="assets/hbl_wifi_ko.mp4" type="video/mp4" />
+          </video>
+          <div class="cap">
+            <b data-ko="▶ 실제 화면 — 해방툴 + RG 476H" data-en="▶ Real screens — Rom Tool + RG 476H">▶ 실제 화면 — 해방툴 + RG 476H</b>
+            <span data-ko="SELECT로 무선 받기 → [자동 찾기]로 연결 → 내보내기 → 진열장에 새 게임. 58초"
+                  data-en="SELECT turns on wireless receive → [Auto find] connects → export → new games on the shelf. 58 sec">SELECT로 무선 받기 → [자동 찾기]로 연결 → 내보내기 → 진열장에 새 게임. 58초</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -608,6 +639,20 @@
   }
   document.getElementById('langBtn').addEventListener('click', function(){ applyLang(lang === 'ko' ? 'en' : 'ko'); });
   try { var saved = localStorage.getItem('hb_lang'); if (saved) applyLang(saved); } catch(e){}
+  // 무선 내보내기 영상은 자막이 박혀 있어 언어마다 파일이 다르다 — 지금 언어의 것으로 갈아 끼운다
+  function syncWifiVideo(){
+    var v = document.getElementById('wifiVid');
+    if (!v) return;
+    var l = (lang === 'en') ? 'en' : 'ko', src = v.getAttribute('data-src-' + l);
+    var s = v.querySelector('source');
+    if (!s || s.getAttribute('src') === src) return;
+    v.setAttribute('poster', v.getAttribute('data-poster-' + l));
+    s.setAttribute('src', src);
+    v.load();
+    var p = v.play(); if (p && p.catch) p.catch(function(){});
+  }
+  syncWifiVideo();
+  document.getElementById('langBtn').addEventListener('click', syncWifiVideo);
   var hdr = document.getElementById('hdr');
   function onScroll(){ hdr.classList.toggle('scrolled', window.scrollY > 8); }
   onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
