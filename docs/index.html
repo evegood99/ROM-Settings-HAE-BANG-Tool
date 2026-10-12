@@ -70,6 +70,19 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   .brand .bs{font-size:10.5px; color:var(--muted); font-weight:600; letter-spacing:.04em}
   .nav-links{display:flex; gap:6px; margin-left:18px}
   .nav-links a{padding:8px 12px; border-radius:9px; font-size:14px; color:var(--muted); font-weight:600; transition:.18s}
+  /* 영어도 한국어처럼 한 줄로 — 'Game Archive' · 'HB Launcher' · 'HAE-BANG RETRO' 가 두 줄로 접혀 메뉴 모양이 달라지던 것 */
+  .nav-links a{white-space:nowrap}
+  @media (min-width:941px){ .brand .bt, .brand .bs{white-space:nowrap} }  /* 폰에서는 로고 글자가 접혀야 오른쪽 단추가 들어간다 */
+  /* 영어 글자가 한국어보다 넓어 같은 자리에 들어가도록 영어에서만 간격을 조금 줄인다 */
+  @media (min-width:1161px){
+    html[lang="en"] .nav-links{gap:2px}
+    html[lang="en"] .nav-links a{padding:8px 10px}
+  }
+  @media (max-width:1160px) and (min-width:941px){
+    html[lang="en"] .nav-links a{padding:8px 3px; font-size:12px}
+    html[lang="en"] .nav-right{gap:5px}
+    html[lang="en"] .nav-right > a.btn{padding:9px 12px; font-size:13px}
+  }
   .nav-links a:hover{color:var(--text); background:var(--surface)}
   .nav-links a.active{color:var(--text); background:var(--surface); box-shadow:inset 0 -2px 0 var(--cyan)}
   .nav-right{margin-left:auto; display:flex; align-items:center; gap:10px}
@@ -161,6 +174,9 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   @keyframes riseIn{to{opacity:1; transform:none}}
   .btn-yt{border-color:rgba(255,77,77,.45); color:#fff; background:rgba(224,38,28,.16)}
   .btn-yt:hover{background:#e0261c; border-color:#e0261c; transform:translateY(-2px)}
+  /* HB런처 — 런처 로고의 초록 네온 */
+  .btn-hbl{background:linear-gradient(135deg,#4ade80,#10b981); color:#04130b; box-shadow:0 10px 30px -10px rgba(16,185,129,.65)}
+  .btn-hbl:hover{transform:translateY(-2px); box-shadow:0 16px 40px -12px rgba(16,185,129,.85)}
   /* 첫 화면에서는 메뉴 줄을 투명하게 — 배너가 화면 맨 위까지 이어진다 */
   header:not(.scrolled){background:linear-gradient(180deg, rgba(5,6,10,.55), rgba(5,6,10,0)); backdrop-filter:none; -webkit-backdrop-filter:none}
   /* 좁은 화면 — 배너 전체(16:9)를 메뉴 줄 아래에 그대로 */
@@ -484,7 +500,6 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     <div class="nav-right">
       <a class="icon-btn yt" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" title="해방 레트로 유튜브 채널" aria-label="YouTube"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
       <button class="icon-btn lang" id="langBtn" title="Language" aria-label="Language">EN</button>
-      <a class="btn btn-primary hide-s" href="haebang.html#download" data-ko="해방툴 다운로드" data-en="Get the Tool">해방툴 다운로드</a>
     </div>
       <button class="menu-btn" id="menuBtn" aria-label="메뉴" aria-expanded="false">☰</button>
     </div>
@@ -542,6 +557,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
          data-en="Browse games, set up your library, and play on your device. Game Archive, the Rom Tool and HB Launcher connect the whole journey.">게임을 찾아보고, 라이브러리를 세팅하고, 기기에서 바로 즐기고. 게임 아카이브 · 해방툴 · HB런처가 그 여정을 하나로 잇습니다.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="haebang.html" data-ko="해방툴 알아보기" data-en="Explore the Rom Tool">해방툴 알아보기</a>
+        <a class="btn btn-hbl" href="launcher.html" data-ko="HB런처 알아보기" data-en="Explore HB Launcher">HB런처 알아보기</a>
         <a class="btn btn-ghost" href="#ecosystem" data-ko="어떻게 이어질까?" data-en="How it connects">어떻게 이어질까?</a>
         <a class="btn btn-yt" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg><span data-ko="유튜브 채널" data-en="YouTube">유튜브 채널</span></a>
       </div>

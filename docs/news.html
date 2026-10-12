@@ -66,6 +66,19 @@
   .brand .bs{font-size:10.5px; color:var(--muted); font-weight:600; letter-spacing:.04em}
   .nav-links{display:flex; gap:6px; margin-left:18px}
   .nav-links a{padding:8px 12px; border-radius:9px; font-size:14px; color:var(--muted); font-weight:600; transition:.18s}
+  /* 영어도 한국어처럼 한 줄로 — 'Game Archive' · 'HB Launcher' · 'HAE-BANG RETRO' 가 두 줄로 접혀 메뉴 모양이 달라지던 것 */
+  .nav-links a{white-space:nowrap}
+  @media (min-width:941px){ .brand .bt, .brand .bs{white-space:nowrap} }  /* 폰에서는 로고 글자가 접혀야 오른쪽 단추가 들어간다 */
+  /* 영어 글자가 한국어보다 넓어 같은 자리에 들어가도록 영어에서만 간격을 조금 줄인다 */
+  @media (min-width:1161px){
+    html[lang="en"] .nav-links{gap:2px}
+    html[lang="en"] .nav-links a{padding:8px 10px}
+  }
+  @media (max-width:1160px) and (min-width:941px){
+    html[lang="en"] .nav-links a{padding:8px 3px; font-size:12px}
+    html[lang="en"] .nav-right{gap:5px}
+    html[lang="en"] .nav-right > a.btn{padding:9px 12px; font-size:13px}
+  }
   .nav-links a:hover,.nav-links a.active{color:var(--text); background:var(--surface)}
   .nav-right{margin-left:auto; display:flex; align-items:center; gap:10px}
   .icon-btn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px;
