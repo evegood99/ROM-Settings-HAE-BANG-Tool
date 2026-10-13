@@ -326,6 +326,69 @@
 
       <div class="tl">
 
+        <!-- 2026-10-13 : 공개 v1.1 수정판(v1.1.0 fix) -->
+        <article class="tl-item hl reveal">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.10.13</div>
+          <h3 class="tl-title" data-ko="공개 버전 v1.1 수정판 — Pegasus · ES-DE 내보내기와 기기별 폴더 문제 수정" data-en="Public v1.1 fix release — Pegasus and ES-DE export and device folder fixes">공개 버전 v1.1 수정판 &mdash; Pegasus · ES-DE 내보내기와 기기별 폴더 문제 수정</h3>
+          <div class="tags">
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+          </div>
+          <div class="tl-body">
+            <p data-ko="공개 버전 v1.1 의 내보내기 문제들을 고친 수정판(v1.1.0 fix)을 올렸습니다. 다운로드 버튼이 새 설치 파일로 바뀌었습니다."
+               data-en="A fix release of public v1.1 (v1.1.0 fix) is up, correcting export problems. The download button now points to the new installer.">공개 버전 v1.1 의 내보내기 문제들을 고친 <b>수정판(v1.1.0 fix)</b>을 올렸습니다. 다운로드 버튼이 새 설치 파일로 바뀌었습니다.</p>
+
+            <p data-ko="Pegasus 내보내기" data-en="Pegasus export"><b>Pegasus 내보내기</b></p>
+            <ul>
+              <li data-ko="PS2(NetherSX2 · AetherSX2), PS1(DuckStation) 등 단독 에뮬레이터가 앱만 켜지고 게임이 열리지 않던 문제 수정 (예전에 저장한 설정도 자동으로 고쳐짐)"
+                  data-en="Standalone emulators such as PS2 (NetherSX2, AetherSX2) and PS1 (DuckStation) opened only the app, not the game — fixed (settings saved earlier are corrected automatically)">PS2(NetherSX2 · AetherSX2), PS1(DuckStation) 등 단독 에뮬레이터가 앱만 켜지고 게임이 열리지 않던 문제 수정 (예전에 저장한 설정도 자동으로 고쳐짐)</li>
+              <li data-ko="RetroArch가 이미 켜져 있으면 다른 게임으로 바뀌지 않고 멈추던 문제 수정"
+                  data-en="When RetroArch was already running, it got stuck instead of switching to the other game — fixed">RetroArch가 이미 켜져 있으면 다른 게임으로 바뀌지 않고 멈추던 문제 수정</li>
+              <li data-ko="코어를 지정하지 않은 시스템에 잘못된 실행 명령이 들어가던 문제 수정"
+                  data-en="Systems with no core chosen got a wrong launch command — fixed">코어를 지정하지 않은 시스템에 잘못된 실행 명령이 들어가던 문제 수정</li>
+              <li data-ko="같은 게임이 두 개씩 보이던 문제 수정"
+                  data-en="The same game showing up twice — fixed">같은 게임이 두 개씩 보이던 문제 수정</li>
+            </ul>
+
+            <p data-ko="ES-DE 내보내기" data-en="ES-DE export"><b>ES-DE 내보내기</b></p>
+            <ul>
+              <li data-ko="켜져 있는 ES-DE가 내보낸 목록을 덮어써서 반영되지 않던 문제 수정 (내보낼 때 ES-DE를 자동으로 종료)"
+                  data-en="A running ES-DE overwrote the exported list so the changes never showed — fixed (ES-DE is closed automatically when you export)">켜져 있는 ES-DE가 내보낸 목록을 덮어써서 반영되지 않던 문제 수정 (내보낼 때 ES-DE를 자동으로 종료)</li>
+              <li data-ko="롬 폴더 안의 gamelist.xml을 쓰는 설정에서도 바르게 반영"
+                  data-en="Applied correctly even with the setting that keeps gamelist.xml inside the ROM folders">롬 폴더 안의 gamelist.xml을 쓰는 설정에서도 바르게 반영</li>
+              <li data-ko="최신 ES-DE 3.5.0 실행기 목록 반영"
+                  data-en="Launcher list updated for the latest ES-DE 3.5.0">최신 ES-DE 3.5.0 실행기 목록 반영</li>
+              <li data-ko="대체 에뮬레이터 설정을 비우면 예전에 적힌 값도 정리"
+                  data-en="Clearing an alternative emulator setting also clears the values written earlier">대체 에뮬레이터 설정을 비우면 예전에 적힌 값도 정리</li>
+            </ul>
+
+            <p data-ko="기기별 폴더" data-en="Device folders"><b>기기별 폴더</b></p>
+            <ul>
+              <li data-ko="ArkOS '내 컴퓨터' 내보내기가 기기가 읽지 못하는 폴더에 저장되던 문제 수정"
+                  data-en="ArkOS 'My PC' export saved into a folder the device could not read — fixed">ArkOS '내 컴퓨터' 내보내기가 기기가 읽지 못하는 폴더에 저장되던 문제 수정</li>
+              <li data-ko="일부 순정 OS(RG34xx 등)의 시스템 폴더 이름 수정"
+                  data-en="System folder names corrected for some stock OSes (RG34xx and others)">일부 순정 OS(RG34xx 등)의 시스템 폴더 이름 수정</li>
+            </ul>
+
+            <p data-ko="외부 기기로 전환 (PRO)" data-en="Switch to device (PRO)"><b>외부 기기로 전환 (PRO)</b></p>
+            <ul>
+              <li data-ko="Pegasus에서 고친 게임이 두 개씩 보이던 문제 수정"
+                  data-en="Games edited for Pegasus showing up twice — fixed">Pegasus에서 고친 게임이 두 개씩 보이던 문제 수정</li>
+              <li data-ko="ES-DE에서 고친 내용이 반영되지 않던 문제 수정"
+                  data-en="Edits made for ES-DE not taking effect — fixed">ES-DE에서 고친 내용이 반영되지 않던 문제 수정</li>
+              <li data-ko="롬 폴더 밖에 있는 Pegasus 목록도 인식"
+                  data-en="Pegasus lists kept outside the ROM folder are recognised too">롬 폴더 밖에 있는 Pegasus 목록도 인식</li>
+              <li data-ko="기기 탐색창 시작 폴더 오류 수정"
+                  data-en="Device browser opening in the wrong starting folder — fixed">기기 탐색창 시작 폴더 오류 수정</li>
+            </ul>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="haebang.html#download" data-ko="v1.1 다운로드 →" data-en="Download v1.1 →">v1.1 다운로드 →</a>
+              <a class="btn btn-ghost" href="guide.html" data-ko="문서 보기 →" data-en="Read the docs →">문서 보기 →</a>
+            </div>
+          </div>
+        </article>
+
         <!-- 2026-10-06 : 해방툴 v1.1.2 (베타) -->
         <article class="tl-item hl reveal">
           <div class="tl-dot"><i></i></div>
