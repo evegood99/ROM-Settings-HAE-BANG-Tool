@@ -121,7 +121,7 @@
     border:1px solid var(--border); background:var(--surface); padding:6px 11px; border-radius:999px}
   .badge .dot{width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold)}
   .hero-badges{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:22px 0 0}
-  /* ---------- 다운로드 (Windows zip · Android APK 구매 코드) ---------- */
+  /* ---------- 다운로드 (Windows zip · Android APK 스폰서 코드) ---------- */
   .hero-cta{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:26px 0 0}
   .dlg{display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:920px; margin:0 auto}
   .dlc{position:relative; display:flex; flex-direction:column; border:1px solid var(--border); border-radius:var(--radius); padding:26px 24px 24px;
@@ -161,6 +161,10 @@
   .hm-files a{display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; border:1px solid var(--border2); background:var(--bg2); font-size:13px}
   .hm-files a .nm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-family:ui-monospace,Consolas,monospace}
   .hm-files a .sz{color:var(--faint)} .hm-files a .dl{color:var(--cyan); font-weight:800}
+  .hm-hint{margin:10px 0 0; padding-top:12px; border-top:1px solid var(--border)}
+  .hm-hint p{margin:0 0 8px; font-size:12.5px; line-height:1.6; color:var(--faint)}
+  .hm-hint a{font-size:13px; font-weight:800; color:#fb7185}
+  .hm-hint a:hover{color:#fda4af}
   .hm-foot{display:flex; justify-content:flex-end; gap:8px; margin-top:8px}
   .hm-foot .btn{padding:9px 15px; font-size:13px}
   @media (max-width:760px){ .dlg{grid-template-columns:1fr} }
@@ -530,7 +534,7 @@
     </div>
   </section>
 
-  <!-- 다운로드 — Windows 는 압축 파일(zip) 바로 받기, Android 는 구매 코드로 APK 받기. 지금은 둘 다 '준비 중'(스크립트의 HBL_DL) -->
+  <!-- 다운로드 — Windows 는 압축 파일(zip) 바로 받기, Android 는 해방툴 후원 베타와 같은 스폰서 코드로 APK 받기(스크립트의 HBL_DL) -->
   <section id="download">
     <div class="wrap">
       <div class="sec-head reveal">
@@ -557,10 +561,10 @@
             <h3 data-ko="Android (APK)" data-en="Android (APK)">Android (APK)</h3>
             <span class="st" data-ko="준비 중" data-en="Coming soon">준비 중</span>
           </div>
-          <p data-ko="구매 시 발급되는 APK 코드를 입력하면 받을 수 있습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요." data-en="Enter the APK code issued with your purchase to download. Install it on your Android handheld and fill the library with the Rom Tool's HB Launcher export.">구매 시 발급되는 APK 코드를 입력하면 받을 수 있습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요.</p>
+          <p data-ko="해방툴 후원 전용 베타와 같은 스폰서 코드로 받습니다 — 따로 APK 코드는 필요 없습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요." data-en="Download it with the same sponsor code as the Rom Tool sponsor beta — no separate APK code needed. Install it on your Android handheld and fill the library with the Rom Tool's HB Launcher export.">해방툴 후원 전용 베타와 같은 스폰서 코드로 받습니다 — 따로 APK 코드는 필요 없습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요.</p>
           <button type="button" class="btn btn-ghost" data-hbl-dl="apk">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.2"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>
-            <span data-ko="코드 입력하고 APK 받기" data-en="Enter code &amp; get the APK">코드 입력하고 APK 받기</span>
+            <span data-ko="스폰서 코드로 APK 받기" data-en="Get the APK with your sponsor code">스폰서 코드로 APK 받기</span>
           </button>
         </div>
       </div>
@@ -584,7 +588,7 @@
   </section>
 </main>
 
-<!-- HB런처 다운로드 창 — Windows 준비 중 안내 / APK 구매 코드 입력(준비 중이면 입력칸을 막고 안내만) -->
+<!-- HB런처 다운로드 창 — Windows 준비 중 안내 / APK 는 스폰서 코드 입력(후원 베타와 같은 /spon/*, 목록에서 .apk 만) -->
 <div class="hm" id="hblDl" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="hblDlTitle">
   <div class="hm-card">
     <div class="hm-head">
@@ -594,11 +598,16 @@
     <p class="hm-desc" id="hblDlDesc"></p>
     <div class="hm-soon" id="hblDlSoon"><span aria-hidden="true">🛠️</span><span><b id="hblDlSoonT"></b><span id="hblDlSoonD"></span></span></div>
     <form class="hm-field" id="hblDlForm" autocomplete="off">
-      <input class="hm-input" id="hblDlCode" type="text" autocapitalize="characters" spellcheck="false" maxlength="64" placeholder="APK-CODE" aria-label="APK code" />
+      <input class="hm-input" id="hblDlCode" type="text" autocapitalize="characters" spellcheck="false" maxlength="64" placeholder="SPONSOR-CODE" aria-label="Sponsor code" />
       <button class="btn btn-primary" id="hblDlGo" type="submit"></button>
     </form>
     <p class="hm-msg" id="hblDlMsg" role="status" aria-live="polite"></p>
     <div class="hm-files" id="hblDlFiles" hidden></div>
+    <div class="hm-hint" id="hblDlHint">
+      <p data-ko="코드가 없다면 먼저 후원해 주세요. 후원하기 창의 '후원 알리기' 폼으로 이메일을 남기시면 스폰서 코드를 보내 드립니다. 다운로드 링크는 발급 후 잠시 뒤 만료되며, 다시 확인하면 새로 발급됩니다."
+         data-en="No code yet? Please donate first and leave your email in the donate window — we'll send you a sponsor code. Download links expire shortly after issue; verify again to get fresh ones.">코드가 없다면 먼저 후원해 주세요. 후원하기 창의 '후원 알리기' 폼으로 이메일을 남기시면 스폰서 코드를 보내 드립니다. 다운로드 링크는 발급 후 잠시 뒤 만료되며, 다시 확인하면 새로 발급됩니다.</p>
+      <a href="#" id="hblDlDonate" data-donate data-ko="♥ 후원하고 코드 받기" data-en="♥ Donate &amp; get a code">♥ 후원하고 코드 받기</a>
+    </div>
     <div class="hm-foot">
       <a class="btn btn-ghost" href="news.html" data-ko="새로운 소식 보기" data-en="See the news">새로운 소식 보기</a>
       <button type="button" class="btn btn-ghost" id="hblDlOk" data-ko="닫기" data-en="Close">닫기</button>
@@ -662,14 +671,17 @@
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 </script>
 <script>
-/* HB런처 다운로드 — 지금은 두 단추 모두 '준비 중' 창만 연다.
-   · Windows: winUrl 에 압축 파일(zip) 주소를 넣으면 단추가 바로 내려받는다(예: https://media.evegoodretro.com/release/<파일>.zip).
-   · APK: 구매 코드 검사는 전부 Worker 에서 한다 — 이 페이지는 공개 정적 파일이므로 코드를 여기에 두지 않는다.
-     apkReady 를 true 로 바꾸면 입력칸이 열리고 아래 주소로 확인한다(후원 베타 /spon/* 와 같은 모양, Worker 쪽 /hbl/* 는 아직 없음).
-       POST {apkApi}/hbl/auth  {code}  → {ok, token, files:[{name,size}]}
-       GET  {apkApi}/hbl/dl?f=<name>&t=<token> */
+/* HB런처 다운로드.
+   · Windows: winUrl 에 압축 파일(zip) 주소를 넣으면 단추가 바로 내려받는다(예: https://media.evegoodretro.com/release/<파일>.zip). 비어 있으면 '준비 중' 창.
+   · APK: 해방툴 후원 전용 베타와 **같은 스폰서 코드**로 받는다(사용자 결정 2026-10-13 — 따로 APK 코드를 두지 않는다).
+     코드 검사는 전부 Worker 에서 한다 — 이 페이지는 공개 정적 파일이므로 코드를 여기에 두지 않는다.
+       POST {api}/spon/auth  {code}  → {ok, token, files:[{name,size,uploaded}]}   (spon_release/ 의 파일 전부)
+       GET  {api}/spon/dl?f=<name>&t=<token>
+     그 목록에서 .apk 만 보여 준다 → APK 를 R2 haebang-private 의 spon_release/ 에 올리면 바로 받을 수 있다
+     (해방툴 베타 자동 업데이트는 HaebangRoms_Setup_v*.exe 이름만 보므로 섞여도 상관없다).
+     apkReady 는 안내만 바꾼다 — false 면 '아직 안 올라왔다' 상자를 보인다. 입력칸은 늘 열려 있다. */
 (function () {
-  var HBL_DL = { winUrl: '', apkReady: false, apkApi: 'https://media.evegoodretro.com' };
+  var HBL_DL = { winUrl: '', apkReady: false, api: 'https://media.evegoodretro.com', apk: /\.apk$/i };
 
   var TX = {
     win: {
@@ -682,11 +694,11 @@
     },
     apk: {
       title: ['Android APK 받기', 'Get the Android APK'],
-      desc:  ['구매 시 발급되는 APK 코드를 입력하면 내려받을 수 있습니다.',
-              'Enter the APK code issued with your purchase to download.'],
-      soonT: ['준비 중입니다', 'Coming soon'],
-      soonD: ['APK 코드 발급이 시작되면 이 창에서 코드를 입력해 받을 수 있습니다. 시작되면 새로운 소식에서 알려 드릴게요.',
-              'Once APK codes are issued, you\'ll enter yours here to download. We\'ll announce it on the News page.']
+      desc:  ['해방툴 후원 전용 베타와 같은 스폰서 코드를 입력하면 내려받을 수 있습니다. 따로 APK 코드는 필요 없습니다.',
+              'Enter the same sponsor code you use for the Rom Tool sponsor beta — no separate APK code needed.'],
+      soonT: ['APK 준비 중입니다', 'APK coming soon'],
+      soonD: ['아직 APK 가 올라오지 않았습니다. 올라오면 지금 가진 스폰서 코드로 바로 받을 수 있고, 새로운 소식에서 알려 드릴게요.',
+              'The APK isn\'t up yet. Once it is, your current sponsor code will download it right away — we\'ll announce it on the News page.']
     }
   };
 
@@ -714,8 +726,8 @@
     $('hblDlSoonT').textContent = T(t.soonT);
     $('hblDlSoonD').textContent = T(t.soonD);
     $('hblDlSoon').hidden = !soon;
-    form.hidden = msg.hidden = (kind !== 'apk');
-    code.disabled = go.disabled = soon;
+    form.hidden = msg.hidden = $('hblDlHint').hidden = (kind !== 'apk');
+    code.disabled = go.disabled = (kind !== 'apk');
     go.textContent = T(['확인', 'Verify']);
   }
   function focusables() {
@@ -745,6 +757,7 @@
     });
   });
   $('hblDlClose').addEventListener('click', close);
+  $('hblDlDonate').addEventListener('click', function (e) { e.preventDefault(); close(); });   // 후원 창은 donate.js 가 연다
   $('hblDlOk').addEventListener('click', close);
   m.addEventListener('click', function (e) { if (e.target === m) close(); });
   document.addEventListener('keydown', function (e) {
@@ -762,13 +775,13 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (kind !== 'apk' || !HBL_DL.apkReady) return;
+    if (kind !== 'apk') return;
     var c = (code.value || '').trim();
     if (!c) { say(T(['코드를 입력하세요.', 'Please enter a code.']), 'err'); code.focus(); return; }
     go.disabled = true;
     say(T(['확인 중…', 'Verifying…']), 'wait');
     files.hidden = true; files.innerHTML = '';
-    fetch(HBL_DL.apkApi + '/hbl/auth', {
+    fetch(HBL_DL.api + '/spon/auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code: c })
@@ -780,15 +793,16 @@
         say(T(['코드가 올바르지 않습니다. 다시 확인해 주세요.', 'That code is not valid. Please check and try again.']), 'err');
         return;
       }
-      var list = d.files || [];
+      var list = (d.files || []).filter(function (f) { return HBL_DL.apk.test(String(f.name || '')); });
       if (!list.length) {
-        say(T(['아직 올라온 APK 가 없습니다. 조금만 기다려 주세요.', 'No APK has been published yet. Please check back soon.']), 'wait');
+        say(T(['코드가 확인되었습니다. 아직 올라온 APK 가 없습니다 — 올라오면 같은 코드로 받을 수 있습니다.',
+               'Code verified. No APK is up yet — the same code will work once it is.']), 'wait');
         return;
       }
       say(T(['확인되었습니다. 아래에서 내려받으세요.', 'Verified — download below.']), 'ok');
       list.forEach(function (f) {
         var a = document.createElement('a');
-        a.href = HBL_DL.apkApi + '/hbl/dl?f=' + encodeURIComponent(f.name) + '&t=' + encodeURIComponent(d.token);
+        a.href = HBL_DL.api + '/spon/dl?f=' + encodeURIComponent(f.name) + '&t=' + encodeURIComponent(d.token);
         a.setAttribute('download', '');
         var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = f.name;
         var sz = document.createElement('span'); sz.className = 'sz'; sz.textContent = fmtSize(f.size);
