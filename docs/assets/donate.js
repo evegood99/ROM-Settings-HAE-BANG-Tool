@@ -349,9 +349,11 @@
     });
 
 
-    // ── PRO 업그레이드 창(#pm) — 후원 창과 같은 모양·같은 결제 수단, 알리는 폼만 'PRO 업그레이드 요청' ──
-    // [data-pro] 를 누르거나 ?pro=1 로 들어오면 열린다(해방툴 앱의 PRO UPGRADE 창 → '하러 가기').
-    // #pro 해시는 쓰지 않는다 — 문서의 PRO 절(guide.html#pro)과 겹쳐 문서로 가는 링크마다 창이 떴다.
+    // ── 유료 창 — 후원 창과 같은 모양·같은 결제 수단, 알리는 폼만 '요청' ──
+    //  · PRO 업그레이드(#pm): [data-pro] 를 누르거나 ?pro=1 로 들어오면 열린다(해방툴 앱의 PRO UPGRADE 창 → '하러 가기').
+    //    #pro 해시는 쓰지 않는다 — 문서의 PRO 절(guide.html#pro)과 겹쳐 문서로 가는 링크마다 창이 떴다.
+    //  · HB런처 APK 구매(#am): [data-hbl-buy] 를 누르거나 ?hblbuy=1 로 들어오면 열린다.
+    //    13,000원 · US$10, 해방툴 PRO · 스폰서 코드와 따로 'HB런처 APK 코드'를 보낸다(사용자 결정 2026-10-14).
     var PT = {
       ko: {
         title: 'PRO 업그레이드 ✦', close: '닫기', dialog: 'PRO 업그레이드',
@@ -404,18 +406,70 @@
         tag: '[PRO upgrade request]'
       }
     };
+    var AT = {
+      ko: {
+        title: 'HB런처 APK 구매 ✦', close: '닫기', dialog: 'HB런처 APK 구매',
+        desc: 'HB런처 안드로이드(APK)판은 유료입니다. 구매해 주시면 APK 를 받을 수 있는 HB런처 APK 코드를 보내드립니다.',
+        doc_btn: 'HB런처 특징 보기 →',
+        how_title: '구매 방법',
+        how_p: 'HB런처 APK 는 <b>13,000원</b>(해외는 <b>US$10</b>)입니다. 아래 QR(해외는 PayPal)로 보내 주신 뒤 하단의 구매 요청 칸에 이름, 이메일, 내용을 적으시고 <b>요청하기</b> 버튼으로 보내 주시면, ' +
+          '확인하는 대로 <b>HB런처 APK 코드</b>를 이메일로 보내드립니다. 받은 코드는 HB런처 페이지의 <b>[코드로 APK 받기]</b> 창에 넣으시면 됩니다.',
+        note: 'APK 코드는 해방툴 PRO 코드 · 후원 스폰서 코드와는 따로 발급됩니다. Windows판은 코드 없이 받는 압축 파일로 따로 배포합니다.',
+        naver: 'Naver Pay', kakao: 'Kakao Pay',
+        scan: '카메라 또는 페이 앱으로 QR을 스캔해 보내실 수 있어요. (네이버·카카오페이는 한국 안에서만 됩니다)',
+        pp_title: '해외에서 — PayPal',
+        pp_desc: '한국 밖에서는 PayPal 로 US$10 을 보내 주시면 됩니다(아래 단추를 누르면 금액이 채워져 있어요).',
+        pp_btn: 'PayPal 로 US$10 보내기 ↗',
+        form_title: '✉ HB런처 APK 구매 요청 — 이메일을 남기시면 APK 코드를 보내드립니다',
+        name_ph: '이름 (닉네임)', email_ph: '코드를 받을 이메일',
+        msg_ph: '남길 내용 (선택) — 보내신 분 이름·수단·시각 등',
+        send: '요청하기 ✉',
+        need_fields: '이름과 이메일을 채워 주세요.', bad_email: '이메일 주소를 확인해 주세요.',
+        need_captcha: '로봇이 아님을 확인해 주세요.', sending: '보내는 중…',
+        sent: '요청을 전달했습니다! 확인 후 HB런처 APK 코드를 이메일로 보내드릴게요. 고맙습니다 ♥',
+        fail: '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.',
+        noserver: '서버에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요.',
+        default_msg: '(내용 없음)',
+        tag: '[HB런처 APK 구매 요청]'
+      },
+      en: {
+        title: 'Buy the HB Launcher APK ✦', close: 'Close', dialog: 'Buy the HB Launcher APK',
+        desc: 'The Android (APK) edition of HB Launcher is paid. Once you buy it, I will send you an HB Launcher APK code to download the APK.',
+        doc_btn: 'See HB Launcher features →',
+        how_title: 'How to buy',
+        how_p: 'The HB Launcher APK is <b>US$10</b> (13,000 KRW in Korea). Send it with the QR codes below (PayPal from outside Korea), then fill in your name, email and message in the purchase request at the bottom and press <b>Request</b> - ' +
+          'I will email your <b>HB Launcher APK code</b> once I have checked. Enter the code in the <b>[Get the APK with your code]</b> window on the HB Launcher page.',
+        note: 'The APK code is issued separately from the Rom Tool PRO code and the sponsor code. The Windows edition ships separately as a zip you can download without a code.',
+        naver: 'Naver Pay', kakao: 'Kakao Pay',
+        scan: 'Scan a QR code with your camera or pay app. (Naver Pay and Kakao Pay work inside Korea only.)',
+        pp_title: 'From outside Korea — PayPal',
+        pp_desc: 'From outside Korea, send US$10 with PayPal (the button below fills in the amount).',
+        pp_btn: 'Send US$10 with PayPal ↗',
+        form_title: '✉ HB Launcher APK purchase request — leave your email and I will send the APK code',
+        name_ph: 'Name (nickname)', email_ph: 'Email for the code',
+        msg_ph: 'Message (optional) — sender name, method, time…',
+        send: 'Request ✉',
+        need_fields: 'Please fill in your name and email.', bad_email: 'Please check the email address.',
+        need_captcha: 'Please confirm you are not a robot.', sending: 'Sending…',
+        sent: 'Request sent! I will check and email your HB Launcher APK code. Thank you ♥',
+        fail: 'Sending failed. Please try again shortly.',
+        noserver: 'Could not reach the server. Please try again shortly.',
+        default_msg: '(no message)',
+        tag: '[HB Launcher APK purchase request]'
+      }
+    };
     var PT_HTML = { how_p: 1 };
-    function tp(k) { return (PT[lang()] || PT.ko)[k] || ''; }
 
-    var PM_HTML =
-      '<div class="dm" id="pm" aria-hidden="true">' +
+    // 창 뼈대 — 글자는 비워 두고 applyPT() 가 채운다. id 는 창마다(pm · am) 앞머리를 달리한다.
+    function paidHtml(id, docHref, ppAmount) {
+      return '<div class="dm" id="' + id + '" aria-hidden="true">' +
         '<div class="dm-card" role="dialog" aria-modal="true" data-pt-aria="dialog">' +
           '<div class="dm-head">' +
             '<h3 data-pt="title"></h3>' +
-            '<button class="dm-x" id="pm-x" data-pt-aria="close">&times;</button>' +
+            '<button class="dm-x" id="' + id + '-x" data-pt-aria="close">&times;</button>' +
           '</div>' +
           '<p class="dm-desc" data-pt="desc"></p>' +
-          '<p class="pm-doc"><a class="btn" href="' + P + 'guide.html#pro" data-pt="doc_btn"></a></p>' +
+          '<p class="pm-doc"><a class="btn" href="' + docHref + '" data-pt="doc_btn"></a></p>' +
           '<div class="dm-code">' +
             '<b data-pt="how_title"></b>' +
             '<p data-pt="how_p"></p>' +
@@ -432,42 +486,46 @@
             '<div class="dm-pp">' +
               '<b data-pt="pp_title"></b>' +
               '<p data-pt="pp_desc"></p>' +
-              '<a class="btn" href="' + PAYPAL + '/23USD" target="_blank" rel="noopener" data-pt="pp_btn"></a>' +
+              '<a class="btn" href="' + PAYPAL + '/' + ppAmount + '" target="_blank" rel="noopener" data-pt="pp_btn"></a>' +
             '</div>' +
           '</div>' +
-          '<form class="dm-form" id="pm-form" autocomplete="off" novalidate>' +
+          '<form class="dm-form" id="' + id + '-form" autocomplete="off" novalidate>' +
             '<b data-pt="form_title"></b>' +
             '<div class="dm-row">' +
-              '<input class="dm-in" id="pm-name" type="text" maxlength="100" data-pt-ph="name_ph" />' +
-              '<input class="dm-in" id="pm-email" type="email" maxlength="200" data-pt-ph="email_ph" />' +
+              '<input class="dm-in" id="' + id + '-name" type="text" maxlength="100" data-pt-ph="name_ph" />' +
+              '<input class="dm-in" id="' + id + '-email" type="email" maxlength="200" data-pt-ph="email_ph" />' +
             '</div>' +
-            '<textarea class="dm-in" id="pm-msg" maxlength="2000" data-pt-ph="msg_ph"></textarea>' +
+            '<textarea class="dm-in" id="' + id + '-msg" maxlength="2000" data-pt-ph="msg_ph"></textarea>' +
             '<input name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" ' +
               'style="position:absolute; left:-9999px; top:-9999px; width:1px; height:1px; opacity:0" />' +
             '<div class="dm-form-foot">' +
-              '<div id="pm-ts"></div>' +
-              '<button class="dm-send" id="pm-send" type="submit" data-pt="send"></button>' +
+              '<div id="' + id + '-ts"></div>' +
+              '<button class="dm-send" id="' + id + '-send" type="submit" data-pt="send"></button>' +
             '</div>' +
-            '<p class="dm-status" id="pm-status" role="status" aria-live="polite"></p>' +
+            '<p class="dm-status" id="' + id + '-status" role="status" aria-live="polite"></p>' +
           '</form>' +
         '</div>' +
       '</div>';
+    }
 
-    function initPro() {
-      if (document.getElementById('pm')) return;
-      // 후원 창의 모양(#dm …)을 그대로 #pm 에 — 두 창이 같은 모습으로 보인다
+    // cfg: { id, T(문구 사전), doc(문서 단추 주소), pp(PayPal 금액 'NNUSD'), kind(/api/contact 종류), trigger(여는 단추), query(?이름=1 로 바로 열기) }
+    function initPaid(cfg) {
+      var id = cfg.id, TT = cfg.T;
+      if (document.getElementById(id)) return;
+      function tp(k) { return (TT[lang()] || TT.ko)[k] || ''; }
+      // 후원 창의 모양(#dm …)을 그대로 — 창들이 같은 모습으로 보인다
       var st = document.createElement('style');
-      st.textContent = MODAL_CSS.replace(/#dm/g, '#pm') +
-        '#pm .dm-code{margin:0 0 16px}' +
-        '#pm .dm-code .pm-note{margin:0; font-size:12px; color:var(--faint,#6b7280)}' +
-        '#pm .pm-doc{margin:0 0 16px}' +
-        '#pm .pm-doc .btn{display:inline-flex; align-items:center; padding:8px 14px; border-radius:10px;' +
+      st.textContent = MODAL_CSS.replace(/#dm/g, '#' + id) +
+        ('#ID .dm-code{margin:0 0 16px}' +
+        '#ID .dm-code .pm-note{margin:0; font-size:12px; color:var(--faint,#6b7280)}' +
+        '#ID .pm-doc{margin:0 0 16px}' +
+        '#ID .pm-doc .btn{display:inline-flex; align-items:center; padding:8px 14px; border-radius:10px;' +
           'border:1px solid rgba(251,191,36,.45); color:var(--text,#e8ebf2); font-size:13px; font-weight:700}' +
-        '#pm .pm-doc .btn:hover{border-color:var(--gold,#fbbf24); color:var(--gold,#fbbf24)}' +
-        '#pm.en .dm-pp{order:-1; margin:4px 0 16px}';
+        '#ID .pm-doc .btn:hover{border-color:var(--gold,#fbbf24); color:var(--gold,#fbbf24)}' +
+        '#ID.en .dm-pp{order:-1; margin:4px 0 16px}').replace(/#ID/g, '#' + id);
       document.head.appendChild(st);
-      document.body.insertAdjacentHTML('beforeend', PM_HTML);
-      var pm = document.getElementById('pm');
+      document.body.insertAdjacentHTML('beforeend', paidHtml(id, cfg.doc, cfg.pp));
+      var pm = document.getElementById(id);
 
       function applyPT() {
         pm.classList.toggle('en', lang() === 'en');
@@ -486,34 +544,35 @@
         new MutationObserver(applyPT).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
       }
 
+      var tsSel = '#' + id + '-ts';
       function openPro(on) {
         pm.classList.toggle('open', on);
         pm.setAttribute('aria-hidden', on ? 'false' : 'true');
         document.body.style.overflow = on ? 'hidden' : '';
-        if (on) mountTs('#pm-ts');
+        if (on) mountTs(tsSel);
       }
 
-      var f = document.getElementById('pm-form');
+      var f = document.getElementById(id + '-form');
       f.addEventListener('submit', function (e) {
         e.preventDefault();
-        var stt = document.getElementById('pm-status');
-        var btn = document.getElementById('pm-send');
+        var stt = document.getElementById(id + '-status');
+        var btn = document.getElementById(id + '-send');
         function say(m, c) { stt.textContent = m || ''; stt.className = 'dm-status' + (c ? ' ' + c : ''); }
-        var name = document.getElementById('pm-name').value.trim();
-        var email = document.getElementById('pm-email').value.trim();
-        // 워커가 옛 판이어도(종류를 모름) 받은 메일에서 PRO 요청임을 알아보게 본문 맨 앞에 표시한다
-        var msg = tp('tag') + ' ' + (document.getElementById('pm-msg').value.trim() || tp('default_msg'));
+        var name = document.getElementById(id + '-name').value.trim();
+        var email = document.getElementById(id + '-email').value.trim();
+        // 워커가 옛 판이어도(종류를 모름) 받은 메일에서 무슨 요청인지 알아보게 본문 맨 앞에 표시한다
+        var msg = tp('tag') + ' ' + (document.getElementById(id + '-msg').value.trim() || tp('default_msg'));
         if (!name || !email) { say(tp('need_fields'), 'err'); return; }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say(tp('bad_email'), 'err'); return; }
         var tk = '';
-        try { tk = (window.turnstile && tsIds['#pm-ts'] !== undefined) ? window.turnstile.getResponse(tsIds['#pm-ts']) : ''; } catch (err) {}
+        try { tk = (window.turnstile && tsIds[tsSel] !== undefined) ? window.turnstile.getResponse(tsIds[tsSel]) : ''; } catch (err) {}
         if (!tk) { say(tp('need_captcha'), 'err'); return; }
         btn.disabled = true;
         say(tp('sending'));
         fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ kind: 'pro', name: name, email: email, message: msg,
+          body: JSON.stringify({ kind: cfg.kind, name: name, email: email, message: msg,
             turnstile: tk, website: f.website.value }),
         }).then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
         .then(function (d) {
@@ -521,7 +580,7 @@
           if (d && d.ok) {
             say(tp('sent'), 'ok');
             f.reset();
-            try { window.turnstile.reset(tsIds['#pm-ts']); } catch (err) {}
+            try { window.turnstile.reset(tsIds[tsSel]); } catch (err) {}
           } else {
             say(tp('fail'), 'err');
           }
@@ -530,18 +589,22 @@
           say(tp('noserver'), 'err');
         });
       });
-      document.querySelectorAll('[data-pro]').forEach(function (b) {
+      document.querySelectorAll(cfg.trigger).forEach(function (b) {
         b.addEventListener('click', function (e) { e.preventDefault(); openPro(true); });
       });
-      document.getElementById('pm-x').addEventListener('click', function () { openPro(false); });
+      document.getElementById(id + '-x').addEventListener('click', function () { openPro(false); });
       pm.addEventListener('click', function (e) { if (e.target === pm) openPro(false); });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && pm.classList.contains('open')) openPro(false);
       });
-      // 해방툴(앱)의 PRO UPGRADE 창 → 'PRO 업그레이드 하러 가기' 로 넘어온 경우 바로 연다
-      if (/[?&]pro=1(?:&|$)/.test(location.search)) openPro(true);
+      // 다른 곳(해방툴 앱의 PRO UPGRADE 창 등)에서 '?이름=1' 로 넘어온 경우 바로 연다
+      if (new RegExp('[?&]' + cfg.query + '=1(?:&|$)').test(location.search)) openPro(true);
     }
-    initPro();
+    initPaid({ id: 'pm', T: PT, doc: P + 'guide.html#pro', pp: '23USD', kind: 'pro', trigger: '[data-pro]', query: 'pro' });
+    // HB런처 APK 구매 창은 그 단추가 있는 쪽(HB런처 페이지)이나 ?hblbuy=1 에서만 만든다
+    if (document.querySelector('[data-hbl-buy]') || /[?&]hblbuy=1(?:&|$)/.test(location.search)) {
+      initPaid({ id: 'am', T: AT, doc: P + 'launcher.html#features', pp: '10USD', kind: 'hbl', trigger: '[data-hbl-buy]', query: 'hblbuy' });
+    }
 
     // 해방툴(앱)의 후원 창에서 '홈페이지에서 후원 알리기'로 넘어온 경우 바로 열어 준다.
     // 앱은 로컬 WebView 라 Turnstile 위젯을 띄울 수 없어, 알리는 폼은 이쪽에서 받는다.
