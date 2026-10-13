@@ -37,6 +37,8 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
+  /* 위 메뉴(높이 67px)가 섹션 여백(56px)보다 높아 #download 등으로 옮겨 가면 '다운로드' 같은 첫 줄이 메뉴에 가린다 */
+  section[id]{scroll-margin-top:32px}
   body{margin:0; background:var(--bg); color:var(--text);
     font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     -webkit-font-smoothing:antialiased; line-height:1.6; overflow-x:hidden}
@@ -364,15 +366,16 @@
         <span class="badge" data-ko="RetroArch 실행 검증 완료" data-en="RetroArch launch verified">RetroArch 실행 검증 완료</span>
         <span class="badge must" data-ko="해방툴 필수" data-en="Requires the Rom Tool">해방툴 필수</span>
       </div>
+      <!-- 해방툴처럼 아래 다운로드 칸(#download)으로 옮겨 간다 — 받기 · 구매는 그 칸의 카드에서 -->
       <div class="hero-cta">
-        <button type="button" class="btn btn-primary" data-hbl-dl="win">
+        <a class="btn btn-primary" href="#download">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
           <span data-ko="Windows용 다운로드" data-en="Download for Windows">Windows용 다운로드</span>
-        </button>
-        <button type="button" class="btn btn-ghost" data-hbl-dl="apk">
+        </a>
+        <a class="btn btn-ghost" href="#download">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.2"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>
           <span data-ko="Android APK 다운로드" data-en="Android APK Download">Android APK 다운로드</span>
-        </button>
+        </a>
       </div>
     </div>
   </section>
