@@ -691,9 +691,11 @@
        POST {api}/hbl/auth  {code}  → {ok, token, files:[{name,size,uploaded}]}   (비공개 버킷 hbl_release/ 의 파일)
        GET  {api}/hbl/dl?f=<name>&t=<token>
      APK 를 R2 haebang-private 의 hbl_release/ 에 올리면 코드로 바로 받을 수 있다.
-     apkReady 는 안내만 바꾼다 — false 면 '아직 안 올라왔다' 상자를 보인다. 입력칸은 늘 열려 있다. */
+     apkReady 는 안내만 바꾼다 — false 면 '아직 안 올라왔다' 상자를 보인다. 입력칸은 늘 열려 있다.
+   · buyReady: false 면 [APK 구매하기](카드 · 코드 창)와 ?hblbuy=1 이 구매 창(#am) 대신 '아직 준비 중입니다' 창을 연다
+     (사용자 요청 2026-10-14, 잠시). 구매를 열 때 true 로만 바꾸면 donate.js 의 구매 창이 그대로 돌아온다. */
 (function () {
-  var HBL_DL = { winUrl: '', apkReady: false, api: 'https://media.evegoodretro.com', apk: /\.apk$/i };
+  var HBL_DL = { winUrl: '', apkReady: false, buyReady: false, api: 'https://media.evegoodretro.com', apk: /\.apk$/i };
 
   var TX = {
     win: {
@@ -711,6 +713,14 @@
       soonT: ['APK 준비 중입니다', 'APK coming soon'],
       soonD: ['아직 APK 가 올라오지 않았습니다. 올라오면 받으신 코드로 바로 받을 수 있고, 새로운 소식에서 알려 드릴게요.',
               'The APK isn\'t up yet. Once it is, your code will download it right away — we\'ll announce it on the News page.']
+    },
+    buy: {
+      title: ['HB런처 APK 구매', 'Buy the HB Launcher APK'],
+      desc:  ['HB런처 안드로이드(APK)판은 유료(13,000원 · 해외 US$10)로 판매할 예정입니다.',
+              'The Android (APK) edition will be sold for US$10 (13,000 KRW in Korea).'],
+      soonT: ['아직 준비 중입니다', 'Not available yet'],
+      soonD: ['구매는 아직 열리지 않았습니다. 구매가 시작되면 새로운 소식에서 알려 드릴게요.',
+              'Purchases aren\'t open yet. We\'ll announce it on the News page when they are.']
     }
   };
 
@@ -732,7 +742,7 @@
   // 창의 글(제목 · 설명 · 준비 중 안내 · 확인 단추)을 지금 언어로 다시 채운다 — 언어를 바꿀 때도 부른다.
   function paint() {
     if (!kind) return;
-    var t = TX[kind], soon = (kind === 'win') ? !HBL_DL.winUrl : !HBL_DL.apkReady;
+    var t = TX[kind], soon = (kind === 'win') ? !HBL_DL.winUrl : (kind === 'buy') ? !HBL_DL.buyReady : !HBL_DL.apkReady;
     $('hblDlTitle').textContent = T(t.title);
     $('hblDlDesc').textContent = T(t.desc);
     $('hblDlSoonT').textContent = T(t.soonT);
@@ -768,6 +778,22 @@
       open(k, b);
     });
   });
+  // 구매가 아직 열리지 않았으면(buyReady: false) [APK 구매하기]를 donate.js 보다 먼저(문서 캡처 단계에서) 가로채
+  // '아직 준비 중입니다' 창을 연다 — 코드 창 안의 구매 링크면 같은 창의 내용만 바꾸고, 닫으면 처음 누른 단추로 돌아간다.
+  // ?hblbuy=1 은 donate.js 보다 이 스크립트가 먼저 돌므로 주소에서 지우고 같은 창을 연다.
+  if (!HBL_DL.buyReady) {
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('[data-hbl-buy]');
+      if (!b) return;
+      e.preventDefault(); e.stopPropagation();
+      open('buy', m.contains(b) ? opener : b);
+    }, true);
+    if (/[?&]hblbuy=1(?:&|$)/.test(location.search)) {
+      var q = location.search.replace(/([?&])hblbuy=1(&|$)/, function (_, a, z) { return z ? a : ''; });
+      try { history.replaceState(null, '', location.pathname + (q === '?' ? '' : q) + location.hash); } catch (err) { /* 주소만 못 바꿈 */ }
+      window.addEventListener('load', function () { open('buy', null); });
+    }
+  }
   $('hblDlClose').addEventListener('click', close);
   $('hblDlBuy').addEventListener('click', function (e) { e.preventDefault(); close(); });   // 구매 창(#am)은 donate.js 가 연다
   $('hblDlOk').addEventListener('click', close);
