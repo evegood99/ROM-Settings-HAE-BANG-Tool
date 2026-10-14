@@ -16,7 +16,7 @@
 })();
 </script>
 <title>HB런처 — 3D 케이스 게임 런처 | HAE-BANG RETRO</title>
-<meta name="description" content="게임 패키지를 손에 쥐던 아날로그 감성 그대로 — 케이스를 꺼내 열고, 매체를 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처. 55개 기종 실물 케이스, RetroArch 호환, Windows·Android. 해방툴 필수. v0.6 준비 중." />
+<meta name="description" content="게임 패키지를 손에 쥐던 아날로그 감성 그대로 — 케이스를 꺼내 열고, 매체를 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처. 55개 기종 실물 케이스, RetroArch 호환, Windows·Android. 해방툴 필수. v0.7 출시 예정." />
 <meta property="og:title" content="HB런처 — 3D 케이스 게임 런처" />
 <meta property="og:description" content="케이스를 열고, 꽂고, 플레이. HAE-BANG RETRO의 새 프로젝트." />
 <meta property="og:type" content="website" />
@@ -231,6 +231,13 @@
   /* 동작 영상 */
   .demo-video{max-width:840px; margin:0 auto 20px; border:1px solid var(--border2); border-radius:14px;
     overflow:hidden; background:var(--surface); box-shadow:var(--shadow)}
+  /* HB런처 화면 — 왼쪽 Windows(16:9) · 오른쪽 Android(4:3). 4fr:3fr 이면 두 영상 높이가 같다 */
+  .demo-duo{display:grid; grid-template-columns:4fr 3fr; gap:18px; align-items:start; margin:0 0 14px}
+  .demo-duo .demo-video{max-width:none; margin:0}
+  .demo-duo .cap b{display:inline-flex; align-items:center; gap:7px}
+  .demo-duo .cap svg{flex:none}
+  .demo-flow{max-width:980px; margin:4px auto 0; text-align:center; color:var(--muted); font-size:13.5px; line-height:1.75}
+  @media (max-width:760px){ .demo-duo{grid-template-columns:1fr; gap:14px} }
   .demo-video video{display:block; width:100%; height:auto; background:#0a0c13}
   .demo-video .cap{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
     padding:12px 16px; border-top:1px solid var(--border)}
@@ -360,7 +367,7 @@
          data-ko="새 게임을 사 오던 날, 비닐을 뜯고 케이스를 열어 설명서를 넘기고 팩을 꽂던 그 손맛. HB런처는 그 아날로그 감성을 최대한 느낄 수 있도록 — 진열장에서 케이스를 꺼내 앞뒤를 살피고, 열어서 매체를 꺼내 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처입니다."
          data-en="Remember the day you brought a new game home — tearing the wrap, opening the case, flipping the manual, slotting the cartridge? HB Launcher is built to bring back that analog feel: take a case off the shelf, turn it over, open it, pull out the media and slot it into the console — and the game begins.">새 게임을 사 오던 날, 비닐을 뜯고 케이스를 열어 설명서를 넘기고 팩을 꽂던 그 손맛. HB런처는 그 아날로그 감성을 최대한 느낄 수 있도록 — 진열장에서 케이스를 꺼내 앞뒤를 살피고, 열어서 매체를 꺼내 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처입니다.</p>
       <div class="hero-badges">
-        <span class="badge"><span class="dot"></span><span data-ko="v0.6 준비 중" data-en="v0.6 coming soon">v0.6 준비 중</span></span>
+        <span class="badge"><span class="dot"></span><span data-ko="v0.7 출시 예정" data-en="v0.7 launching soon">v0.7 출시 예정</span></span>
         <span class="badge">Windows · Android(APK)</span>
         <span class="badge" data-ko="55개 기종 · 실물 케이스" data-en="55 systems · true-to-life cases">55개 기종 · 실물 케이스</span>
         <span class="badge" data-ko="RetroArch 실행 검증 완료" data-en="RetroArch launch verified">RetroArch 실행 검증 완료</span>
@@ -429,25 +436,39 @@
     </div>
   </section>
 
-  <!-- v0.6 동작 영상 (Windows 빌드를 Godot Movie Maker 로 녹화) -->
+  <!-- HB런처 화면 (v0.7) — 왼쪽 Windows판(Godot Movie Maker 1080p60 녹화), 오른쪽 안드로이드판(RG 476H 실기기 화면 녹화).
+       두 영상은 같은 순서로 움직인다(만든 곳: 해방툴 세션 D:\HBVideo\hbl07). -->
   <section id="preview">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow" data-ko="v0.6 동작 화면 · Windows" data-en="v0.6 in action · Windows">v0.6 동작 화면 · Windows</span>
-        <h2 data-ko="지금 이만큼 만들어졌습니다" data-en="Where the build is today">지금 이만큼 만들어졌습니다</h2>
-        <p data-ko="목업이 아니라 v0.6 빌드를 그대로 녹화한 실제 화면입니다." data-en="Not a mockup — recorded straight from the v0.6 build.">목업이 아니라 v0.6 빌드를 그대로 녹화한 실제 화면입니다.</p>
+        <span class="eyebrow" data-ko="v0.7 · Windows · Android" data-en="v0.7 · Windows · Android">v0.7 · Windows · Android</span>
+        <h2 data-ko="HB런처 화면" data-en="HB Launcher, on screen">HB런처 화면</h2>
+        <p data-ko="받아서 켜면 이렇게 나옵니다. 왼쪽은 Windows판, 오른쪽은 안드로이드판(RG 476H 실기기) — 같은 순서로 따라가 보세요."
+           data-en="This is what you get when you launch it. Windows on the left, Android on the right (an RG 476H handheld) — both follow the same route.">받아서 켜면 이렇게 나옵니다. 왼쪽은 Windows판, 오른쪽은 안드로이드판(RG 476H 실기기) — 같은 순서로 따라가 보세요.</p>
       </div>
-      <div class="demo-video reveal">
-        <video autoplay loop muted playsinline preload="metadata" poster="assets/hbl_demo_poster_v4.jpg"
-               aria-label="HB런처 v0.6 동작 영상">
-          <source src="assets/hbl_demo_v4.mp4" type="video/mp4" />
-        </video>
-        <div class="cap">
-          <b data-ko="▶ v0.6 실제 동작 영상" data-en="▶ v0.6 in motion">▶ v0.6 실제 동작 영상</b>
-          <span data-ko="진열장 훑기 → 메가드라이브 클램셸(앞·뒤표지) → 슈퍼패미컴 종이곽 → PS1 쥬얼케이스 → 게임큐브. 꽂으면 내장 브라운관에 플레이 영상이 흐르고, 옵션과 해방툴 연결까지. Windows판 1분 13초"
-                data-en="Sweep the shelf → Mega Drive clamshell (front and back covers) → Super Famicom cardboard box → PS1 jewel case → GameCube. Slot it in and gameplay plays on the built-in CRT — then options and the Rom Tool link. Windows build, 1min 13sec">진열장 훑기 → 메가드라이브 클램셸(앞·뒤표지) → 슈퍼패미컴 종이곽 → PS1 쥬얼케이스 → 게임큐브. 꽂으면 내장 브라운관에 플레이 영상이 흐르고, 옵션과 해방툴 연결까지. Windows판 1분 13초</span>
-        </div>
+      <div class="demo-duo reveal">
+        <figure class="demo-video">
+          <video autoplay loop muted playsinline preload="metadata" poster="assets/hbl_win_poster_v7.jpg"
+                 aria-label="HB런처 Windows판 화면">
+            <source src="assets/hbl_win_v7.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="cap">
+            <b><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3zM11.5 4.3 21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Windows</b>
+            <span data-ko="키보드 · 16:9" data-en="Keyboard · 16:9">키보드 · 16:9</span>
+          </figcaption>
+        </figure>
+        <figure class="demo-video">
+          <video autoplay loop muted playsinline preload="metadata" poster="assets/hbl_android_poster_v7.jpg"
+                 aria-label="HB런처 안드로이드판 화면 (RG 476H)">
+            <source src="assets/hbl_android_v7.mp4" type="video/mp4" />
+          </video>
+          <figcaption class="cap">
+            <b><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.2 9.5h9.6a1 1 0 0 1 1 1v6.3a1 1 0 0 1-1 1h-.8v2.4a1.2 1.2 0 0 1-2.4 0v-2.4h-3.2v2.4a1.2 1.2 0 0 1-2.4 0v-2.4h-.8a1 1 0 0 1-1-1v-6.3a1 1 0 0 1 1-1zM4.4 9.5a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-2.4 0v-4.6a1.2 1.2 0 0 1 1.2-1.2zm15.2 0a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-2.4 0v-4.6a1.2 1.2 0 0 1 1.2-1.2zM8.1 4.2l-.9-1.5.6-.3.9 1.5A6.8 6.8 0 0 1 12 3.2c1.2 0 2.3.3 3.3.7l.9-1.5.6.3-.9 1.5A5.8 5.8 0 0 1 17.8 8.6H6.2A5.8 5.8 0 0 1 8.1 4.2z"/></svg>Android</b>
+            <span data-ko="RG 476H 실기기 · 게임패드 · 4:3" data-en="RG 476H handheld · gamepad · 4:3">RG 476H 실기기 · 게임패드 · 4:3</span>
+          </figcaption>
+        </figure>
       </div>
+      <p class="demo-flow reveal" data-ko="메가드라이브 진열대 → 소닉 2 앞·뒤표지 → 케이스를 열어 브라운관에 플레이 영상 → 슈퍼패미컴 종이곽 · PS1 쥬얼케이스 → 옵션 › 화면 › 시스템 표시 › 기기(진열대에 본체가 섭니다) → 시스템 탐색 방식 › 브랜드별 탐색(SONY · SEGA · NINTENDO)" data-en="Mega Drive shelf → Sonic 2 front and back covers → open the case and play footage on the CRT → Super Famicom cardboard box · PS1 jewel case → Options › Display › System display › Consoles (the hardware stands on the shelf) → System navigation › Brand browser (SONY · SEGA · NINTENDO)">메가드라이브 진열대 → 소닉 2 앞·뒤표지 → 케이스를 열어 브라운관에 플레이 영상 → 슈퍼패미컴 종이곽 · PS1 쥬얼케이스 → 옵션 › 화면 › 시스템 표시 › 기기(진열대에 본체가 섭니다) → 시스템 탐색 방식 › 브랜드별 탐색(SONY · SEGA · NINTENDO)</p>
     </div>
   </section>
 
