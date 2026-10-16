@@ -176,6 +176,10 @@
   .hm-files a .nm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-family:ui-monospace,Consolas,monospace}
   .hm-files a .sz{color:var(--faint)} .hm-files a .dl{color:var(--cyan); font-weight:800}
   .hm-hint{margin:10px 0 0; padding-top:12px; border-top:1px solid var(--border)}
+  .hm-again{margin:10px 0 6px; font-size:12.5px; line-height:1.6}
+  .hm-again .blink{font-weight:800; color:#fcd34d; animation:hbAgainBlink 1.4s ease-in-out infinite}
+  .hm-again a{color:inherit; text-decoration:underline; text-underline-offset:2px}
+  @keyframes hbAgainBlink{0%,100%{opacity:1}50%{opacity:.28}}
   .hm-hint p{margin:0 0 8px; font-size:12.5px; line-height:1.6; color:var(--faint)}
   .hm-hint a{font-size:13px; font-weight:800; color:#fbbf24}
   .hm-hint a:hover{color:#fcd34d}
@@ -655,6 +659,8 @@
       <input class="hm-input" id="hblDlCode" type="text" autocapitalize="characters" spellcheck="false" maxlength="64" placeholder="HBL-XXXX-XXXX-XXXX" aria-label="HB Launcher APK code" />
       <button class="btn btn-primary" id="hblDlGo" type="submit"></button>
     </form>
+    <!-- 코드를 아직 못 받았을 때 — 요청 창과 같은 '한 번 더' 안내(입력칸과 함께 보이고 숨는다) -->
+    <p class="hm-again" id="hblDlAgain"><span class="blink"><span data-ko="🔔 하루가 지나도 답장이 없으면 한 번 더 요청하시거나, " data-en="🔔 No reply within a day? Send your request once more, or leave a comment on ">🔔 하루가 지나도 답장이 없으면 한 번 더 요청하시거나, </span><a href="https://www.youtube.com/post/Ugkxq-IB5tlBAshK6D1Um1HhccYTfl_--G3T" target="_blank" rel="noopener" data-ko="유튜브 게시물" data-en="this YouTube post">유튜브 게시물</a><span data-ko="에 댓글을 남겨 주세요." data-en=".">에 댓글을 남겨 주세요.</span></span></p>
     <p class="hm-msg" id="hblDlMsg" role="status" aria-live="polite"></p>
     <div class="hm-files" id="hblDlFiles" hidden></div>
     <div class="hm-hint" id="hblDlHint">
@@ -794,7 +800,7 @@
     $('hblDlSoonD').textContent = T(t.soonD);
     $('hblDlSoon').hidden = !soon;
     var entry = (kind === 'apk' && HBL_DL.apkReady);    // 코드 입력은 APK 를 열었을 때만
-    form.hidden = msg.hidden = $('hblDlHint').hidden = !entry;
+    form.hidden = msg.hidden = $('hblDlHint').hidden = $('hblDlAgain').hidden = !entry;
     code.disabled = go.disabled = !entry;
     go.textContent = T(['확인', 'Verify']);
   }
