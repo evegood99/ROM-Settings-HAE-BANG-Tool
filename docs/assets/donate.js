@@ -25,7 +25,7 @@
   var PAYPAL = 'https://www.paypal.com/paypalme/1002429';
 
   // ── 문구 사전 ── (html 키는 innerHTML 로 넣는다)
-  var HTML_KEYS = { code_p: 1 };
+  var HTML_KEYS = { code_p: 1, again: 1 };
   var T = {
     ko: {
       btn: '♥ 후원', title: '후원하기 ♥', close: '닫기', dialog: '후원하기',
@@ -46,6 +46,7 @@
         '이 코드로 해방툴 <b>프로그램 사전 다운로드</b> 및 <b>마이너 신규 베타 버전 다운로드</b>의 혜택을 제공하고 있습니다.',
       code_btn: '베타 다운로드로 이동 →',
       form_title: '✉ 후원 알리기 — 이메일을 남기시면 스폰서 코드를 보내드립니다',
+      again: '<span class="blink">🔔 하루가 지나도 답장이 없으면 한 번 더 요청해 주세요.</span> <span>(메일이 스팸함에 들어갔을 수도 있어요)</span>',
       name_ph: '이름 (닉네임)', email_ph: '회신 받을 이메일',
       msg_ph: '남길 내용 (선택) — 후원 수단·시각, 궁금한 점 등',
       send: '보내기 ✉',
@@ -75,6 +76,7 @@
         'It unlocks <b>early program downloads</b> and <b>new minor beta builds</b> of HAE-BANG Tool.',
       code_btn: 'Go to beta download →',
       form_title: '✉ Tell me you donated — leave your email and I will send the sponsor code',
+      again: '<span class="blink">🔔 No reply within a day? Please send your request once more.</span> <span>(It may have landed in your spam folder.)</span>',
       name_ph: 'Name (nickname)', email_ph: 'Email for the reply',
       msg_ph: 'Message (optional) — payment method / time, questions…',
       send: 'Send ✉',
@@ -163,7 +165,10 @@
       'flex-wrap:wrap; margin-top:2px}' +
     '#dm .dm-status{font-size:12.5px; min-height:16px; margin:8px 0 0}' +
     '#dm .dm-status.ok{color:#6ee7b7}' +
-    '#dm .dm-status.err{color:#fb7185}';
+    '#dm .dm-status.err{color:#fb7185}' +
+    '#dm .dm-again{margin:-3px 0 10px; font-size:12.5px; line-height:1.55; color:var(--muted,#9aa3b2)}' +
+    '#dm .dm-again .blink{font-weight:800; color:#fcd34d; animation:hbAgainBlink 1.4s ease-in-out infinite}' +
+    '@keyframes hbAgainBlink{0%,100%{opacity:1}50%{opacity:.28}}';
   CSS = CSS + MODAL_CSS +
     // 이 버튼이 늘면서 헤더가 좁은 화면에서 넘쳤다 — 여기서 같이 줄인다.
     // (페이지 쪽 CSS 에 두면 이 주입 CSS 가 뒤에 와서 덮어 버린다)
@@ -213,6 +218,7 @@
         '</div>' +
         '<form class="dm-form" id="dm-form" autocomplete="off" novalidate>' +
           '<b data-t="form_title"></b>' +
+          '<p class="dm-again" data-t="again"></p>' +
           '<div class="dm-row">' +
             '<input class="dm-in" id="dm-name" type="text" maxlength="100" data-t-ph="name_ph" />' +
             '<input class="dm-in" id="dm-email" type="email" maxlength="200" data-t-ph="email_ph" />' +
@@ -369,6 +375,7 @@
         pp_desc: '한국 밖에서는 PayPal 로 US$23 을 보내 주시면 됩니다(아래 단추를 누르면 금액이 채워져 있어요).',
         pp_btn: 'PayPal 로 US$23 보내기 ↗',
         form_title: '✉ PRO 업그레이드 요청 — 이메일을 남기시면 PRO 업그레이드 코드를 보내드립니다',
+        again: '<span class="blink">🔔 하루가 지나도 답장이 없으면 한 번 더 요청해 주세요.</span> <span>(메일이 스팸함에 들어갔을 수도 있어요)</span>',
         name_ph: '이름 (닉네임)', email_ph: '코드를 받을 이메일',
         msg_ph: '남길 내용 (선택) — 보내신 분 이름·수단·시각 등',
         send: '요청하기 ✉',
@@ -394,6 +401,7 @@
         pp_desc: 'From outside Korea, send US$23 with PayPal (the button below fills in the amount).',
         pp_btn: 'Send US$23 with PayPal ↗',
         form_title: '✉ Request PRO upgrade — leave your email and I will send the PRO upgrade code',
+        again: '<span class="blink">🔔 No reply within a day? Please send your request once more.</span> <span>(It may have landed in your spam folder.)</span>',
         name_ph: 'Name (nickname)', email_ph: 'Email for the code',
         msg_ph: 'Message (optional) — sender name, method, time…',
         send: 'Request ✉',
@@ -421,6 +429,7 @@
         pp_desc: '한국 밖에서는 PayPal 로 US$10 을 보내 주시면 됩니다(아래 단추를 누르면 금액이 채워져 있어요).',
         pp_btn: 'PayPal 로 US$10 보내기 ↗',
         form_title: '✉ HB런처 APK 구매 요청 — 이메일을 남기시면 APK 코드를 보내드립니다',
+        again: '<span class="blink">🔔 하루가 지나도 답장이 없으면 한 번 더 요청해 주세요.</span> <span>(메일이 스팸함에 들어갔을 수도 있어요)</span>',
         name_ph: '이름 (닉네임)', email_ph: '코드를 받을 이메일',
         msg_ph: '남길 내용 (선택) — 보내신 분 이름·수단·시각 등',
         send: '요청하기 ✉',
@@ -446,6 +455,7 @@
         pp_desc: 'From outside Korea, send US$10 with PayPal (the button below fills in the amount).',
         pp_btn: 'Send US$10 with PayPal ↗',
         form_title: '✉ HB Launcher APK purchase request — leave your email and I will send the APK code',
+        again: '<span class="blink">🔔 No reply within a day? Please send your request once more.</span> <span>(It may have landed in your spam folder.)</span>',
         name_ph: 'Name (nickname)', email_ph: 'Email for the code',
         msg_ph: 'Message (optional) — sender name, method, time…',
         send: 'Request ✉',
@@ -458,7 +468,7 @@
         tag: '[HB Launcher APK purchase request]'
       }
     };
-    var PT_HTML = { how_p: 1 };
+    var PT_HTML = { how_p: 1, again: 1 };
 
     // 창 뼈대 — 글자는 비워 두고 applyPT() 가 채운다. id 는 창마다(pm · am) 앞머리를 달리한다.
     function paidHtml(id, docHref, ppAmount) {
@@ -491,6 +501,7 @@
           '</div>' +
           '<form class="dm-form" id="' + id + '-form" autocomplete="off" novalidate>' +
             '<b data-pt="form_title"></b>' +
+            '<p class="dm-again" data-pt="again"></p>' +
             '<div class="dm-row">' +
               '<input class="dm-in" id="' + id + '-name" type="text" maxlength="100" data-pt-ph="name_ph" />' +
               '<input class="dm-in" id="' + id + '-email" type="email" maxlength="200" data-pt-ph="email_ph" />' +
