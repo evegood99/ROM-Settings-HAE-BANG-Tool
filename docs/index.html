@@ -364,6 +364,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   .c-status{font-size:13px; min-height:18px; margin:10px 0 0}
   .c-again{margin:0 0 14px; font-size:13px; line-height:1.6; color:var(--muted)}
   .c-again .blink{font-weight:800; color:#fcd34d; animation:hbAgainBlink 1.4s ease-in-out infinite}
+  .c-again a{color:inherit; text-decoration:underline; text-underline-offset:2px}
   @keyframes hbAgainBlink{0%,100%{opacity:1}50%{opacity:.28}}
   .c-status.ok{color:var(--emerald)}
   .c-status.err{color:var(--rose)}
@@ -852,8 +853,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       </div>
       <form class="contact-card reveal" id="contactForm" autocomplete="off" novalidate>
         <!-- 답장이 늦을 때 다시 보내 달라는 안내 — 앞 문장만 깜빡인다(후원 · PRO · APK 요청 창과 같은 모양, 사용자 요청 10/16) -->
-        <p class="c-again"><span class="blink" data-ko="🔔 하루가 지나도 답장이 없으면 한 번 더 보내 주세요." data-en="🔔 No reply within a day? Please send it once more.">🔔 하루가 지나도 답장이 없으면 한 번 더 보내 주세요.</span>
-          <span data-ko="(메일이 스팸함에 들어갔을 수도 있어요)" data-en="(It may have landed in your spam folder.)">(메일이 스팸함에 들어갔을 수도 있어요)</span></p>
+        <p class="c-again"><span class="blink"><span data-ko="🔔 하루가 지나도 답장이 없으면 한 번 더 보내 주시거나, " data-en="🔔 No reply within a day? Send it once more, or leave a comment on ">🔔 하루가 지나도 답장이 없으면 한 번 더 보내 주시거나, </span><a href="https://www.youtube.com/post/Ugkxq-IB5tlBAshK6D1Um1HhccYTfl_--G3T" target="_blank" rel="noopener" data-ko="유튜브 게시물" data-en="this YouTube post">유튜브 게시물</a><span data-ko="에 댓글을 남겨 주세요." data-en=".">에 댓글을 남겨 주세요.</span></span></p>
         <div class="c-row">
           <div class="c-field">
             <label for="cName" data-ko="이름 (닉네임)" data-en="Name">이름 (닉네임)</label>

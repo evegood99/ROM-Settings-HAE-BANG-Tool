@@ -46,7 +46,7 @@
         '이 코드로 해방툴 <b>프로그램 사전 다운로드</b> 및 <b>마이너 신규 베타 버전 다운로드</b>의 혜택을 제공하고 있습니다.',
       code_btn: '베타 다운로드로 이동 →',
       form_title: '✉ 후원 알리기 — 이메일을 남기시면 스폰서 코드를 보내드립니다',
-      again: '<span class="blink">🔔 하루가 지나도 답장이 없으면 한 번 더 요청해 주세요.</span> <span>(메일이 스팸함에 들어갔을 수도 있어요)</span>',
+      again: '<span class="blink">🔔 하루가 지나도 답장이 없으면 한 번 더 요청하시거나, <a href="https://www.youtube.com/post/Ugkxq-IB5tlBAshK6D1Um1HhccYTfl_--G3T" target="_blank" rel="noopener">유튜브 게시물</a>에 댓글을 남겨 주세요.</span>',
       name_ph: '이름 (닉네임)', email_ph: '회신 받을 이메일',
       msg_ph: '남길 내용 (선택) — 후원 수단·시각, 궁금한 점 등',
       send: '보내기 ✉',
@@ -76,7 +76,7 @@
         'It unlocks <b>early program downloads</b> and <b>new minor beta builds</b> of HAE-BANG Tool.',
       code_btn: 'Go to beta download →',
       form_title: '✉ Tell me you donated — leave your email and I will send the sponsor code',
-      again: '<span class="blink">🔔 No reply within a day? Please send your request once more.</span> <span>(It may have landed in your spam folder.)</span>',
+      again: '<span class="blink">🔔 No reply within a day? Send your request once more, or leave a comment on <a href="https://www.youtube.com/post/Ugkxq-IB5tlBAshK6D1Um1HhccYTfl_--G3T" target="_blank" rel="noopener">this YouTube post</a>.</span>',
       name_ph: 'Name (nickname)', email_ph: 'Email for the reply',
       msg_ph: 'Message (optional) — payment method / time, questions…',
       send: 'Send ✉',
@@ -168,6 +168,7 @@
     '#dm .dm-status.err{color:#fb7185}' +
     '#dm .dm-again{margin:-3px 0 10px; font-size:12.5px; line-height:1.55; color:var(--muted,#9aa3b2)}' +
     '#dm .dm-again .blink{font-weight:800; color:#fcd34d; animation:hbAgainBlink 1.4s ease-in-out infinite}' +
+    '#dm .dm-again a{color:inherit; text-decoration:underline; text-underline-offset:2px}' +
     '@keyframes hbAgainBlink{0%,100%{opacity:1}50%{opacity:.28}}';
   CSS = CSS + MODAL_CSS +
     // 이 버튼이 늘면서 헤더가 좁은 화면에서 넘쳤다 — 여기서 같이 줄인다.
@@ -375,7 +376,7 @@
         pp_desc: '한국 밖에서는 PayPal 로 US$23 을 보내 주시면 됩니다(아래 단추를 누르면 금액이 채워져 있어요).',
         pp_btn: 'PayPal 로 US$23 보내기 ↗',
         form_title: '✉ PRO 업그레이드 요청 — 이메일을 남기시면 PRO 업그레이드 코드를 보내드립니다',
-        again: '<span class="blink">🔔 하루가 지나도 답장이 없으면 한 번 더 요청해 주세요.</span> <span>(메일이 스팸함에 들어갔을 수도 있어요)</span>',
+        again: '<span class="blink">🔔 하루가 지나도 답장이 없으면 한 번 더 요청하시거나, <a href="https://www.youtube.com/post/Ugkxq-IB5tlBAshK6D1Um1HhccYTfl_--G3T" target="_blank" rel="noopener">유튜브 게시물</a>에 댓글을 남겨 주세요.</span>',
         name_ph: '이름 (닉네임)', email_ph: '코드를 받을 이메일',
         msg_ph: '남길 내용 (선택) — 보내신 분 이름·수단·시각 등',
         send: '요청하기 ✉',
@@ -401,7 +402,7 @@
         pp_desc: 'From outside Korea, send US$23 with PayPal (the button below fills in the amount).',
         pp_btn: 'Send US$23 with PayPal ↗',
         form_title: '✉ Request PRO upgrade — leave your email and I will send the PRO upgrade code',
-        again: '<span class="blink">🔔 No reply within a day? Please send your request once more.</span> <span>(It may have landed in your spam folder.)</span>',
+        again: '<span class="blink">🔔 No reply within a day? Send your request once more, or leave a comment on <a href="https://www.youtube.com/post/Ugkxq-IB5tlBAshK6D1Um1HhccYTfl_--G3T" target="_blank" rel="noopener">this YouTube post</a>.</span>',
         name_ph: 'Name (nickname)', email_ph: 'Email for the code',
         msg_ph: 'Message (optional) — sender name, method, time…',
         send: 'Request ✉',
@@ -429,7 +430,7 @@
         pp_desc: '한국 밖에서는 PayPal 로 US$10 을 보내 주시면 됩니다(아래 단추를 누르면 금액이 채워져 있어요).',
         pp_btn: 'PayPal 로 US$10 보내기 ↗',
         form_title: '✉ HB런처 APK 구매 요청 — 이메일을 남기시면 APK 코드를 보내드립니다',
-        again: '<span class="blink">🔔 하루가 지나도 답장이 없으면 한 번 더 요청해 주세요.</span> <span>(메일이 스팸함에 들어갔을 수도 있어요)</span>',
+        again: '<span class="blink">🔔 하루가 지나도 답장이 없으면 한 번 더 요청하시거나, <a href="https://www.youtube.com/post/Ugkxq-IB5tlBAshK6D1Um1HhccYTfl_--G3T" target="_blank" rel="noopener">유튜브 게시물</a>에 댓글을 남겨 주세요.</span>',
         name_ph: '이름 (닉네임)', email_ph: '코드를 받을 이메일',
         msg_ph: '남길 내용 (선택) — 보내신 분 이름·수단·시각 등',
         send: '요청하기 ✉',
@@ -455,7 +456,7 @@
         pp_desc: 'From outside Korea, send US$10 with PayPal (the button below fills in the amount).',
         pp_btn: 'Send US$10 with PayPal ↗',
         form_title: '✉ HB Launcher APK purchase request — leave your email and I will send the APK code',
-        again: '<span class="blink">🔔 No reply within a day? Please send your request once more.</span> <span>(It may have landed in your spam folder.)</span>',
+        again: '<span class="blink">🔔 No reply within a day? Send your request once more, or leave a comment on <a href="https://www.youtube.com/post/Ugkxq-IB5tlBAshK6D1Um1HhccYTfl_--G3T" target="_blank" rel="noopener">this YouTube post</a>.</span>',
         name_ph: 'Name (nickname)', email_ph: 'Email for the code',
         msg_ph: 'Message (optional) — sender name, method, time…',
         send: 'Request ✉',
