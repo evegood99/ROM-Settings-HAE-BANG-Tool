@@ -137,6 +137,7 @@
   .tl-lead{color:var(--text); font-size:15px; line-height:1.7; margin:0 0 4px}
   .tl-lead b{font-weight:800}
   .tl-body ol{margin:0; padding-left:21px}
+  .tl-note{margin:10px 0 0; font-size:13.5px; line-height:1.6; color:var(--faint)}
   .tl-yt{position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; border:1px solid var(--border2); background:#000; margin:8px 0 2px}
   .tl-yt iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
   .road b{color:var(--text); font-weight:700}
@@ -373,44 +374,48 @@
 
       <div class="tl">
 
-        <!-- 2026-10-17 : HB런처 안드로이드 v0.7.1 (Windows 와 같은 판) -->
+        <!-- 2026-10-17 : HB런처 안드로이드 v0.7.1 (10/17 01:41 재빌드 — 사용자가 준 내역) -->
         <article class="tl-item hl reveal">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.17</div>
-          <h3 class="tl-title" data-ko="HB런처 안드로이드 v0.7.1 — 갤럭시 폴드 화면 깨짐 · 패드 없이 터치로 시작" data-en="HB Launcher for Android v0.7.1 — Galaxy Fold display fix, touch works without a gamepad">HB런처 안드로이드 v0.7.1 &mdash; 갤럭시 폴드 화면 깨짐 · 패드 없이 터치로 시작</h3>
+          <h3 class="tl-title" data-ko="HB런처(안드로이드) v0.7.1 — 갤럭시 폴드 화면 · 터치 조작 · 에뮬레이터 명칭 수정" data-en="HB Launcher (Android) v0.7.1 — Galaxy Fold display, touch controls and emulator names fixed">HB런처(안드로이드) v0.7.1 &mdash; 갤럭시 폴드 화면 · 터치 조작 · 에뮬레이터 명칭 수정</h3>
           <div class="tags">
             <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
           </div>
           <div class="tl-body">
             <ul>
-              <li data-ko="<b>갤럭시 폴드 내부 화면에서 가운데 줄이 깨지던 현상을 고쳤습니다.</b> 폴드의 큰 안쪽 화면으로 실행하면 화면 한가운데 가로줄이 지글거리던 문제입니다."
-                  data-en="<b>Fixed the broken line across the middle of the Galaxy Fold inner screen.</b> On the Fold's large inner display, a horizontal band through the middle of the screen used to flicker."><b>갤럭시 폴드 내부 화면에서 가운데 줄이 깨지던 현상을 고쳤습니다.</b> 폴드의 큰 안쪽 화면으로 실행하면 화면 한가운데 가로줄이 지글거리던 문제입니다.</li>
-              <li data-ko="<b>패드가 없어도 터치로 진행할 수 있습니다.</b> 저장소 접근 권한 허용 같은 처음 안내 화면을 패드 없이 손가락으로 눌러 넘길 수 있습니다."
-                  data-en="<b>Works by touch without a gamepad.</b> First-run prompts such as granting storage access can now be tapped through with your finger — no gamepad needed."><b>패드가 없어도 터치로 진행할 수 있습니다.</b> 저장소 접근 권한 허용 같은 처음 안내 화면을 패드 없이 손가락으로 눌러 넘길 수 있습니다.</li>
-              <li data-ko="구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 v0.7.1 을 받습니다. 지금 쓰시는 앱 위에 그대로 설치하면 되고, 라이브러리와 설정은 그대로 남습니다. 이제 Windows판과 안드로이드판 모두 v0.7.1 입니다."
-                  data-en="Use the same HB Launcher APK code in [Get the APK with your code] on the HB Launcher page to get v0.7.1. Install it over your current app — your library and settings stay. Windows and Android are both on v0.7.1 now.">구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 v0.7.1 을 받습니다. 지금 쓰시는 앱 위에 그대로 설치하면 되고, 라이브러리와 설정은 그대로 남습니다. 이제 Windows판과 안드로이드판 모두 v0.7.1 입니다.</li>
+              <li data-ko="갤럭시 폴드 내부 화면으로 진행 시 가운데 줄 깨짐 현상 수정"
+                  data-en="Fixed a broken line through the middle of the screen on the Galaxy Fold inner display">갤럭시 폴드 내부 화면으로 진행 시 가운데 줄 깨짐 현상 수정</li>
+              <li data-ko="패드가 없는 상태에서 저장소 접근 권한 등 터치 인터페이스로 작동되도록 수정"
+                  data-en="Works by touch without a gamepad — storage access and other prompts can be tapped through">패드가 없는 상태에서 저장소 접근 권한 등 터치 인터페이스로 작동되도록 수정</li>
+              <li data-ko="일부 에뮬레이터 잘못된 명칭 수정"
+                  data-en="Fixed some emulator names that were shown incorrectly">일부 에뮬레이터 잘못된 명칭 수정</li>
             </ul>
+            <p class="tl-note" data-ko="구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아, 지금 쓰시는 앱 위에 설치하면 됩니다(라이브러리 · 설정 유지)." data-en="Use the same HB Launcher APK code in [Get the APK with your code] on the HB Launcher page and install it over your current app (your library and settings stay).">구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아, 지금 쓰시는 앱 위에 설치하면 됩니다(라이브러리 · 설정 유지).</p>
             <div class="tl-cta">
               <a class="btn btn-primary" href="launcher.html#download" data-ko="APK v0.7.1 받기 →" data-en="Get APK v0.7.1 →">APK v0.7.1 받기 →</a>
             </div>
           </div>
         </article>
 
-        <!-- 2026-10-16 : HB런처 Windows v0.7.1 (안드로이드는 v0.7.0 그대로) -->
+        <!-- 2026-10-16 : HB런처 Windows v0.7.1 (10/17 01:40 재빌드로 바꿔 올림 — 사용자가 준 내역) -->
         <article class="tl-item hl reveal">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.16</div>
-          <h3 class="tl-title" data-ko="HB런처 Windows v0.7.1 — 게임하는 동안 뒤에 있는 런처가 패드에 반응하지 않게" data-en="HB Launcher for Windows v0.7.1 — the launcher stays still while you play">HB런처 Windows v0.7.1 &mdash; 게임하는 동안 뒤에 있는 런처가 패드에 반응하지 않게</h3>
+          <h3 class="tl-title" data-ko="HB런처(윈도우) v0.7.1 — 패드 반응 · 레트로아크 경로 · 에뮬레이터 명칭 수정" data-en="HB Launcher (Windows) v0.7.1 — gamepad input, RetroArch path and emulator names fixed">HB런처(윈도우) v0.7.1 &mdash; 패드 반응 · 레트로아크 경로 · 에뮬레이터 명칭 수정</h3>
           <div class="tags">
             <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
           </div>
           <div class="tl-body">
             <ul>
-              <li data-ko="<b>런처 창이 포커스를 잃은 동안(에뮬레이터가 앞에 있는 동안) 패드 입력을 버립니다.</b> 게임을 하는 동안 뒤에 있는 런처가 같은 패드 입력에 반응하지 않습니다."
-                  data-en="<b>While the launcher window is out of focus (an emulator is in front), gamepad input is ignored.</b> The launcher behind your game no longer reacts to the same pad presses."><b>런처 창이 포커스를 잃은 동안(에뮬레이터가 앞에 있는 동안) 패드 입력을 버립니다.</b> 게임을 하는 동안 뒤에 있는 런처가 같은 패드 입력에 반응하지 않습니다.</li>
-              <li data-ko="Windows판만 바뀌었습니다 — HB런처 페이지의 [Windows용 다운로드]가 v0.7.1 을 받습니다. 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다. 안드로이드(APK)판은 v0.7.0 그대로입니다."
-                  data-en="Windows only — [Download for Windows] on the HB Launcher page now gets v0.7.1; unzip it over the old files. The Android (APK) build stays at v0.7.0.">Windows판만 바뀌었습니다 — HB런처 페이지의 [Windows용 다운로드]가 v0.7.1 을 받습니다. 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다. 안드로이드(APK)판은 v0.7.0 그대로입니다.</li>
+              <li data-ko="게임 진행 중 런처가 패드에 반응하지 않도록 수정"
+                  data-en="The launcher no longer reacts to the gamepad while a game is running">게임 진행 중 런처가 패드에 반응하지 않도록 수정</li>
+              <li data-ko="에뮬레이터 경로 설정 시 레트로아크는 한 번만 설정하도록 수정"
+                  data-en="When setting emulator paths, RetroArch only needs to be set once">에뮬레이터 경로 설정 시 레트로아크는 한 번만 설정하도록 수정</li>
+              <li data-ko="일부 에뮬레이터 잘못된 명칭 수정"
+                  data-en="Fixed some emulator names that were shown incorrectly">일부 에뮬레이터 잘못된 명칭 수정</li>
             </ul>
+            <p class="tl-note" data-ko="HB런처 페이지의 [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(라이브러리 · 설정 유지)." data-en="Download it with [Download for Windows] on the HB Launcher page and unzip it over the old files (your library and settings stay).">HB런처 페이지의 [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(라이브러리 · 설정 유지).</p>
             <div class="tl-cta">
               <a class="btn btn-primary" href="launcher.html#download" data-ko="Windows v0.7.1 받기 →" data-en="Get Windows v0.7.1 →">Windows v0.7.1 받기 →</a>
             </div>
