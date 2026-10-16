@@ -16,7 +16,7 @@
 })();
 </script>
 <title>HB런처 — 3D 케이스 게임 런처 | HAE-BANG RETRO</title>
-<meta name="description" content="게임 패키지를 손에 쥐던 아날로그 감성 그대로 — 케이스를 꺼내 열고, 매체를 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처. 55개 기종 실물 케이스, RetroArch 호환, Windows·Android. 해방툴 필수. v0.7 출시 예정." />
+<meta name="description" content="게임 패키지를 손에 쥐던 아날로그 감성 그대로 — 케이스를 꺼내 열고, 매체를 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처. 55개 기종 실물 케이스, RetroArch 호환, Windows·Android. 해방툴 필수. v0.7 안드로이드 출시." />
 <meta property="og:title" content="HB런처 — 3D 케이스 게임 런처" />
 <meta property="og:description" content="케이스를 열고, 꽂고, 플레이. HAE-BANG RETRO의 새 프로젝트." />
 <meta property="og:type" content="website" />
@@ -141,6 +141,13 @@
   .dlc p{margin:0 0 18px; color:var(--muted); font-size:14px; line-height:1.65; flex:1}
   .dlc .btn{align-self:flex-start}
   .dl-note{max-width:920px; margin:16px auto 0; text-align:center; font-size:12.5px; color:var(--faint); line-height:1.6}
+  .dlc .st.on{background:rgba(52,211,153,.15); color:#6ee7b7}
+  /* 사용법 영상 — 받기 카드와 같은 폭, 16:9 */
+  .dl-howto{max-width:920px; margin:0 auto 22px}
+  .yt-frame{position:relative; aspect-ratio:16/9; background:#000}
+  .yt-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  .dl-howto .yt-link{margin-left:auto; font-size:12.5px; font-weight:800; color:#fca5a5; white-space:nowrap}
+  .dl-howto .yt-link:hover{color:#fecaca}
   .hm{position:fixed; inset:0; z-index:110; display:flex; align-items:center; justify-content:center; padding:24px;
     background:rgba(4,5,9,.82); -webkit-backdrop-filter:blur(9px); backdrop-filter:blur(9px); opacity:0; pointer-events:none;
     visibility:hidden; transition:opacity .25s ease, visibility 0s linear .25s}  /* 닫힌 창의 단추에 Tab 이 닿지 않게 */
@@ -367,7 +374,7 @@
          data-ko="새 게임을 사 오던 날, 비닐을 뜯고 케이스를 열어 설명서를 넘기고 팩을 꽂던 그 손맛. HB런처는 그 아날로그 감성을 최대한 느낄 수 있도록 — 진열장에서 케이스를 꺼내 앞뒤를 살피고, 열어서 매체를 꺼내 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처입니다."
          data-en="Remember the day you brought a new game home — tearing the wrap, opening the case, flipping the manual, slotting the cartridge? HB Launcher is built to bring back that analog feel: take a case off the shelf, turn it over, open it, pull out the media and slot it into the console — and the game begins.">새 게임을 사 오던 날, 비닐을 뜯고 케이스를 열어 설명서를 넘기고 팩을 꽂던 그 손맛. HB런처는 그 아날로그 감성을 최대한 느낄 수 있도록 — 진열장에서 케이스를 꺼내 앞뒤를 살피고, 열어서 매체를 꺼내 본체에 꽂으면 게임이 시작되는 에뮬레이터 런처입니다.</p>
       <div class="hero-badges">
-        <span class="badge"><span class="dot"></span><span data-ko="v0.7 출시 예정" data-en="v0.7 launching soon">v0.7 출시 예정</span></span>
+        <span class="badge"><span class="dot"></span><span data-ko="v0.7 안드로이드 출시" data-en="v0.7 out on Android">v0.7 안드로이드 출시</span></span>
         <span class="badge">Windows · Android(APK)</span>
         <span class="badge" data-ko="55개 기종 · 실물 케이스" data-en="55 systems · true-to-life cases">55개 기종 · 실물 케이스</span>
         <span class="badge" data-ko="RetroArch 실행 검증 완료" data-en="RetroArch launch verified">RetroArch 실행 검증 완료</span>
@@ -571,6 +578,20 @@
         <h2 data-ko="HB런처 받기" data-en="Get HB Launcher">HB런처 받기</h2>
         <p data-ko="PC에서는 Windows판을, 안드로이드 게임기에서는 APK를 받으세요." data-en="Windows build for your PC, APK for your Android handheld.">PC에서는 Windows판을, 안드로이드 게임기에서는 APK를 받으세요.</p>
       </div>
+      <!-- HB런처 사용법 영상(유튜브, 2026-10-16 10:15 공개) — 받기 바로 아래에서 바로 보게(사용자 요청). 공개 전에는 유튜브 플레이어가 '공개 예정'을 보여 준다 -->
+      <figure class="demo-video dl-howto reveal">
+        <div class="yt-frame">
+          <iframe src="https://www.youtube-nocookie.com/embed/gS49FPfEqwo?rel=0" title="HB런처 사용법" loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <figcaption class="cap">
+          <b data-ko="▶ HB런처 사용법" data-en="▶ How to use HB Launcher">▶ HB런처 사용법</b>
+          <span data-ko="설치하고 쓰는 방법을 영상으로 정리했습니다. 처음이라면 이 영상부터 보세요."
+                data-en="A video walkthrough of installing and using it — start here if you're new.">설치하고 쓰는 방법을 영상으로 정리했습니다. 처음이라면 이 영상부터 보세요.</span>
+          <a class="yt-link" href="https://youtu.be/gS49FPfEqwo" target="_blank" rel="noopener" data-ko="유튜브에서 보기 ↗" data-en="Watch on YouTube ↗">유튜브에서 보기 ↗</a>
+        </figcaption>
+      </figure>
       <div class="dlg">
         <div class="dlc reveal">
           <div class="dlc-top">
@@ -588,7 +609,7 @@
           <div class="dlc-top">
             <span class="dlc-ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M7.2 9.5h9.6a1 1 0 0 1 1 1v6.3a1 1 0 0 1-1 1h-.8v2.4a1.2 1.2 0 0 1-2.4 0v-2.4h-3.2v2.4a1.2 1.2 0 0 1-2.4 0v-2.4h-.8a1 1 0 0 1-1-1v-6.3a1 1 0 0 1 1-1zM4.4 9.5a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-2.4 0v-4.6a1.2 1.2 0 0 1 1.2-1.2zm15.2 0a1.2 1.2 0 0 1 1.2 1.2v4.6a1.2 1.2 0 0 1-2.4 0v-4.6a1.2 1.2 0 0 1 1.2-1.2zM8.1 4.2l-.9-1.5.6-.3.9 1.5A6.8 6.8 0 0 1 12 3.2c1.2 0 2.3.3 3.3.7l.9-1.5.6.3-.9 1.5A5.8 5.8 0 0 1 17.8 8.6H6.2A5.8 5.8 0 0 1 8.1 4.2zM9.5 6.4a.6.6 0 1 0 0-1.2.6.6 0 0 0 0 1.2zm5 0a.6.6 0 1 0 0-1.2.6.6 0 0 0 0 1.2z"/></svg></span>
             <h3 data-ko="Android (APK)" data-en="Android (APK)">Android (APK)</h3>
-            <span class="st" data-ko="준비 중" data-en="Coming soon">준비 중</span>
+            <span class="st on" data-ko="판매 중" data-en="On sale">판매 중</span>
           </div>
           <div class="dlc-price"><span data-ko="13,000원" data-en="US$10">13,000원</span><small data-ko="해외 US$10 · 유료" data-en="13,000 KRW in Korea · paid">해외 US$10 · 유료</small></div>
           <p data-ko="HB런처 안드로이드(APK)판은 유료입니다. 구매하시면 HB런처 APK 코드를 보내 드리고, 그 코드로 APK 를 받습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요." data-en="The Android (APK) edition is paid. Buy it and you'll get an HB Launcher APK code to download the APK with. Install it on your Android handheld and fill the library with the Rom Tool's HB Launcher export.">HB런처 안드로이드(APK)판은 유료입니다. 구매하시면 HB런처 APK 코드를 보내 드리고, 그 코드로 APK 를 받습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요.</p>
@@ -601,7 +622,7 @@
           </div>
         </div>
       </div>
-      <p class="dl-note" data-ko="배포가 시작되면 새로운 소식 페이지에서 알려 드립니다." data-en="We'll announce on the News page when downloads open.">배포가 시작되면 새로운 소식 페이지에서 알려 드립니다.</p>
+      <p class="dl-note" data-ko="Windows판은 준비 중입니다 — 배포가 시작되면 새로운 소식 페이지에서 알려 드립니다." data-en="The Windows build is coming soon — we'll announce it on the News page.">Windows판은 준비 중입니다 — 배포가 시작되면 새로운 소식 페이지에서 알려 드립니다.</p>
     </div>
   </section>
 
@@ -609,9 +630,9 @@
   <section>
     <div class="wrap">
       <div class="cta reveal">
-        <h2 data-ko="출시 소식을 지켜봐 주세요" data-en="Watch for the launch">출시 소식을 지켜봐 주세요</h2>
-        <p data-ko="HB런처 v0.7 출시를 앞두고 있습니다. 출시 소식은 새로운 소식 페이지에서 알려 드립니다. 해방툴 공개 버전에서도 [HB런처] 내보내기를 쓸 수 있으니, 라이브러리를 먼저 세팅해 두시면 런처를 켜자마자 이어집니다."
-           data-en="HB Launcher v0.7 is about to launch — we'll announce it on the news page. HB Launcher export is open in the public Rom Tool too, so set up your library now and it's there the moment you start the launcher.">HB런처 v0.7 출시를 앞두고 있습니다. 출시 소식은 새로운 소식 페이지에서 알려 드립니다. 해방툴 공개 버전에서도 [HB런처] 내보내기를 쓸 수 있으니, 라이브러리를 먼저 세팅해 두시면 런처를 켜자마자 이어집니다.</p>
+        <h2 data-ko="해방툴로 채우고, HB런처로 꺼내세요" data-en="Fill it with the Rom Tool, play it in HB Launcher">해방툴로 채우고, HB런처로 꺼내세요</h2>
+        <p data-ko="HB런처 v0.7 안드로이드(APK)판이 나왔습니다. 해방툴(공개 버전 포함)로 라이브러리를 세팅하고 [HB런처] 내보내기로 보내면 런처를 켜자마자 이어집니다. Windows판 소식은 새로운 소식 페이지에서 알려 드립니다."
+           data-en="HB Launcher v0.7 for Android (APK) is out. Set up your library with the Rom Tool (public version included) and send it with [HB Launcher] export — it's there the moment you start the launcher. Windows news will land on the News page.">HB런처 v0.7 안드로이드(APK)판이 나왔습니다. 해방툴(공개 버전 포함)로 라이브러리를 세팅하고 [HB런처] 내보내기로 보내면 런처를 켜자마자 이어집니다. Windows판 소식은 새로운 소식 페이지에서 알려 드립니다.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="haebang.html" data-ko="해방툴 알아보기" data-en="Explore the Rom Tool">해방툴 알아보기</a>
           <a class="btn btn-ghost" href="news.html" data-ko="새로운 소식" data-en="News">새로운 소식</a>
@@ -717,7 +738,7 @@
    · buyReady: false 면 [APK 구매하기](카드 · 코드 창)와 ?hblbuy=1 이 구매 창(#am) 대신 '아직 준비 중입니다' 창을 연다
      (사용자 요청 2026-10-14, 잠시). 구매를 열 때 true 로만 바꾸면 donate.js 의 구매 창이 그대로 돌아온다. */
 (function () {
-  var HBL_DL = { winUrl: '', apkReady: false, buyReady: false, api: 'https://media.evegoodretro.com', apk: /\.apk$/i };
+  var HBL_DL = { winUrl: '', apkReady: true, buyReady: true, api: 'https://media.evegoodretro.com', apk: /\.apk$/i };
 
   var TX = {
     win: {
