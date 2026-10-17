@@ -138,6 +138,8 @@
   .tl-lead b{font-weight:800}
   .tl-body ol{margin:0; padding-left:21px}
   .tl-note{margin:10px 0 0; font-size:13.5px; line-height:1.6; color:var(--faint)}
+  .tl-body li ul{margin:4px 0 2px; padding-left:18px; list-style:circle}
+  .tl-body li li{margin:3px 0; font-size:14px}
   .tl-yt{position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; border:1px solid var(--border2); background:#000; margin:8px 0 2px}
   .tl-yt iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
   .road b{color:var(--text); font-weight:700}
@@ -373,6 +375,60 @@
       </div>
 
       <div class="tl">
+
+        <!-- 2026-10-17 : HB런처 안드로이드 v0.7.2 (13:38 빌드, versionCode 9 — 사용자가 준 내역) -->
+        <article class="tl-item hl reveal">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.10.17</div>
+          <h3 class="tl-title" data-ko="HB런처(안드로이드) v0.7.2 — 화면을 꺼도 무선 받기 · 스탠드얼론 에뮬레이터 실행 · 롬 폴더 권한 안내" data-en="HB Launcher (Android) v0.7.2 — wireless receive with the screen off, standalone emulator launch, ROM folder permission prompts">HB런처(안드로이드) v0.7.2 &mdash; 화면을 꺼도 무선 받기 · 스탠드얼론 에뮬레이터 실행 · 롬 폴더 권한 안내</h3>
+          <div class="tags">
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li data-ko="<b>무선 받기:</b> 화면을 끄거나 절전 중이어도 계속 받습니다. 켜 둔 동안에는 알림이 표시됩니다."
+                  data-en="<b>Wireless receive:</b> keeps receiving even with the screen off or in power saving. A notification shows while it is on."><b>무선 받기:</b> 화면을 끄거나 절전 중이어도 계속 받습니다. 켜 둔 동안에는 알림이 표시됩니다.</li>
+              <li data-ko="<b>목록 자동 갱신:</b> 화면을 꺼 둔 사이 전송이 끝났으면, 다시 켤 때 새 게임 목록을 불러옵니다."
+                  data-en="<b>Auto-refreshing list:</b> if a transfer finished while the screen was off, the new game list loads when you turn it back on."><b>목록 자동 갱신:</b> 화면을 꺼 둔 사이 전송이 끝났으면, 다시 켤 때 새 게임 목록을 불러옵니다.</li>
+              <li data-ko="<b>스탠드얼론 에뮬레이터 실행 수정:</b> DuckStation · melonDS · Pizza Boy · Yaba Sanshiro 2 등 일부 에뮬레이터로 게임이 실행되지 않던 문제를 고쳤습니다."
+                  data-en="<b>Standalone emulator launch fixed:</b> games now start in DuckStation, melonDS, Pizza Boy, Yaba Sanshiro 2 and other emulators where they failed before."><b>스탠드얼론 에뮬레이터 실행 수정:</b> DuckStation · melonDS · Pizza Boy · Yaba Sanshiro 2 등 일부 에뮬레이터로 게임이 실행되지 않던 문제를 고쳤습니다.</li>
+              <li data-ko="<b>롬 폴더 접근 권한 안내 개선:</b><ul><li>권한이 필요하면 게임을 꺼내기 전에 바로 알려 줍니다.</li><li>폴더 선택 창이 롬이 있는 폴더(예: SD 카드의 ROMs)에서 열립니다.</li><li>허용하면 그 게임이 바로 시작됩니다.</li></ul>"
+                  data-en="<b>Better ROM folder permission prompts:</b><ul><li>If permission is needed, you are told right away, before the game comes out.</li><li>The folder picker opens where your ROMs are (for example ROMs on the SD card).</li><li>Allow it and that game starts right away.</li></ul>"><b>롬 폴더 접근 권한 안내 개선:</b><ul><li>권한이 필요하면 게임을 꺼내기 전에 바로 알려 줍니다.</li><li>폴더 선택 창이 롬이 있는 폴더(예: SD 카드의 ROMs)에서 열립니다.</li><li>허용하면 그 게임이 바로 시작됩니다.</li></ul></li>
+              <li data-ko="<b>에뮬레이터 후보 정리:</b> 기기에서 '사용 안 함'으로 꺼 둔 에뮬레이터 앱은 후보에 나오지 않습니다."
+                  data-en="<b>Emulator choices tidied:</b> emulator apps you have disabled on the device no longer show up as choices."><b>에뮬레이터 후보 정리:</b> 기기에서 '사용 안 함'으로 꺼 둔 에뮬레이터 앱은 후보에 나오지 않습니다.</li>
+              <li data-ko="<b>안내 문구 표시 수정:</b> 긴 안내 문구가 화면 양끝에서 잘리던 문제를 고쳤습니다."
+                  data-en="<b>Message display fixed:</b> long messages no longer get cut off at both edges of the screen."><b>안내 문구 표시 수정:</b> 긴 안내 문구가 화면 양끝에서 잘리던 문제를 고쳤습니다.</li>
+            </ul>
+            <p class="tl-note" data-ko="구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아, 지금 쓰시는 앱 위에 설치하면 됩니다(라이브러리 · 설정 유지)." data-en="Use the same HB Launcher APK code in [Get the APK with your code] on the HB Launcher page and install it over your current app (your library and settings stay).">구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아, 지금 쓰시는 앱 위에 설치하면 됩니다(라이브러리 · 설정 유지).</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="launcher.html#download" data-ko="APK v0.7.2 받기 →" data-en="Get APK v0.7.2 →">APK v0.7.2 받기 →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2026-10-17 : HB런처 윈도우 v0.7.2 (13:40 빌드 — 사용자가 준 내역) -->
+        <article class="tl-item hl reveal">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.10.17</div>
+          <h3 class="tl-title" data-ko="HB런처(윈도우) v0.7.2 — 긴 안내 문구 표시 · 목록 자동 갱신" data-en="HB Launcher (Windows) v0.7.2 — long message display, auto-refreshing list">HB런처(윈도우) v0.7.2 &mdash; 긴 안내 문구 표시 · 목록 자동 갱신</h3>
+          <div class="tags">
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li data-ko="<b>안내 문구 표시 수정:</b> ‘에뮬레이터 없음’ 사유 같은 긴 안내 문구가 화면 밖으로 잘리던 문제를 고쳤습니다."
+                  data-en="<b>Message display fixed:</b> long messages such as the reason for ‘No emulator’ no longer run off the screen."><b>안내 문구 표시 수정:</b> ‘에뮬레이터 없음’ 사유 같은 긴 안내 문구가 화면 밖으로 잘리던 문제를 고쳤습니다.</li>
+              <li data-ko="<b>목록 자동 갱신:</b> 런처가 다른 창 뒤에 있는 동안 라이브러리가 바뀌었으면, 돌아올 때 다시 불러옵니다."
+                  data-en="<b>Auto-refreshing list:</b> if the library changed while the launcher was behind other windows, it reloads when you come back."><b>목록 자동 갱신:</b> 런처가 다른 창 뒤에 있는 동안 라이브러리가 바뀌었으면, 돌아올 때 다시 불러옵니다.</li>
+            </ul>
+            <p class="tl-note" data-ko="HB런처 페이지의 [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(라이브러리 · 설정 유지)." data-en="Download it with [Download for Windows] on the HB Launcher page and unzip it over the old files (your library and settings stay).">HB런처 페이지의 [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(라이브러리 · 설정 유지).</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="launcher.html#download" data-ko="Windows v0.7.2 받기 →" data-en="Get Windows v0.7.2 →">Windows v0.7.2 받기 →</a>
+            </div>
+          </div>
+        </article>
 
         <!-- 2026-10-17 : HB런처 안드로이드 v0.7.1 (10/17 01:41 재빌드 — 사용자가 준 내역) -->
         <article class="tl-item hl reveal">
