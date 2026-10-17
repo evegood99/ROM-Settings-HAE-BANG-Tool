@@ -911,6 +911,53 @@
 })();
 </script>
 <script>
+/* 위쪽 [다운로드] · 히어로의 두 받기 단추(#download) — 섹션 머리에 맞추면 사용법 영상만 보이고 받기 카드가 화면 밖이라,
+   카드 아래 안내(.dl-note)가 화면 맨 아래에 보일 때까지 내린다(사용자 요청 2026-10-17).
+   다른 페이지에서 launcher.html#download 로 들어와도 같은 자리로. */
+(function () {
+  var note = document.querySelector('#download .dl-note');
+  if (!note) return;
+  var GAP = 20;   // 안내 글 아래 여백
+  function target() {
+    return Math.max(0, Math.round(window.scrollY + note.getBoundingClientRect().bottom + GAP - window.innerHeight));
+  }
+  function jump(y) {   // 곧바로 — html 의 scroll-behavior:smooth 를 잠깐 끈다('auto' 는 그 CSS 를 따라 부드럽게 움직인다)
+    var st = document.documentElement.style, old = st.scrollBehavior;
+    st.scrollBehavior = 'auto'; window.scrollTo(0, y); st.scrollBehavior = old;
+  }
+  function go(smooth) {
+    if (smooth) window.scrollTo({ top: target(), behavior: 'smooth' }); else jump(target());
+    // 내려가는 동안 위쪽 그림 · 영상 높이가 바뀌었으면 끝난 뒤 한 번 더 맞춘다
+    // (그사이 사용자가 직접 스크롤하면 맞추지 않는다)
+    var done = false, USER = ['wheel', 'touchstart', 'keydown', 'mousedown'];
+    function stop() {
+      done = true;
+      window.removeEventListener('scrollend', fix);
+      USER.forEach(function (t) { window.removeEventListener(t, stop, true); });
+    }
+    function fix() {
+      if (done) return; stop();
+      if (Math.abs(target() - window.scrollY) > 4) jump(target());
+    }
+    if ('onscrollend' in window) window.addEventListener('scrollend', fix);
+    USER.forEach(function (t) { window.addEventListener(t, stop, { capture: true, passive: true }); });
+    setTimeout(fix, smooth ? 1500 : 300);
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href="#download"]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    go(!reduce);
+    if (location.hash !== '#download') { try { history.pushState(null, '', '#download'); } catch (err) { /* 주소만 못 바꿈 */ } }
+  });
+  if (location.hash === '#download') {
+    if (document.readyState === 'complete') go(false);
+    else window.addEventListener('load', function () { go(false); });
+  }
+})();
+</script>
+<script>
 /* 모바일 메뉴 — 상단 메뉴가 숨겨지는 폭에서 같은 항목을 펼쳐 보여준다.
    항목을 따로 적지 않고 .nav-links 를 복제해 두 곳이 어긋날 일이 없게 한다. */
 (function () {
