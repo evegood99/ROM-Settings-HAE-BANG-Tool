@@ -139,7 +139,8 @@
   .dlc h3{margin:0; font-size:19px; font-weight:800; letter-spacing:-.01em}
   .dlc .st{margin-left:auto; font-size:11px; font-weight:800; padding:3px 9px; border-radius:999px; background:rgba(148,163,184,.15); color:#cbd5e1; white-space:nowrap}
   .dlc p{margin:0 0 18px; color:var(--muted); font-size:14px; line-height:1.65; flex:1}
-  .dlc .btn{align-self:flex-start}
+  .dlc .btn{align-self:flex-start; max-width:100%; white-space:normal}  /* 버전 · 크기까지 적은 단추 — 좁은 폭(폰)에서는 줄을 바꿔 카드 밖으로 넘치지 않게 */
+  .dlg > .dlc{min-width:0}
   .dl-note{max-width:920px; margin:16px auto 0; text-align:center; font-size:12.5px; color:var(--faint); line-height:1.6}
   .dlc .st.on{background:rgba(52,211,153,.15); color:#6ee7b7}
   /* 사용법 영상 — 받기 카드와 같은 폭, 16:9 */
@@ -606,7 +607,7 @@
           <p data-ko="Windows용 압축 파일(zip)로 받습니다. 압축을 풀고 바로 실행하세요." data-en="Comes as a Windows zip archive — unzip and run.">Windows용 압축 파일(zip)로 받습니다. 압축을 풀고 바로 실행하세요.</p>
           <button type="button" class="btn btn-primary" data-hbl-dl="win">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-            <span data-ko="Windows용 다운로드 (v0.7.2 · zip · 312MB)" data-en="Download for Windows (v0.7.2 · zip · 312MB)">Windows용 다운로드 (v0.7.2 · zip · 312MB)</span>
+            <span data-ko="Windows용 다운로드 (v0.7.2&nbsp;·&nbsp;zip&nbsp;·&nbsp;312MB)" data-en="Download for Windows (v0.7.2&nbsp;·&nbsp;zip&nbsp;·&nbsp;312MB)">Windows용 다운로드 (v0.7.2&nbsp;·&nbsp;zip&nbsp;·&nbsp;312MB)</span>
           </button>
         </div>
         <div class="dlc apk reveal">
@@ -621,7 +622,7 @@
             <button type="button" class="btn btn-buy" data-hbl-buy><span data-ko="✦ APK 구매하기" data-en="✦ Buy the APK">✦ APK 구매하기</span></button>
             <button type="button" class="btn btn-ghost" data-hbl-dl="apk">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.2"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>
-              <span data-ko="코드로 APK 받기" data-en="Get the APK with your code">코드로 APK 받기</span>
+              <span data-ko="코드로 APK 받기 (v0.7.2&nbsp;·&nbsp;apk&nbsp;·&nbsp;312MB)" data-en="Get the APK with your code (v0.7.2&nbsp;·&nbsp;apk&nbsp;·&nbsp;312MB)">코드로 APK 받기 (v0.7.2&nbsp;·&nbsp;apk&nbsp;·&nbsp;312MB)</span>
             </button>
           </div>
         </div>
@@ -742,7 +743,8 @@
      apkReady: false 면 [코드로 APK 받기]도 Windows 처럼 '준비 중' 안내만 보인다 — 코드 입력칸을 숨긴다(사용자 요청 2026-10-14:
      APK 는 hbl_release/ 에 올려 두되 홈페이지에서는 아직 준비 중으로). 열 때 true 로만 바꾸면 입력칸 · 구매 안내가 돌아온다.
    · buyReady: false 면 [APK 구매하기](카드 · 코드 창)와 ?hblbuy=1 이 구매 창(#am) 대신 '아직 준비 중입니다' 창을 연다
-     (사용자 요청 2026-10-14, 잠시). 구매를 열 때 true 로만 바꾸면 donate.js 의 구매 창이 그대로 돌아온다. */
+     (사용자 요청 2026-10-14, 잠시). 구매를 열 때 true 로만 바꾸면 donate.js 의 구매 창이 그대로 돌아온다.
+   · 새 판을 올리면 카드 단추의 '(v0.7.2 · zip|apk · 312MB)' 도 함께 바꾼다(Windows · APK 둘 다, 사용자 요청 2026-10-17). */
 (function () {
   var HBL_DL = { winUrl: 'https://media.evegoodretro.com/release/HBLauncher-Windows-0.7.2.zip', apkReady: true, buyReady: true, api: 'https://media.evegoodretro.com', apk: /\.apk$/i };
 
