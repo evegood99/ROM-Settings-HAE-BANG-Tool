@@ -127,6 +127,9 @@
   .dlc-price{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; margin:-2px 0 12px; font-size:21px; font-weight:800; color:#fcd34d}
   .dlc-price small{font-size:12.5px; font-weight:700; color:var(--muted)}
   .dlc-btns{display:flex; gap:8px; flex-wrap:wrap}
+  .dlc-perks{list-style:none; margin:-6px 0 18px; padding:0; display:flex; flex-direction:column; gap:6px; font-size:13.5px; font-weight:700; line-height:1.5; color:#fde68a}
+  .dlc-perks li{display:flex; gap:8px; align-items:flex-start}
+  .dlc-perks li::before{content:'✓'; flex:0 0 auto; color:#fbbf24; font-weight:800}
   .btn-buy{background:linear-gradient(120deg,#fbbf24,#f59e0b); color:#1a1205; box-shadow:0 10px 26px -12px rgba(251,191,36,.7)}
   .btn-buy:hover{transform:translateY(-2px); box-shadow:0 14px 32px -12px rgba(251,191,36,.85)}
   .hero-cta{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:26px 0 0}
@@ -618,6 +621,11 @@
           </div>
           <div class="dlc-price"><span data-ko="13,000원" data-en="US$10">13,000원</span><small data-ko="해외 US$10 · 유료" data-en="13,000 KRW in Korea · paid">해외 US$10 · 유료</small></div>
           <p data-ko="HB런처 안드로이드(APK)판은 유료입니다. 구매하시면 HB런처 APK 코드를 보내 드리고, 그 코드로 APK 를 받습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요." data-en="The Android (APK) edition is paid. Buy it and you'll get an HB Launcher APK code to download the APK with. Install it on your Android handheld and fill the library with the Rom Tool's HB Launcher export.">HB런처 안드로이드(APK)판은 유료입니다. 구매하시면 HB런처 APK 코드를 보내 드리고, 그 코드로 APK 를 받습니다. 안드로이드 게임기에 설치하고, 해방툴의 [HB런처] 내보내기로 라이브러리를 채우세요.</p>
+          <!-- 한 번 구매로 새 버전 · 여러 대(사용자 요청 2026-10-18) — 구매 창(donate.js #am)에도 같은 말 -->
+          <ul class="dlc-perks">
+            <li data-ko="한 번 구매하신 코드로 새로운 버전의 APK 를 계속 받을 수 있습니다" data-en="Buy once — the same code keeps getting every new version">한 번 구매하신 코드로 새로운 버전의 APK 를 계속 받을 수 있습니다</li>
+            <li data-ko="몇 대라도 설치할 수 있습니다" data-en="Install on as many devices as you like">몇 대라도 설치할 수 있습니다</li>
+          </ul>
           <div class="dlc-btns">
             <button type="button" class="btn btn-buy" data-hbl-buy><span data-ko="✦ APK 구매하기" data-en="✦ Buy the APK">✦ APK 구매하기</span></button>
             <button type="button" class="btn btn-ghost" data-hbl-dl="apk">

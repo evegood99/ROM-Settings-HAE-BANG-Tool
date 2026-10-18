@@ -418,7 +418,8 @@
     var AT = {
       ko: {
         title: 'HB런처 APK 구매 ✦', close: '닫기', dialog: 'HB런처 APK 구매',
-        desc: 'HB런처 안드로이드(APK)판은 유료입니다. 구매해 주시면 APK 를 받을 수 있는 HB런처 APK 코드를 보내드립니다.',
+        desc: 'HB런처 안드로이드(APK)판은 유료입니다. 구매해 주시면 APK 를 받을 수 있는 HB런처 APK 코드를 보내드립니다. ' +
+          '<b>한 번 구매하신 코드로 새로운 버전의 HB런처 APK 를 계속 받으실 수 있으며, 몇 대라도 설치하실 수 있습니다.</b>',
         doc_btn: 'HB런처 특징 보기 →',
         how_title: '구매 방법',
         how_p: 'HB런처 APK 는 <b>13,000원</b>(해외는 <b>US$10</b>)입니다. 아래 QR(해외는 PayPal)로 보내 주신 뒤 하단의 구매 요청 칸에 이름, 이메일, 내용을 적으시고 <b>요청하기</b> 버튼으로 보내 주시면, ' +
@@ -444,7 +445,8 @@
       },
       en: {
         title: 'Buy the HB Launcher APK ✦', close: 'Close', dialog: 'Buy the HB Launcher APK',
-        desc: 'The Android (APK) edition of HB Launcher is paid. Once you buy it, I will send you an HB Launcher APK code to download the APK.',
+        desc: 'The Android (APK) edition of HB Launcher is paid. Once you buy it, I will send you an HB Launcher APK code to download the APK. ' +
+          '<b>Buy once and the same code keeps getting every new version of the HB Launcher APK — install it on as many devices as you like.</b>',
         doc_btn: 'See HB Launcher features →',
         how_title: 'How to buy',
         how_p: 'The HB Launcher APK is <b>US$10</b> (13,000 KRW in Korea). Send it with the QR codes below (PayPal from outside Korea), then fill in your name, email and message in the purchase request at the bottom and press <b>Request</b> - ' +
@@ -469,7 +471,7 @@
         tag: '[HB Launcher APK purchase request]'
       }
     };
-    var PT_HTML = { how_p: 1, again: 1 };
+    var PT_HTML = { how_p: 1, again: 1, desc: 1 };   // desc: HB런처 APK 창이 <b> 를 쓴다(PRO 창 desc 는 맨 글자)
 
     // 창 뼈대 — 글자는 비워 두고 applyPT() 가 채운다. id 는 창마다(pm · am) 앞머리를 달리한다.
     function paidHtml(id, docHref, ppAmount) {
@@ -530,6 +532,7 @@
       st.textContent = MODAL_CSS.replace(/#dm/g, '#' + id) +
         ('#ID .dm-code{margin:0 0 16px}' +
         '#ID .dm-code .pm-note{margin:0; font-size:12px; color:var(--faint,#6b7280)}' +
+        '#ID .dm-desc b{display:block; margin-top:6px; color:#fcd34d}' +   // HB런처 APK — 한 번 구매로 새 버전 · 여러 대(사용자 요청 2026-10-18)
         '#ID .pm-doc{margin:0 0 16px}' +
         '#ID .pm-doc .btn{display:inline-flex; align-items:center; padding:8px 14px; border-radius:10px;' +
           'border:1px solid rgba(251,191,36,.45); color:var(--text,#e8ebf2); font-size:13px; font-weight:700}' +
