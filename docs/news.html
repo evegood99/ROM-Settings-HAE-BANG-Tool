@@ -138,6 +138,9 @@
   .tl-lead b{font-weight:800}
   .tl-body ol{margin:0; padding-left:21px}
   .tl-note{margin:10px 0 0; font-size:13.5px; line-height:1.6; color:var(--faint)}
+  .tl-alert{margin:12px 0 0; padding:10px 14px; border-radius:10px; border:1px solid rgba(251,191,36,.4); background:rgba(251,191,36,.08);
+    color:#fde68a; font-size:14px; line-height:1.6}   /* 업데이트 글 안의 알림(예: Dolphin 은 켜진 게임을 먼저 끄기) */
+  .tl-alert b{color:var(--gold)}
   .tl-body li ul{margin:4px 0 2px; padding-left:18px; list-style:circle}
   .tl-body li li{margin:3px 0; font-size:14px}
   .tl-yt{position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; border:1px solid var(--border2); background:#000; margin:8px 0 2px}
@@ -375,6 +378,32 @@
       </div>
 
       <div class="tl">
+
+        <!-- 2026-10-18 : HB런처 안드로이드 v0.7.4 (13:26 빌드, versionCode 11 — 사용자가 준 내역; Windows 는 0.7.2 그대로) -->
+        <article class="tl-item hl reveal">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.10.18</div>
+          <h3 class="tl-title" data-ko="HB런처(안드로이드) v0.7.4 — PS2 검은 화면 · 이전 게임이 뜨던 문제 · '모든 파일 접근' 없이 실행" data-en="HB Launcher (Android) v0.7.4 — PS2 black screen, previous game showing up, launching without 'All files access'">HB런처(안드로이드) v0.7.4 &mdash; PS2 검은 화면 · 이전 게임이 뜨던 문제 · '모든 파일 접근' 없이 실행</h3>
+          <div class="tags">
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li data-ko="PS2 게임(NetherSX2·ARMSX2)이 검은 화면이나 &quot;fail cdvd&quot; 오류로 멈추던 문제를 고쳤습니다."
+                  data-en="Fixed PS2 games (NetherSX2, ARMSX2) freezing on a black screen or a &quot;fail cdvd&quot; error.">PS2 게임(NetherSX2·ARMSX2)이 검은 화면이나 &quot;fail cdvd&quot; 오류로 멈추던 문제를 고쳤습니다.</li>
+              <li data-ko="에뮬레이터를 따로 켜 둔 상태에서 런처로 실행하면 이전 게임이 뜨던 문제를 고쳤습니다."
+                  data-en="Fixed the previous game showing up when you launched from the launcher while the emulator was already open.">에뮬레이터를 따로 켜 둔 상태에서 런처로 실행하면 이전 게임이 뜨던 문제를 고쳤습니다.</li>
+              <li data-ko="PPSSPP·Dolphin·ARMSX2 등 22개 에뮬레이터가 에뮬레이터 앱에 '모든 파일 접근' 권한이 없어도 실행됩니다. 이 경우 처음 한 번만 롬 폴더 접근 권한을 묻습니다."
+                  data-en="22 emulators including PPSSPP, Dolphin and ARMSX2 now launch even if the emulator app doesn't have 'All files access'. In that case you're asked for ROM folder access just once, the first time.">PPSSPP·Dolphin·ARMSX2 등 22개 에뮬레이터가 에뮬레이터 앱에 '모든 파일 접근' 권한이 없어도 실행됩니다. 이 경우 처음 한 번만 롬 폴더 접근 권한을 묻습니다.</li>
+            </ul>
+            <p class="tl-alert" data-ko="<b>알림:</b> Dolphin 은 게임이 켜져 있으면 새 게임 대신 Dolphin 메뉴만 뜹니다. Dolphin 에서 게임을 종료한 뒤 실행해 주세요." data-en="<b>Note:</b> if a game is already running in Dolphin, only the Dolphin menu opens instead of the new game. Quit the game in Dolphin first, then launch."><b>알림:</b> Dolphin 은 게임이 켜져 있으면 새 게임 대신 Dolphin 메뉴만 뜹니다. Dolphin 에서 게임을 종료한 뒤 실행해 주세요.</p>
+            <p class="tl-note" data-ko="구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아, 지금 쓰시는 앱 위에 설치하면 됩니다(라이브러리 · 설정 유지). Windows판은 v0.7.2 그대로입니다." data-en="Use the same HB Launcher APK code in [Get the APK with your code] on the HB Launcher page and install it over your current app (your library and settings stay). The Windows build stays at v0.7.2.">구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아, 지금 쓰시는 앱 위에 설치하면 됩니다(라이브러리 · 설정 유지). Windows판은 v0.7.2 그대로입니다.</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="launcher.html#download" data-ko="APK v0.7.4 받기 →" data-en="Get APK v0.7.4 →">APK v0.7.4 받기 →</a>
+            </div>
+          </div>
+        </article>
 
         <!-- 2026-10-18 : HB런처 안드로이드 v0.7.3 (09:53 빌드, versionCode 10 — 사용자가 준 내역; Windows 는 0.7.2 그대로) -->
         <article class="tl-item hl reveal">
