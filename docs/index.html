@@ -724,7 +724,9 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     </div>
   </section>
 
-  <!-- Videos — 유튜브 재생목록 두 개(해방툴 · 해방런처)만 -->
+  <!-- Videos — 유튜브 재생목록 두 개(해방툴 · 해방런처)만. 아래 HTML 은 /api/yt 를 못 읽을 때 보이는 것 —
+       읽으면 재생목록마다 가장 새 영상(Shorts 제외)이 큰 칸, 나머지는 새 것부터 목록(사용자 요청 2026-10-19).
+       새 영상의 영어 제목은 여기에 한 줄 더해 두면 그 글을 쓴다(없으면 유튜브 제목). -->
   <section id="videos">
     <div class="wrap">
       <div class="sec-head reveal">
@@ -749,11 +751,12 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
 
         <!-- 해방툴 재생목록 (PLGjp8KApz6SY) -->
         <div class="yt-panel" id="ytPanTool" role="tabpanel" aria-labelledby="ytTabTool" data-pl="tool">
-          <a class="yt-feat" href="https://youtu.be/qPPjFI_pUow" target="_blank" rel="noopener">
-            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/qPPjFI_pUow/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/qPPjFI_pUow/hqdefault.jpg'" alt="" /><span class="latest" data-ko="최신" data-en="LATEST">최신</span><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
-            <h4 data-ko="에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지" data-en="Emulator Game Won't Launch? #1 Android — ES-DE · Pegasus + RetroArch: the 4 most common mistakes">에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지</h4>
+          <a class="yt-feat" href="https://youtu.be/FcpR1op5rSg" target="_blank" rel="noopener">
+            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/FcpR1op5rSg/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/FcpR1op5rSg/hqdefault.jpg'" alt="" /><span class="latest" data-ko="최신" data-en="LATEST">최신</span><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <h4 data-ko="해방툴 도구 3종 — 앱 설치 · BIOS 점검 · 세이브 옮기기를 한 번에!" data-en="Three Rom Tool tools — app install, BIOS check and save transfer in one go!">해방툴 도구 3종 — 앱 설치 · BIOS 점검 · 세이브 옮기기를 한 번에!</h4>
           </a>
           <div class="yt-list">
+            <a class="yt-item" href="https://youtu.be/qPPjFI_pUow" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/qPPjFI_pUow/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지" data-en="Emulator Game Won't Launch? #1 Android — ES-DE · Pegasus + RetroArch: the 4 most common mistakes">에뮬게임이 실행 안 된다면? ① 안드로이드편 — ES-DE · 페가수스 + 레트로아크, 가장 많이 하는 실수 4가지</span></a>
             <a class="yt-item" href="https://youtu.be/JkSZGcfJC6s" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/JkSZGcfJC6s/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="대한글화시대!! 게임 한글 패치를 너무나 쉽게! — 해방툴 우클릭으로 끝!" data-en="KR Patch Ages!! Korean game patches made easy — one right-click in the Rom Tool">대한글화시대!! 게임 한글 패치를 너무나 쉽게! — 해방툴 우클릭으로 끝!</span></a>
             <a class="yt-item" href="https://youtu.be/sTJwebzYnJ0" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/sTJwebzYnJ0/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="대한글화시대! 패키지 이미지도 한글로 멋지게 — 해방툴 v1.1.1 베타 개발 소식" data-en="Package art in Korean, too — Rom Tool v1.1.1 beta dev news">대한글화시대! 패키지 이미지도 한글로 멋지게 — 해방툴 v1.1.1 베타 개발 소식</span></a>
             <a class="yt-item" href="https://youtu.be/1lYsyr_Q5Zk" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/1lYsyr_Q5Zk/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="리눅스 게임기(RG35XX · 미유미니)에 게임 넣고 빼기 — 완전 초보를 위한 해방툴 특별 가이드" data-en="Adding and removing games on Linux handhelds (RG35XX, Miyoo Mini) — a Rom Tool guide for beginners">리눅스 게임기(RG35XX · 미유미니)에 게임 넣고 빼기 — 완전 초보를 위한 해방툴 특별 가이드</span></a>
@@ -766,11 +769,12 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
 
         <!-- 해방런처 재생목록 (PLc-_6Tm7aCL4) -->
         <div class="yt-panel" id="ytPanHbl" role="tabpanel" aria-labelledby="ytTabHbl" data-pl="hbl" hidden>
-          <a class="yt-feat" href="https://youtu.be/-_Sv_RqxGN0" target="_blank" rel="noopener">
-            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/-_Sv_RqxGN0/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/-_Sv_RqxGN0/hqdefault.jpg'" alt="" /><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
-            <h4 data-ko="이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처" data-en="This is a game launcher? HB Launcher, cartridges and all">이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처</h4>
+          <a class="yt-feat" href="https://youtu.be/gS49FPfEqwo" target="_blank" rel="noopener">
+            <div class="vthumb"><img loading="lazy" src="https://i.ytimg.com/vi/gS49FPfEqwo/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/gS49FPfEqwo/hqdefault.jpg'" alt="" /><span class="latest" data-ko="최신" data-en="LATEST">최신</span><span class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <h4 data-ko="해방런처 사용법 — 해방툴로 PC · 안드로이드 게임기에 3D 케이스 진열장 만들기 (윈도우 + RG 476H)" data-en="How to use HB Launcher — build a 3D case shelf on your PC and Android handheld with the Rom Tool (Windows + RG 476H)">해방런처 사용법 — 해방툴로 PC · 안드로이드 게임기에 3D 케이스 진열장 만들기 (윈도우 + RG 476H)</h4>
           </a>
           <div class="yt-list">
+            <a class="yt-item" href="https://youtu.be/-_Sv_RqxGN0" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/-_Sv_RqxGN0/mqdefault.jpg" alt="" /></span><span class="tt" data-ko="이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처" data-en="This is a game launcher? HB Launcher, cartridges and all">이게 게임 런처라고? 팩 넣는 감성까지 담은 해방런처</span></a>
             <a class="yt-item lang-ko" href="https://www.youtube.com/shorts/EHSeai0xHwY" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/EHSeai0xHwY/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">이게 게임 런처라고?</span></a>
             <a class="yt-item lang-en" href="https://www.youtube.com/shorts/Ij5A8Mlle3g" target="_blank" rel="noopener"><span class="th"><img loading="lazy" src="https://i.ytimg.com/vi/Ij5A8Mlle3g/mqdefault.jpg" alt="" /><b class="sh">Shorts</b></span><span class="tt">This Is a Game Launcher?! Unbox Retro Nostalgia with HB Launcher</span></a>
           </div>
@@ -1015,6 +1019,87 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
         }
       });
     });
+  })();
+
+  // ---------- 유튜브 재생목록 — 재생목록마다 가장 새 영상을 큰 칸에(/api/yt, 사용자 요청 2026-10-19) ----------
+  // HTML 에 적어 둔 목록은 그대로 두었다가(함수를 못 읽으면 그것이 보인다), 함수가 준 새로 올린 차례로 다시 놓는다:
+  // Shorts 가 아닌 가장 새 영상이 큰 칸, 나머지는 새 것부터 목록(열 개까지). 제목은 HTML 에 같은 영상이 있으면 그 한/영 글,
+  // 없으면 유튜브 제목에서 해시태그를 뗀 것. 화면이 이 칸 가까이 오면 두 재생목록을 읽는다(엣지에 30분 남는다).
+  (function () {
+    var sec = document.getElementById('videos');
+    var panels = { tool: document.getElementById('ytPanTool'), hbl: document.getElementById('ytPanHbl') };
+    if (!sec || !panels.tool || !panels.hbl || !window.fetch) return;
+    var ID = /^[\w-]{11}$/;
+    function vid(href) {
+      var m = String(href || '').match(/(?:youtu\.be\/|[?&]v=|\/shorts\/)([\w-]{11})/);
+      return m ? m[1] : '';
+    }
+    function clean(t) {
+      return String(t || '').replace(/(^|\s)#[^\s#]+/g, ' ').replace(/\s+/g, ' ').replace(/[\s|·,\-–—]+$/, '').trim();
+    }
+    function setText(el, t) {
+      el.setAttribute('data-ko', t.ko); el.setAttribute('data-en', t.en);
+      el.textContent = document.documentElement.lang === 'en' ? t.en : t.ko;
+    }
+    function known(panel) {   // HTML 에 적힌 영상 → { 한/영 제목, 언어 칸(lang-ko · lang-en) }
+      var m = {};
+      [].forEach.call(panel.querySelectorAll('a.yt-feat, a.yt-item'), function (a) {
+        var id = vid(a.getAttribute('href')); if (!id) return;
+        var t = a.querySelector('h4, .tt'); if (!t) return;
+        var ko = t.getAttribute('data-ko') || t.textContent, en = t.getAttribute('data-en') || ko;
+        m[id] = { ko: ko, en: en, cls: a.classList.contains('lang-ko') ? 'lang-ko' : (a.classList.contains('lang-en') ? 'lang-en' : '') };
+      });
+      return m;
+    }
+    function titleOf(k, v) {
+      if (k[v.id]) return k[v.id];
+      var t = clean(v.title) || v.id;
+      // 모르는 Shorts 는 한국어판 · 영어판이 따로 올라오므로 제목 글자로 언어 칸을 정한다
+      return { ko: t, en: t, cls: v.short ? (/[가-힣]/.test(v.title) ? 'lang-ko' : 'lang-en') : '' };
+    }
+    function thumb(img, id, size, fallback) {
+      img.onerror = fallback ? function () { img.onerror = null; img.src = 'https://i.ytimg.com/vi/' + id + '/' + fallback + '.jpg'; } : null;
+      img.src = 'https://i.ytimg.com/vi/' + id + '/' + size + '.jpg';
+    }
+    function listItem(v, t) {
+      var a = document.createElement('a');
+      a.className = 'yt-item' + (t.cls ? ' ' + t.cls : '');
+      a.href = v.short ? 'https://www.youtube.com/shorts/' + v.id : 'https://youtu.be/' + v.id;
+      a.target = '_blank'; a.rel = 'noopener';
+      var th = document.createElement('span'); th.className = 'th';
+      var img = document.createElement('img'); img.loading = 'lazy'; img.alt = ''; thumb(img, v.id, 'mqdefault');
+      th.appendChild(img);
+      if (v.short) { var b = document.createElement('b'); b.className = 'sh'; b.textContent = 'Shorts'; th.appendChild(b); }
+      var tt = document.createElement('span'); tt.className = 'tt'; setText(tt, t);
+      a.appendChild(th); a.appendChild(tt);
+      return a;
+    }
+    function render(pl, items) {
+      var panel = panels[pl], k = known(panel);
+      var vids = (items || []).filter(function (v) { return v && ID.test(v.id); });
+      var top = vids.filter(function (v) { return !v.short; })[0];
+      if (!top) return;
+      var fa = panel.querySelector('a.yt-feat');
+      fa.href = 'https://youtu.be/' + top.id;
+      thumb(fa.querySelector('.vthumb img'), top.id, 'maxresdefault', 'hqdefault');
+      setText(fa.querySelector('h4'), titleOf(k, top));
+      var list = panel.querySelector('.yt-list'), frag = document.createDocumentFragment();
+      vids.filter(function (v) { return v.id !== top.id; }).slice(0, 10).forEach(function (v) { frag.appendChild(listItem(v, titleOf(k, v))); });
+      list.textContent = ''; list.appendChild(frag);
+    }
+    function load(pl) {
+      var ctl = window.AbortController ? new AbortController() : null;
+      var tm = setTimeout(function () { if (ctl) ctl.abort(); }, 8000);
+      fetch('/api/yt?pl=' + pl, ctl ? { signal: ctl.signal } : {}).then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { clearTimeout(tm); if (d && d.ok) render(pl, d.items); })
+        .catch(function () { clearTimeout(tm); /* HTML 목록 그대로 */ });
+    }
+    var started = false;
+    function start() { if (started) return; started = true; load('tool'); load('hbl'); }
+    if (window.IntersectionObserver) {
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); start(); } }, { rootMargin: '800px 0px' });
+      io.observe(sec);
+    } else start();
   })();
 
   // ---------- HAE-BANG RETRO WORLD — 처음엔 해방툴, 장소를 누르면 마스코트가 길을 따라 걸어가고 대화 상자가 열린다 ----------
