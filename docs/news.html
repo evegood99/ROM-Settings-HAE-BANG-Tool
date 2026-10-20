@@ -143,13 +143,12 @@
     color:#fde68a; font-size:14px; line-height:1.6}   /* 업데이트 글 안의 알림(예: Dolphin 은 켜진 게임을 먼저 끄기) */
   .tl-alert b{color:var(--gold)}
   /* 업데이트 글 안의 스크린샷(HB런처 v0.7.5 부터 — 아카이브 표지용 .tl-shots 와 다름) — 두 칸, 맨 위 큰 그림은 한 줄 전체, 폰은 한 칸 */
-  .tl-gallery{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:16px 0 4px}
+  .tl-gallery{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:14px 0 4px; max-width:760px; align-items:start}
   .tl-gallery figure{margin:0}
-  .tl-gallery .wide{grid-column:1 / -1}
-  .tl-gallery a{display:block; border-radius:10px; overflow:hidden; border:1px solid var(--border2); background:#000}
+  .tl-gallery a{display:block; border-radius:8px; overflow:hidden; border:1px solid var(--border2); background:#000}
   .tl-gallery img{display:block; width:100%; height:auto}
-  .tl-gallery figcaption{margin:6px 2px 0; font-size:12.5px; line-height:1.55; color:var(--muted)}
-  @media (max-width:640px){ .tl-gallery{grid-template-columns:1fr} }
+  .tl-gallery figcaption{margin:5px 1px 0; font-size:11.5px; line-height:1.5; color:var(--muted)}
+  @media (max-width:640px){ .tl-gallery{grid-template-columns:repeat(2,minmax(0,1fr))} }
   .tl-body li ul{margin:4px 0 2px; padding-left:18px; list-style:circle}
   .tl-body li li{margin:3px 0; font-size:14px}
   .tl-yt{position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; border:1px solid var(--border2); background:#000; margin:8px 0 2px}
@@ -409,7 +408,7 @@
                   data-en="<b>Launch failure help:</b> when a game won't run, it tells you what to check and shows why the launch failed."><b>실행 실패 안내:</b> 게임 실행 시 구동이 안 되는 경우 무엇을 확인할지 알려 주고, 실행 실패 이유를 보여 줍니다.</li>
             </ul>
             <div class="tl-gallery">
-              <figure class="wide"><a href="assets/hbl075_list_mode.webp" target="_blank" rel="noopener"><img src="assets/hbl075_list_mode.webp" width="1600" height="900" loading="lazy" alt="기기 &amp; 게임목록 — 슈퍼패미컴 목록에서 크로노 트리거를 고르면 패키지가 돌며 앞면과 책등을 함께 보여 주고, 아래에 연도 · 개발사 · 장르가 나옵니다." /></a><figcaption data-ko="기기 &amp; 게임목록 — 슈퍼패미컴 목록에서 크로노 트리거를 고르면 패키지가 돌며 앞면과 책등을 함께 보여 주고, 아래에 연도 · 개발사 · 장르가 나옵니다." data-en="Device &amp; game list — pick Chrono Trigger in the Super Famicom list and the package turns to show its front and spine, with year, developer and genre below.">기기 &amp; 게임목록 — 슈퍼패미컴 목록에서 크로노 트리거를 고르면 패키지가 돌며 앞면과 책등을 함께 보여 주고, 아래에 연도 · 개발사 · 장르가 나옵니다.</figcaption></figure>
+              <figure><a href="assets/hbl075_list_mode.webp" target="_blank" rel="noopener"><img src="assets/hbl075_list_mode.webp" width="1600" height="900" loading="lazy" alt="기기 &amp; 게임목록 — 슈퍼패미컴 목록에서 크로노 트리거를 고르면 패키지가 돌며 앞면과 책등을 함께 보여 주고, 아래에 연도 · 개발사 · 장르가 나옵니다." /></a><figcaption data-ko="기기 &amp; 게임목록 — 슈퍼패미컴 목록에서 크로노 트리거를 고르면 패키지가 돌며 앞면과 책등을 함께 보여 주고, 아래에 연도 · 개발사 · 장르가 나옵니다." data-en="Device &amp; game list — pick Chrono Trigger in the Super Famicom list and the package turns to show its front and spine, with year, developer and genre below.">기기 &amp; 게임목록 — 슈퍼패미컴 목록에서 크로노 트리거를 고르면 패키지가 돌며 앞면과 책등을 함께 보여 주고, 아래에 연도 · 개발사 · 장르가 나옵니다.</figcaption></figure>
               <figure><a href="assets/hbl075_home_launcher.webp" target="_blank" rel="noopener"><img src="assets/hbl075_home_launcher.webp" width="1280" height="960" loading="lazy" alt="옵션 → 홈 런처 — 설정을 마치면 &quot;HB런처가 홈 앱이 되었습니다&quot;" /></a><figcaption data-ko="옵션 → 홈 런처 — 설정을 마치면 &quot;HB런처가 홈 앱이 되었습니다&quot;" data-en="Options → Home launcher — once set: &quot;HB Launcher is now the home app&quot;">옵션 → 홈 런처 — 설정을 마치면 &quot;HB런처가 홈 앱이 되었습니다&quot;</figcaption></figure>
               <figure><a href="assets/hbl075_home_dialog.webp" target="_blank" rel="noopener"><img src="assets/hbl075_home_dialog.webp" width="1280" height="960" loading="lazy" alt="안드로이드의 &quot;기본 홈 앱으로 설정하시겠습니까?&quot; 창에서 HB Launcher 를 고릅니다" /></a><figcaption data-ko="안드로이드의 &quot;기본 홈 앱으로 설정하시겠습니까?&quot; 창에서 HB Launcher 를 고릅니다" data-en="Pick HB Launcher in Android's &quot;Set as default home app?&quot; dialog">안드로이드의 &quot;기본 홈 앱으로 설정하시겠습니까?&quot; 창에서 HB Launcher 를 고릅니다</figcaption></figure>
               <figure><a href="assets/hbl075_quick_return.webp" target="_blank" rel="noopener"><img src="assets/hbl075_quick_return.webp" width="1600" height="900" loading="lazy" alt="게임이 바로 닫혔을 때 — 코어가 받아져 있는지(RetroArch → 온라인 업데이터 → 코어 다운로더), 롬이 그 코어에 맞는 롬셋인지 확인하라고 알려 줍니다" /></a><figcaption data-ko="게임이 바로 닫혔을 때 — 코어가 받아져 있는지(RetroArch → 온라인 업데이터 → 코어 다운로더), 롬이 그 코어에 맞는 롬셋인지 확인하라고 알려 줍니다" data-en="When a game closes right away — it tells you to check that the core is downloaded (RetroArch → Online Updater → Core Downloader) and that the ROM is the right romset for that core">게임이 바로 닫혔을 때 — 코어가 받아져 있는지(RetroArch → 온라인 업데이터 → 코어 다운로더), 롬이 그 코어에 맞는 롬셋인지 확인하라고 알려 줍니다</figcaption></figure>
@@ -440,11 +439,6 @@
               <li data-ko="<b>실행 실패 안내:</b> 게임 실행 시 구동이 안 되는 경우 무엇을 확인할지 알려 주고, 실행 실패 이유를 보여 줍니다."
                   data-en="<b>Launch failure help:</b> when a game won't run, it tells you what to check and shows why the launch failed."><b>실행 실패 안내:</b> 게임 실행 시 구동이 안 되는 경우 무엇을 확인할지 알려 주고, 실행 실패 이유를 보여 줍니다.</li>
             </ul>
-            <div class="tl-gallery">
-              <figure class="wide"><a href="assets/hbl075_list_mode.webp" target="_blank" rel="noopener"><img src="assets/hbl075_list_mode.webp" width="1600" height="900" loading="lazy" alt="기기 &amp; 게임목록 — 슈퍼패미컴 목록에서 크로노 트리거를 고르면 패키지가 돌며 앞면과 책등을 함께 보여 주고, 아래에 연도 · 개발사 · 장르가 나옵니다." /></a><figcaption data-ko="기기 &amp; 게임목록 — 슈퍼패미컴 목록에서 크로노 트리거를 고르면 패키지가 돌며 앞면과 책등을 함께 보여 주고, 아래에 연도 · 개발사 · 장르가 나옵니다." data-en="Device &amp; game list — pick Chrono Trigger in the Super Famicom list and the package turns to show its front and spine, with year, developer and genre below.">기기 &amp; 게임목록 — 슈퍼패미컴 목록에서 크로노 트리거를 고르면 패키지가 돌며 앞면과 책등을 함께 보여 주고, 아래에 연도 · 개발사 · 장르가 나옵니다.</figcaption></figure>
-              <figure><a href="assets/hbl075_quick_return.webp" target="_blank" rel="noopener"><img src="assets/hbl075_quick_return.webp" width="1600" height="900" loading="lazy" alt="게임이 바로 닫혔을 때 — 코어가 받아져 있는지(RetroArch → 온라인 업데이터 → 코어 다운로더), 롬이 그 코어에 맞는 롬셋인지 확인하라고 알려 줍니다" /></a><figcaption data-ko="게임이 바로 닫혔을 때 — 코어가 받아져 있는지(RetroArch → 온라인 업데이터 → 코어 다운로더), 롬이 그 코어에 맞는 롬셋인지 확인하라고 알려 줍니다" data-en="When a game closes right away — it tells you to check that the core is downloaded (RetroArch → Online Updater → Core Downloader) and that the ROM is the right romset for that core">게임이 바로 닫혔을 때 — 코어가 받아져 있는지(RetroArch → 온라인 업데이터 → 코어 다운로더), 롬이 그 코어에 맞는 롬셋인지 확인하라고 알려 줍니다</figcaption></figure>
-              <figure><a href="assets/hbl075_no_emulator.webp" target="_blank" rel="noopener"><img src="assets/hbl075_no_emulator.webp" width="1600" height="900" loading="lazy" alt="실행 실패 이유 — 팩을 꽂은 뒤 &quot;에뮬레이터 없음 — RetroArch 코어가 없습니다: snes9x_libretro.dll …&quot;" /></a><figcaption data-ko="실행 실패 이유 — 팩을 꽂은 뒤 &quot;에뮬레이터 없음 — RetroArch 코어가 없습니다: snes9x_libretro.dll …&quot;" data-en="Why it failed to start — after the cartridge goes in: &quot;No emulator — RetroArch core missing: snes9x_libretro.dll …&quot;">실행 실패 이유 — 팩을 꽂은 뒤 &quot;에뮬레이터 없음 — RetroArch 코어가 없습니다: snes9x_libretro.dll …&quot;</figcaption></figure>
-            </div>
             <p class="tl-note" data-ko="HB런처 페이지의 [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(라이브러리 · 설정 유지)." data-en="Download it with [Download for Windows] on the HB Launcher page and unzip it over the old files (your library and settings stay).">HB런처 페이지의 [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(라이브러리 · 설정 유지).</p>
             <div class="tl-cta">
               <a class="btn btn-primary" href="launcher.html#download" data-ko="Windows v0.7.3 받기 →" data-en="Get Windows v0.7.3 →">Windows v0.7.3 받기 →</a>
