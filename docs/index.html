@@ -446,6 +446,18 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
     .menu-btn{display:inline-flex}
     .mnav{display:block}
   }
+  /* 메뉴 8개(HB레트로아크 추가, 2026-10-20) — 오른쪽에 '다운로드' 단추까지 있는 페이지에서도 한 줄에 들어가게.
+     넓은 화면은 메뉴 사이만 조금 좁히고(영어가 더 넓다), 1020px 이하는 햄버거로 접는다. */
+  @media (min-width:1161px){
+    .nav-links{gap:4px}
+    html[lang="en"] .nav-links{gap:0}
+    html[lang="en"] .nav-links a{padding:8px 6px}
+  }
+  @media (max-width:1020px){
+    .nav-links{display:none}
+    .menu-btn{display:inline-flex}
+    .mnav{display:block}
+  }
   .icon-btn.yt{color:#ff4d4d} .icon-btn.yt:hover{color:#fff; background:#e0261c; border-color:#e0261c}
 
   /* ---------- Videos — 유튜브 재생목록(해방툴 · 해방런처) 탭 ----------
@@ -497,6 +509,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       <a href="index.html" class="active" data-ko="홈" data-en="Home">홈</a>
       <a href="haebang.html" data-ko="해방툴" data-en="Rom Tool">해방툴</a>
       <a href="launcher.html" data-ko="HB런처" data-en="HB Launcher">HB런처</a>
+      <a href="hbretroarch.html" data-ko="HB레트로아크" data-en="HB RetroArch">HB레트로아크</a>
       <a href="https://evegoodretro.com/games/" data-ko="게임 아카이브" data-en="Game Archive">게임 아카이브</a>
       <a href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
       <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
@@ -895,6 +908,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
         <a href="haebang.html" data-ko="해방툴" data-en="Rom Tool">해방툴</a>
         <a href="https://evegoodretro.com/games/" data-ko="게임 아카이브" data-en="Game Archive">게임 아카이브</a>
         <a href="launcher.html" data-ko="HB런처" data-en="HB Launcher">HB런처</a>
+        <a href="hbretroarch.html" data-ko="HB레트로아크" data-en="HB RetroArch">HB레트로아크</a>
         <a href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
       </div>
       <div class="foot-col">
