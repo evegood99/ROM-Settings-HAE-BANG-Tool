@@ -185,6 +185,39 @@
   .tag.imp{border-color:rgba(34,211,238,.42); color:var(--cyan); background:rgba(34,211,238,.1)}
   .tag.rel{border-color:rgba(251,191,36,.42); color:var(--gold); background:rgba(251,191,36,.1)}
 
+  /* ---------- 소식 골라 보기(해방툴 · 해방런처 · 기타) — 헤더(66px) 아래 붙는다 ---------- */
+  .nf{position:sticky; top:66px; z-index:40; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    background:rgba(8,9,15,.78); border-top:1px solid var(--border); border-bottom:1px solid var(--border)}
+  .nf-in{display:flex; align-items:center; justify-content:center; gap:8px; height:56px; overflow-x:auto; scrollbar-width:none}
+  .nf-in::-webkit-scrollbar{display:none}
+  .nf-lab{flex:none; margin-right:4px; font-size:12px; font-weight:800; letter-spacing:.08em; color:var(--faint); white-space:nowrap}
+  .nf-btn{flex:none; display:inline-flex; align-items:center; gap:7px; padding:7px 13px; border-radius:999px; cursor:pointer;
+    font:inherit; font-size:13.5px; font-weight:700; line-height:1.2; color:var(--muted); background:var(--surface);
+    border:1px solid var(--border2); transition:.18s; white-space:nowrap}
+  .nf-btn img{width:18px; height:18px; border-radius:4px; display:block}
+  .nf-ic{font-size:13px; color:var(--gold)}
+  .nf-btn .n{font-style:normal; min-width:22px; padding:1px 7px; border-radius:999px; text-align:center;
+    font-size:11.5px; font-weight:800; color:var(--faint); background:var(--surface2); font-variant-numeric:tabular-nums}
+  .nf-btn:hover{color:var(--text); border-color:var(--cyan)}
+  .nf-btn:focus-visible{outline:2px solid var(--cyan); outline-offset:2px}
+  .nf-btn.on{color:#05070d; border-color:transparent; background:var(--grad)}
+  .nf-btn.on .n{color:#05070d; background:rgba(5,7,13,.18)}
+  .nf-btn.on .nf-ic{color:#05070d}
+  .nf-btn[data-f="hbl"].on{background:linear-gradient(120deg,#86efac,#22c55e)}
+  .nf-btn[data-f="etc"].on{background:linear-gradient(120deg,#fde68a,#f59e0b)}
+  .nf-hide{display:none !important}
+  /* #hbl-v07 같은 곳으로 옮겨 갈 때 헤더 + 고르기 막대에 가리지 않게 */
+  .tl-item[id], section[id]{scroll-margin-top:138px}
+  @media (max-width:560px){
+    /* 폰 — 한 줄에 넷이 다 보이도록 같은 폭 네 칸, 개수는 이름 아래 작게(아이콘은 뺀다) */
+    .nf-lab, .nf-btn img, .nf-ic{display:none}
+    .nf-in{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:5px; height:auto; padding:7px 12px}
+    .nf-btn{min-width:0; flex-direction:column; justify-content:center; gap:1px; padding:5px 4px; border-radius:12px; font-size:12px}
+    .nf-btn > span{max-width:100%; overflow:hidden; text-overflow:ellipsis}
+    .nf-btn .n{min-width:0; padding:0; background:none; font-size:10.5px; line-height:1.2}
+    .nf-btn.on .n{background:none}
+  }
+
   .sec-head{text-align:center; max-width:680px; margin:0 auto 32px}
   .sec-head h2{font-size:clamp(24px,3.2vw,34px); font-weight:800; letter-spacing:-.02em; margin:10px 0 10px}
   .sec-head p{color:var(--muted); font-size:15.5px; margin:0}
@@ -324,8 +357,22 @@
     </div>
   </section>
 
+  <!-- 소식 골라 보기 — 헤더 아래 붙어 따라온다(2026-10-24, 사용자 요청).
+       글(article.tl-item) · 위쪽 배너(section)마다 data-cat="tool|hbl|etc" 로 나눈다: 해방툴(공개 · 베타 · 예전 개발 기록) · 해방런처 · 기타(홈페이지 · 아카이브 · 패치 페이지).
+       ⚠️ 새 글에도 data-cat 을 단다 — 빠뜨리면 스크립트가 제목(HB런처 → hbl, 해방툴 · 공개 버전 → tool, 그 밖 → etc)으로 짐작한다. -->
+  <div id="nfMark" aria-hidden="true"></div>
+  <div class="nf" id="nf">
+    <div class="wrap nf-in" role="group" aria-label="소식 골라 보기">
+      <span class="nf-lab" data-ko="골라 보기" data-en="Show">골라 보기</span>
+      <button type="button" class="nf-btn on" data-f="all" aria-pressed="true"><span data-ko="전체" data-en="All">전체</span><i class="n"></i></button>
+      <button type="button" class="nf-btn" data-f="tool" aria-pressed="false"><img src="assets/eco/ic_tool.webp" alt="" width="18" height="18" /><span data-ko="해방툴" data-en="Rom Tool">해방툴</span><i class="n"></i></button>
+      <button type="button" class="nf-btn" data-f="hbl" aria-pressed="false"><img src="assets/eco/ic_hbl.webp" alt="" width="18" height="18" /><span data-ko="해방런처" data-en="HB Launcher">해방런처</span><i class="n"></i></button>
+      <button type="button" class="nf-btn" data-f="etc" aria-pressed="false"><span class="nf-ic" aria-hidden="true">✦</span><span data-ko="기타" data-en="Other">기타</span><i class="n"></i></button>
+    </div>
+  </div>
+
   <!-- HB런처 v0.7 출시 (2026-10-16) — 새 프로그램 출시라 맨 위 배너로 둔다 -->
-  <section>
+  <section data-cat="hbl">
     <div class="wrap">
       <div class="next launch reveal">
         <div class="next-in">
@@ -352,7 +399,7 @@
   </section>
 
   <!-- 곧 공개: 1.0 베타 클로즈드 베타 -->
-  <section>
+  <section data-cat="tool">
     <div class="wrap">
       <div class="next reveal">
         <div class="next-in">
@@ -400,8 +447,91 @@
 
       <div class="tl">
 
+        <!-- 2026-10-24 : HB런처 안드로이드 v0.7.6 (02:30 빌드, versionCode 13 — 사용자가 준 내역) -->
+        <article class="tl-item hl reveal" data-cat="hbl">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.10.24</div>
+          <h3 class="tl-title" data-ko="HB런처(안드로이드) v0.7.6 — 터치 조작 · 화면 회전 · HB레트로아크 코어 자동 받기 · 안드로이드 TV" data-en="HB Launcher (Android) v0.7.6 — touch controls, screen rotation, HB RetroArch automatic core download, Android TV">HB런처(안드로이드) v0.7.6 &mdash; 터치 조작 · 화면 회전 · HB레트로아크 코어 자동 받기 · 안드로이드 TV</h3>
+          <div class="tags">
+            <span class="tag new" data-ko="신규" data-en="New">신규</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+          </div>
+          <div class="tl-body">
+            <p class="tl-grp" data-ko="신규" data-en="New">신규</p>
+            <ul>
+              <li data-ko="<b>터치 조작:</b> 패드가 없는 폰에서도 쓸 수 있습니다. 화면을 좌우 · 위아래로 밀어서 넘기고, 시스템이나 게임 패키지를 누르면 들어가거나 케이스가 열립니다. 위쪽 조작 안내(즐겨찾기 · 옵션 등)와 정렬 표시, 옵션의 각 줄도 눌러서 고를 수 있으며, 이전 화면으로는 안드로이드 뒤로가기로 돌아갑니다."
+                  data-en="<b>Touch controls:</b> usable on phones without a gamepad. Swipe left/right and up/down to browse; tap a system or a game package to enter it or open the case. The control hints at the top (Favorites, Options, etc.), the sort indicator and every line in Options can be tapped too, and Android Back returns to the previous screen."><b>터치 조작:</b> 패드가 없는 폰에서도 쓸 수 있습니다. 화면을 좌우 · 위아래로 밀어서 넘기고, 시스템이나 게임 패키지를 누르면 들어가거나 케이스가 열립니다. 위쪽 조작 안내(즐겨찾기 · 옵션 등)와 정렬 표시, 옵션의 각 줄도 눌러서 고를 수 있으며, 이전 화면으로는 안드로이드 뒤로가기로 돌아갑니다.</li>
+              <li data-ko="<b>옵션 '화면 회전':</b> 옵션 → 화면 → 화면 회전에서 자동(기본, 예전과 같음) · 0° · 90° · 180° · 270° 중 하나로 화면 방향을 고정할 수 있습니다."
+                  data-en="<b>Option 'Screen rotation':</b> in Options → Display → Screen rotation, lock the orientation to Auto (default, as before), 0°, 90°, 180° or 270°."><b>옵션 '화면 회전':</b> 옵션 → 화면 → 화면 회전에서 자동(기본, 예전과 같음) · 0° · 90° · 180° · 270° 중 하나로 화면 방향을 고정할 수 있습니다.</li>
+              <li data-ko="<b>HB레트로아크 코어 자동 받기(Wi-Fi 연결 필수):</b> HB레트로아크로 실행하는 게임은 코어가 없으면 그 자리에서 받은 뒤 이어서 실행합니다. 옵션의 에뮬레이터 목록에는 코어가 없는 항목에 '(코어 받기 필요)'가 표시되고, 그 항목으로 바꾸면 미리 받아 둡니다."
+                  data-en="<b>HB RetroArch automatic core download (Wi-Fi required):</b> a game launched with HB RetroArch downloads its missing core on the spot and then starts. In the emulator list in Options, entries whose core is missing show '(core download needed)', and switching to one downloads it in advance."><b>HB레트로아크 코어 자동 받기(Wi-Fi 연결 필수):</b> HB레트로아크로 실행하는 게임은 코어가 없으면 그 자리에서 받은 뒤 이어서 실행합니다. 옵션의 에뮬레이터 목록에는 코어가 없는 항목에 '(코어 받기 필요)'가 표시되고, 그 항목으로 바꾸면 미리 받아 둡니다.</li>
+              <li data-ko="<b>안드로이드 TV 대응(시범 테스트 중):</b> TV 앱 목록(Games)에 HB런처가 배너와 함께 나타납니다. 리모컨에 ≡(메뉴) 버튼이 있으면 그 버튼으로 옵션을 엽니다. TV에는 '모든 파일 접근' 설정 화면이 없어서, 해방툴 1.1.5 이상에서 '유무선 adb'로 연결하면 권한이 저절로 켜집니다."
+                  data-en="<b>Android TV support (trial):</b> HB Launcher appears with its banner in the TV app list (Games). If the remote has a ≡ (Menu) button, it opens Options. TVs have no 'All files access' settings screen, so connecting over wired/wireless adb from Rom Tool 1.1.5 or later turns the permission on automatically."><b>안드로이드 TV 대응(시범 테스트 중):</b> TV 앱 목록(Games)에 HB런처가 배너와 함께 나타납니다. 리모컨에 ≡(메뉴) 버튼이 있으면 그 버튼으로 옵션을 엽니다. TV에는 '모든 파일 접근' 설정 화면이 없어서, 해방툴 1.1.5 이상에서 '유무선 adb'로 연결하면 권한이 저절로 켜집니다.</li>
+              <li data-ko="<b>안드로이드 TV 첫 실행 안내:</b> TV에 설치하고 처음 켜면 개발자 옵션 · 저장소 권한 · 해방툴에서 게임 보내기 · 에뮬레이터 · 조작을 여섯 장으로 안내합니다. 옵션 → TV 안내에서 다시 볼 수 있습니다."
+                  data-en="<b>Android TV first-run guide:</b> the first time it runs on a TV, six pages walk you through developer options, storage permission, sending games from the Rom Tool, emulators and controls. See it again in Options → TV guide."><b>안드로이드 TV 첫 실행 안내:</b> TV에 설치하고 처음 켜면 개발자 옵션 · 저장소 권한 · 해방툴에서 게임 보내기 · 에뮬레이터 · 조작을 여섯 장으로 안내합니다. 옵션 → TV 안내에서 다시 볼 수 있습니다.</li>
+            </ul>
+            <p class="tl-grp" data-ko="개선" data-en="Improved">개선</p>
+            <ul>
+              <li data-ko="<b>방향키 누르고 있으면 계속 넘어감:</b> 시스템 · 게임 선택의 좌우, 기기 &amp; 게임목록의 위아래를 방향키로 누르고 있으면 계속 넘어갑니다."
+                  data-en="<b>Hold to keep scrolling:</b> hold the d-pad left/right in system and game selection, or up/down in Device &amp; game list, and it keeps moving."><b>방향키 누르고 있으면 계속 넘어감:</b> 시스템 · 게임 선택의 좌우, 기기 &amp; 게임목록의 위아래를 방향키로 누르고 있으면 계속 넘어갑니다.</li>
+              <li data-ko="<b>정보 없는 게임 케이스 표시:</b> 정보 · 그림을 찾지 못한 게임도 무지 케이스의 책등과 앞면에 제목을 넣어 보여 줍니다."
+                  data-en="<b>Cases for games without info:</b> games with no matched info or artwork now show their title on the spine and front of a plain case."><b>정보 없는 게임 케이스 표시:</b> 정보 · 그림을 찾지 못한 게임도 무지 케이스의 책등과 앞면에 제목을 넣어 보여 줍니다.</li>
+              <li data-ko="<b>옵션 커서 위치:</b> 옵션의 하위 메뉴에서 나오면 들어갔던 줄로 커서가 돌아옵니다."
+                  data-en="<b>Options cursor position:</b> leaving a submenu in Options puts the cursor back on the line you came from."><b>옵션 커서 위치:</b> 옵션의 하위 메뉴에서 나오면 들어갔던 줄로 커서가 돌아옵니다.</li>
+              <li data-ko="<b>기기 &amp; 게임목록 정보 판:</b> 출시연도 · 개발사 · 장르 칸의 폭이 글자 길이에 맞게 나뉩니다."
+                  data-en="<b>Device &amp; game list info panel:</b> the release year, developer and genre columns are sized to fit their text."><b>기기 &amp; 게임목록 정보 판:</b> 출시연도 · 개발사 · 장르 칸의 폭이 글자 길이에 맞게 나뉩니다.</li>
+              <li data-ko="<b>롬 폴더 경로 표시:</b> 옵션의 롬 폴더를 따로 고르지 않았을 때 '(자동 — 라이브러리 기준)' 대신 실제로 쓰는 롬 폴더 경로가 보입니다(예: /storage/XXXX-XXXX/ROMs (자동))."
+                  data-en="<b>ROM folder path:</b> if you haven't picked a ROM folder in Options, it now shows the folder actually in use (e.g. /storage/XXXX-XXXX/ROMs (auto)) instead of '(auto — based on library)'."><b>롬 폴더 경로 표시:</b> 옵션의 롬 폴더를 따로 고르지 않았을 때 '(자동 — 라이브러리 기준)' 대신 실제로 쓰는 롬 폴더 경로가 보입니다(예: /storage/XXXX-XXXX/ROMs (자동)).</li>
+              <li data-ko="<b>안드로이드 TV(쉴드 TV 등):</b> 시작할 때 화면 모드(주사율)를 바꾸지 않아 TV 화면이 꺼졌다 켜지지 않습니다. TV에서는 적용되지 않는 '홈 런처'와 '화면 회전' 메뉴를 감췄습니다."
+                  data-en="<b>Android TV (Shield TV, etc.):</b> it no longer switches the display mode (refresh rate) at startup, so the TV picture doesn't blank out and come back. The 'Home launcher' and 'Screen rotation' options, which don't apply on TV, are hidden."><b>안드로이드 TV(쉴드 TV 등):</b> 시작할 때 화면 모드(주사율)를 바꾸지 않아 TV 화면이 꺼졌다 켜지지 않습니다. TV에서는 적용되지 않는 '홈 런처'와 '화면 회전' 메뉴를 감췄습니다.</li>
+            </ul>
+            <p class="tl-note" data-ko="구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아, 지금 쓰시는 앱 위에 설치하면 됩니다(라이브러리 · 설정 유지)." data-en="Use the same HB Launcher APK code with [Get the APK with your code] on the HB Launcher page and install it over the app you have (your library and settings stay).">구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아, 지금 쓰시는 앱 위에 설치하면 됩니다(라이브러리 · 설정 유지).</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="launcher.html#download" data-ko="APK v0.7.6 받기 →" data-en="Get APK v0.7.6 →">APK v0.7.6 받기 →</a>
+              <a class="btn btn-ghost" href="hbretroarch.html" data-ko="HB레트로아크 알아보기 →" data-en="About HB RetroArch →">HB레트로아크 알아보기 →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2026-10-24 : HB런처 윈도우 v0.7.5 (02:31 빌드 — 사용자가 준 내역) -->
+        <article class="tl-item hl reveal" data-cat="hbl">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.10.24</div>
+          <h3 class="tl-title" data-ko="HB런처(윈도우) v0.7.5 — PCSX2 오표시 · 화면 찌그러짐 · 시작 화면 멈춤 수정, 마우스 클릭" data-en="HB Launcher (Windows) v0.7.5 — PCSX2 false alarm, squashed screen and startup hang fixed, mouse clicks">HB런처(윈도우) v0.7.5 &mdash; PCSX2 오표시 · 화면 찌그러짐 · 시작 화면 멈춤 수정, 마우스 클릭</h3>
+          <div class="tags">
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+          </div>
+          <div class="tl-body">
+            <p class="tl-grp" data-ko="수정" data-en="Fixed">수정</p>
+            <ul>
+              <li data-ko="<b>PCSX2 &quot;게임이 바로 닫혔습니다&quot; 오표시:</b> PCSX2에서 실행 중 메인 창 숨기기(Hide Main Window When Running)와 별도 창 렌더링(Render To Separate Window)을 켜 두면, 게임은 잘 실행되는데 HB런처가 &quot;게임이 바로 닫혔습니다&quot;를 띄우고 매체를 빼던 문제를 고쳤습니다."
+                  data-en="<b>PCSX2 false &quot;The game closed right away&quot;:</b> with PCSX2's Hide Main Window When Running and Render To Separate Window turned on, the game ran fine but HB Launcher showed &quot;The game closed right away&quot; and ejected the media. Fixed."><b>PCSX2 &quot;게임이 바로 닫혔습니다&quot; 오표시:</b> PCSX2에서 실행 중 메인 창 숨기기(Hide Main Window When Running)와 별도 창 렌더링(Render To Separate Window)을 켜 두면, 게임은 잘 실행되는데 HB런처가 &quot;게임이 바로 닫혔습니다&quot;를 띄우고 매체를 빼던 문제를 고쳤습니다.</li>
+              <li data-ko="<b>화면이 찌그러지던 문제:</b> UI 크기를 100%보다 크게 두고 창 크기를 바꾸면, 화면이 가운데 띠 안에 찌그러져 그려지던 문제를 고쳤습니다."
+                  data-en="<b>Squashed screen:</b> with the UI scale above 100%, resizing the window squeezed the picture into a band in the middle. Fixed."><b>화면이 찌그러지던 문제:</b> UI 크기를 100%보다 크게 두고 창 크기를 바꾸면, 화면이 가운데 띠 안에 찌그러져 그려지던 문제를 고쳤습니다.</li>
+              <li data-ko="<b>시작 화면 멈춤 방지:</b> 시작할 때 준비를 기다리는 시간에 한도를 두어, 첫 로고 화면에서 넘어가지 않는 일이 없도록 했습니다."
+                  data-en="<b>No more stuck startup:</b> waiting for setup at startup now has a time limit, so it can no longer get stuck on the first logo screen."><b>시작 화면 멈춤 방지:</b> 시작할 때 준비를 기다리는 시간에 한도를 두어, 첫 로고 화면에서 넘어가지 않는 일이 없도록 했습니다.</li>
+            </ul>
+            <p class="tl-grp" data-ko="개선" data-en="Improved">개선</p>
+            <ul>
+              <li data-ko="<b>누르고 있으면 계속 넘어감:</b> 키보드 방향키나 패드 십자키를 누르고 있으면 시스템 · 게임 선택(좌우)과 기기 &amp; 게임목록(위아래)이 계속 넘어갑니다."
+                  data-en="<b>Hold to keep scrolling:</b> hold an arrow key or the d-pad and system/game selection (left/right) and Device &amp; game list (up/down) keep moving."><b>누르고 있으면 계속 넘어감:</b> 키보드 방향키나 패드 십자키를 누르고 있으면 시스템 · 게임 선택(좌우)과 기기 &amp; 게임목록(위아래)이 계속 넘어갑니다.</li>
+              <li data-ko="<b>정보 없는 게임 케이스 표시:</b> 정보 · 그림을 찾지 못한 게임도 무지 케이스의 책등과 앞면에 제목을 넣어 보여 줍니다."
+                  data-en="<b>Cases for games without info:</b> games with no matched info or artwork now show their title on the spine and front of a plain case."><b>정보 없는 게임 케이스 표시:</b> 정보 · 그림을 찾지 못한 게임도 무지 케이스의 책등과 앞면에 제목을 넣어 보여 줍니다.</li>
+              <li data-ko="<b>마우스로 클릭:</b> 옵션의 각 줄, 위쪽 조작 안내(옵션 · 즐겨찾기 등)와 정렬 표시를 마우스로 클릭해 쓸 수 있습니다."
+                  data-en="<b>Mouse clicks:</b> every line in Options, the control hints at the top (Options, Favorites, etc.) and the sort indicator can be clicked with the mouse."><b>마우스로 클릭:</b> 옵션의 각 줄, 위쪽 조작 안내(옵션 · 즐겨찾기 등)와 정렬 표시를 마우스로 클릭해 쓸 수 있습니다.</li>
+              <li data-ko="<b>옵션 커서 위치:</b> 옵션의 하위 메뉴에서 나오면 들어갔던 줄로 커서가 돌아옵니다."
+                  data-en="<b>Options cursor position:</b> leaving a submenu in Options puts the cursor back on the line you came from."><b>옵션 커서 위치:</b> 옵션의 하위 메뉴에서 나오면 들어갔던 줄로 커서가 돌아옵니다.</li>
+            </ul>
+            <p class="tl-note" data-ko="HB런처 페이지의 [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(라이브러리 · 설정 유지)." data-en="Download it with [Download for Windows] on the HB Launcher page and unzip it over the old files (your library and settings stay).">HB런처 페이지의 [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(라이브러리 · 설정 유지).</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="launcher.html#download" data-ko="Windows v0.7.5 받기 →" data-en="Get Windows v0.7.5 →">Windows v0.7.5 받기 →</a>
+            </div>
+          </div>
+        </article>
+
         <!-- 2026-10-20 : HB런처 윈도우 v0.7.4 (19:23 빌드, 런처 873f461 — 758759c 에뮬레이터 인자 경로를 \ 로. 사용자가 준 내역) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.20</div>
           <h3 class="tl-title" data-ko="HB런처(윈도우) v0.7.4 — 일부 에뮬레이터가 실행되지 않던 문제 수정" data-en="HB Launcher (Windows) v0.7.4 — fixed some emulators not starting">HB런처(윈도우) v0.7.4 &mdash; 일부 에뮬레이터가 실행되지 않던 문제 수정</h3>
@@ -421,7 +551,7 @@
         </article>
 
         <!-- 2026-10-20 : HB런처 안드로이드 v0.7.5 (15:19 빌드, versionCode 12 — 사용자가 준 내역 · 스크린샷 export/homepage_shots) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.20</div>
           <h3 class="tl-title" data-ko="HB런처(안드로이드) v0.7.5 — 기기 &amp; 게임목록 · 실행 연출 속도 · 홈 런처 · 실행 실패 안내" data-en="HB Launcher (Android) v0.7.5 — device &amp; game list, launch animation speed, home launcher, launch failure help">HB런처(안드로이드) v0.7.5 &mdash; 기기 &amp; 게임목록 · 실행 연출 속도 · 홈 런처 · 실행 실패 안내</h3>
@@ -455,7 +585,7 @@
         </article>
 
         <!-- 2026-10-20 : HB런처 윈도우 v0.7.3 (15:20 빌드 — 사용자가 준 내역) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.20</div>
           <h3 class="tl-title" data-ko="HB런처(윈도우) v0.7.3 — 기기 &amp; 게임목록 · 실행 연출 속도 · 실행 실패 안내" data-en="HB Launcher (Windows) v0.7.3 — device &amp; game list, launch animation speed, launch failure help">HB런처(윈도우) v0.7.3 &mdash; 기기 &amp; 게임목록 · 실행 연출 속도 · 실행 실패 안내</h3>
@@ -480,7 +610,7 @@
         </article>
 
         <!-- 2026-10-18 : 해방툴 v1.1.4 (베타) — main 4b21a5f..b312b12, 설치 파일 10/18 16:31 (md5 8604b4a5…) -->
-        <article class="tl-item hl reveal" id="rt-v114">
+        <article class="tl-item hl reveal" data-cat="tool" id="rt-v114">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.18</div>
           <h3 class="tl-title" data-ko="해방툴 v1.1.4 베타 — 한글패치 정보(시범) · HB런처 바로실행 · Pegasus 단독 에뮬레이터 실행 수정" data-en="Rom Tool v1.1.4 beta — Korean patch info (trial), HB Launcher direct run, Pegasus standalone emulator fixes">해방툴 v1.1.4 베타 &mdash; 한글패치 정보(시범) · HB런처 바로실행 · Pegasus 단독 에뮬레이터 실행 수정</h3>
@@ -554,7 +684,7 @@
         </article>
 
         <!-- 2026-10-18 : 공개 v1.1 수정판 3(v1.1.0 fix3) — 가지 release/1.1.0-fix f476ffd..966f0e7, 설치 파일 10/18 15:25 (md5 87d1e90e…) -->
-        <article class="tl-item hl reveal" id="rt-fix3">
+        <article class="tl-item hl reveal" data-cat="tool" id="rt-fix3">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.18</div>
           <h3 class="tl-title" data-ko="공개 버전 v1.1 수정판 3 — Pegasus 단독 에뮬레이터 실행 · 내보내기 · HB런처 전송 문제 수정" data-en="Public v1.1 fix release 3 — Pegasus standalone emulator, export and HB Launcher transfer fixes">공개 버전 v1.1 수정판 3 &mdash; Pegasus 단독 에뮬레이터 실행 · 내보내기 · HB런처 전송 문제 수정</h3>
@@ -609,7 +739,7 @@
         </article>
 
         <!-- 2026-10-18 : HB런처 안드로이드 v0.7.4 (13:26 빌드, versionCode 11 — 사용자가 준 내역; Windows 는 0.7.2 그대로) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.18</div>
           <h3 class="tl-title" data-ko="HB런처(안드로이드) v0.7.4 — PS2 검은 화면 · 이전 게임이 뜨던 문제 · '모든 파일 접근' 없이 실행" data-en="HB Launcher (Android) v0.7.4 — PS2 black screen, previous game showing up, launching without 'All files access'">HB런처(안드로이드) v0.7.4 &mdash; PS2 검은 화면 · 이전 게임이 뜨던 문제 · '모든 파일 접근' 없이 실행</h3>
@@ -635,7 +765,7 @@
         </article>
 
         <!-- 2026-10-18 : HB런처 안드로이드 v0.7.3 (09:53 빌드, versionCode 10 — 사용자가 준 내역; Windows 는 0.7.2 그대로) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.18</div>
           <h3 class="tl-title" data-ko="HB런처(안드로이드) v0.7.3 — NetherSX2 · AetherSX2 .cue PS2 게임 실행 수정" data-en="HB Launcher (Android) v0.7.3 — .cue PS2 games now start in NetherSX2 and AetherSX2">HB런처(안드로이드) v0.7.3 &mdash; NetherSX2 · AetherSX2 .cue PS2 게임 실행 수정</h3>
@@ -655,7 +785,7 @@
         </article>
 
         <!-- 2026-10-17 : HB런처 안드로이드 v0.7.2 (13:38 빌드, versionCode 9 — 사용자가 준 내역) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.17</div>
           <h3 class="tl-title" data-ko="HB런처(안드로이드) v0.7.2 — 화면을 꺼도 무선 받기 · 스탠드얼론 에뮬레이터 실행 · 롬 폴더 권한 안내" data-en="HB Launcher (Android) v0.7.2 — wireless receive with the screen off, standalone emulator launch, ROM folder permission prompts">HB런처(안드로이드) v0.7.2 &mdash; 화면을 꺼도 무선 받기 · 스탠드얼론 에뮬레이터 실행 · 롬 폴더 권한 안내</h3>
@@ -686,7 +816,7 @@
         </article>
 
         <!-- 2026-10-17 : HB런처 윈도우 v0.7.2 (13:40 빌드 — 사용자가 준 내역) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.17</div>
           <h3 class="tl-title" data-ko="HB런처(윈도우) v0.7.2 — 긴 안내 문구 표시 · 목록 자동 갱신" data-en="HB Launcher (Windows) v0.7.2 — long message display, auto-refreshing list">HB런처(윈도우) v0.7.2 &mdash; 긴 안내 문구 표시 · 목록 자동 갱신</h3>
@@ -709,7 +839,7 @@
         </article>
 
         <!-- 2026-10-17 : HB런처 안드로이드 v0.7.1 (10/17 01:41 재빌드 — 사용자가 준 내역) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.17</div>
           <h3 class="tl-title" data-ko="HB런처(안드로이드) v0.7.1 — 갤럭시 폴드 화면 · 터치 조작 · 에뮬레이터 명칭 수정" data-en="HB Launcher (Android) v0.7.1 — Galaxy Fold display, touch controls and emulator names fixed">HB런처(안드로이드) v0.7.1 &mdash; 갤럭시 폴드 화면 · 터치 조작 · 에뮬레이터 명칭 수정</h3>
@@ -733,7 +863,7 @@
         </article>
 
         <!-- 2026-10-16 : HB런처 Windows v0.7.1 (10/17 01:40 재빌드로 바꿔 올림 — 사용자가 준 내역) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.16</div>
           <h3 class="tl-title" data-ko="HB런처(윈도우) v0.7.1 — 패드 반응 · 레트로아크 경로 · 에뮬레이터 명칭 수정" data-en="HB Launcher (Windows) v0.7.1 — gamepad input, RetroArch path and emulator names fixed">HB런처(윈도우) v0.7.1 &mdash; 패드 반응 · 레트로아크 경로 · 에뮬레이터 명칭 수정</h3>
@@ -757,7 +887,7 @@
         </article>
 
         <!-- 2026-10-16 : HB런처 v0.7 출시 -->
-        <article class="tl-item hl launch reveal" id="hbl-v07">
+        <article class="tl-item hl launch reveal" data-cat="hbl" id="hbl-v07">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.16</div>
           <h3 class="tl-title" data-ko="HB런처 v0.7 출시 — Windows 무료 · 안드로이드(APK)" data-en="HB Launcher v0.7 released — free on Windows, Android (APK)">HB런처 v0.7 출시 &mdash; Windows 무료 · 안드로이드(APK)</h3>
@@ -807,7 +937,7 @@
         </article>
 
         <!-- 2026-10-14 : 공개 v1.1 수정판 2(v1.1.0 fix2) — HB런처 내보내기 오픈 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.14</div>
           <h3 class="tl-title" data-ko="공개 버전 v1.1 수정판 2 — HB런처 내보내기 오픈" data-en="Public v1.1 fix release 2 — HB Launcher export now open">공개 버전 v1.1 수정판 2 &mdash; HB런처 내보내기 오픈</h3>
@@ -835,7 +965,7 @@
         </article>
 
         <!-- 2026-10-14 : 해방툴 v1.1.3 (베타) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.14</div>
           <h3 class="tl-title" data-ko="해방툴 v1.1.3 베타 — HB런처 공식 지원 · MAME/FBNeo 구동 정보와 코어 자동 매핑 · Pegasus · ES-DE 수정 반영 문제 해결" data-en="Rom Tool v1.1.3 beta — official HB Launcher support, MAME/FBNeo run info and automatic core mapping, Pegasus and ES-DE edit fixes">해방툴 v1.1.3 베타 &mdash; HB런처 공식 지원 · MAME/FBNeo 구동 정보와 코어 자동 매핑 · Pegasus · ES-DE 수정 반영 문제 해결</h3>
@@ -889,7 +1019,7 @@
         </article>
 
         <!-- 2026-10-13 : 공개 v1.1 수정판(v1.1.0 fix) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.13</div>
           <h3 class="tl-title" data-ko="공개 버전 v1.1 수정판 — Pegasus · ES-DE 내보내기와 기기별 폴더 문제 수정" data-en="Public v1.1 fix release — Pegasus and ES-DE export and device folder fixes">공개 버전 v1.1 수정판 &mdash; Pegasus · ES-DE 내보내기와 기기별 폴더 문제 수정</h3>
@@ -952,7 +1082,7 @@
         </article>
 
         <!-- 2026-10-06 : 해방툴 v1.1.2 (베타) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.06</div>
           <h3 class="tl-title" data-ko="해방툴 v1.1.2 베타 — 내보내기 전면 점검: Pegasus 외부 앱 실행 · ES-DE 3.5.0 · 리눅스 기기 롬 경로 자동 찾기" data-en="Rom Tool v1.1.2 beta — export overhaul: Pegasus standalone apps, ES-DE 3.5.0, automatic ROM paths on Linux handhelds">해방툴 v1.1.2 베타 &mdash; 내보내기 전면 점검: Pegasus 외부 앱 실행 · ES-DE 3.5.0 · 리눅스 기기 롬 경로 자동 찾기</h3>
@@ -1038,7 +1168,7 @@
         </article>
 
         <!-- 2026-10-03 : 해방툴 v1.1.1 (베타) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.03</div>
           <h3 class="tl-title" data-ko="해방툴 v1.1.1 베타 — AI 패키지 이미지 한글화, 3D박스 · 서포트 자동 생성" data-en="Rom Tool v1.1.1 beta — AI Korean package art, automatic 3D boxes and supports">해방툴 v1.1.1 베타 &mdash; AI 패키지 이미지 한글화, 3D박스 · 서포트 자동 생성</h3>
@@ -1090,7 +1220,7 @@
         </article>
 
         <!-- 2026-10-01 : 공개 v1.1 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.10.01</div>
           <h3 class="tl-title" data-ko="공개 버전 v1.1 배포 — v1.0 이후의 개선을 모두 담았습니다" data-en="Public v1.1 is out — everything since v1.0, for everyone">공개 버전 v1.1 배포 &mdash; v1.0 이후의 개선을 모두 담았습니다</h3>
@@ -1203,7 +1333,7 @@
         </article>
 
         <!-- 2026-09-30 : 해방툴 v1.1.0 (베타) -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.30</div>
           <h3 class="tl-title" data-ko="해방툴 v1.1.0 베타 — AI 모델 선택과 Claude, muOS 내보내기, 끊겨도 이어지는 Wi-Fi 전송, 미디어 캐시 위치 바꾸기" data-en="Rom Tool v1.1.0 beta — choose your AI model (Claude included), muOS export, Wi-Fi transfers that resume, and a movable media cache">해방툴 v1.1.0 베타 &mdash; AI 모델 선택과 Claude, muOS 내보내기, 끊겨도 이어지는 Wi-Fi 전송, 미디어 캐시 위치 바꾸기</h3>
@@ -1259,7 +1389,7 @@
         </article>
 
         <!-- 2026-09-27 : 해방툴 v1.0.10 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.27</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.10 — 파일 이름 매칭 정확도 98.5%, BIOS 점검, 롬없음 보기, 그리고 더 빨라진 PRO 외부 기기 전환" data-en="Rom Tool v1.0.10 — 98.5% filename matching, a BIOS check, a no-ROM view, and a faster PRO device mode">해방툴 v1.0.10 &mdash; 파일 이름 매칭 정확도 98.5%, BIOS 점검, 롬없음 보기, 그리고 더 빨라진 PRO 외부 기기 전환</h3>
@@ -1349,7 +1479,7 @@
         </article>
 
         <!-- 2026-09-22 : 해방툴 v1.0.9 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.22</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.9 — 리눅스 포크별 내보내기, 하위 폴더 시스템 추가, 파일 교체, 그리고 PRO 의 Wi-Fi 기기·게임 아카이브" data-en="Rom Tool v1.0.9 — per-fork Linux export, sub-folder systems, file replace, and PRO Wi-Fi devices &amp; the game archive">해방툴 v1.0.9 &mdash; 리눅스 포크별 내보내기, 하위 폴더 시스템 추가, 파일 교체, 그리고 PRO 의 Wi-Fi 기기·게임 아카이브</h3>
@@ -1412,7 +1542,7 @@
         </article>
 
         <!-- 2026-09-17 : 해방툴 v1.0.8 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.17</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.8 — 새 이미지 편집기, 리전 일괄·이용자 리전, 그리고 PRO 기능이 자라는 중" data-en="Rom Tool v1.0.8 — a new image editor, batch regions &amp; a user region, and PRO features taking shape">해방툴 v1.0.8 &mdash; 새 이미지 편집기, 리전 일괄·이용자 리전, 그리고 PRO 기능이 자라는 중</h3>
@@ -1454,7 +1584,7 @@
         </article>
 
         <!-- 2026-09-15 : 해방툴 v1.0.7 + PRO 예고 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.15</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.7 — 저화질 내보내기·게임 숨김·기기 경로 자동 맞춤, 그리고 PRO 예고" data-en="Rom Tool v1.0.7 — low-res export, hidden games, device paths that fix themselves, and a PRO preview">해방툴 v1.0.7 &mdash; 저화질 내보내기·게임 숨김·기기 경로 자동 맞춤, 그리고 PRO 예고</h3>
@@ -1497,7 +1627,7 @@
         </article>
 
         <!-- 2026-09-15 : HB런처 베타 0.5 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.15</div>
           <h3 class="tl-title" data-ko="HB런처 베타 0.5 — 더 실물처럼, 더 매끄럽게" data-en="HB Launcher beta 0.5 — truer to life, smoother to use">HB런처 베타 0.5 &mdash; 더 실물처럼, 더 매끄럽게</h3>
@@ -1527,7 +1657,7 @@
         </article>
 
         <!-- 2026-09-10 : 해방툴 v1.0.6 + 게임 아카이브 확장 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.10</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.6 — 기종 6종이 늘고, 빠져 있던 자료를 메웠습니다" data-en="Rom Tool v1.0.6 — six more systems, and the gaps filled in">해방툴 v1.0.6 &mdash; 기종 6종이 늘고, 빠져 있던 자료를 메웠습니다</h3>
@@ -1563,7 +1693,7 @@
         </article>
 
         <!-- 2026-09-07 : 해방툴 v1.0.5 배포 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.07</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.5 — 게임 세이브를 여러 게임기에서 함께 씁니다" data-en="Rom Tool v1.0.5 — share one save across several handhelds">해방툴 v1.0.5 &mdash; 게임 세이브를 여러 게임기에서 함께 씁니다</h3>
@@ -1598,7 +1728,7 @@
         </article>
 
         <!-- 2026-09-03 : HB런처 베타 0.4 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.03</div>
           <h3 class="tl-title" data-ko="HB런처 베타 0.4 — 새 데모 영상, 그리고 클로즈 베타로" data-en="HB Launcher beta 0.4 — a new demo video, and on to closed beta">HB런처 베타 0.4 &mdash; 새 데모 영상, 그리고 클로즈 베타로</h3>
@@ -1626,7 +1756,7 @@
         </article>
 
         <!-- 2026-09-02 : 공개 v1.0 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.02</div>
           <h3 class="tl-title" data-ko="공개 버전 v1.0 배포 — 베타는 계속 앞서 갑니다" data-en="Public v1.0 is out — and the beta keeps running ahead">공개 버전 v1.0 배포 &mdash; 베타는 계속 앞서 갑니다</h3>
@@ -1655,7 +1785,7 @@
         </article>
 
         <!-- 2026-09-02 : 해방툴 v1.0.4 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.09.02</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.4 — 도구 모음이 생기고, 첫 도구로 APK 보관함이 들어갑니다" data-en="Rom Tool v1.0.4 — a new Tools menu, starting with the APK Library">해방툴 v1.0.4 &mdash; 도구 모음이 생기고, 첫 도구로 APK 보관함이 들어갑니다</h3>
@@ -1685,7 +1815,7 @@
         </article>
 
         <!-- 2026-08-29 : 해방툴 v1.0.3 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.29</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.3 — 3D 박스를 실제 케이스대로 만듭니다" data-en="Rom Tool v1.0.3 — 3D boxes that match the real cases">해방툴 v1.0.3 &mdash; 3D 박스를 실제 케이스대로 만듭니다</h3>
@@ -1715,7 +1845,7 @@
         </article>
 
         <!-- 2026-08-28 : 해방툴 v1.0.2 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.28</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.2 — 패치 형식이 늘고, 여러 장짜리 CD 를 하나로 묶습니다" data-en="Rom Tool v1.0.2 — more patch formats, and multi-disc games merged into one">해방툴 v1.0.2 — 패치 형식이 늘고, 여러 장짜리 CD 를 하나로 묶습니다</h3>
@@ -1745,7 +1875,7 @@
         </article>
 
         <!-- 2026-08-27 : 해방툴 v1.0.1 — ROM 패치 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.27</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.1 — 한글화 패치를 툴 안에서 바로 입힙니다" data-en="Rom Tool v1.0.1 — apply translation patches right inside the tool">해방툴 v1.0.1 — 한글화 패치를 툴 안에서 바로 입힙니다</h3>
@@ -1772,7 +1902,7 @@
         </article>
 
         <!-- 2026-08-25 : 해방툴 v1.0.0 — 우클릭 메뉴 · 해시 확인 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.25</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.0 — 우클릭 메뉴가 생기고, 롬 해시를 확인할 수 있습니다" data-en="Rom Tool v1.0.0 — a right-click menu, and ROM hash checking">해방툴 v1.0.0 — 우클릭 메뉴가 생기고, 롬 해시를 확인할 수 있습니다</h3>
@@ -1796,7 +1926,7 @@
         </article>
 
         <!-- 2026-08-23 : 해방툴 미디어 · 설명서 개선 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.23</div>
           <h3 class="tl-title" data-ko="해방툴 v1.0.0 (정식버전, 릴리즈예정) — 미디어가 빨라지고, 설명서 다루기가 편해졌습니다" data-en="Rom Tool v1.0.0 (full release, coming soon) — faster media, friendlier manuals">해방툴 v1.0.0 (정식버전, 릴리즈예정) — 미디어가 빨라지고, 설명서 다루기가 편해졌습니다</h3>
@@ -1829,7 +1959,7 @@
         </article>
 
         <!-- 2026-08-23 : HB런처 알파 0.3 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.23</div>
           <h3 class="tl-title" data-ko="HB런처 알파 0.3 — 즐겨찾기 · 옵션 · 플레이 영상이 들어왔습니다" data-en="HB Launcher alpha 0.3 — My Picks, options and gameplay video">HB런처 알파 0.3 — 즐겨찾기 · 옵션 · 플레이 영상이 들어왔습니다</h3>
@@ -1859,7 +1989,7 @@
         </article>
 
         <!-- 2026-08-18 : HB런처 알파 0.2 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.18</div>
           <h3 class="tl-title" data-ko="HB런처 알파 0.2 — 해방툴 50개 기종을 전부 진열대에" data-en="HB Launcher alpha 0.2 — all 50 Rom Tool systems on the shelf">HB런처 알파 0.2 — 해방툴 50개 기종을 전부 진열대에</h3>
@@ -1885,7 +2015,7 @@
         </article>
 
         <!-- 2026-08-08 : 홈페이지 개편 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="etc">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.08</div>
           <h3 class="tl-title" data-ko="홈페이지 개편 — 'HAE-BANG RETRO'로 새 단장" data-en="Homepage revamp — welcome to 'HAE-BANG RETRO'">홈페이지 개편 — 'HAE-BANG RETRO'로 새 단장</h3>
@@ -1909,7 +2039,7 @@
         </article>
 
         <!-- 2026-08-08 : HB런처 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="hbl">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.08</div>
           <h3 class="tl-title" data-ko="새 프로젝트 'HB런처' 개발 시작 — 케이스를 열고, 꽂고, 플레이" data-en="New project 'HB Launcher' begins — open the case, slot it in, play">새 프로젝트 'HB런처' 개발 시작 — 케이스를 열고, 꽂고, 플레이</h3>
@@ -1932,7 +2062,7 @@
         </article>
 
         <!-- 2026-08-03 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="etc">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.03</div>
           <h3 class="tl-title" data-ko="홈페이지에 '한글화 패치' 추가 — 대한글화시대" data-en="Homepage adds “KR Patches” — KR Patch Ages">홈페이지에 '한글화 패치' 추가 — 대한글화시대</h3>
@@ -1953,7 +2083,7 @@
         </article>
 
         <!-- 2026-08-01 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="etc">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.08.01</div>
           <h3 class="tl-title" data-ko="게임 아카이브 공개 — 레트로 게임 71,473개를 웹에서 감상하다" data-en="Game Archive is live — 71,473 retro games to browse on the web">게임 아카이브 공개 — 레트로 게임 71,473개를 웹에서 감상하다</h3>
@@ -1998,7 +2128,7 @@
         </article>
 
         <!-- 2026-07-30 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.07.30</div>
           <h3 class="tl-title" data-ko="신뢰성 대규모 개선 — 조용한 실패를 없앴습니다" data-en="A big reliability pass — no more silent failures">신뢰성 대규모 개선 — 조용한 실패를 없앴습니다</h3>
@@ -2034,7 +2164,7 @@
         </article>
 
         <!-- 2026-07-29 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.07.29</div>
           <h3 class="tl-title" data-ko="PS Vita — Vita3K 설치 방식 개편" data-en="PS Vita — reworked Vita3K install flow">PS Vita — Vita3K 설치 방식 개편</h3>
@@ -2053,7 +2183,7 @@
         </article>
 
         <!-- 2026-07-20 ~ 26 : 대규모 기능 업데이트 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.07.20 – 26</div>
           <h3 class="tl-title" data-ko="대규모 기능 업데이트 — 가져오기 · 한글 데이터 · 내보내기 개편" data-en="A big feature update — Import, Korean data, revamped Export">대규모 기능 업데이트 — 가져오기 · 한글 데이터 · 내보내기 개편</h3>
@@ -2107,7 +2237,7 @@
         </article>
 
         <!-- 2026-07-17 : 데모 릴리즈 -->
-        <article class="tl-item hl reveal">
+        <article class="tl-item hl reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.07.17</div>
           <h3 class="tl-title" data-ko="데모 버전 최초 공개 🎉" data-en="First demo release 🎉">데모 버전 최초 공개 🎉</h3>
@@ -2127,7 +2257,7 @@
         </article>
 
         <!-- 2026-06-24 ~ 25 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.06.24 – 25</div>
           <h3 class="tl-title" data-ko="미디어 서버 전환 + 컨트롤러 키설정" data-en="New media backend + controller mapping">미디어 서버 전환 + 컨트롤러 키설정</h3>
@@ -2148,7 +2278,7 @@
         </article>
 
         <!-- 2026-06-20 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.06.20</div>
           <h3 class="tl-title" data-ko="v1.0 기반 대규모 개편 — 새 UI로 완전 이전" data-en="v1.0 overhaul — fully moved to the new UI">v1.0 기반 대규모 개편 — 새 UI로 완전 이전</h3>
@@ -2167,7 +2297,7 @@
         </article>
 
         <!-- 2026-06-17 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="etc">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.06.17</div>
           <h3 class="tl-title" data-ko="공식 홈페이지 공개" data-en="Official homepage launched">공식 홈페이지 공개</h3>
@@ -2183,7 +2313,7 @@
         </article>
 
         <!-- 2026-06-13 ~ 14 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.06.13 – 14</div>
           <h3 class="tl-title" data-ko="내보내기 · 프론트엔드 세팅 · 메타 저장" data-en="Export, frontend settings, saved metadata">내보내기 · 프론트엔드 세팅 · 메타 저장</h3>
@@ -2203,7 +2333,7 @@
         </article>
 
         <!-- 2026-06-08 ~ 09 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2026.06.08 – 09</div>
           <h3 class="tl-title" data-ko="매칭 정확도 향상 + 이미지 편집" data-en="Better matching + image editing">매칭 정확도 향상 + 이미지 편집</h3>
@@ -2224,7 +2354,7 @@
         </article>
 
         <!-- 2024-12-09 -->
-        <article class="tl-item reveal">
+        <article class="tl-item reveal" data-cat="tool">
           <div class="tl-dot"><i></i></div>
           <div class="tl-date">2024.12.09</div>
           <h3 class="tl-title" data-ko="개발 시작" data-en="Development begins">개발 시작</h3>
@@ -2306,6 +2436,71 @@
     entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {rootMargin:'0px 0px -8% 0px', threshold:.06});
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+<script>
+/* 소식 골라 보기 — 해방툴 · 해방런처 · 기타. 고른 것은 주소(?f=tool|hbl|etc)에 남겨 링크로 나눌 수 있다.
+   가려진 글(#hbl-v07 등)로 가는 링크를 누르거나 그런 주소로 들어오면 '전체'로 돌린다. */
+(function () {
+  var bar = document.getElementById('nf'), mark = document.getElementById('nfMark');
+  if (!bar || !mark) return;
+  var items = [].slice.call(document.querySelectorAll('.tl > .tl-item'));
+  var banners = [].slice.call(document.querySelectorAll('main > section[data-cat]'));
+  function guess(a) {
+    var h = a.querySelector('.tl-title'), t = h ? (h.getAttribute('data-ko') || h.textContent) : '';
+    if (/^\s*(해방툴|공개 버전)/.test(t)) return 'tool';
+    if (/HB런처|해방런처/.test(t)) return 'hbl';
+    return 'etc';
+  }
+  var cnt = { all: items.length, tool: 0, hbl: 0, etc: 0 };
+  items.forEach(function (a) {
+    var c = a.getAttribute('data-cat');
+    if (!cnt.hasOwnProperty(c) || c === 'all') { c = guess(a); a.setAttribute('data-cat', c); }
+    cnt[c]++;
+  });
+  var btns = [].slice.call(bar.querySelectorAll('.nf-btn'));
+  btns.forEach(function (b) { b.querySelector('.n').textContent = cnt[b.getAttribute('data-f')]; });
+  function set(f, jump) {
+    if (!cnt.hasOwnProperty(f)) f = 'all';
+    btns.forEach(function (b) {
+      var on = b.getAttribute('data-f') === f;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    items.concat(banners).forEach(function (el) { el.classList.toggle('nf-hide', f !== 'all' && el.getAttribute('data-cat') !== f); });
+    try {
+      var u = new URL(location.href);
+      if (f === 'all') u.searchParams.delete('f'); else u.searchParams.set('f', f);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) { /* 주소만 못 바꿈 */ }
+    // 아래쪽을 보던 중이면 고른 소식의 처음(막대 바로 아래)으로 올린다
+    if (jump) {
+      var top = mark.getBoundingClientRect().top + window.scrollY - 66;
+      if (window.scrollY > top + 1) window.scrollTo({ top: top, behavior: 'instant' });
+    }
+  }
+  btns.forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-f'), true); }); });
+  function unhide(id) {
+    var t = id && document.getElementById(id);
+    if (t && (t.classList.contains('nf-hide') || (t.closest && t.closest('.nf-hide')))) { set('all', false); return t; }
+    return null;
+  }
+  // 같은 페이지 안 링크(#…) — 따라가기 전에(잡기 단계) 가려진 목적지를 먼저 보이게
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (a) unhide(decodeURIComponent(a.getAttribute('href').slice(1)));
+  }, true);
+  window.addEventListener('hashchange', function () {
+    var t = unhide(decodeURIComponent(location.hash.slice(1)));
+    if (t) t.scrollIntoView();
+  });
+  var f0 = 'all';
+  try { f0 = new URL(location.href).searchParams.get('f') || 'all'; } catch (e) {}
+  set(f0, false);
+  if (location.hash) {
+    var t0 = unhide(decodeURIComponent(location.hash.slice(1)));
+    if (t0) setTimeout(function () { t0.scrollIntoView(); }, 0);
+  }
+})();
 </script>
 <script>
 /* 모바일 메뉴 — 상단 메뉴가 숨겨지는 폭에서 같은 항목을 펼쳐 보여준다.
