@@ -195,6 +195,10 @@
   .fcard .ver{display:inline-flex; margin:0 0 10px; font-size:11.5px; font-weight:800; letter-spacing:.04em; padding:3px 9px; border-radius:999px;
     color:#c4b5fd; background:rgba(139,92,246,.14); border:1px solid rgba(167,139,250,.35)}
   .fcard .ra-stat{margin:14px 0 0; padding-top:12px; border-top:1px dashed var(--border2); font-size:13px; font-weight:700; color:#a7f3d0; line-height:1.55}
+  .fcard .ver.req{color:#fcd34d; background:rgba(251,191,36,.10); border-color:rgba(251,191,36,.40)}
+  /* 연동에 필요한 버전 — HB런처 0.7.6 · 해방툴 베타 1.1.5 (첫 화면 배지 아래) */
+  .ra-req{margin:16px auto 0; max-width:640px; font-size:13px; font-weight:700; color:#fcd34d; line-height:1.6}
+  .sec-head p.ra-req{color:#fcd34d; font-size:14px}
   .fcard.core{border-color:rgba(251,191,36,.32)}
   .fcard.input{border-color:rgba(74,222,128,.32)}
   .fcard.screen{border-color:rgba(34,211,238,.32)}
@@ -349,6 +353,9 @@
 </header>
 
 <main id="top">
+<!-- 해방툴 · HB런처 연동(코어 확인 · 자동 받기)은 HB런처 0.7.6 이상 · 해방툴 베타 1.1.5 이상에서만 동작한다.
+     둘 다 나오면: '(출시 예정)' · '(coming soon)' 을 모두 지우고, 자주 묻는 것의 '언제부터…' 칸을 .qa.soon → .qa 로 바꾼다.
+     버전 조건 자체(0.7.6 · 1.1.5 이상)는 남겨 둔다 — 옛 버전을 쓰는 사람도 이 페이지를 본다. -->
 
   <!-- HERO — 코어는 알아서, 플레이는 더 매끄럽게 -->
   <section class="hero ra-hero">
@@ -389,6 +396,8 @@
         <span class="badge" data-ko="안드로이드 5.0+ · 64/32비트" data-en="Android 5.0+ · 64/32-bit">안드로이드 5.0+ · 64/32비트</span>
         <span class="badge ok" data-ko="해방툴 · HB런처 연동" data-en="Works with Rom Tool · HB Launcher">해방툴 · HB런처 연동</span>
       </div>
+      <p class="ra-req" data-ko="코어 자동 받기 연동은 HB런처 0.7.6 이상 · 해방툴 베타 1.1.5 이상에서 동작합니다 (출시 예정)."
+         data-en="Automatic core handling needs HB Launcher 0.7.6+ or Rom Tool beta 1.1.5+ (coming soon).">코어 자동 받기 연동은 HB런처 0.7.6 이상 · 해방툴 베타 1.1.5 이상에서 동작합니다 (출시 예정).</p>
     </div>
   </section>
 
@@ -408,7 +417,8 @@
           <h3 data-ko="코어 자동 받기" data-en="Automatic core downloads">코어 자동 받기</h3>
           <p data-ko="게임에 필요한 코어를 해방툴 · HB런처가 확인하고, 없으면 공식 서버에서 받아 바로 시작합니다. '코어가 없어 검은 화면'에서 벗어납니다."
              data-en="The Rom Tool and HB Launcher check the core a game needs and, if it's missing, fetch it from the official server and start the game — no more black screens from a missing core.">게임에 필요한 코어를 해방툴 · HB런처가 확인하고, 없으면 공식 서버에서 받아 바로 시작합니다. '코어가 없어 검은 화면'에서 벗어납니다.</p>
-          <p class="ra-stat" data-ko="▶ 동작 방식은 바로 아래에서" data-en="▶ How it works is right below">▶ 동작 방식은 바로 아래에서</p>
+          <p class="ra-stat" data-ko="HB런처 0.7.6 · 해방툴 베타 1.1.5 이상 필요 (출시 예정) — 동작 방식은 바로 아래에서"
+             data-en="Needs HB Launcher 0.7.6+ or Rom Tool beta 1.1.5+ (coming soon) — how it works is right below">HB런처 0.7.6 · 해방툴 베타 1.1.5 이상 필요 (출시 예정) — 동작 방식은 바로 아래에서</p>
         </article>
         <article class="fcard reveal input">
           <span class="ver">hb3</span>
@@ -554,7 +564,7 @@
             <div class="mk-bar"><span></span></div>
             <div class="mk-go" data-ko="▶ 다 받았습니다 — 게임 시작!" data-en="▶ Ready — starting the game!">▶ 다 받았습니다 — 게임 시작!</div>
           </div>
-          <p class="ra-col-foot" data-ko="코어가 없으면 앱이 알아서 받고, 있으면 그냥 바로 시작합니다." data-en="If the core is missing the app gets it; if it's there, the game just starts.">코어가 없으면 앱이 알아서 받고, 있으면 그냥 바로 시작합니다.</p>
+          <p class="ra-col-foot" data-ko="코어가 없으면 앱이 알아서 받고, 있으면 그냥 바로 시작합니다. (HB런처 0.7.6 이상)" data-en="If the core is missing the app gets it; if it's there, the game just starts. (HB Launcher 0.7.6+)">코어가 없으면 앱이 알아서 받고, 있으면 그냥 바로 시작합니다. (HB런처 0.7.6 이상)</p>
         </div>
       </div>
     </div>
@@ -566,21 +576,26 @@
       <div class="sec-head reveal">
         <span class="eyebrow" data-ko="누가 코어를 챙기나" data-en="Who takes care of cores">누가 코어를 챙기나</span>
         <h2 data-ko="해방툴과 HB런처가 알아서 챙깁니다" data-en="The Rom Tool and HB Launcher handle it">해방툴과 HB런처가 알아서 챙깁니다</h2>
+        <p class="ra-req" data-ko="HB런처는 0.7.6 이상, 해방툴은 베타 1.1.5 이상이 필요합니다 (출시 예정). 그 전 버전에서는 HB레트로아크를 일반 RetroArch 처럼 쓰고, 코어는 RetroArch 메뉴의 온라인 업데이터로 받습니다."
+           data-en="HB Launcher needs 0.7.6 or later and the Rom Tool beta 1.1.5 or later (coming soon). With older versions, use HB RetroArch like a regular RetroArch and get cores from its Online Updater.">HB런처는 0.7.6 이상, 해방툴은 베타 1.1.5 이상이 필요합니다 (출시 예정). 그 전 버전에서는 HB레트로아크를 일반 RetroArch 처럼 쓰고, 코어는 RetroArch 메뉴의 온라인 업데이터로 받습니다.</p>
       </div>
       <div class="fgrid">
         <article class="fcard reveal hbl">
+          <span class="ver req" data-ko="HB런처 0.7.6 이상" data-en="HB Launcher 0.7.6+">HB런처 0.7.6 이상</span>
           <div class="ico"><img src="assets/eco/ic_hbl.webp" alt="" width="30" height="30" /></div>
           <h3 data-ko="HB런처 — 게임을 켜기 직전에" data-en="HB Launcher — right before launch">HB런처 — 게임을 켜기 직전에</h3>
           <p data-ko="게임 팩을 꽂기 전에 코어가 있는지 봅니다. 없으면 '코어 받는 중'을 보여 주며 받고, 다 받으면 그대로 시작합니다. 실행기를 바꾸면 미리 받아 두고, 인터넷이 없으면 해결 방법을 알려 줍니다."
              data-en="Before the cartridge goes in, it checks the core. If it's missing it shows 'Downloading core', fetches it and starts the game right after. Change the launcher and it pre-downloads; offline, it tells you what to do.">게임 팩을 꽂기 전에 코어가 있는지 봅니다. 없으면 '코어 받는 중'을 보여 주며 받고, 다 받으면 그대로 시작합니다. 실행기를 바꾸면 미리 받아 두고, 인터넷이 없으면 해결 방법을 알려 줍니다.</p>
         </article>
         <article class="fcard reveal tool">
+          <span class="ver req" data-ko="해방툴 베타 1.1.5 이상" data-en="Rom Tool beta 1.1.5+">해방툴 베타 1.1.5 이상</span>
           <div class="ico"><img src="assets/eco/ic_tool.webp" alt="" width="30" height="30" /></div>
           <h3 data-ko="해방툴 — USB 로 보낼 때" data-en="Rom Tool — when sending over USB">해방툴 — USB 로 보낼 때</h3>
           <p data-ko="내보내기가 끝나면 보낸 게임들이 쓰는 코어 가운데 기기에 없는 것을 찾아 받을지 묻습니다 — [받기] 한 번이면 됩니다. PRO 기기 시트에서는 게임 설정마다 코어가 있는지 바로 보이고 그 자리에서 받습니다."
              data-en="After an export it finds the cores your games need that the device lacks and asks whether to get them — one [Download] tap. On the PRO device sheet each game setting shows whether its core is there, and you can get it on the spot.">내보내기가 끝나면 보낸 게임들이 쓰는 코어 가운데 기기에 없는 것을 찾아 받을지 묻습니다 — [받기] 한 번이면 됩니다. PRO 기기 시트에서는 게임 설정마다 코어가 있는지 바로 보이고 그 자리에서 받습니다.</p>
         </article>
         <article class="fcard reveal fe">
+          <span class="ver req" data-ko="해방툴 베타 1.1.5 이상" data-en="Rom Tool beta 1.1.5+">해방툴 베타 1.1.5 이상</span>
           <div class="ico">🎮</div>
           <h3 data-ko="ES-DE · Pegasus — 실행 규칙까지" data-en="ES-DE · Pegasus — launch rules too">ES-DE · Pegasus — 실행 규칙까지</h3>
           <p data-ko="해방툴이 내보낼 때 ES-DE · Pegasus 가 공식판보다 HB레트로아크를 먼저 쓰도록 실행 규칙을 써 둡니다. 어느 프론트엔드로 실행해도 같은 코어를 씁니다."
@@ -605,8 +620,8 @@
           <p data-ko="게임기에 설치한 뒤 한 번 열어 저장소 권한을 허용합니다. 공식 RetroArch 는 그대로 두어도 됩니다."
              data-en="Install it on the handheld and open it once to allow storage access. You can keep the official RetroArch.">게임기에 설치한 뒤 한 번 열어 저장소 권한을 허용합니다. 공식 RetroArch 는 그대로 두어도 됩니다.</p></li>
         <li class="reveal"><span class="n">3</span><b data-ko="평소처럼 쓰기" data-en="Use it as usual">평소처럼 쓰기</b>
-          <p data-ko="해방툴로 게임을 보내고 HB런처에서 게임을 고르세요. 코어는 두 앱이 알아서 챙깁니다."
-             data-en="Send games with the Rom Tool and pick one in HB Launcher. The two apps take care of the cores.">해방툴로 게임을 보내고 HB런처에서 게임을 고르세요. 코어는 두 앱이 알아서 챙깁니다.</p></li>
+          <p data-ko="해방툴로 게임을 보내고 HB런처에서 게임을 고르세요. 코어는 두 앱이 알아서 챙깁니다(HB런처 0.7.6 · 해방툴 베타 1.1.5 이상)."
+             data-en="Send games with the Rom Tool and pick one in HB Launcher. The two apps take care of the cores (HB Launcher 0.7.6+ · Rom Tool beta 1.1.5+).">해방툴로 게임을 보내고 HB런처에서 게임을 고르세요. 코어는 두 앱이 알아서 챙깁니다(HB런처 0.7.6 · 해방툴 베타 1.1.5 이상).</p></li>
       </ol>
     </div>
   </section>
@@ -638,8 +653,8 @@
           <p data-ko="안드로이드 5.0 이상이면 됩니다. 64비트(arm64)와 32비트(armv7) 기기 모두 같은 APK 하나로 설치합니다."
              data-en="Android 5.0 or later. The same single APK installs on both 64-bit (arm64) and 32-bit (armv7) devices.">안드로이드 5.0 이상이면 됩니다. 64비트(arm64)와 32비트(armv7) 기기 모두 같은 APK 하나로 설치합니다.</p></div>
         <div class="qa reveal soon"><b data-ko="언제부터 해방툴 · HB런처와 이어지나요?" data-en="When does it work with the Rom Tool and HB Launcher?">언제부터 해방툴 · HB런처와 이어지나요?</b>
-          <p data-ko="해방툴 다음 베타(v1.1.5)와 HB런처 다음 업데이트부터 코어 확인 · 자동 받기가 들어갑니다. HB레트로아크는 지금 받아 일반 RetroArch 처럼 바로 쓸 수 있습니다."
-             data-en="Core checks and automatic downloads arrive with the next Rom Tool beta (v1.1.5) and the next HB Launcher update. You can install HB RetroArch now and use it like a regular RetroArch.">해방툴 다음 베타(v1.1.5)와 HB런처 다음 업데이트부터 코어 확인 · 자동 받기가 들어갑니다. HB레트로아크는 지금 받아 일반 RetroArch 처럼 바로 쓸 수 있습니다.</p></div>
+          <p data-ko="HB런처 0.7.6 과 해방툴 베타 1.1.5 부터 코어 확인 · 자동 받기가 들어갑니다 (출시 예정). 그 전 버전에서도 HB레트로아크는 지금 받아 일반 RetroArch 처럼 쓸 수 있고, 코어는 RetroArch 메뉴의 온라인 업데이터로 받으면 됩니다."
+             data-en="Core checks and automatic downloads arrive with HB Launcher 0.7.6 and Rom Tool beta 1.1.5 (coming soon). With older versions you can still install HB RetroArch now and use it like a regular RetroArch, getting cores from its Online Updater.">HB런처 0.7.6 과 해방툴 베타 1.1.5 부터 코어 확인 · 자동 받기가 들어갑니다 (출시 예정). 그 전 버전에서도 HB레트로아크는 지금 받아 일반 RetroArch 처럼 쓸 수 있고, 코어는 RetroArch 메뉴의 온라인 업데이터로 받으면 됩니다.</p></div>
         <div class="qa reveal"><b data-ko="문제가 생기면요?" data-en="What if something goes wrong?">문제가 생기면요?</b>
           <p data-ko="GitHub 저장소의 Issues 나 홈 화면 맨 아래 문의 칸으로 알려 주세요. 인터넷이 없을 때는 해방툴(USB)로도 코어를 받을 수 있습니다."
              data-en="Let us know through Issues on the GitHub repository or the contact form at the bottom of the home page. Without internet on the device, you can also get cores through the Rom Tool (USB).">GitHub 저장소의 Issues 나 홈 화면 맨 아래 문의 칸으로 알려 주세요. 인터넷이 없을 때는 해방툴(USB)로도 코어를 받을 수 있습니다.</p></div>
