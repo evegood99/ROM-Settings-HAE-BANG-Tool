@@ -416,8 +416,8 @@
               </li>
               <li class="now">
                 <span class="rd" data-ko="후원자 전용" data-en="Sponsors">후원자 전용</span>
-                <span data-ko="<b>v1.1.5 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 앱 안에서 자동으로 받습니다(v1.1.6 → … → 1.2). 시스템 제외 없음"
-                      data-en="<b>v1.1.5 beta</b> — via sponsor code. Minor updates arrive automatically inside the app (v1.1.6 → … → 1.2). No systems excluded"><b>v1.1.5 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 앱 안에서 자동으로 받습니다(v1.1.6 → … → 1.2). 시스템 제외 없음</span>
+                <span data-ko="<b>v1.1.6 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 앱 안에서 자동으로 받습니다(v1.1.7 → … → 1.2). 시스템 제외 없음"
+                      data-en="<b>v1.1.6 beta</b> — via sponsor code. Minor updates arrive automatically inside the app (v1.1.7 → … → 1.2). No systems excluded"><b>v1.1.6 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 앱 안에서 자동으로 받습니다(v1.1.7 → … → 1.2). 시스템 제외 없음</span>
               </li>
               <li class="next-up">
                 <span class="rd" data-ko="v1.2 까지" data-en="Toward v1.2">v1.2 까지</span>
@@ -446,6 +446,71 @@
       </div>
 
       <div class="tl">
+
+        <!-- 2026-10-29 : 해방툴 v1.1.6 (베타) — main 4a68b65 다시 빌드, 사용자가 준 내역 -->
+        <article class="tl-item hl reveal" data-cat="tool" id="rt-v116">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.10.29</div>
+          <h3 class="tl-title" data-ko="해방툴 v1.1.6 베타 — 시스템별 내장/외장 저장소 선택 · 보낼 용량 · 남은 공간 확인 · Claude 오류 수정" data-en="Rom Tool v1.1.6 beta — internal/SD storage per system, transfer size and free space check, Claude fix">해방툴 v1.1.6 베타 &mdash; 시스템별 내장/외장 저장소 선택 · 보낼 용량 · 남은 공간 확인 · Claude 오류 수정</h3>
+          <div class="tags">
+            <span class="tag new" data-ko="신규" data-en="New">신규</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+          </div>
+          <div class="tl-body">
+            <p class="tl-grp" data-ko="신규 · 개선" data-en="New · Improved">신규 · 개선</p>
+            <ul>
+              <li data-ko="<b>시스템별 내장 · 외장 저장소 선택</b> — 내보낼 때 시스템(콘솔)마다 롬을 내장 저장소에 둘지 외장(SD 카드)에 둘지 고를 수 있습니다. (PRO) 외부 기기로 전환의 시스템 추가에도 같은 방식이 적용됩니다."
+                  data-en="<b>Internal / SD storage per system</b> — when exporting, choose for each system (console) whether its ROMs go to internal storage or the SD card. Adding a system in (PRO) Switch to external device works the same way."><b>시스템별 내장 · 외장 저장소 선택</b> — 내보낼 때 시스템(콘솔)마다 롬을 내장 저장소에 둘지 외장(SD 카드)에 둘지 고를 수 있습니다. (PRO) 외부 기기로 전환의 시스템 추가에도 같은 방식이 적용됩니다.</li>
+              <li data-ko="<b>보낼 용량 · 남은 공간 확인</b> — 외부 기기로 데이터를 보내기 전에, 보낼 데이터 크기와 기기의 남은 용량을 보여 줍니다."
+                  data-en="<b>Transfer size and free space</b> — before sending data to an external device, it shows how much will be sent and how much space the device has left."><b>보낼 용량 · 남은 공간 확인</b> — 외부 기기로 데이터를 보내기 전에, 보낼 데이터 크기와 기기의 남은 용량을 보여 줍니다.</li>
+              <li data-ko="<b>(PRO) AI 연결에 로컬 경로 읽기</b> — AI 연결(MCP) 도구가 PC 의 폴더 · 파일을 읽을 수 있어, AI 가 로컬에 있는 롬 파일에 더 쉽게 접근합니다."
+                  data-en="<b>(PRO) Local paths for AI link</b> — AI link (MCP) tools can now read folders and files on the PC, so the AI reaches your local ROM files more easily."><b>(PRO) AI 연결에 로컬 경로 읽기</b> — AI 연결(MCP) 도구가 PC 의 폴더 · 파일을 읽을 수 있어, AI 가 로컬에 있는 롬 파일에 더 쉽게 접근합니다.</li>
+            </ul>
+            <p class="tl-grp" data-ko="수정" data-en="Fixed">수정</p>
+            <ul>
+              <li data-ko="<b>Claude 오류 수정 · AI 모델 최신화</b> — Claude API 키 오류 문제를 고치고, AI 가 쓰는 모델을 최신으로 바꿨습니다."
+                  data-en="<b>Claude fix · newer AI models</b> — fixed the Claude API key error and updated the AI models in use."><b>Claude 오류 수정 · AI 모델 최신화</b> — Claude API 키 오류 문제를 고치고, AI 가 쓰는 모델을 최신으로 바꿨습니다.</li>
+              <li data-ko="<b>Pegasus 목록에 게임이 안 뜨던 문제</b> — 기존 메타 정보의 shortname 을 보존해, 해방툴로 게임을 추가했을 때 Pegasus 목록에 게임이 안 뜨던 문제를 고쳤습니다."
+                  data-en="<b>Games missing from the Pegasus list</b> — the existing metadata's shortname is now kept, so games added with the Rom Tool show up in Pegasus again."><b>Pegasus 목록에 게임이 안 뜨던 문제</b> — 기존 메타 정보의 shortname 을 보존해, 해방툴로 게임을 추가했을 때 Pegasus 목록에 게임이 안 뜨던 문제를 고쳤습니다.</li>
+              <li data-ko="<b>해방런처 설명서 앞표지</b> — 고친 매뉴얼 파일의 앞표지가 해방런처에 적용되지 않던 문제를 고쳤습니다."
+                  data-en="<b>HB Launcher manual cover</b> — fixed the front cover of an edited manual file not being applied in HB Launcher."><b>해방런처 설명서 앞표지</b> — 고친 매뉴얼 파일의 앞표지가 해방런처에 적용되지 않던 문제를 고쳤습니다.</li>
+            </ul>
+            <p class="tl-note" data-ko="후원자 전용 베타 다운로드에서 받으실 수 있습니다. v1.1.3 이후 베타를 쓰고 계시면 앱을 켤 때 새 버전 알림이 뜹니다 — 설정 &gt; 업데이트의 [지금 확인]으로도 확인할 수 있습니다."
+               data-en="Available now from the sponsor beta download. On beta v1.1.3 or later you get a new-version notice when the app starts — or use [Check now] in Settings &gt; Update.">후원자 전용 베타 다운로드에서 받으실 수 있습니다. v1.1.3 이후 베타를 쓰고 계시면 앱을 켤 때 새 버전 알림이 뜹니다 — 설정 &gt; 업데이트의 [지금 확인]으로도 확인할 수 있습니다.</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="haebang.html#download" data-ko="베타 다운로드로 이동 →" data-en="Go to beta download →">베타 다운로드로 이동 →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2026-10-29 : HB런처 v0.7.7 (윈도우 · 안드로이드) — 런처 a27bbc8 빌드(APK versionCode 15), 사용자가 준 내역 -->
+        <article class="tl-item hl reveal" data-cat="hbl" id="hbl-v077">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.10.29</div>
+          <h3 class="tl-title" data-ko="HB런처 v0.7.7 (윈도우 · 안드로이드) — 화질 고사양 모드 · 배터리 표시 · 가속 이동" data-en="HB Launcher v0.7.7 (Windows · Android) — High graphics mode, battery indicator, accelerated scrolling">HB런처 v0.7.7 (윈도우 · 안드로이드) &mdash; 화질 고사양 모드 · 배터리 표시 · 가속 이동</h3>
+          <div class="tags">
+            <span class="tag new" data-ko="신규" data-en="New">신규</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+          </div>
+          <div class="tl-body">
+            <p class="tl-grp" data-ko="신규 · 개선" data-en="New · Improved">신규 · 개선</p>
+            <ul>
+              <li data-ko="<b>화질 '고사양' 모드</b> — 옵션 → 화면 → 화질에 고사양 모드를 넣고, 기존 표준 모드의 화질도 손봤습니다. 고사양 모드는 메모리를 조금 더 쓰는 정도이며, RG 476H(T820 칩셋)에서도 무리 없이 돌아갑니다."
+                  data-en="<b>'High' graphics quality</b> — Options → Display → Quality now has a High mode, and the Standard mode looks better too. High mode only uses a little more memory and runs fine even on the RG 476H (T820 chipset)."><b>화질 '고사양' 모드</b> — 옵션 → 화면 → 화질에 고사양 모드를 넣고, 기존 표준 모드의 화질도 손봤습니다. 고사양 모드는 메모리를 조금 더 쓰는 정도이며, RG 476H(T820 칩셋)에서도 무리 없이 돌아갑니다.</li>
+              <li data-ko="<b>배터리 표시</b> — 배터리 잔량을 화면에 보여 줍니다."
+                  data-en="<b>Battery indicator</b> — shows the battery level on screen."><b>배터리 표시</b> — 배터리 잔량을 화면에 보여 줍니다.</li>
+              <li data-ko="<b>누르는 만큼 빨라지는 이동</b> — 시스템 · 게임을 고를 때 누르고 있는 정도에 따라 점점 빠르게 넘어갑니다(가속)."
+                  data-en="<b>Accelerated scrolling</b> — when choosing systems and games, the longer you hold, the faster it moves."><b>누르는 만큼 빨라지는 이동</b> — 시스템 · 게임을 고를 때 누르고 있는 정도에 따라 점점 빠르게 넘어갑니다(가속).</li>
+            </ul>
+            <p class="tl-note" data-ko="안드로이드: 구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아 지금 쓰시는 앱 위에 설치하면 됩니다. 윈도우: [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(둘 다 라이브러리 · 설정 유지)."
+               data-en="Android: use the same HB Launcher APK code with [Get the APK with your code] on the HB Launcher page and install over your app. Windows: unzip the [Download for Windows] file over the old files (both keep your library and settings).">안드로이드: 구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아 지금 쓰시는 앱 위에 설치하면 됩니다. 윈도우: [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(둘 다 라이브러리 · 설정 유지).</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="launcher.html#download" data-ko="APK v0.7.7 받기 →" data-en="Get APK v0.7.7 →">APK v0.7.7 받기 →</a>
+              <a class="btn btn-ghost" href="launcher.html#download" data-ko="Windows v0.7.7 받기 →" data-en="Get Windows v0.7.7 →">Windows v0.7.7 받기 →</a>
+            </div>
+          </div>
+        </article>
 
         <!-- 2026-10-24 : 해방툴 v1.1.5 (베타) — main bb45411, 설치 파일 10/24 12:34 (md5 2deec55a…), 사용자가 준 내역 -->
         <article class="tl-item hl reveal" data-cat="tool" id="rt-v115">
