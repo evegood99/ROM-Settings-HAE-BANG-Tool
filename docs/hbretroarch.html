@@ -390,7 +390,7 @@
         <a class="btn btn-ghost" href="#how"><span data-ko="어떻게 동작하나요? ↓" data-en="How does it work? ↓">어떻게 동작하나요? ↓</span></a>
       </div>
       <div class="hero-badges">
-        <span class="badge new" data-ko="최신 1.22.2-hb6" data-en="Latest 1.22.2-hb6">최신 1.22.2-hb6</span>
+        <span class="badge new" data-ko="최신 1.22.2-hb7" data-en="Latest 1.22.2-hb7">최신 1.22.2-hb7</span>
         <span class="badge"><span class="dot"></span><span data-ko="무료 · 오픈소스(GPLv3)" data-en="Free · open source (GPLv3)">무료 · 오픈소스(GPLv3)</span></span>
         <span class="badge" data-ko="RetroArch 1.22.2 기반" data-en="Based on RetroArch 1.22.2">RetroArch 1.22.2 기반</span>
         <span class="badge" data-ko="안드로이드 5.0+ · 64/32비트" data-en="Android 5.0+ · 64/32-bit">안드로이드 5.0+ · 64/32비트</span>
@@ -438,6 +438,8 @@
         </article>
       </div>
       <ol class="ra-log reveal">
+        <li><b>1.22.2-hb7<small>2026-11-06</small></b><span data-ko="'스레드된 비디오'를 켜 두면 게임 중 슬립했다 깨우거나 홈에서 돌아올 때 꺼지던 문제를 고쳤습니다. 다른 게임을 고르면 한 번에 바뀝니다."
+             data-en="Fixed RetroArch closing when waking from sleep or returning from the home screen with Threaded Video on. Picking another game now switches in one go.">'스레드된 비디오'를 켜 두면 게임 중 슬립했다 깨우거나 홈에서 돌아올 때 꺼지던 문제를 고쳤습니다. 다른 게임을 고르면 한 번에 바뀝니다.</span></li>
         <li><b>1.22.2-hb6<small>2026-11-04</small></b><span data-ko="해방런처 · ES-DE 로만 켜면 메뉴 한글이 '??' 로 깨지고 아이콘이 비어 나오던 문제를 고쳤습니다. 이제 바로 켜도 글꼴 · 아이콘을 풉니다."
              data-en="Fixed menus showing '??' instead of Korean and blank icons when RetroArch is only started from HB Launcher or ES-DE — fonts and icons are now unpacked on direct launches too.">해방런처 · ES-DE 로만 켜면 메뉴 한글이 '??' 로 깨지고 아이콘이 비어 나오던 문제를 고쳤습니다. 이제 바로 켜도 글꼴 · 아이콘을 풉니다.</span></li>
         <li><b>1.22.2-hb5<small>2026-10-24</small></b><span data-ko="3DS 코어 Azahar 를 해방런처 · 해방툴이 받을 수 있습니다. 앱 안 온라인 업데이터로 받은 코어도 알아봅니다."
@@ -662,6 +664,9 @@
         <div class="qa reveal"><b data-ko="메뉴 글자가 '??' 로 깨져 보여요" data-en="The menu shows '??' instead of text">메뉴 글자가 '??' 로 깨져 보여요</b>
           <p data-ko="글꼴 · 아이콘 같은 기본 자료가 아직 풀리지 않은 것입니다. 1.22.2-hb6 이상으로 업데이트하면 해방런처에서 바로 켜도 알아서 풉니다. 그 전 버전이라면 HB레트로아크를 앱 아이콘으로 한 번 켜 두세요."
              data-en="The bundled fonts and icons haven't been unpacked yet. Update to 1.22.2-hb6 or later and they are unpacked even when HB Launcher starts it directly; with an older version, open HB RetroArch once from its app icon.">글꼴 · 아이콘 같은 기본 자료가 아직 풀리지 않은 것입니다. 1.22.2-hb6 이상으로 업데이트하면 해방런처에서 바로 켜도 알아서 풉니다. 그 전 버전이라면 HB레트로아크를 앱 아이콘으로 한 번 켜 두세요.</p></div>
+        <div class="qa reveal"><b data-ko="슬립했다 깨우면 게임이 꺼져요" data-en="The game closes when I wake the device from sleep">슬립했다 깨우면 게임이 꺼져요</b>
+          <p data-ko="설정 &gt; 비디오의 '스레드된 비디오'를 켜 두었을 때 생기던 문제로, 1.22.2-hb7 에서 고쳤습니다. 홈에서 같은 게임으로 돌아올 때도 같습니다. 공식 RetroArch 나 그 전 버전이라면 '스레드된 비디오'를 꺼 두세요."
+             data-en="This happened with Settings &gt; Video &gt; Threaded Video turned on, including when returning to the same game from the home screen, and it's fixed in 1.22.2-hb7. On the official RetroArch or an older version, turn Threaded Video off.">설정 &gt; 비디오의 '스레드된 비디오'를 켜 두었을 때 생기던 문제로, 1.22.2-hb7 에서 고쳤습니다. 홈에서 같은 게임으로 돌아올 때도 같습니다. 공식 RetroArch 나 그 전 버전이라면 '스레드된 비디오'를 꺼 두세요.</p></div>
         <div class="qa reveal"><b data-ko="3DS(Azahar)가 검은 화면에서 멈춰요" data-en="3DS (Azahar) stops on a black screen">3DS(Azahar)가 검은 화면에서 멈춰요</b>
           <p data-ko="Azahar 는 암호화된 3DS 롬을 실행하지 않습니다(코어 · 단독 앱 모두). 복호화된 롬인지 확인해 주세요. 코어 받기는 1.22.2-hb5 부터 됩니다."
              data-en="Azahar refuses encrypted 3DS ROMs (both the core and the standalone app), so check that the ROM is decrypted. Downloading the core through HB RetroArch works from 1.22.2-hb5.">Azahar 는 암호화된 3DS 롬을 실행하지 않습니다(코어 · 단독 앱 모두). 복호화된 롬인지 확인해 주세요. 코어 받기는 1.22.2-hb5 부터 됩니다.</p></div>
@@ -677,8 +682,8 @@
     <div class="wrap">
       <div class="cta reveal ra-cta">
         <h2 data-ko="HB레트로아크 받기" data-en="Get HB RetroArch">HB레트로아크 받기</h2>
-        <p data-ko="GitHub 릴리스 페이지에서 최신 APK(HBRetroArch-….apk)를 받으세요. 무료이고, 지금 최신 버전은 1.22.2-hb6 입니다. 쓰던 버전 위에 덮어 설치하면 됩니다."
-           data-en="Grab the latest APK (HBRetroArch-….apk) from the GitHub Releases page. It's free; the latest version is 1.22.2-hb6, and it installs over the one you have.">GitHub 릴리스 페이지에서 최신 APK(HBRetroArch-….apk)를 받으세요. 무료이고, 지금 최신 버전은 1.22.2-hb6 입니다. 쓰던 버전 위에 덮어 설치하면 됩니다.</p>
+        <p data-ko="GitHub 릴리스 페이지에서 최신 APK(HBRetroArch-….apk)를 받으세요. 무료이고, 지금 최신 버전은 1.22.2-hb7 입니다. 쓰던 버전 위에 덮어 설치하면 됩니다."
+           data-en="Grab the latest APK (HBRetroArch-….apk) from the GitHub Releases page. It's free; the latest version is 1.22.2-hb7, and it installs over the one you have.">GitHub 릴리스 페이지에서 최신 APK(HBRetroArch-….apk)를 받으세요. 무료이고, 지금 최신 버전은 1.22.2-hb7 입니다. 쓰던 버전 위에 덮어 설치하면 됩니다.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="https://github.com/evegood99/HBRetroArch/releases" target="_blank" rel="noopener">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
