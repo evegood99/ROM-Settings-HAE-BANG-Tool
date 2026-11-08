@@ -153,6 +153,15 @@
   .tl-body li li{margin:3px 0; font-size:14px}
   .tl-yt{position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; border:1px solid var(--border2); background:#000; margin:8px 0 2px}
   .tl-yt iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  /* 업데이트 글 안의 기능 영상(HB런처 v0.7.9 부터) — 4:3 기기 화면 녹화 + 장면 바로 보기 단추(data-t 초) */
+  .tl-video{max-width:760px; margin:14px 0 4px}
+  .tl-video video{display:block; width:100%; height:auto; aspect-ratio:4/3; border-radius:10px; border:1px solid var(--border2); background:#000}
+  .tl-chap{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:9px 0 0}
+  .tl-chap .lab{font-size:12px; color:var(--faint); font-weight:700}
+  .tl-chap button{font:inherit; font-size:12.5px; font-weight:700; color:var(--text); background:var(--surface); border:1px solid var(--border2);
+    border-radius:999px; padding:5px 12px; cursor:pointer; transition:border-color .2s, color .2s}
+  .tl-chap button:hover,.tl-chap button:focus-visible{border-color:var(--cyan); color:var(--cyan)}
+  .tl-vcap{margin:6px 1px 0; font-size:12px; line-height:1.5; color:var(--muted)}
   .road b{color:var(--text); font-weight:700}
 
   /* ---------- 타임라인 ---------- */
@@ -446,6 +455,54 @@
       </div>
 
       <div class="tl">
+
+        <!-- 2026-11-08 : HB런처 v0.7.9 (윈도우 · 안드로이드) — 런처 5ce227e 빌드(APK versionCode 17 11/08 13:18 d2874e80… · zip 18:38 247e5f91…),
+             영상은 RG 476H 실기 녹화(문구는 영상에 얹음, 런처 저장소 export/hbl_079_features.mp4 를 960x720 으로). 윈도우 전자상가는 구경만(해방툴 1.1.8 부터 가져오기) -->
+        <article class="tl-item hl reveal" data-cat="hbl" id="hbl-v079">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.11.08</div>
+          <h3 class="tl-title" data-ko="HB런처 v0.7.9 (윈도우 · 안드로이드) — 체크 모드 · 꾸러미 상자 · 게임 검색" data-en="HB Launcher v0.7.9 (Windows · Android) — Check mode, bundle boxes, game search">HB런처 v0.7.9 (윈도우 · 안드로이드) &mdash; 체크 모드 · 꾸러미 상자 · 게임 검색</h3>
+          <div class="tags">
+            <span class="tag new" data-ko="신규" data-en="New">신규</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+          </div>
+          <div class="tl-body">
+            <p class="tl-grp" data-ko="신규 · 개선" data-en="New · Improved">신규 · 개선</p>
+            <ul>
+              <li data-ko="<b>체크 모드</b> — 게임 목록에서 X 로 여러 게임에 체크하고, Y 로 목록 전체를 반전, A 로 체크한 게임을 한 번에 즐겨찾기에 넣거나 빼고 삭제할 수 있습니다. B 로 체크 모드를 끝냅니다. X 는 이제 즐겨찾기 대신 체크입니다 — 즐겨찾기는 체크한 뒤 A 로 넣습니다."
+                  data-en="<b>Check mode</b> — in a game list, press X to check several games, Y to invert the whole list, and A to add them to favorites, remove them, or delete them all at once. B leaves check mode. X now checks instead of toggling a favorite — to favorite games, check them and press A."><b>체크 모드</b> — 게임 목록에서 X 로 여러 게임에 체크하고, Y 로 목록 전체를 반전, A 로 체크한 게임을 한 번에 즐겨찾기에 넣거나 빼고 삭제할 수 있습니다. B 로 체크 모드를 끝냅니다. X 는 이제 즐겨찾기 대신 체크입니다 — 즐겨찾기는 체크한 뒤 A 로 넣습니다.</li>
+              <li data-ko="<b>꾸러미 상자</b> — 하위 폴더(해방툴 내보내기 폴더)가 게임들이 담긴 꾸러미 상자로 보입니다. 상자 날개에 폴더 이름표가 붙고, A 로 상자 안에 들어가 B 로 나옵니다."
+                  data-en="<b>Bundle boxes</b> — sub-folders (Rom Tool export folders) now show up as a cardboard box holding their games, with the folder name on a label. A takes you inside, B brings you back out."><b>꾸러미 상자</b> — 하위 폴더(해방툴 내보내기 폴더)가 게임들이 담긴 꾸러미 상자로 보입니다. 상자 날개에 폴더 이름표가 붙고, A 로 상자 안에 들어가 B 로 나옵니다.</li>
+              <li data-ko="<b>게임 검색</b> — 게임 목록에서 SELECT(키보드는 / 또는 Ctrl+F)로 검색 창을 엽니다. 제목을 두 글자부터 입력하면 이름순으로 맞는 첫 게임으로 바로 가고, ▲▼ 로 맞는 게임 사이를 오갑니다. 패드만 있는 기기 · 폰은 화면 키보드가 뜹니다. (안드로이드의 무선 받기는 시스템 화면의 SELECT 그대로)"
+                  data-en="<b>Game search</b> — in a game list, SELECT (/ or Ctrl+F on a keyboard) opens a search box. Type two or more letters of a title and it jumps straight to the first match in name order; ▲▼ moves between matches. Handhelds and phones bring up the on-screen keyboard. (On Android, wireless receive stays on SELECT in the system screen.)"><b>게임 검색</b> — 게임 목록에서 SELECT(키보드는 / 또는 Ctrl+F)로 검색 창을 엽니다. 제목을 두 글자부터 입력하면 이름순으로 맞는 첫 게임으로 바로 가고, ▲▼ 로 맞는 게임 사이를 오갑니다. 패드만 있는 기기 · 폰은 화면 키보드가 뜹니다. (안드로이드의 무선 받기는 시스템 화면의 SELECT 그대로)</li>
+              <li data-ko="<b>게임별 옵션에 롬 파일</b> — 게임별 옵션(START)에 롬 파일 이름과 전체 경로가 보입니다."
+                  data-en="<b>ROM file in per-game options</b> — per-game options (START) now show the ROM file name and its full path."><b>게임별 옵션에 롬 파일</b> — 게임별 옵션(START)에 롬 파일 이름과 전체 경로가 보입니다.</li>
+              <li data-ko="<b>(윈도우) 해방레트로 전자상가</b> — 윈도우 HB런처에서도 해방툴이 연 가게에 들어가 게임을 구경할 수 있습니다."
+                  data-en="<b>(Windows) HAE-BANG Retro Mall</b> — the Windows HB Launcher can now step into a shop opened by the Rom Tool and browse its games."><b>(윈도우) 해방레트로 전자상가</b> — 윈도우 HB런처에서도 해방툴이 연 가게에 들어가 게임을 구경할 수 있습니다.</li>
+            </ul>
+            <div class="tl-video">
+              <video controls muted playsinline preload="metadata" poster="assets/hbl_v079_poster.jpg" width="960" height="720">
+                <source src="assets/hbl_v079_features.mp4" type="video/mp4" />
+              </video>
+              <div class="tl-chap">
+                <span class="lab" data-ko="바로 보기" data-en="Jump to">바로 보기</span>
+                <button type="button" data-t="4.3" data-ko="체크 모드 0:04" data-en="Check mode 0:04">체크 모드 0:04</button>
+                <button type="button" data-t="28.8" data-ko="꾸러미 상자 0:29" data-en="Bundle boxes 0:29">꾸러미 상자 0:29</button>
+                <button type="button" data-t="42.4" data-ko="게임 검색 0:42" data-en="Game search 0:42">게임 검색 0:42</button>
+              </div>
+              <p class="tl-vcap" data-ko="새 기능 영상(1분 · 소리 없음) — 안드로이드 RG 476H 화면 그대로입니다. 윈도우판도 같은 화면이고, 키보드로도 조작합니다."
+                 data-en="New features in one minute (no sound) — recorded straight from an Android RG 476H. The Windows version looks the same and works with a keyboard too.">새 기능 영상(1분 · 소리 없음) — 안드로이드 RG 476H 화면 그대로입니다. 윈도우판도 같은 화면이고, 키보드로도 조작합니다.</p>
+            </div>
+            <p class="tl-alert" data-ko="<b>윈도우 전자상가는 지금 구경만 됩니다.</b> 가게에 들어가 게임을 둘러볼 수는 있지만, 게임 가져오기(다운로드)는 다음 해방툴 업데이트 때 가능해집니다."
+               data-en="<b>On Windows the Mall is browse-only for now.</b> You can enter a shop and look around its games, but taking games (download) becomes available with the next Rom Tool update."><b>윈도우 전자상가는 지금 구경만 됩니다.</b> 가게에 들어가 게임을 둘러볼 수는 있지만, 게임 가져오기(다운로드)는 다음 해방툴 업데이트 때 가능해집니다.</p>
+            <p class="tl-note" data-ko="안드로이드: 구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아 지금 쓰시는 앱 위에 설치하면 됩니다. 윈도우: [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(둘 다 라이브러리 · 설정 유지). 전자상가는 PC 의 해방툴 v1.1.7 베타(PRO)가 가게를 열어 두어야 들어갈 수 있습니다."
+               data-en="Android: use the same HB Launcher APK code with [Get the APK with your code] on the HB Launcher page and install over your app. Windows: unzip the [Download for Windows] file over the old files (both keep your library and settings). To enter the Mall, the Rom Tool v1.1.7 beta (PRO) on your PC has to have its shop open.">안드로이드: 구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아 지금 쓰시는 앱 위에 설치하면 됩니다. 윈도우: [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(둘 다 라이브러리 · 설정 유지). 전자상가는 PC 의 해방툴 v1.1.7 베타(PRO)가 가게를 열어 두어야 들어갈 수 있습니다.</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="launcher.html#download" data-ko="APK v0.7.9 받기 →" data-en="Get APK v0.7.9 →">APK v0.7.9 받기 →</a>
+              <a class="btn btn-ghost" href="launcher.html#download" data-ko="Windows v0.7.9 받기 →" data-en="Get Windows v0.7.9 →">Windows v0.7.9 받기 →</a>
+            </div>
+          </div>
+        </article>
 
         <!-- 2026-11-06 : 해방툴 v1.1.7 (베타) — main 0045ec6 빌드(설치 파일 11/06 14:48, md5 d4ab5634…), 사용자가 준 내역 -->
         <article class="tl-item hl reveal" data-cat="tool" id="rt-v117">
@@ -2705,6 +2762,16 @@
   box.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
   window.addEventListener('resize', function () { if (window.innerWidth > 1040) setOpen(false); });
 })();
+</script>
+<script>
+/* 업데이트 글 안 기능 영상의 '바로 보기' — 단추의 data-t(초)로 옮겨 재생한다. 메타데이터 전이면 받은 뒤 옮긴다. */
+document.querySelectorAll('.tl-chap button[data-t]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var v = b.closest('.tl-video').querySelector('video'), t = parseFloat(b.getAttribute('data-t')) || 0;
+    function go() { try { v.currentTime = t; } catch (e) {} var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    if (v.readyState >= 1) go(); else { v.addEventListener('loadedmetadata', go, { once: true }); v.load(); }
+  });
+});
 </script>
 <script src="assets/donate.js"></script>
 <script src="assets/qrlink.js"></script>
