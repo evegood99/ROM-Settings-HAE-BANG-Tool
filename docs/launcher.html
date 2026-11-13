@@ -342,6 +342,23 @@
     .mnav{display:block}
   }
   .icon-btn.yt{color:#ff4d4d} .icon-btn.yt:hover{color:#fff; background:#e0261c; border-color:#e0261c}
+  /* ---------- 온라인 오락실 시스템 호환표(HB런처 v0.8.0 부터 — launcher.html #netplay · news.html #hbl-v080 가 같은 표) ---------- */
+  .np-wrap{overflow-x:auto; margin:14px 0 6px; border:1px solid var(--border2); border-radius:12px}
+  .np-table{width:100%; min-width:640px; border-collapse:collapse; font-size:14px; line-height:1.5}
+  .np-table th,.np-table td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--border); vertical-align:middle}
+  .np-table th{background:var(--surface2); color:var(--muted); font-weight:700; font-size:12.5px; letter-spacing:.02em}
+  .np-table th{white-space:nowrap}
+  .np-table th small{display:block; font-weight:600; font-size:11.5px; color:var(--faint); letter-spacing:0}
+  .np-table td:first-child{color:#fff; font-weight:700; white-space:nowrap}
+  .np-table td.ok{color:var(--emerald,#34d399); font-weight:800; white-space:nowrap}
+  .np-table td.ok small{color:var(--muted); font-weight:600; font-size:12.5px}
+  .np-table tbody tr:last-child td{border-bottom:0}
+  .np-box{max-width:920px; margin:0 auto}
+  .np-notes{margin:14px 0 0; padding-left:20px; color:var(--muted); font-size:14.5px; line-height:1.7}
+  .np-notes b{color:var(--text)}
+  .np-req{margin:14px 0 0; padding:11px 14px; border-radius:10px; border:1px solid rgba(251,191,36,.4); background:rgba(251,191,36,.08); color:#fde68a; font-size:14px; line-height:1.6}
+  .np-req b{color:var(--gold)}
+  .np-cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
 </style>
 </head>
 <body>
@@ -592,6 +609,49 @@
     </div>
   </section>
 
+  <!-- 온라인 오락실 시스템 호환표 (v0.8.0, 2026-11-14) — 새 소식 #hbl-v080 의 표와 같다. 표를 고치면 두 곳을 함께 -->
+  <section id="netplay">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow" data-ko="온라인 오락실" data-en="Online Arcade">온라인 오락실</span>
+        <h2 data-ko="넷플레이 시스템 호환표" data-en="Netplay system compatibility">넷플레이 시스템 호환표</h2>
+        <p data-ko="v0.8 부터 멀리 있는 친구와 같은 게임을 인터넷으로 같이 합니다. 방장이 방을 만들고 친구는 방 번호 6자리만 넣으면 됩니다. 지금 되는 시스템과 조합입니다." data-en="From v0.8 you can play the same game with a friend far away over the internet — the host opens a room and the friend types its 6-digit number. These are the systems and pairings that work today.">v0.8 부터 멀리 있는 친구와 같은 게임을 인터넷으로 같이 합니다. 방장이 방을 만들고 친구는 방 번호 6자리만 넣으면 됩니다. 지금 되는 시스템과 조합입니다.</p>
+      </div>
+      <div class="np-box reveal">
+        <div class="np-wrap">
+          <table class="np-table">
+            <thead><tr>
+              <th data-ko="시스템" data-en="System">시스템</th>
+              <th data-ko="넷플레이 코어 <small>(앞의 것부터)</small>" data-en="Netplay core <small>(first one preferred)</small>">넷플레이 코어 <small>(앞의 것부터)</small></th>
+              <th data-ko="같은 종류끼리 <small>안드로이드 ↔ 안드로이드<br>윈도우 ↔ 윈도우</small>" data-en="Same kind <small>Android ↔ Android<br>Windows ↔ Windows</small>">같은 종류끼리 <small>안드로이드 ↔ 안드로이드<br>윈도우 ↔ 윈도우</small></th>
+              <th data-ko="윈도우 ↔ 안드로이드" data-en="Windows ↔ Android">윈도우 ↔ 안드로이드</th>
+            </tr></thead>
+            <tbody>
+              <tr><td data-ko="아케이드 (FinalBurn Neo)" data-en="Arcade (FinalBurn Neo)">아케이드 (FinalBurn Neo)</td><td>FinalBurn Neo</td><td class="ok">○</td><td class="ok">○</td></tr>
+              <tr><td data-ko="아케이드 (MAME)" data-en="Arcade (MAME)">아케이드 (MAME)</td><td><span data-ko="MAME(현재판) 또는 FinalBurn Neo — 그 롬을 평소에 켜는 코어" data-en="MAME (current) or FinalBurn Neo — whichever core that ROM normally runs on">MAME(현재판) 또는 FinalBurn Neo — 그 롬을 평소에 켜는 코어</span></td><td class="ok">○</td><td class="ok">○</td></tr>
+              <tr><td data-ko="메가드라이브" data-en="Mega Drive / Genesis">메가드라이브</td><td>PicoDrive · Genesis Plus GX</td><td class="ok">○</td><td class="ok" data-ko="○ <small>PicoDrive 로</small>" data-en="○ <small>with PicoDrive</small>">○ <small>PicoDrive 로</small></td></tr>
+              <tr><td data-ko="슈퍼패미컴" data-en="Super Famicom / SNES">슈퍼패미컴</td><td>Snes9x · Snes9x 2010 · Mesen-S</td><td class="ok">○</td><td class="ok">○</td></tr>
+              <tr><td data-ko="패미컴" data-en="Famicom / NES">패미컴</td><td>FCEUmm · Nestopia · Mesen</td><td class="ok">○</td><td class="ok">○</td></tr>
+              <tr><td data-ko="PC엔진 (HuCard)" data-en="PC Engine / TurboGrafx-16 (HuCard)">PC엔진 (HuCard)</td><td>Beetle PCE Fast · Beetle SuperGrafx · Beetle PCE</td><td class="ok">○</td><td class="ok">○</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="np-notes">
+          <li data-ko="<b>같은 롬</b> — 두 사람 모두 같은 롬 파일이 있어야 합니다. 들어갈 때 런처가 견줍니다." data-en="<b>Same ROM</b> — both players need the same ROM file. The launcher checks it when you join."><b>같은 롬</b> — 두 사람 모두 같은 롬 파일이 있어야 합니다. 들어갈 때 런처가 견줍니다.</li>
+          <li data-ko="<b>아케이드</b> — 그 롬을 평소에 켜는 코어로 방이 열립니다. MAME 2003-Plus · MAME 2010 처럼 넷플레이가 안 되는 코어로 켜는 롬은 방장 화면에 나오지 않습니다." data-en="<b>Arcade</b> — a room opens with the core that ROM normally runs on. ROMs set to a core without netplay (MAME 2003-Plus, MAME 2010 …) do not appear on the host screen."><b>아케이드</b> — 그 롬을 평소에 켜는 코어로 방이 열립니다. MAME 2003-Plus · MAME 2010 처럼 넷플레이가 안 되는 코어로 켜는 롬은 방장 화면에 나오지 않습니다.</li>
+          <li data-ko="<b>메가드라이브</b> — 윈도우와 안드로이드가 만나면 PicoDrive 로 열립니다(Genesis Plus GX 는 같은 종류끼리만 됩니다)." data-en="<b>Mega Drive</b> — when Windows meets Android the room uses PicoDrive (Genesis Plus GX only works between devices of the same kind)."><b>메가드라이브</b> — 윈도우와 안드로이드가 만나면 PicoDrive 로 열립니다(Genesis Plus GX 는 같은 종류끼리만 됩니다).</li>
+          <li data-ko="<b>코어 준비</b> — 안드로이드는 HB레트로아크가 필요한 코어를 알아서 받아 옵니다. 윈도우는 RetroArch 1.22(64비트)에 그 코어를 미리 깔아 두세요. 두 기기의 코어 버전이 달라도 그 판에만 쓸 최신 코어를 받아 맞춥니다." data-en="<b>Getting cores</b> — on Android HB RetroArch downloads the core it needs. On Windows install that core in RetroArch 1.22 (64-bit) beforehand. If the two devices have different core builds, a latest copy is fetched for that session."><b>코어 준비</b> — 안드로이드는 HB레트로아크가 필요한 코어를 알아서 받아 옵니다. 윈도우는 RetroArch 1.22(64비트)에 그 코어를 미리 깔아 두세요. 두 기기의 코어 버전이 달라도 그 판에만 쓸 최신 코어를 받아 맞춥니다.</li>
+          <li data-ko="<b>표에 없는 시스템</b> — 아직 지원하지 않습니다(메가 CD · PC엔진 CD · MSX · 게임보이 등). 실제 기기로 이어 본 것만 넣고 있고, 확인되는 대로 늘립니다. RetroArch 코어만 되고 단독 에뮬레이터는 지원하지 않습니다." data-en="<b>Systems not listed</b> — not supported yet (Mega CD, PC Engine CD, MSX, Game Boy and others). Only combinations verified on real devices are listed, and more are added as they are confirmed. RetroArch cores only — standalone emulators are not supported."><b>표에 없는 시스템</b> — 아직 지원하지 않습니다(메가 CD · PC엔진 CD · MSX · 게임보이 등). 실제 기기로 이어 본 것만 넣고 있고, 확인되는 대로 늘립니다. RetroArch 코어만 되고 단독 에뮬레이터는 지원하지 않습니다.</li>
+        </ul>
+        <p class="np-req" data-ko="<b>필요한 것</b> — 함께 하는 사람 모두 HB런처 0.8.0 이상. 안드로이드는 HB레트로아크 1.22.2-hb16 이상(무료)도 필요합니다. 실제 기기(안드로이드 휴대기 두 대 · 윈도우 PC)로 확인한 조합만 실었습니다." data-en="<b>What you need</b> — HB Launcher 0.8.0 or later for every player; on Android also HB RetroArch 1.22.2-hb16 or later (free). Only pairings checked on real devices (two Android handhelds and a Windows PC) are listed."><b>필요한 것</b> — 함께 하는 사람 모두 HB런처 0.8.0 이상. 안드로이드는 HB레트로아크 1.22.2-hb16 이상(무료)도 필요합니다. 실제 기기(안드로이드 휴대기 두 대 · 윈도우 PC)로 확인한 조합만 실었습니다.</p>
+        <div class="np-cta">
+          <a class="btn btn-ghost" href="hbretroarch.html" data-ko="HB레트로아크 받기 →" data-en="Get HB RetroArch →">HB레트로아크 받기 →</a>
+          <a class="btn btn-ghost" href="news.html#hbl-v080" data-ko="v0.8 소식 자세히 →" data-en="What’s new in v0.8 →">v0.8 소식 자세히 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 다운로드 — Windows 는 압축 파일(zip) 바로 받기, Android 는 유료(13,000원 · US$10) — 구매하면 받는 HB런처 APK 코드로 받기(스크립트의 HBL_DL) -->
   <section id="download">
     <div class="wrap">
@@ -724,7 +784,9 @@
     document.documentElement.lang = l;
     document.querySelectorAll('[data-ko]').forEach(function(el){
       var v = el.getAttribute('data-' + l);
-      if (v != null) el.textContent = v;
+      if (v == null) return;
+      // data-ko/en 은 우리가 쓴 고정 글이다 — 굵게(<b>) 같은 꾸밈이 든 값만 innerHTML 로(news.html · haebang.html 과 같다, 호환표의 <b> · <small>)
+      if (v.indexOf('<') >= 0) el.innerHTML = v; else el.textContent = v;
     });
     document.getElementById('langBtn').textContent = (l === 'ko') ? 'EN' : '한';
     try { localStorage.setItem('hb_lang', l); } catch(e){}
