@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- 이 저장소는 GitHub Pages 와 Cloudflare Pages 두 곳에 배포된다.
+     깃허브 쪽에는 Functions(/api/*)가 없어 아카이브·패치가 동작하지 않으므로,
+     그쪽으로 들어온 방문자는 같은 경로 그대로 정식 도메인으로 보낸다.
+     <head> 위쪽에 두어 화면이 그려지기 전에 옮겨지게 한다. -->
+<link rel="canonical" href="https://evegoodretro.com/launcher-guide.html" />
+<script>
+(function () {
+  if (location.hostname.indexOf('github.io') < 0) return;   // 정식 도메인에서는 아무 일 없음
+  var p = location.pathname.replace(/^\/ROM-Settings-HAE-BANG-Tool/, '') || '/';
+  location.replace('https://evegoodretro.com' + p + location.search + location.hash);
+})();
+</script>
+<title>해방런처 문서 · HB Launcher</title>
+<meta name="description" content="해방런처(HB런처) v0.8.0 사용 설명서 — 설치 · 업데이트, 해방툴로 게임 채우기, 패드 · 키보드 · 터치 조작, 검색 · 체크 모드 · 꾸러미 상자, 실행기 설정, 세이브 창 · 세이브 맞추기, 전자상가, 온라인 오락실(넷플레이), 문제 해결을 스크린샷과 함께." />
+<link rel="icon" href="assets/favicon_v2.ico" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" />
+<style>
+  :root{
+    --bg:#07080d; --bg2:#0a0c14; --surface:#11131d; --surface2:#171a27;
+    --border:#222639; --border2:#2c3147;
+    --text:#e9ebf4; --muted:#9aa1b6; --faint:#6b7186;
+    --cyan:#22d3ee; --violet:#8b5cf6; --indigo:#6366f1; --gold:#fbbf24; --emerald:#34d399; --rose:#fb7185;
+    --grad:linear-gradient(120deg,#22d3ee 0%,#6366f1 50%,#8b5cf6 100%);
+    --maxw:1240px; --pixel:"Press Start 2P", system-ui, monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--text);
+    font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.8; overflow-x:hidden}
+  body::before{content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+    background:radial-gradient(820px 480px at 82% -10%, rgba(139,92,246,.18), transparent 60%),
+      radial-gradient(680px 460px at 8% 2%, rgba(34,211,238,.12), transparent 55%)}
+  body::after{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.5;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,.016) 0 1px, transparent 1px 3px)}
+  a{color:inherit; text-decoration:none}
+  a.fb-link{color:var(--cyan,#22d3ee); font-weight:700; text-decoration:underline; text-underline-offset:3px}   /* 피드백 부탁 링크(한글패치 정보 시범) */
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  .grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .muted{color:var(--muted)}
+  html:not(.en) .en-only{display:none !important}
+  html.en .ko-only{display:none !important}
+
+  header{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:rgba(8,9,15,.66); border-bottom:1px solid transparent; transition:.25s}
+  header.scrolled{border-bottom-color:var(--border); background:rgba(8,9,15,.86)}
+  .nav{display:flex; align-items:center; gap:16px; height:66px}
+  .brand{display:flex; align-items:center; gap:11px; font-weight:800}
+  .brand img{width:34px; height:34px; border-radius:9px; box-shadow:0 0 0 1px var(--border2)}
+  .brand .bt{font-size:15.5px}
+  .brand .bs{font-size:10.5px; color:var(--muted); font-weight:600}
+  .nav-links{display:flex; gap:6px; margin-left:18px}
+  .nav-links a{padding:8px 12px; border-radius:9px; font-size:14px; color:var(--muted); font-weight:600; transition:.18s}
+  /* 영어도 한국어처럼 한 줄로 — 'Game Archive' · 'HB Launcher' · 'HAE-BANG RETRO' 가 두 줄로 접혀 메뉴 모양이 달라지던 것 */
+  .nav-links a{white-space:nowrap}
+  @media (min-width:941px){ .brand .bt, .brand .bs{white-space:nowrap} }  /* 폰에서는 로고 글자가 접혀야 오른쪽 단추가 들어간다 */
+  /* 영어 글자가 한국어보다 넓어 같은 자리에 들어가도록 영어에서만 간격을 조금 줄인다 */
+  @media (min-width:1161px){
+    html[lang="en"] .nav-links{gap:2px}
+    html[lang="en"] .nav-links a{padding:8px 10px}
+  }
+  @media (max-width:1160px) and (min-width:941px){
+    html[lang="en"] .nav-links a{padding:8px 3px; font-size:12px}
+    html[lang="en"] .nav-right{gap:5px}
+    html[lang="en"] .nav-right > a.btn{padding:9px 12px; font-size:13px}
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--text); background:var(--surface)}
+  .nav-right{margin-left:auto; display:flex; align-items:center; gap:10px}
+  .langbtn{font-size:12.5px; font-weight:800; letter-spacing:.04em; padding:9px 13px; border-radius:10px;
+    border:1px solid var(--border2); background:var(--surface); color:var(--text); cursor:pointer; transition:.18s}
+  .langbtn:hover{border-color:var(--cyan); transform:translateY(-1px)}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:700; border-radius:11px; cursor:pointer;
+    padding:10px 16px; font-size:14px; border:1px solid transparent; transition:.2s}
+  .btn-primary{background:var(--grad); color:#05070d}
+  .btn-primary:hover{transform:translateY(-2px)}
+
+  /* hero */
+  .ghero{border-bottom:1px solid var(--border); text-align:center; padding:54px 22px 40px; position:relative; overflow:hidden}
+  .ghero::before{content:""; position:absolute; inset:0; z-index:0; opacity:.5;
+    background:linear-gradient(transparent 0 23px, rgba(99,102,241,.06) 23px 24px),
+      linear-gradient(90deg, transparent 0 23px, rgba(99,102,241,.06) 23px 24px);
+    background-size:24px 24px; mask:radial-gradient(120% 100% at 50% 0,#000,transparent 72%)}
+  .ghero-in{position:relative; z-index:1; max-width:820px; margin:0 auto}
+  .badge{display:inline-flex; align-items:center; gap:9px; font-family:var(--pixel); font-size:10px; letter-spacing:.04em;
+    color:var(--cyan); border:1px solid var(--border2); background:var(--surface); padding:9px 14px; border-radius:999px}
+  .badge .blink{width:8px; height:8px; background:var(--emerald); border-radius:1px; box-shadow:0 0 8px var(--emerald); animation:blink 1.2s steps(1) infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .ghero h1{font-size:clamp(26px,4.2vw,42px); line-height:1.2; letter-spacing:-.02em; font-weight:800; margin:20px 0 12px}
+  .ghero p{color:var(--muted); font-size:clamp(15px,1.7vw,17px); margin:0 auto; max-width:620px}
+
+  /* layout: TOC + content */
+  .doc{display:grid; grid-template-columns:250px minmax(0,1fr); gap:40px; align-items:start; padding:38px 0 60px}
+  .toc{position:sticky; top:86px; align-self:start; max-height:calc(100vh - 110px); overflow:auto;
+    border:1px solid var(--border); border-radius:14px; background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.4)); padding:16px 14px}
+  .toc h5{margin:2px 0 10px; font-family:var(--pixel); font-size:9.5px; letter-spacing:.06em; color:var(--faint); padding-left:6px}
+  .toc a{display:block; padding:7px 10px; border-radius:8px; font-size:13.5px; color:var(--muted); font-weight:600; transition:.15s; line-height:1.4}
+  .toc a:hover{color:var(--text); background:var(--surface2)}
+  .toc a.active{color:#06070d; background:var(--grad)}
+  .toc .sub{padding-left:20px; font-size:12.5px; font-weight:500}
+
+  .content{max-width:840px; min-width:0}
+  .gsec{padding-top:14px; margin-bottom:16px; scroll-margin-top:84px}
+  .gsec h2{font-size:clamp(21px,2.6vw,27px); font-weight:800; letter-spacing:-.01em; margin:34px 0 14px; position:relative; padding-left:16px}
+  .gsec:first-child h2{margin-top:6px}
+  .gsec h2::before{content:""; position:absolute; left:0; top:.16em; bottom:.16em; width:5px; border-radius:3px; background:var(--grad)}
+  .gsec h3{font-size:17.5px; font-weight:800; margin:28px 0 10px; color:var(--gold)}
+  .gsec h3 .en-only, .gsec h3 .ko-only{color:var(--gold)}
+  .gsec p{margin:0 0 15px; color:#d6dae6; font-size:15.5px}
+  .gsec ul, .gsec ol{margin:0 0 16px; padding-left:4px; color:#d0d5e2; font-size:15px}
+  .gsec li{margin:6px 0; padding-left:24px; position:relative; list-style:none}
+  .gsec ul li::before{content:"▹"; position:absolute; left:4px; color:var(--cyan)}
+  .gsec ol{counter-reset:st}
+  .gsec ol li{counter-increment:st}
+  .gsec ol li::before{content:counter(st); position:absolute; left:0; top:1px; width:19px; height:19px; border-radius:6px;
+    background:var(--grad); color:#06070d; font-size:11px; font-weight:800; display:grid; place-items:center}
+  .gsec strong{color:#fff}
+  .hl{color:var(--cyan); font-weight:700}
+  .path{font-family:ui-monospace,Consolas,monospace; font-size:.92em; background:var(--bg2); border:1px solid var(--border2);
+    border-radius:6px; padding:1px 7px; color:#cfd4e4; white-space:nowrap}
+
+  .kicker{font-family:var(--pixel); font-size:9.5px; letter-spacing:.06em; color:var(--cyan); margin:0 0 6px}
+
+  /* callouts */
+  .note,.tip,.warn{margin:18px 0; padding:14px 18px; border:1px solid var(--border2); border-radius:12px; font-size:14.5px; color:#d6dae6;
+    background:radial-gradient(120% 130% at 0 0, rgba(99,102,241,.10), transparent 60%), var(--surface)}
+  .tip{background:radial-gradient(120% 130% at 0 0, rgba(52,211,153,.12), transparent 60%), var(--surface)}
+  .warn{background:radial-gradient(120% 130% at 0 0, rgba(251,113,133,.13), transparent 60%), var(--surface)}
+  .note b{color:var(--violet)} .tip b{color:var(--emerald)} .warn b{color:var(--rose)}
+
+  /* feature table */
+  .ftable{width:100%; border-collapse:collapse; margin:16px 0; font-size:14px; overflow:hidden; border-radius:12px; border:1px solid var(--border2)}
+  .ftable th,.ftable td{text-align:left; padding:10px 13px; border-bottom:1px solid var(--border); vertical-align:top}
+  .ftable th{background:var(--surface2); color:var(--muted); font-weight:700; font-size:12.5px; letter-spacing:.02em}
+  .ftable td:first-child{color:#fff; font-weight:700; white-space:nowrap}
+  .ftable tr:last-child td{border-bottom:0}
+  .ftable td .muted{font-size:13px}
+
+  /* tag chips */
+  .chips{display:flex; flex-wrap:wrap; gap:7px; margin:12px 0 18px}
+  .chip{font-size:12px; font-weight:700; color:#cfe9ff; border:1px solid var(--border2); background:var(--surface2); padding:4px 10px; border-radius:999px}
+
+  .divider{height:1px; margin:40px 0; background:linear-gradient(90deg,transparent,var(--border2),transparent)}
+
+  footer{border-top:1px solid var(--border); padding:36px 0 46px; margin-top:30px; color:var(--faint); font-size:13px}
+  .foot{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap; align-items:center}
+
+  .totop{position:fixed; right:22px; bottom:22px; z-index:40; width:44px; height:44px; border-radius:12px; border:1px solid var(--border2);
+    background:var(--surface); color:var(--text); font-size:18px; cursor:pointer; opacity:0; pointer-events:none; transition:.25s}
+  .totop.show{opacity:1; pointer-events:auto}
+  .totop:hover{border-color:var(--cyan); transform:translateY(-2px)}
+
+  @media (max-width:900px){
+    .doc{grid-template-columns:1fr; gap:0}
+    .toc{position:static; max-height:none; margin-bottom:20px; overflow:visible}
+    .toc .sub{display:inline-block; padding-left:10px}
+  }
+  /* 모바일 메뉴 — 좁은 화면에서 상단 메뉴가 숨겨지므로 햄버거로 같은 항목을 낸다 */
+  .menu-btn{display:none; align-items:center; justify-content:center; padding:0;
+    width:38px; height:38px; border-radius:10px; border:1px solid var(--border2);
+    background:var(--surface); color:var(--text); font-size:17px; line-height:1;
+    cursor:pointer; font-family:inherit; transition:.18s}
+  .menu-btn:hover{border-color:var(--cyan)}
+  .mnav{display:none; position:absolute; top:100%; left:0; right:0;
+    background:rgba(8,9,15,.98); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border); max-height:0; overflow:hidden;
+    transition:max-height .28s ease}
+  .mnav.on{max-height:78vh; overflow:auto}
+  .mnav .in{padding:8px 22px 16px; display:flex; flex-direction:column; gap:2px}
+  .mnav a{display:block; padding:12px; border-radius:10px; font-size:15px;
+    font-weight:600; color:var(--muted)}
+  .mnav a:hover,.mnav a.on,.mnav a.active{color:var(--text); background:var(--surface)}
+  /* 상단 메뉴가 8개가 되어 접히는 지점을 1040px 로 올린다(모든 페이지 공통).
+     기존 미디어쿼리에는 다른 규칙이 섞여 있어 값을 바꾸지 않고 여기서 덧쓴다. */
+  @media (max-width:1160px) and (min-width:941px){
+    /* 태블릿 — 메뉴를 좁혀 상단에 그대로 둔다. 가로 태블릿은 전부 들어간다.
+       (실측: 이 값이면 항목이 가장 많은 홈이 838px 부터 들어간다) */
+    .nav-links{gap:1px; margin-left:8px}
+    .nav-links a{padding:8px 6px; font-size:12.5px}
+  }
+  /* 860px 이하 — 메뉴를 접고 햄버거로 바꾼다.
+     ⚠️ 숨김·버튼·메뉴판을 반드시 한 곳에서 함께 켠다. 예전엔 버튼만 1040px 에서
+     켜고 메뉴판은 더 좁은 폭에서 켜서, 그 사이 구간(태블릿)에서는 버튼이 보이는데
+     눌러도 아무것도 안 열렸다. */
+  @media (max-width:940px){
+    .nav-links{display:none}
+    .menu-btn{display:inline-flex}
+    .mnav{display:block}
+  }
+  /* 메뉴 8개(HB레트로아크 추가, 2026-10-20) — 오른쪽에 '다운로드' 단추까지 있는 페이지에서도 한 줄에 들어가게.
+     넓은 화면은 메뉴 사이만 조금 좁히고(영어가 더 넓다), 1020px 이하는 햄버거로 접는다. */
+  @media (min-width:1161px){
+    .nav-links{gap:4px}
+    html[lang="en"] .nav-links{gap:0}
+    html[lang="en"] .nav-links a{padding:8px 6px}
+  }
+  @media (max-width:1020px){
+    .nav-links{display:none}
+    .menu-btn{display:inline-flex}
+    .mnav{display:block}
+  }
+  /* 해방툴 섹션 서브메뉴 — 헤더 아래 고정(해방툴 페이지와 동일 패턴) */
+  .subbar{position:sticky; top:66px; z-index:49; backdrop-filter:blur(10px);
+    background:rgba(10,12,20,.62); border-bottom:1px solid var(--border)}
+  .subbar .wrap{display:flex; align-items:center; gap:4px; height:46px; overflow-x:auto}
+  .subbar a{padding:6px 12px; border-radius:8px; font-size:13.5px; font-weight:600;
+    color:var(--faint); transition:.18s; white-space:nowrap}
+  .subbar a:hover,.subbar a.on{color:var(--text); background:var(--surface)}
+  .subbar .sb-right{margin-left:auto}
+  .ytbtn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px;
+    border:1px solid var(--border2); background:var(--surface); color:#ff4d4d; transition:.18s}
+  .ytbtn:hover{color:#fff; background:#e0261c; border-color:#e0261c; transform:translateY(-1px)}
+
+  /* ---------- 문서 개편(2026-11-14) — 문서 고르기 · 빠른 시작 · 할 일 카드 · 그림 · 더 알아보기 ---------- */
+  .docswitch{display:inline-flex; gap:6px; padding:5px; border:1px solid var(--border2); border-radius:14px; background:var(--surface); margin:22px 0 0}
+  .docswitch a{display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:10px; font-weight:800; font-size:14px; color:var(--muted); transition:.18s; line-height:1.3}
+  .docswitch a:hover{color:var(--text); background:var(--surface2)}
+  .docswitch a.on{background:var(--grad); color:#06070d}
+  .docswitch a.hbl.on{background:linear-gradient(120deg,#34d399,#22c55e); color:#03140b}
+  .docswitch .v{font-size:11px; font-weight:800; opacity:.75}
+  .lead{font-size:16px !important; color:#e6e9f3 !important; margin-bottom:18px !important}
+  .quick{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:10px 0 22px}
+  .qstep{position:relative; border:1px solid var(--border2); border-radius:14px; padding:16px 14px 14px; background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.45))}
+  .qstep .n{display:inline-grid; place-items:center; width:26px; height:26px; border-radius:8px; background:var(--grad); color:#06070d; font-weight:900; font-size:13px; margin-bottom:8px}
+  .qstep b{display:block; color:#fff; font-size:15px; line-height:1.4}
+  .qstep span.d{display:block; color:var(--muted); font-size:13px; line-height:1.55; margin-top:4px}
+  .qstep a{color:var(--cyan); font-weight:700; font-size:12.5px}
+  .tasks{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:6px 0 10px}
+  .task{display:flex; gap:12px; align-items:flex-start; padding:14px 14px 13px; border:1px solid var(--border); border-radius:12px;
+    background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.5)); transition:.18s; line-height:1.45}
+  .task:hover{border-color:var(--cyan); transform:translateY(-2px)}
+  .task .ic{font-size:22px; line-height:1.2; flex:0 0 auto}
+  .task b{display:block; color:#fff; font-size:14.5px}
+  .task .d{display:block; color:var(--muted); font-size:12.5px; margin-top:3px}
+  .ed{display:inline-block; font-size:10px; font-weight:900; letter-spacing:.04em; padding:2px 7px; border-radius:6px; margin-left:5px; vertical-align:2px; line-height:1.4}
+  .ed.pro{background:rgba(168,85,247,.2); color:#e2c6ff; border:1px solid rgba(168,85,247,.45)}
+  .ed.beta{background:rgba(34,211,238,.14); color:#a5f3fc; border:1px solid rgba(34,211,238,.4)}
+  .ui{font-weight:800; color:#fff; background:rgba(99,102,241,.16); border:1px solid rgba(99,102,241,.38); border-radius:6px; padding:0 6px; white-space:nowrap}
+  .key{display:inline-block; min-width:24px; text-align:center; font-weight:900; font-size:.86em; color:#fff; background:var(--bg2);
+    border:1px solid var(--border2); border-bottom-width:3px; border-radius:7px; padding:0 6px; line-height:1.55; white-space:nowrap}
+  .fig{margin:16px 0 22px; border:1px solid var(--border2); border-radius:14px; overflow:hidden; background:#0b0d14}
+  .fig a.zoom{display:block; cursor:zoom-in}
+  .fig img{display:block; width:100%; height:auto}
+  .fig figcaption{padding:9px 14px; font-size:13.5px; line-height:1.55; color:var(--muted); border-top:1px solid var(--border); background:var(--surface)}
+  .fig.mid{max-width:640px} .fig.narrow{max-width:420px}
+  .figrow{display:grid; gap:12px; margin:16px 0 22px; align-items:start}
+  .figrow.c2{grid-template-columns:repeat(2,minmax(0,1fr))} .figrow.c3{grid-template-columns:repeat(3,minmax(0,1fr))} .figrow.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .figrow .fig{margin:0}
+  .figrow .fig figcaption{font-size:12.5px; padding:8px 11px}
+  details.more{margin:14px 0 18px; border:1px solid var(--border2); border-radius:12px; background:var(--surface)}
+  details.more summary{cursor:pointer; padding:11px 16px; font-weight:800; font-size:14.5px; color:var(--cyan); list-style:none}
+  details.more summary::-webkit-details-marker{display:none}
+  details.more summary::before{content:"＋ "; color:var(--faint)}
+  details.more[open] summary::before{content:"－ "}
+  details.more > div{padding:2px 18px 10px}
+  .tscroll{overflow-x:auto; margin:14px 0 18px}
+  .tscroll .ftable{margin:0}
+  .ftable td:first-child{white-space:normal; min-width:118px}
+  .path{white-space:normal; overflow-wrap:anywhere}
+  .lbox{position:fixed; inset:0; z-index:200; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(3,4,8,.9); cursor:zoom-out}
+  .lbox.on{display:flex}
+  .lbox img{max-width:100%; max-height:100%; border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,.7)}
+  @media (max-width:900px){
+    .quick{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .tasks{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .figrow.c3,.figrow.c4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+  @media (max-width:560px){
+    .tasks,.figrow.c2{grid-template-columns:1fr}
+    .docswitch{display:flex; width:100%}
+    .docswitch a{flex:1; justify-content:center; padding:9px 8px; font-size:13px}
+    .wrap{padding:0 16px}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img src="assets/icon_v2.png" alt="HAE-BANG" />
+      <span><span class="bt">HAE-BANG RETRO</span><div class="bs"><span class="ko-only">해방런처 문서</span><span class="en-only">HB Launcher Docs</span></div></span>
+    </a>
+    <nav class="nav-links">
+      <a href="news.html"><span class="ko-only">새로운 소식</span><span class="en-only">News</span></a>
+      <a href="index.html"><span class="ko-only">홈</span><span class="en-only">Home</span></a>
+      <a href="haebang.html"><span class="ko-only">해방툴</span><span class="en-only">Rom Tool</span></a>
+      <a href="launcher.html" class="active"><span class="ko-only">HB런처</span><span class="en-only">HB Launcher</span></a>
+      <a href="hbretroarch.html"><span class="ko-only">HB레트로아크</span><span class="en-only">HB RetroArch</span></a>
+      <a href="https://evegoodretro.com/games/"><span class="ko-only">게임 아카이브</span><span class="en-only">Game Archive</span></a>
+      <a href="https://evegoodretro.com/patches/"><span class="ko-only">한글화 패치</span><span class="en-only">KR Patches</span></a>
+      <a href="story.html"><span class="ko-only">읽을거리</span><span class="en-only">Read</span></a>
+    </nav>
+    <div class="nav-right">
+      <a class="ytbtn" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" title="해방 레트로 유튜브 채널" aria-label="YouTube"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+      <button class="langbtn" id="langBtn">EN</button>
+      <a class="btn btn-primary" href="launcher.html#download"><span class="ko-only">다운로드</span><span class="en-only">Download</span></a>
+    </div>
+  
+      <button class="menu-btn" id="menuBtn" aria-label="메뉴" aria-expanded="false">☰</button>
+    </div>
+  <div class="mnav" id="mnav"><div class="in"></div></div>
+</header>
+
+<!-- HB런처 섹션 서브메뉴 — launcher.html 과 같게 유지(2026-11-14) -->
+<div class="subbar">
+  <div class="wrap">
+    <a href="launcher.html#features"><span class="ko-only">특징</span><span class="en-only">Features</span></a>
+    <a href="launcher.html#preview"><span class="ko-only">화면</span><span class="en-only">Screens</span></a>
+    <a href="launcher.html#netplay"><span class="ko-only">온라인 오락실</span><span class="en-only">Online Arcade</span></a>
+    <a href="launcher.html#download"><span class="ko-only">받기</span><span class="en-only">Download</span></a>
+    <a href="launcher-guide.html" class="on"><span class="ko-only">문서</span><span class="en-only">Docs</span></a>
+    <div class="sb-right"></div>
+  </div>
+</div>
+
+<section class="ghero">
+  <div class="ghero-in">
+    <span class="badge"><span class="blink"></span>USER&nbsp;GUIDE&nbsp;·&nbsp;v0.8.0</span>
+    <h1><span class="ko-only"><span class="grad-text">해방런처 문서</span> — 설치부터 온라인 오락실까지</span><span class="en-only"><span class="grad-text">HB Launcher guide</span> — from install to the Online Arcade</span></h1>
+    <p><span class="ko-only">설치하고, 해방툴로 게임을 채우고, 패드로 고르고, 친구와 함께 하기까지. 실제 기기(RG 476H) 화면과 함께 정리했습니다. (해방런처 v0.8.0 기준)</span><span class="en-only">Install it, fill it from the Rom Tool, pick games with a pad and play with friends — with screens from a real device (RG 476H). (HB Launcher v0.8.0)</span></p>
+    <nav class="docswitch" aria-label="문서 고르기">
+      <a class="tool" href="guide.html">🛠 <span class="ko-only">해방툴 문서</span><span class="en-only">Rom Tool guide</span> <span class="v">v1.1.8</span></a>
+      <a class="hbl on" href="launcher-guide.html">📦 <span class="ko-only">해방런처 문서</span><span class="en-only">HB Launcher guide</span> <span class="v">v0.8.0</span></a>
+    </nav>
+  </div>
+</section>
+
+<div class="wrap doc">
+  <aside class="toc" id="toc">
+    <h5>CONTENTS</h5>
+    <a href="#about"><span class="ko-only">1. 해방런처는 이런 런처예요</span><span class="en-only">1. What HB Launcher is</span></a>
+    <a href="#install"><span class="ko-only">2. 설치 · 업데이트</span><span class="en-only">2. Install and update</span></a>
+    <a class="sub" href="#install-win"><span class="ko-only">Windows</span><span class="en-only">Windows</span></a>
+    <a class="sub" href="#install-android"><span class="ko-only">Android</span><span class="en-only">Android</span></a>
+    <a href="#fill"><span class="ko-only">3. 게임 채우기</span><span class="en-only">3. Filling the shelf</span></a>
+    <a href="#controls"><span class="ko-only">4. 조작법</span><span class="en-only">4. Controls</span></a>
+    <a class="sub" href="#screens"><span class="ko-only">화면마다</span><span class="en-only">Screen by screen</span></a>
+    <a href="#browse"><span class="ko-only">5. 게임 빨리 찾기 · 한꺼번에 다루기</span><span class="en-only">5. Finding and managing games fast</span></a>
+    <a href="#emulator"><span class="ko-only">6. 실행기(에뮬레이터) 고르기</span><span class="en-only">6. Choosing emulators</span></a>
+    <a class="sub" href="#hbra"><span class="ko-only">해방레트로아크</span><span class="en-only">HB RetroArch</span></a>
+    <a href="#saves"><span class="ko-only">7. 세이브 창 · 세이브 맞추기</span><span class="en-only">7. Save window and save sync</span></a>
+    <a href="#apps"><span class="ko-only">8. 앱 · 프로그램 화면</span><span class="en-only">8. Apps and programs</span></a>
+    <a href="#mall"><span class="ko-only">9. 전자상가 — 가게 구경하고 가져오기</span><span class="en-only">9. Retro Mall — browse a shop and take games</span></a>
+    <a href="#arcade"><span class="ko-only">10. 온라인 오락실 — 친구와 같이</span><span class="en-only">10. Online Arcade — play with friends</span></a>
+    <a href="#more"><span class="ko-only">11. 그 밖에 알아 두면 좋은 것</span><span class="en-only">11. Other handy things</span></a>
+    <a href="#faq"><span class="ko-only">12. 문제 해결</span><span class="en-only">12. Troubleshooting</span></a>
+  </aside>
+
+  <main class="content">
+
+    <section class="gsec" id="about">
+      <p class="kicker">01 — ABOUT</p>
+      <h2><span class="ko-only">해방런처는 이런 런처예요</span><span class="en-only">What HB Launcher is</span></h2>
+      <p class="lead"><span class="ko-only">게임을 <strong>실물 같은 3D 케이스</strong>로 진열해 두고, 케이스를 열어 매체를 꺼내 본체에 꽂듯 골라 실행하는 에뮬레이터 런처입니다. <strong>Windows · Android</strong> 둘 다 같은 화면입니다.</span><span class="en-only">An emulator launcher that shelves your games as <strong>true-to-life 3D cases</strong> — open a case, pull out the cartridge or disc, slot it in and play. <strong>Windows and Android</strong> look the same.</span></p>
+<div class="figrow c2">
+<figure class="fig"><a href="assets/guide/hbl/shelf.webp" class="zoom"><img src="assets/guide/hbl/shelf.webp" alt="시스템 진열대 — 좌우로 기종을 고릅니다." loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">시스템 진열대 — 좌우로 기종을 고릅니다.</span><span class="en-only">The system shelf — swipe through consoles.</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/case.webp" class="zoom"><img src="assets/guide/hbl/case.webp" alt="케이스를 연 모습 — A 로 매체를 꽂아 게임 시작" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">케이스를 연 모습 — <span class="key">A</span> 로 매체를 꽂아 게임 시작</span><span class="en-only">An open case — <span class="key">A</span> slots the media in and starts the game.</span></figcaption></figure>
+</div>
+<ul>
+  <li><span class="ko-only"><strong>55개 기종</strong>의 케이스 · 카트리지 · 디스크 모양을 그대로 — 앞표지 · 뒷표지 · 책등까지</span><span class="en-only"><strong>55 systems</strong> with their real case, cartridge and disc shapes — front, back and spine</span></li>
+  <li><span class="ko-only">케이스를 열면 영상이 내장 브라운관에서 돌고, 게임 정보도 바로 봅니다.</span><span class="en-only">Open a case and its video plays on a built-in CRT, with the game info a press away.</span></li>
+  <li><span class="ko-only">RetroArch(해방레트로아크 포함)와 단독 에뮬레이터를 시스템 · 게임마다 고릅니다.</span><span class="en-only">RetroArch (HB RetroArch included) or standalone emulators, chosen per system or per game.</span></li>
+  <li><span class="ko-only">라이브러리는 <a href="guide.html#hbl">해방툴</a>이 채웁니다 — 런처가 스스로 롬을 훑어 등록하지는 않습니다.</span><span class="en-only">The library comes from <a href="guide.html#hbl">the Rom Tool</a> — the launcher doesn't scan ROMs itself.</span></li>
+</ul>
+<h3><span class="ko-only">무엇을 하고 싶으세요?</span><span class="en-only">What do you want to do?</span></h3>
+<div class="tasks"><a class="task" href="#install"><span class="ic">⬇️</span><span><b><span class="ko-only">설치 · 업데이트</span><span class="en-only">Install & update</span></b><span class="d"><span class="ko-only">Windows zip · Android APK</span><span class="en-only">Windows zip, Android APK</span></span></span></a><a class="task" href="#fill"><span class="ic">📦</span><span><b><span class="ko-only">게임 채우기</span><span class="en-only">Fill the shelf</span></b><span class="d"><span class="ko-only">해방툴로 보내기 · 무선 받기</span><span class="en-only">Send from the Rom Tool, Wi-Fi</span></span></span></a><a class="task" href="#controls"><span class="ic">🎮</span><span><b><span class="ko-only">조작법</span><span class="en-only">Controls</span></b><span class="d"><span class="ko-only">패드 · 키보드 · 터치</span><span class="en-only">Pad, keyboard, touch</span></span></span></a><a class="task" href="#browse"><span class="ic">🔍</span><span><b><span class="ko-only">빨리 찾기</span><span class="en-only">Find games fast</span></b><span class="d"><span class="ko-only">검색 · 체크 모드 · 꾸러미 상자</span><span class="en-only">Search, check mode, boxes</span></span></span></a><a class="task" href="#emulator"><span class="ic">⚙️</span><span><b><span class="ko-only">실행기 고르기</span><span class="en-only">Pick emulators</span></b><span class="d"><span class="ko-only">시스템 · 게임별, 코어 자동 받기</span><span class="en-only">Per system / game, auto cores</span></span></span></a><a class="task" href="#saves"><span class="ic">💾</span><span><b><span class="ko-only">세이브</span><span class="en-only">Saves</span></b><span class="d"><span class="ko-only">세이브 창 · 맞추기</span><span class="en-only">Save window, sync</span></span></span></a><a class="task" href="#mall"><span class="ic">🏪</span><span><b><span class="ko-only">전자상가</span><span class="en-only">Retro Mall</span></b><span class="d"><span class="ko-only">가게 구경 · 가져오기</span><span class="en-only">Browse a shop, take games</span></span></span></a><a class="task" href="#arcade"><span class="ic">🕹️</span><span><b><span class="ko-only">온라인 오락실</span><span class="en-only">Online Arcade</span></b><span class="d"><span class="ko-only">친구와 넷플레이</span><span class="en-only">Netplay with friends</span></span></span></a><a class="task" href="#faq"><span class="ic">🛟</span><span><b><span class="ko-only">문제 해결</span><span class="en-only">Troubleshooting</span></b><span class="d"><span class="ko-only">안 보임 · 안 켜짐</span><span class="en-only">Missing games, no launch</span></span></span></a></div>
+    </section>
+
+    <section class="gsec" id="install">
+      <p class="kicker">02 — INSTALL</p>
+      <h2><span class="ko-only">설치 · 업데이트</span><span class="en-only">Install and update</span></h2>
+      <p class="lead"><span class="ko-only"><a href="launcher.html#download">HB런처 페이지의 받기</a>에서 Windows 는 무료 zip, Android 는 구매한 <strong>APK 코드</strong>로 받습니다.</span><span class="en-only">Get it from <a href="launcher.html#download">the HB Launcher download section</a>: a free zip for Windows, and an APK with your purchased <strong>APK code</strong> for Android.</span></p>
+<h3 id="install-win"><span class="ko-only">Windows</span><span class="en-only">Windows</span></h3>
+<ol>
+  <li><span class="ko-only">zip 을 원하는 폴더에 풀고 <span class="path">hblauncher.exe</span>를 실행합니다(설치 과정 없음).</span><span class="en-only">Unzip anywhere and run <span class="path">hblauncher.exe</span> — no installer.</span></li>
+  <li><span class="ko-only">설정 · 즐겨찾기는 exe 옆 <span class="path">userdata</span>, 라이브러리는 exe 옆 <span class="path">HBLauncher</span> 폴더에 들어갑니다.</span><span class="en-only">Settings and favourites live in <span class="path">userdata</span> and the library in <span class="path">HBLauncher</span>, both next to the exe.</span></li>
+  <li><span class="ko-only"><strong>업데이트</strong> — 새 zip 을 같은 폴더에 풀어 덮어쓰면 라이브러리 · 설정이 그대로 남습니다.</span><span class="en-only"><strong>Updating</strong> — unzip the new version over the old files; the library and settings stay.</span></li>
+</ol>
+<div class="note"><span class="ko-only">exe · <span class="path">hblauncher.pck</span> · dll · <span class="path">hbnet.exe</span>는 한 폴더에 같이 있어야 합니다. 그래픽은 Vulkan 으로 그립니다. Alt+Enter 로 전체 화면 ↔ 창.</span><span class="en-only">Keep the exe, <span class="path">hblauncher.pck</span>, the DLLs and <span class="path">hbnet.exe</span> together. Graphics use Vulkan. Alt+Enter toggles full screen.</span></div>
+<h3 id="install-android"><span class="ko-only">Android</span><span class="en-only">Android</span></h3>
+<ol>
+  <li><span class="ko-only"><strong>APK 코드</strong>(HBL-XXXX-XXXX-XXXX)를 구매하고, HB런처 페이지의 <span class="ui">코드로 APK 받기</span>에서 받습니다. 한 코드로 새 버전을 계속, 몇 대에든 설치할 수 있습니다.</span><span class="en-only">Buy an <strong>APK code</strong> (HBL-XXXX-XXXX-XXXX) and download with <span class="ui">Get the APK with your code</span>. One code keeps working for new versions, on any number of devices.</span></li>
+  <li><span class="ko-only">설치한 뒤 첫 화면의 <strong>"저장소 접근 권한"</strong> 줄에서 <span class="key">A</span> → <strong>모든 파일 접근</strong>을 허용합니다. 해방툴로 USB 연결하면 이 권한을 알아서 켜 줍니다.</span><span class="en-only">After installing, press <span class="key">A</span> on the <strong>storage permission</strong> line and allow <strong>All files access</strong>. Connecting from the Rom Tool over USB turns it on for you.</span></li>
+  <li><span class="ko-only"><strong>업데이트</strong> — 지금 앱 위에 새 APK 를 덮어 설치합니다(라이브러리 · 설정 유지). 해방툴의 <span class="ui">도구</span> › APK 관리에서 <span class="ui">설치</span> 한 번으로도 됩니다.</span><span class="en-only"><strong>Updating</strong> — install the new APK over the current one (library and settings stay), or press <span class="ui">Install</span> in the Rom Tool's <span class="ui">Tools</span> › APK.</span></li>
+</ol>
+<ul>
+  <li><span class="ko-only">Android 8.0 이상에서 돌아갑니다. 전자상가는 Android 10 이상이 필요합니다.</span><span class="en-only">Runs on Android 8.0+; the Retro Mall needs Android 10+.</span></li>
+  <li><span class="ko-only">낮은 버전으로 덮어 설치는 안 됩니다(되돌리려면 지우고 다시 설치 — 즐겨찾기 · 설정이 지워짐).</span><span class="en-only">You can't install an older version over a newer one — reinstalling from scratch clears favourites and settings.</span></li>
+  <li><span class="ko-only"><strong>안드로이드 TV</strong> — 게임 앱 목록에 나오고, 리모컨 ≡ 버튼이 옵션입니다. 권한 화면이 없는 TV 는 해방툴의 <span class="ui">무선 adb</span>로 연결하면 권한이 켜집니다.</span><span class="en-only"><strong>Android TV</strong> — appears in the games row; the remote's ≡ opens options. TVs without a permission screen get it enabled when the Rom Tool connects over <span class="ui">Wireless adb</span>.</span></li>
+  <li><span class="ko-only"><strong>홈 앱으로 쓰기</strong> — 옵션 › 홈 런처 › <span class="ui">홈 런처로 설정</span>. 게임기를 켜면 바로 해방런처가 뜹니다.</span><span class="en-only"><strong>As your home app</strong> — Options › Home launcher › <span class="ui">Set as home</span>, so the handheld boots straight into it.</span></li>
+</ul>
+    </section>
+
+    <section class="gsec" id="fill">
+      <p class="kicker">03 — LIBRARY</p>
+      <h2><span class="ko-only">게임 채우기</span><span class="en-only">Filling the shelf</span></h2>
+      <p class="lead"><span class="ko-only">해방툴에서 <span class="ui">⬆ 내보내기</span> → <strong>HB런처 내보내기</strong>로 보냅니다. 표지 · 3D 케이스 · 매체 그림 · 영상까지 해방툴이 만들어 줍니다.</span><span class="en-only">In the Rom Tool, <span class="ui">⬆ Export</span> → <strong>HB Launcher export</strong>. It builds the covers, 3D cases, media art and video for you.</span></p>
+<div class="tscroll"><table class="ftable"><tr><th><span class="ko-only">방법</span><span class="en-only">How</span></th><th><span class="ko-only">이렇게</span><span class="en-only">Steps</span></th><th><span class="ko-only">특징</span><span class="en-only">Notes</span></th></tr>
+<tr><td><span class="ko-only">USB (유선)</span><span class="en-only">USB (wired)</span></td><td><span class="ko-only">해방툴 [안드로이드] → [유선 연결 (ADB)] → <span class="ui">기기 연결</span></span><span class="en-only">Rom Tool [Android] → [Wired (ADB)] → <span class="ui">Connect device</span></span></td><td><span class="ko-only">가장 빠르고 확실합니다. 런처에 "받는 중 n / m"이 뜨고, 끝나면 목록을 알아서 다시 읽습니다.</span><span class="en-only">Fastest and surest. The launcher shows "receiving n / m" and reloads the list when done.</span></td></tr>
+<tr><td><span class="ko-only">무선 받기 (Android)</span><span class="en-only">Wireless receive (Android)</span></td><td><span class="ko-only">런처 시스템 화면에서 <span class="key">SELECT</span> → 무선 받기 켜기 → 해방툴 [무선 연결 (APP)] → <span class="ui">자동 찾기</span></span><span class="en-only">Launcher system screen <span class="key">SELECT</span> → wireless receive on → Rom Tool [Wireless (APP)] → <span class="ui">Auto find</span></span></td><td><span class="ko-only">케이블 없이, IP 입력 없이. 화면을 꺼도 계속 받습니다.</span><span class="en-only">No cable, no IP to type. Keeps receiving with the screen off.</span></td></tr>
+<tr><td><span class="ko-only">내 컴퓨터 (Windows)</span><span class="en-only">This PC (Windows)</span></td><td><span class="ko-only">해방툴 [내 컴퓨터 (Windows)] → <strong>해방런처 위치 (hblauncher.exe)</strong> 고르기</span><span class="en-only">Rom Tool [This PC (Windows)] → pick <strong>HB Launcher location (hblauncher.exe)</strong></span></td><td><span class="ko-only">롬은 복사하지 않고 원래 자리를 씁니다.</span><span class="en-only">ROMs aren't copied — they stay where they are.</span></td></tr>
+<tr><td><span class="ko-only">바로실행 (Windows)</span><span class="en-only">Direct run (Windows)</span></td><td><span class="ko-only">해방툴 시스템 목록 위 <span class="ui">HB런처</span></span><span class="en-only">Rom Tool <span class="ui">HB Launcher</span> above the systems</span></td><td><span class="ko-only">아무것도 복사하지 않고 해방툴 라이브러리로 바로 켭니다.</span><span class="en-only">Opens straight on the Rom Tool library, copying nothing.</span></td></tr>
+</table></div>
+<figure class="fig mid"><a href="assets/guide/hbl/shelf_win.webp" class="zoom"><img src="assets/guide/hbl/shelf_win.webp" alt="Windows 판 — 같은 진열대를 키보드 · 패드로 다룹니다." loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">Windows 판 — 같은 진열대를 키보드 · 패드로 다룹니다.</span><span class="en-only">The Windows version — the same shelf, with keyboard or pad.</span></figcaption></figure>
+<ul>
+  <li><span class="ko-only"><strong>라이브러리 자리</strong>(Android) — SD 카드의 <span class="path">HBLauncher</span>, 없으면 내부 저장소. 어디를 읽는지는 옵션 › 정보에서 봅니다.</span><span class="en-only"><strong>Library location</strong> (Android) — <span class="path">HBLauncher</span> on the SD card, otherwise internal storage. Options › Info shows which.</span></li>
+  <li><span class="ko-only"><strong>롬이 없는 게임</strong>은 목록에서 숨깁니다(0.7.8~). 보고 싶으면 옵션 › 화면 › <em>롬 없는 게임 표시</em>.</span><span class="en-only"><strong>Games without a ROM</strong> on this device are hidden (0.7.8+). To see them, Options › Display › <em>show games without ROMs</em>.</span></li>
+  <li><span class="ko-only"><strong>다시 읽기</strong> — 옵션 › 정보 › <span class="ui">라이브러리 다시 읽기</span>. 전송이 끝나면 알아서 다시 읽습니다.</span><span class="en-only"><strong>Reload</strong> — Options › Info › <span class="ui">Reload library</span>; it also reloads by itself after a transfer.</span></li>
+</ul>
+<div class="tip"><span class="ko-only"><b>전자상가에서도 채울 수 있어요.</b> PC 해방툴이 연 가게에 들어가 게임을 골라 가져오면 바로 진열대에 섭니다. <a href="#mall">10장</a></span><span class="en-only"><b>The Retro Mall works too.</b> Visit the shop your PC opened, pick games, and they land on the shelf. <a href="#mall">Chapter 10</a></span></div>
+    </section>
+
+    <section class="gsec" id="controls">
+      <p class="kicker">04 — CONTROLS</p>
+      <h2><span class="ko-only">조작법</span><span class="en-only">Controls</span></h2>
+      <p class="lead"><span class="ko-only">패드 · 키보드 · 터치 모두 됩니다. 패드를 꽂으면 화면 안내가 패드 버튼 그림으로 바뀝니다.</span><span class="en-only">Pad, keyboard and touch all work. Plug in a pad and the on-screen hints switch to pad buttons.</span></p>
+<div class="tscroll"><table class="ftable"><tr><th><span class="ko-only">패드</span><span class="en-only">Pad</span></th><th><span class="ko-only">키보드 (Windows)</span><span class="en-only">Keyboard (Windows)</span></th><th><span class="ko-only">하는 일</span><span class="en-only">Does</span></th></tr>
+<tr><td><span class="ko-only"><span class="key">A</span></span><span class="en-only"><span class="key">A</span></span></td><td><span class="ko-only">Enter · Space</span><span class="en-only">Enter · Space</span></td><td><span class="ko-only">열기 · 확인 · 게임 시작</span><span class="en-only">Open, confirm, start</span></td></tr>
+<tr><td><span class="ko-only"><span class="key">B</span></span><span class="en-only"><span class="key">B</span></span></td><td><span class="ko-only">Backspace</span><span class="en-only">Backspace</span></td><td><span class="ko-only">뒤로 · 케이스 닫기</span><span class="en-only">Back, close case</span></td></tr>
+<tr><td><span class="ko-only"><span class="key">X</span></span><span class="en-only"><span class="key">X</span></span></td><td><span class="ko-only">F</span><span class="en-only">F</span></td><td><span class="ko-only">게임 목록에서 체크</span><span class="en-only">Check a game in the list</span></td></tr>
+<tr><td><span class="ko-only"><span class="key">Y</span></span><span class="en-only"><span class="key">Y</span></span></td><td><span class="ko-only">O</span><span class="en-only">O</span></td><td><span class="ko-only">정렬 바꾸기 · (케이스 안) 세이브 창</span><span class="en-only">Change sort · (in a case) save window</span></td></tr>
+<tr><td><span class="ko-only"><span class="key">START</span></span><span class="en-only"><span class="key">START</span></span></td><td><span class="ko-only">Esc</span><span class="en-only">Esc</span></td><td><span class="ko-only">옵션</span><span class="en-only">Options</span></td></tr>
+<tr><td><span class="ko-only"><span class="key">SELECT</span></span><span class="en-only"><span class="key">SELECT</span></span></td><td><span class="ko-only">/ · Ctrl+F</span><span class="en-only">/ · Ctrl+F</span></td><td><span class="ko-only">게임 검색 · (시스템 화면) 무선 받기</span><span class="en-only">Search · (system screen) wireless receive</span></td></tr>
+<tr><td><span class="ko-only"><span class="key">L1</span> <span class="key">R1</span></span><span class="en-only"><span class="key">L1</span> <span class="key">R1</span></span></td><td><span class="ko-only">PgUp · PgDn</span><span class="en-only">PgUp · PgDn</span></td><td><span class="ko-only">10칸씩 건너뛰기(누르고 있으면 점점 빨라짐)</span><span class="en-only">Jump 10 at a time (speeds up when held)</span></td></tr>
+</table></div>
+<ul>
+  <li><span class="ko-only"><strong>터치</strong>(폰 · 패드 없는 기기) — 밀어서 넘기고, 가운데를 탭하면 <span class="key">A</span>, 옆을 탭하면 그리로 옮겨 갑니다. 안내 줄 · 옵션 줄도 탭됩니다. 뒤로는 안드로이드 뒤로가기.</span><span class="en-only"><strong>Touch</strong> (phones, devices without a pad) — swipe to scroll, tap the centre for <span class="key">A</span>, tap the side to move there. Hint and option rows are tappable; back is Android's back.</span></li>
+  <li><span class="ko-only"><strong>마우스</strong>(Windows) — 끌어서 케이스를 돌려 보고, 오른쪽 클릭으로 원래 자세로.</span><span class="en-only"><strong>Mouse</strong> (Windows) — drag to spin a case, right-click to reset it.</span></li>
+  <li><span class="ko-only"><strong>A/B · X/Y 바꾸기</strong> — 옵션 › 화면. 닌텐도식 · 엑스박스식 배치에 맞춥니다.</span><span class="en-only"><strong>Swap A/B and X/Y</strong> — Options › Display, for Nintendo- or Xbox-style layouts.</span></li>
+</ul>
+<h3 id="screens"><span class="ko-only">화면마다</span><span class="en-only">Screen by screen</span></h3>
+<div class="figrow c3">
+<figure class="fig"><a href="assets/guide/hbl/list.webp" class="zoom"><img src="assets/guide/hbl/list.webp" alt="게임 목록 — 좌우로 넘기고 ▲▼ 로 앞 · 뒷표지 자세히" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">게임 목록 — 좌우로 넘기고 ▲▼ 로 앞 · 뒷표지 자세히</span><span class="en-only">Game list — scroll sideways; ▲▼ for the front or back cover up close</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/case.webp" class="zoom"><img src="assets/guide/hbl/case.webp" alt="케이스 안 — A 시작 · → 영상 · ← 정보 · Y 세이브 · START 게임별 옵션" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">케이스 안 — <span class="key">A</span> 시작 · → 영상 · ← 정보 · <span class="key">Y</span> 세이브 · <span class="key">START</span> 게임별 옵션</span><span class="en-only">Inside a case — <span class="key">A</span> start · → video · ← info · <span class="key">Y</span> saves · <span class="key">START</span> per-game options</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/video.webp" class="zoom"><img src="assets/guide/hbl/video.webp" alt="영상 보기 — 영상 중에도 A 로 바로 시작" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">영상 보기 — 영상 중에도 <span class="key">A</span> 로 바로 시작</span><span class="en-only">Video — press <span class="key">A</span> to start right from the clip</span></figcaption></figure>
+</div>
+<div class="tscroll"><table class="ftable"><tr><th><span class="ko-only">화면</span><span class="en-only">Screen</span></th><th><span class="ko-only">조작</span><span class="en-only">Controls</span></th></tr>
+<tr><td><span class="ko-only">시스템 진열대</span><span class="en-only">System shelf</span></td><td><span class="ko-only">←→ 기종 · <span class="key">A</span> 들어가기 · <span class="key">Y</span> 시스템 정렬(이름 · 회사 · 연도) · ↓ 부가 기능 줄(전자상가 · 앱 · 온라인 오락실)</span><span class="en-only">←→ consoles · <span class="key">A</span> enter · <span class="key">Y</span> sort systems (name, maker, year) · ↓ extras row (Mall, apps, Online Arcade)</span></td></tr>
+<tr><td><span class="ko-only">게임 목록</span><span class="en-only">Game list</span></td><td><span class="ko-only">←→ 게임 · ▲▼ 표지 자세히 · <span class="key">A</span> 케이스 열기 · <span class="key">Y</span> 정렬(이름 → 연도 → 개발사 → 장르) · <span class="key">X</span> 체크 · <span class="key">SELECT</span> 검색</span><span class="en-only">←→ games · ▲▼ cover close-up · <span class="key">A</span> open case · <span class="key">Y</span> sort (name → year → developer → genre) · <span class="key">X</span> check · <span class="key">SELECT</span> search</span></td></tr>
+<tr><td><span class="ko-only">케이스 안</span><span class="en-only">Inside a case</span></td><td><span class="ko-only"><span class="key">A</span> 게임 시작 · <span class="key">B</span> 닫기 · → 영상 · ← 정보 · <span class="key">Y</span> 세이브 · <span class="key">START</span> 게임별 옵션</span><span class="en-only"><span class="key">A</span> start · <span class="key">B</span> close · → video · ← info · <span class="key">Y</span> saves · <span class="key">START</span> per-game options</span></td></tr>
+</table></div>
+<p><span class="ko-only">시스템 화면에서 뒤로를 누르면 "종료할까요?"를 묻습니다(처음 커서는 취소). 종료는 옵션 › 종료로도 합니다.</span><span class="en-only">Back on the system screen asks whether to quit (the cursor starts on Cancel). You can also quit from Options › Quit.</span></p>
+    </section>
+
+    <section class="gsec" id="browse">
+      <p class="kicker">05 — BROWSE</p>
+      <h2><span class="ko-only">게임 빨리 찾기 · 한꺼번에 다루기</span><span class="en-only">Finding and managing games fast</span></h2>
+      <p class="lead"><span class="ko-only">게임이 많아도 금방 찾고, 여러 개를 한 번에 즐겨찾기 · 삭제할 수 있습니다(0.7.9~).</span><span class="en-only">Find games fast in a big library, and favourite or delete several at once (0.7.9+).</span></p>
+<div class="figrow c3">
+<figure class="fig"><a href="assets/guide/hbl/search.webp" class="zoom"><img src="assets/guide/hbl/search.webp" alt="게임 검색 — SELECT (키보드 / · Ctrl+F). 두 글자부터 이름순 첫 게임으로" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">게임 검색 — <span class="key">SELECT</span> (키보드 / · Ctrl+F). 두 글자부터 이름순 첫 게임으로</span><span class="en-only">Search — <span class="key">SELECT</span> (/ or Ctrl+F). From two letters it jumps to the first match</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/check.webp" class="zoom"><img src="assets/guide/hbl/check.webp" alt="체크 모드 — X 로 여러 게임 체크 · Y 전체 반전" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">체크 모드 — <span class="key">X</span> 로 여러 게임 체크 · <span class="key">Y</span> 전체 반전</span><span class="en-only">Check mode — <span class="key">X</span> checks games, <span class="key">Y</span> inverts the list</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/box.webp" class="zoom"><img src="assets/guide/hbl/box.webp" alt="꾸러미 상자 — 해방툴의 하위 폴더가 이름표 붙은 상자로" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">꾸러미 상자 — 해방툴의 하위 폴더가 이름표 붙은 상자로</span><span class="en-only">Bundle boxes — Rom Tool sub-folders become labelled boxes</span></figcaption></figure>
+</div>
+<div class="tscroll"><table class="ftable"><tr><th><span class="ko-only">기능</span><span class="en-only">Feature</span></th><th><span class="ko-only">이렇게</span><span class="en-only">How</span></th></tr>
+<tr><td><span class="ko-only">게임 검색</span><span class="en-only">Search</span></td><td><span class="ko-only"><span class="key">SELECT</span> → 제목 두 글자 이상 → 이름순 첫 게임으로 이동, ▲▼ 로 다음 · 이전. 패드만 있는 기기 · 폰은 화면 키보드가 뜹니다. 닫으면 찾은 자리에 남습니다.</span><span class="en-only"><span class="key">SELECT</span> → type two or more letters → jumps to the first match; ▲▼ for next/previous. Pad-only devices and phones get an on-screen keyboard. Closing leaves you there.</span></td></tr>
+<tr><td><span class="ko-only">체크 모드</span><span class="en-only">Check mode</span></td><td><span class="ko-only"><span class="key">X</span> 체크 · <span class="key">Y</span> 반전 · <span class="key">A</span> 할 일(즐겨찾기 넣기 · 빼기 · 게임 삭제) · <span class="key">B</span> 체크 모드 해제</span><span class="en-only"><span class="key">X</span> check · <span class="key">Y</span> invert · <span class="key">A</span> actions (add to / remove from favourites, delete) · <span class="key">B</span> leave check mode</span></td></tr>
+<tr><td><span class="ko-only">꾸러미 상자</span><span class="en-only">Bundle boxes</span></td><td><span class="ko-only">하위 폴더(예: <span class="path">sfc/한글패치</span>)가 상자로 섭니다. <span class="key">A</span> 로 들어가고 <span class="key">B</span> 로 나옵니다.</span><span class="en-only">Sub-folders (e.g. <span class="path">sfc/Korean</span>) stand as boxes. <span class="key">A</span> goes in, <span class="key">B</span> comes out.</span></td></tr>
+<tr><td><span class="ko-only">즐겨찾기</span><span class="en-only">Favourites</span></td><td><span class="ko-only">체크 → <span class="key">A</span> → 즐겨찾기에 넣기. 즐겨찾기가 있으면 맨 앞에 "즐겨찾는 게임"(MY PICK) 시스템이 섭니다.</span><span class="en-only">Check → <span class="key">A</span> → add to favourites. Favourites get their own MY PICK system at the front.</span></td></tr>
+<tr><td><span class="ko-only">정렬</span><span class="en-only">Sorting</span></td><td><span class="ko-only"><span class="key">Y</span> 로 이름 → 출시 연도 → 개발사 → 장르. 시스템마다 따로 기억합니다.</span><span class="en-only"><span class="key">Y</span> cycles name → year → developer → genre, remembered per system.</span></td></tr>
+</table></div>
+<figure class="fig mid"><a href="assets/guide/hbl/check_menu.webp" class="zoom"><img src="assets/guide/hbl/check_menu.webp" alt="체크한 게임에 A — 즐겨찾기에 넣기 · 게임 삭제 · 취소" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">체크한 게임에 <span class="key">A</span> — 즐겨찾기에 넣기 · 게임 삭제 · 취소</span><span class="en-only"><span class="key">A</span> on checked games — add to favourites, delete, cancel</span></figcaption></figure>
+<div class="tip"><span class="ko-only"><b>기기 & 게임목록 보기</b> — 옵션 › 화면 › 시스템 표시를 바꾸면 왼쪽에 제목 목록, 오른쪽에 패키지가 도는 목록형 화면도 쓸 수 있습니다.</span><span class="en-only"><b>List view</b> — Options › Display › system view switches to a title list on the left with the package spinning on the right.</span></div>
+    </section>
+
+    <section class="gsec" id="emulator">
+      <p class="kicker">06 — EMULATORS</p>
+      <h2><span class="ko-only">실행기(에뮬레이터) 고르기</span><span class="en-only">Choosing emulators</span></h2>
+      <p class="lead"><span class="ko-only">기본은 RetroArch 이고, 시스템 · 게임마다 단독 에뮬레이터를 고를 수 있습니다. 고를 수 있는 목록은 해방툴이 함께 보내 줍니다.</span><span class="en-only">RetroArch is the default; standalone emulators can be picked per system or per game. The choices arrive with the library from the Rom Tool.</span></p>
+<div class="figrow c2">
+<figure class="fig"><a href="assets/guide/hbl/options.webp" class="zoom"><img src="assets/guide/hbl/options.webp" alt="옵션 — 롬 폴더 · 에뮬레이터 · 화면 · 무선 받기 · 홈 런처 · 정보 · 종료" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">옵션 — 롬 폴더 · 에뮬레이터 · 화면 · 무선 받기 · 홈 런처 · 정보 · 종료</span><span class="en-only">Options — ROM folder, emulators, display, wireless receive, home launcher, info, quit</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/display.webp" class="zoom"><img src="assets/guide/hbl/display.webp" alt="옵션 › 화면 — 언어 · 회전 · UI 크기 · 배터리 · 그래픽 품질 · 시스템 표시" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">옵션 › 화면 — 언어 · 회전 · UI 크기 · 배터리 · 그래픽 품질 · 시스템 표시</span><span class="en-only">Options › Display — language, rotation, UI size, battery, graphics, system view</span></figcaption></figure>
+</div>
+<ul>
+  <li><span class="ko-only"><strong>시스템마다</strong> — 시스템 안에서 <span class="key">START</span> → 에뮬레이터. 첫 줄 "(기본)"은 해방툴 기본값을 따릅니다.</span><span class="en-only"><strong>Per system</strong> — <span class="key">START</span> inside a system → Emulator. The first "(default)" row follows the Rom Tool.</span></li>
+  <li><span class="ko-only"><strong>게임마다</strong> — 케이스 안에서 <span class="key">START</span> → 게임별 옵션 → 에뮬레이터. 롬 파일 이름 · 경로도 여기서 봅니다.</span><span class="en-only"><strong>Per game</strong> — <span class="key">START</span> in a case → per-game options → Emulator; the ROM file and path are shown here too.</span></li>
+  <li><span class="ko-only"><strong>먼저 쓰는 차례</strong> — 내가 고른 게임별 → 해방툴의 게임별(아케이드 롬셋) → 내가 고른 시스템 → 해방툴 기본 → 깔린 첫 후보. 런처에서 고른 값은 해방툴이 다시 보내도 지켜집니다.</span><span class="en-only"><strong>Priority</strong> — your per-game pick → the Rom Tool's per-game pick (arcade romsets) → your per-system pick → the Rom Tool default → the first installed candidate. Picks made in the launcher survive new exports.</span></li>
+  <li><span class="ko-only"><strong>Windows</strong> — 옵션 › 에뮬레이터 경로에서 <span class="path">retroarch.exe</span>를 한 번만 정하면 모든 시스템에 쓰입니다.</span><span class="en-only"><strong>Windows</strong> — set <span class="path">retroarch.exe</span> once in Options › Emulator path and every system uses it.</span></li>
+</ul>
+<h3 id="hbra"><span class="ko-only">해방레트로아크와 함께라면</span><span class="en-only">With HB RetroArch</span></h3>
+<p><span class="ko-only"><a href="hbretroarch.html">해방레트로아크</a>(com.haebang.retroarch)가 깔려 있으면 공식 RetroArch 보다 먼저 씁니다. 코어가 없으면 "코어 받는 중 — snes9x 45%"를 띄우고 <strong>알아서 받은 뒤 이어서 시작</strong>합니다(Wi-Fi 필요). 세이브 창의 "이 상태로 시작", 나갈 때 자동 상태저장, 온라인 오락실도 해방레트로아크가 있어야 됩니다.</span><span class="en-only">When <a href="hbretroarch.html">HB RetroArch</a> (com.haebang.retroarch) is installed it comes before the official RetroArch. Missing cores show "fetching core — snes9x 45%" and are <strong>downloaded, then the game starts</strong> (needs Wi-Fi). Starting from a save state, auto save-state on exit and the Online Arcade also need HB RetroArch.</span></p>
+<figure class="fig mid"><a href="assets/hbl075_no_emulator.webp" class="zoom"><img src="assets/hbl075_no_emulator.webp" alt="에뮬레이터를 띄울 수 없을 때 — 까닭(앱 · 코어 · 롬 없음 등)을 보여 주고 매체는 케이스로 돌아갑니다." loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">에뮬레이터를 띄울 수 없을 때 — 까닭(앱 · 코어 · 롬 없음 등)을 보여 주고 매체는 케이스로 돌아갑니다.</span><span class="en-only">When the emulator can't start — the reason (missing app, core, ROM …) is shown and the media goes back into the case.</span></figcaption></figure>
+    </section>
+
+    <section class="gsec" id="saves">
+      <p class="kicker">07 — SAVES</p>
+      <h2><span class="ko-only">세이브 창 · 세이브 맞추기</span><span class="en-only">Save window and save sync</span></h2>
+      <p class="lead"><span class="ko-only">0.8.0 부터 세이브가 있는 게임은 케이스에 표시가 붙고, 케이스 안에서 <span class="key">Y</span> 로 세이브 창을 엽니다(Android · RetroArch 게임).</span><span class="en-only">Since 0.8.0, games with saves get a badge on the case, and <span class="key">Y</span> inside a case opens the save window (Android, RetroArch games).</span></p>
+<div class="figrow c2">
+<figure class="fig"><a href="assets/guide/hbl/save.webp" class="zoom"><img src="assets/guide/hbl/save.webp" alt="세이브 창 — 자동 · 번호별 상태저장 중 골라 A 로 그 장면부터 시작" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">세이브 창 — 자동 · 번호별 상태저장 중 골라 <span class="key">A</span> 로 그 장면부터 시작</span><span class="en-only">Save window — pick the auto slot or a numbered state and <span class="key">A</span> starts from it</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/sync.webp" class="zoom"><img src="assets/guide/hbl/sync.webp" alt="X 가게와 맞추기 — 올리기 · 받기 · 충돌을 먼저 보여 줍니다." loading="lazy" decoding="async" /></a><figcaption><span class="ko-only"><span class="key">X</span> 가게와 맞추기 — 올리기 · 받기 · 충돌을 먼저 보여 줍니다.</span><span class="en-only"><span class="key">X</span> sync with shop — shows uploads, downloads and conflicts first</span></figcaption></figure>
+</div>
+<ul>
+  <li><span class="ko-only"><strong>세이브 창</strong> — ◄► 고르기 · <span class="key">A</span> 이 상태로 시작 · <span class="key">B</span> 닫기. 공식 RetroArch 라면 "빠른 메뉴 › 상태 불러오기에서 N 번" 안내와 함께 그냥 시작합니다.</span><span class="en-only"><strong>Save window</strong> — ◄► choose · <span class="key">A</span> start from that state · <span class="key">B</span> close. With the official RetroArch you get a "Quick Menu › Load State N" hint and a plain start.</span></li>
+  <li><span class="ko-only"><strong>나갈 때 자동 상태저장</strong> — 옵션 › 에뮬레이터에서 켜면 홈 · 슬립 · 종료 때 저장해 두고, 다음엔 "자동" 카드로 이어 합니다(해방레트로아크).</span><span class="en-only"><strong>Auto save-state on exit</strong> — turn it on in Options › Emulator; leaving via home, sleep or quit saves, and the "auto" card resumes it (HB RetroArch).</span></li>
+  <li><span class="ko-only"><strong>세이브 맞추기</strong> — 세이브 창에서 <span class="key">X</span>. PC 해방툴 1.1.8 베타(PRO)가 가게를 열어 두고 전자상가에서 기기를 연결해 두면, 롬저장 · 상태저장을 PC 의 세이브 보관함과 맞춥니다. 충돌은 하나씩 "이 기기 / 가게" 중 고르고, 덮어쓰는 파일은 기기에 백업(게임마다 최근 3개)합니다.</span><span class="en-only"><strong>Save sync</strong> — <span class="key">X</span> in the save window. With the PC Rom Tool 1.1.8 beta (PRO) shop open and this device paired in the Mall, cartridge saves and states sync with the PC's save vault. Conflicts are resolved one by one ("this device / shop"), and overwritten files are backed up on the device (last 3 per game).</span></li>
+</ul>
+<div class="tip"><span class="ko-only"><b>다른 기기에서 하던 판 그대로</b> — 맞춘 뒤 다른 기기의 세이브 창에 그 기기 이름의 "자동" 카드가 생깁니다. 골라서 이어 하세요.</span><span class="en-only"><b>Pick up where another device left off</b> — after syncing, the other device's "auto" card appears in the save window. Choose it and carry on.</span></div>
+    </section>
+
+    <section class="gsec" id="apps">
+      <p class="kicker">08 — APPS</p>
+      <h2><span class="ko-only">앱 · 프로그램 화면</span><span class="en-only">Apps and programs</span></h2>
+      <p class="lead"><span class="ko-only">0.8.0 — 시스템 진열대에서 ↓ → <strong>안드로이드 앱</strong>(Windows 는 <strong>프로그램</strong>). 자주 쓰는 앱을 런처 안에서 바로 켭니다.</span><span class="en-only">0.8.0 — from the system shelf, ↓ → <strong>Android apps</strong> (<strong>Programs</strong> on Windows). Launch your usual apps without leaving.</span></p>
+<div class="figrow c2">
+<figure class="fig"><a href="assets/guide/hbl/apps.webp" class="zoom"><img src="assets/guide/hbl/apps.webp" alt="내 앱 — A 실행 · X 빼기 · Y 앱 추가" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">내 앱 — <span class="key">A</span> 실행 · <span class="key">X</span> 빼기 · <span class="key">Y</span> 앱 추가</span><span class="en-only">My apps — <span class="key">A</span> launch · <span class="key">X</span> remove · <span class="key">Y</span> add</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/apps_add.webp" class="zoom"><img src="assets/guide/hbl/apps_add.webp" alt="앱 추가 — 깔린 앱에서 A 로 넣고 빼기, SELECT 검색" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">앱 추가 — 깔린 앱에서 <span class="key">A</span> 로 넣고 빼기, <span class="key">SELECT</span> 검색</span><span class="en-only">Add apps — <span class="key">A</span> toggles from installed apps, <span class="key">SELECT</span> searches</span></figcaption></figure>
+</div>
+<p><span class="ko-only">기본으로 설정 · 파일 · Play 스토어가 들어 있습니다. Windows 는 <em>파일 찾아보기…</em>(exe · lnk · bat)와 시작 메뉴 바로가기로 더합니다.</span><span class="en-only">Settings, Files and the Play Store are there by default. On Windows, add programs via <em>Browse…</em> (exe, lnk, bat) or Start-menu shortcuts.</span></p>
+    </section>
+
+    <section class="gsec" id="mall">
+      <p class="kicker">09 — RETRO MALL</p>
+      <h2><span class="ko-only">전자상가 — 가게 구경하고 가져오기</span><span class="en-only">Retro Mall — browse a shop and take games</span></h2>
+      <p class="lead"><span class="ko-only">PC 의 해방툴(PRO 베타 1.1.7~)이 연 <strong>가게</strong>에 해방런처로 들어가, 평소 진열대 그대로 구경하고 장바구니에 담아 가져옵니다. Android 0.7.8~ (Android 10 이상), Windows 0.7.9~.</span><span class="en-only">Step into a <strong>shop</strong> opened by the Rom Tool on a PC (PRO beta 1.1.7+), browse it like your own shelf and take games home in a cart. Android 0.7.8+ (Android 10+), Windows 0.7.9+.</span></p>
+<div class="figrow c4">
+<figure class="fig"><a href="assets/guide/hbl/mall_tile.webp" class="zoom"><img src="assets/guide/hbl/mall_tile.webp" alt="1. 진열대에서 ↓ → 전자상가 방문" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">1. 진열대에서 ↓ → 전자상가 방문</span><span class="en-only">1. Shelf ↓ → visit the Mall</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/mall_code.webp" class="zoom"><img src="assets/guide/hbl/mall_code.webp" alt="2. 처음엔 기기 연결 — 이 코드를 PC 해방툴 전자상가의 &quot;기기 연결&quot;에 넣기(10분 안)" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">2. 처음엔 기기 연결 — 이 코드를 PC 해방툴 전자상가의 "기기 연결"에 넣기(10분 안)</span><span class="en-only">2. First time: pairing — enter this code in the PC Mall's "Pair device" within 10 minutes</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/mall_front.webp" class="zoom"><img src="assets/guide/hbl/mall_front.webp" alt="3. 가게가 열려 있으면 A 로 들어가기" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">3. 가게가 열려 있으면 <span class="key">A</span> 로 들어가기</span><span class="en-only">3. If the shop is open, <span class="key">A</span> to enter</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/mall_inside.webp" class="zoom"><img src="assets/guide/hbl/mall_inside.webp" alt="4. 가게 안 — 평소 진열대처럼 구경" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">4. 가게 안 — 평소 진열대처럼 구경</span><span class="en-only">4. Inside — browse like your own shelf</span></figcaption></figure>
+</div>
+<div class="figrow c4">
+<figure class="fig"><a href="assets/guide/hbl/mall_cart.webp" class="zoom"><img src="assets/guide/hbl/mall_cart.webp" alt="5. X (또는 케이스 안 A)로 장바구니에 담기" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">5. <span class="key">X</span> (또는 케이스 안 <span class="key">A</span>)로 장바구니에 담기</span><span class="en-only">5. <span class="key">X</span> (or <span class="key">A</span> in a case) adds to the cart</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/mall_receipt.webp" class="zoom"><img src="assets/guide/hbl/mall_receipt.webp" alt="6. START 가져오기 — 영수증에서 용량 · 남은 공간 확인" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">6. <span class="key">START</span> 가져오기 — 영수증에서 용량 · 남은 공간 확인</span><span class="en-only">6. <span class="key">START</span> take — the receipt shows sizes and free space</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/mall_progress.webp" class="zoom"><img src="assets/guide/hbl/mall_progress.webp" alt="7. 포장 → 보내기 → 기기에 저장" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">7. 포장 → 보내기 → 기기에 저장</span><span class="en-only">7. Packing → sending → saving to the device</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/mall_done.webp" class="zoom"><img src="assets/guide/hbl/mall_done.webp" alt="8. 내 시스템에 들어왔습니다 — A 지금 보기 · B 계속 구경" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">8. 내 시스템에 들어왔습니다 — <span class="key">A</span> 지금 보기 · <span class="key">B</span> 계속 구경</span><span class="en-only">8. In your library — <span class="key">A</span> view now · <span class="key">B</span> keep browsing</span></figcaption></figure>
+</div>
+<ul>
+  <li><span class="ko-only">장바구니에는 여러 시스템을 함께, 200개까지 담습니다. 기기에 이미 있는 롬은 0 으로 셉니다.</span><span class="en-only">The cart holds up to 200 games across systems; ROMs already on the device count as zero.</span></li>
+  <li><span class="ko-only">[멈추기]를 눌러도 받은 파일은 남고, 다시 가져오면 받은 것은 건너뜁니다.</span><span class="en-only">Stopping keeps what arrived; taking again skips it.</span></li>
+  <li><span class="ko-only"><strong>Windows 손님</strong> — 집 PC 의 가게에 <strong>다른 PC</strong>나 윈도우 휴대기가 들어오는 용도입니다(같은 PC 라면 해방툴의 "내 컴퓨터" 내보내기가 편합니다). 가져오기는 가게가 해방툴 1.1.8 이상이어야 합니다. PS Vita 게임은 Windows 로 가져올 수 없습니다.</span><span class="en-only"><strong>Windows guests</strong> — for <strong>another PC</strong> or a Windows handheld visiting your home PC's shop (on the same PC, the Rom Tool's "This PC" export is simpler). Taking games needs a shop on Rom Tool 1.1.8+. PS Vita games can't be taken to Windows.</span></li>
+</ul>
+<div class="note"><span class="ko-only">"시계가 5분 넘게 다름"이 뜨면 두 기기 모두 날짜 · 시간 자동 설정을 켜세요. "가게가 닫혀 있습니다"는 PC 해방툴에서 <span class="ui">가게 열기</span>를 누르면 됩니다.</span><span class="en-only">If you see "clocks differ by more than 5 minutes", turn on automatic date and time on both devices. "The shop is closed" means pressing <span class="ui">Open shop</span> in the PC Rom Tool.</span></div>
+    </section>
+
+    <section class="gsec" id="arcade">
+      <p class="kicker">10 — ONLINE ARCADE</p>
+      <h2><span class="ko-only">온라인 오락실 — 친구와 같이</span><span class="en-only">Online Arcade — play with friends</span></h2>
+      <p class="lead"><span class="ko-only">0.8.0 — 멀리 있는 친구와 같은 게임을 함께 합니다. <strong>누구나</strong> 씁니다(PRO · 해방툴 · 전자상가 연결 없이 런처끼리).</span><span class="en-only">0.8.0 — play the same game with a friend far away. <strong>Free for everyone</strong> — launcher to launcher, no PRO, Rom Tool or Mall pairing needed.</span></p>
+<div class="figrow c3">
+<figure class="fig"><a href="assets/guide/hbl/arcade_tile.webp" class="zoom"><img src="assets/guide/hbl/arcade_tile.webp" alt="진열대 ↓ → 온라인 오락실" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">진열대 ↓ → 온라인 오락실</span><span class="en-only">Shelf ↓ → Online Arcade</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/arcade_choose.webp" class="zoom"><img src="assets/guide/hbl/arcade_choose.webp" alt="← 방장 (방 만들기) · → 참가 (방 번호 넣기)" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">← 방장 (방 만들기) · → 참가 (방 번호 넣기)</span><span class="en-only">← Host (make a room) · → Join (enter a room number)</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/arcade_host.webp" class="zoom"><img src="assets/guide/hbl/arcade_host.webp" alt="방장 — 게임을 골라 케이스 안에서 A 방 만들기" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">방장 — 게임을 골라 케이스 안에서 <span class="key">A</span> 방 만들기</span><span class="en-only">Host — pick a game and <span class="key">A</span> make a room in the case</span></figcaption></figure>
+</div>
+<div class="figrow c2">
+<figure class="fig"><a href="assets/guide/hbl/arcade_room.webp" class="zoom"><img src="assets/guide/hbl/arcade_room.webp" alt="방 번호 6자리 — 친구에게 알려 주세요" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">방 번호 6자리 — 친구에게 알려 주세요</span><span class="en-only">A 6-digit room number — tell your friend</span></figcaption></figure>
+<figure class="fig"><a href="assets/guide/hbl/arcade_join.webp" class="zoom"><img src="assets/guide/hbl/arcade_join.webp" alt="참가 — ▲▼ 숫자 · → 다음 칸 · A 들어가기" loading="lazy" decoding="async" /></a><figcaption><span class="ko-only">참가 — ▲▼ 숫자 · → 다음 칸 · <span class="key">A</span> 들어가기</span><span class="en-only">Join — ▲▼ digits · → next box · <span class="key">A</span> enter</span></figcaption></figure>
+</div>
+<ol>
+  <li><span class="ko-only"><strong>방장</strong> — 진열대 ↓ → 온라인 오락실 → ← 방장. 넷플레이가 되는 게임만 서고, 케이스 안에서 <span class="key">A</span> <strong>방 만들기</strong> → 큰 6자리 번호가 뜹니다.</span><span class="en-only"><strong>Host</strong> — shelf ↓ → Online Arcade → ← Host. Only netplay-ready games appear; <span class="key">A</span> <strong>make a room</strong> inside a case shows a big 6-digit number.</span></li>
+  <li><span class="ko-only"><strong>참가</strong> — → 참가 → 방 번호를 넣고 <span class="key">A</span>. 같은 롬 · 코어 · 버전을 런처가 알아서 맞추고, 3초 뒤 함께 시작합니다.</span><span class="en-only"><strong>Join</strong> — → Join → enter the number and <span class="key">A</span>. The launcher matches the ROM, core and version, and you start together three seconds later.</span></li>
+  <li><span class="ko-only">게임이 끝나면 <span class="key">A</span> 한 판 더 · <span class="key">B</span> 방 닫기(방장) / 나가기(참가).</span><span class="en-only">Afterwards: <span class="key">A</span> one more round · <span class="key">B</span> close room (host) / leave (guest).</span></li>
+</ol>
+<div class="tscroll"><table class="ftable"><tr><th><span class="ko-only">누가</span><span class="en-only">Who</span></th><th><span class="ko-only">필요한 것</span><span class="en-only">What you need</span></th></tr>
+<tr><td><span class="ko-only">모두</span><span class="en-only">Everyone</span></td><td><span class="ko-only">해방런처 0.8.0 이상</span><span class="en-only">HB Launcher 0.8.0+</span></td></tr>
+<tr><td><span class="ko-only">Android</span><span class="en-only">Android</span></td><td><span class="ko-only"><a href="hbretroarch.html">해방레트로아크</a> 1.22.2-hb16 이상(공식 RetroArch · 예전 버전으로는 방을 만들거나 들어갈 수 없음)</span><span class="en-only"><a href="hbretroarch.html">HB RetroArch</a> 1.22.2-hb16+ (the official RetroArch or older builds can't host or join)</span></td></tr>
+<tr><td><span class="ko-only">Windows</span><span class="en-only">Windows</span></td><td><span class="ko-only">RetroArch 1.22 (64비트)와 그 코어를 미리 설치</span><span class="en-only">RetroArch 1.22 (64-bit) and its cores installed</span></td></tr>
+</table></div>
+<p><span class="ko-only">되는 시스템: 아케이드(FinalBurn Neo · MAME) · 메가드라이브 · 슈퍼패미컴 · 패미컴 · PC엔진(HuCard). 자세한 코어 호환은 <a href="launcher.html#netplay">HB런처 페이지의 넷플레이 호환표</a>에 있습니다.</span><span class="en-only">Supported: arcade (FinalBurn Neo, MAME), Mega Drive, Super Famicom, Famicom and PC Engine (HuCard). Core-level details are in the <a href="launcher.html#netplay">netplay table on the HB Launcher page</a>.</span></p>
+<div class="tip"><span class="ko-only"><b>코어 버전이 달라도 괜찮아요.</b> 버전이 다르면 그 판에만 쓸 코어를 따로 받고, 입력 지연도 연결 속도에 맞춰 잡습니다(쓰던 코어 · 설정은 그대로).</span><span class="en-only"><b>Different core versions are fine.</b> A matching core is fetched just for that session, and input delay is set from the connection speed — your own cores and settings stay untouched.</span></div>
+    </section>
+
+    <section class="gsec" id="more">
+      <p class="kicker">11 — MORE</p>
+      <h2><span class="ko-only">그 밖에 알아 두면 좋은 것</span><span class="en-only">Other handy things</span></h2>
+      <p class="lead"><span class="ko-only">지우기 · 정리 · 이어 하기처럼 자주 쓰는 편의 기능입니다.</span><span class="en-only">Everyday conveniences — deleting, tidying and resuming.</span></p>
+<div class="tscroll"><table class="ftable"><tr><th><span class="ko-only">기능</span><span class="en-only">Feature</span></th><th><span class="ko-only">내용</span><span class="en-only">What</span></th></tr>
+<tr><td><span class="ko-only">게임 삭제 (0.7.8~)</span><span class="en-only">Delete games (0.7.8+)</span></td><td><span class="ko-only">게임별 옵션 → <strong>게임 삭제</strong>, 여러 개는 체크 모드의 <span class="key">A</span>. 롬 · 딸린 파일(cue/bin · m3u · CHD) · 그림 · 영상 · 목록을 함께 지우고 <strong>세이브는 남깁니다</strong>.</span><span class="en-only">Per-game options → <strong>Delete game</strong>, or <span class="key">A</span> in check mode for several. Removes the ROM, companion files (cue/bin, m3u, CHD), art, video and the list entry — <strong>saves are kept</strong>.</span></td></tr>
+<tr><td><span class="ko-only">슬립 이어 하기 (0.7.8~)</span><span class="en-only">Sleep resume (0.7.8+)</span></td><td><span class="ko-only">RetroArch 게임 중 기기를 잠갔다 깨우면 하던 곳에서 이어집니다(Android, RetroArch 1.22 이상).</span><span class="en-only">Lock and wake the device mid-game and RetroArch carries on (Android, RetroArch 1.22+).</span></td></tr>
+<tr><td><span class="ko-only">그래픽 품질</span><span class="en-only">Graphics quality</span></td><td><span class="ko-only">옵션 › 화면 — 저사양 · 표준 · 고사양(기본, 바닥 반사 · 광택). 바꾸면 다시 시작합니다.</span><span class="en-only">Options › Display — low, standard or high (default: floor reflections and gloss). Restart to apply.</span></td></tr>
+<tr><td><span class="ko-only">배터리 · 화면 회전 · UI 크기</span><span class="en-only">Battery, rotation, UI size</span></td><td><span class="ko-only">옵션 › 화면에서 켜고 끕니다. 배터리는 30% 이하 노랑, 15% 이하 빨강.</span><span class="en-only">Toggle in Options › Display. Battery turns yellow at 30% and red at 15%.</span></td></tr>
+<tr><td><span class="ko-only">브랜드별 탐색</span><span class="en-only">Browse by brand</span></td><td><span class="ko-only">옵션 › 화면 › 시스템 탐색 방식 — ↑↓ 회사, ←→ 기종</span><span class="en-only">Options › Display › system navigation — ↑↓ maker, ←→ console</span></td></tr>
+</table></div>
+    </section>
+
+    <section class="gsec" id="faq">
+      <p class="kicker">12 — TROUBLESHOOTING</p>
+      <h2><span class="ko-only">문제 해결</span><span class="en-only">Troubleshooting</span></h2>
+      <p class="lead"><span class="ko-only">자주 묻는 것만 모았습니다. 영상은 <a href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener">해방레트로 유튜브</a>의 해방런처 재생목록에 있습니다.</span><span class="en-only">The common ones. Videos are in the HB Launcher playlist on <a href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener">HAE-BANG RETRO on YouTube</a>.</span></p>
+<div class="tscroll"><table class="ftable"><tr><th><span class="ko-only">이럴 때</span><span class="en-only">When</span></th><th><span class="ko-only">이렇게</span><span class="en-only">Try this</span></th></tr>
+<tr><td><span class="ko-only">게임이 하나도 안 보여요</span><span class="en-only">No games at all</span></td><td><span class="ko-only">첫 화면에서 <span class="key">A</span> 로 <strong>모든 파일 접근</strong>을 허용하고, 해방툴로 내보냈는지 확인한 뒤 옵션 › 정보 › 라이브러리 다시 읽기.</span><span class="en-only">Press <span class="key">A</span> on the first screen to allow <strong>All files access</strong>, make sure you exported from the Rom Tool, then Options › Info › Reload library.</span></td></tr>
+<tr><td><span class="ko-only">일부 게임만 보여요</span><span class="en-only">Only some games show</span></td><td><span class="ko-only">이 기기에 롬이 없는 게임은 숨깁니다. 롬 폴더를 확인하거나 옵션 › 화면 › 롬 없는 게임 표시를 켭니다.</span><span class="en-only">Games without a ROM on this device are hidden. Check the ROM folder, or turn on Options › Display › show games without ROMs.</span></td></tr>
+<tr><td><span class="ko-only">예전 목록이 보여요</span><span class="en-only">An old list shows</span></td><td><span class="ko-only">SD 카드와 내부 저장소 양쪽에 HBLauncher 폴더가 있는 경우입니다. 해방툴 1.1.5 이상으로 다시 내보내면 정리됩니다.</span><span class="en-only">There's an HBLauncher folder on both SD and internal storage. Re-export with Rom Tool 1.1.5+ to tidy it.</span></td></tr>
+<tr><td><span class="ko-only">무선으로 보냈는데 롬이 SD 카드에 있어요</span><span class="en-only">Sent over Wi-Fi but ROMs are on SD</span></td><td><span class="ko-only">해방툴 1.1.6 + 런처 0.7.7 이상이면 저장소 줄에 SD 카드가 나옵니다. 안 나오면 해방툴 시스템 줄의 [직접 지정]에 SD 경로를 넣습니다.</span><span class="en-only">With Rom Tool 1.1.6 + launcher 0.7.7 the SD card appears in the storage row. If not, put the SD path in [Custom] on the system row.</span></td></tr>
+<tr><td><span class="ko-only">빨간 줄 · 에뮬레이터 없음</span><span class="en-only">Red row / no emulator</span></td><td><span class="ko-only">그 에뮬레이터 앱을 설치하거나 옵션 › 에뮬레이터에서 다른 후보를 고릅니다.</span><span class="en-only">Install that emulator app, or pick another in Options › Emulator.</span></td></tr>
+<tr><td><span class="ko-only">RetroArch 가 검은 화면에서 멈춰요</span><span class="en-only">RetroArch stops on a black screen</span></td><td><span class="ko-only">대개 코어가 없는 것입니다. 공식판은 RetroArch 온라인 업데이터 › 코어 다운로더에서 받고, 해방레트로아크는 런처가 알아서 받습니다.</span><span class="en-only">Usually a missing core. Official RetroArch: Online Updater › Core Downloader. HB RetroArch: the launcher fetches it.</span></td></tr>
+<tr><td><span class="ko-only">"게임이 바로 닫혔습니다"</span><span class="en-only">"The game closed right away"</span></td><td><span class="ko-only">코어 · 롬셋 · 바이오스를 확인하거나 다른 코어를 고릅니다.</span><span class="en-only">Check the core, romset and BIOS, or try another core.</span></td></tr>
+<tr><td><span class="ko-only">단독 에뮬레이터가 롬을 못 열어요</span><span class="en-only">A standalone emulator can't open the ROM</span></td><td><span class="ko-only">처음 묻는 "롬 폴더 접근 권한"을 허용하거나, 그 에뮬레이터 앱에 모든 파일 접근을 줍니다(cue/bin · m3u 는 후자가 확실).</span><span class="en-only">Allow the "ROM folder access" prompt, or give that emulator All files access (more reliable for cue/bin and m3u).</span></td></tr>
+<tr><td><span class="ko-only">RetroArch 메뉴 한글이 ?? 로 보여요</span><span class="en-only">RetroArch menu shows ?? instead of Korean</span></td><td><span class="ko-only">해방레트로아크를 최신(hb16)으로 올립니다.</span><span class="en-only">Update HB RetroArch to the latest (hb16).</span></td></tr>
+<tr><td><span class="ko-only">슬립에서 깨우면 RetroArch 가 꺼져요</span><span class="en-only">RetroArch closes after sleep</span></td><td><span class="ko-only">"스레드된 비디오" 설정 때문입니다. 공식판은 그 설정을 끄고, 해방레트로아크(hb7~)는 고쳐져 있습니다.</span><span class="en-only">It's the "threaded video" setting — turn it off in the official build; HB RetroArch (hb7+) has it fixed.</span></td></tr>
+<tr><td><span class="ko-only">패드 A/B 가 반대예요</span><span class="en-only">A and B are swapped</span></td><td><span class="ko-only">옵션 › 화면 › A/B · X/Y 바꾸기.</span><span class="en-only">Options › Display › swap A/B and X/Y.</span></td></tr>
+</table></div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="yr"></span> HB Launcher · HAE-BANG RETRO</span>
+    <span><a href="index.html"><span class="ko-only">← 홈으로</span><span class="en-only">← Back to home</span></a></span>
+  </div>
+</footer>
+
+<button class="totop" id="totop" aria-label="Top">↑</button>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var hdr = document.getElementById('hdr');
+  addEventListener('scroll', function(){ hdr.classList.toggle('scrolled', scrollY > 8); }, {passive:true});
+
+  // 언어 토글 (index/story 와 동일한 localStorage 키 'hb_lang')
+  var langBtn = document.getElementById('langBtn');
+  function applyLang(l){
+    document.documentElement.classList.toggle('en', l === 'en');
+    document.documentElement.lang = l;
+    langBtn.textContent = (l === 'ko') ? 'EN' : '한';
+    try { localStorage.setItem('hb_lang', l); } catch(e){}
+  }
+  langBtn.addEventListener('click', function(){
+    applyLang(document.documentElement.classList.contains('en') ? 'ko' : 'en');
+  });
+  try { var saved = localStorage.getItem('hb_lang'); if (saved === 'en') applyLang('en'); } catch(e){}
+
+  // TOC scrollspy + smooth scroll
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var map = {};
+  links.forEach(function(a){
+    var id = a.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) map[id] = { link: a, el: el };
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      history.replaceState(null,'','#'+id);
+    });
+  });
+  var ids = Object.keys(map);
+  function spy(){
+    var cur = null;
+    ids.forEach(function(id){ if (map[id].el.getBoundingClientRect().top <= 120) cur = id; });
+    links.forEach(function(a){ a.classList.remove('active'); });
+    if (cur && map[cur]) map[cur].link.classList.add('active');
+  }
+  addEventListener('scroll', spy, {passive:true}); spy();
+
+  // to top
+  var tt = document.getElementById('totop');
+  addEventListener('scroll', function(){ tt.classList.toggle('show', scrollY > 500); }, {passive:true});
+  tt.addEventListener('click', function(){ scrollTo({top:0, behavior:'smooth'}); });
+</script>
+<script>
+/* 모바일 메뉴 — 상단 메뉴가 숨겨지는 폭에서 같은 항목을 펼쳐 보여준다.
+   항목을 따로 적지 않고 .nav-links 를 복제해 두 곳이 어긋날 일이 없게 한다. */
+(function () {
+  var btn = document.getElementById('menuBtn'), mn = document.getElementById('mnav');
+  if (!btn || !mn) return;
+  var box = mn.querySelector('.in');
+  document.querySelectorAll('.nav-links a').forEach(function (a) { box.appendChild(a.cloneNode(true)); });
+  document.querySelectorAll('.subbar .wrap > a').forEach(function (a) { box.appendChild(a.cloneNode(true)); });
+  function setOpen(on) {
+    mn.classList.toggle('on', on);
+    btn.textContent = on ? '✕' : '☰';
+    btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function () { setOpen(!mn.classList.contains('on')); });
+  box.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 1040) setOpen(false); });
+})();
+</script>
+<script>
+/* 그림 크게 보기 — 문서 안 그림을 누르면 화면 가득, 다시 누르거나 Esc 로 닫는다 */
+(function () {
+  var box = document.createElement('div'); box.className = 'lbox'; box.innerHTML = '<img alt="" />';
+  document.body.appendChild(box);
+  var im = box.querySelector('img');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a.zoom'); if (!a) return;
+    e.preventDefault(); im.src = a.getAttribute('href'); box.classList.add('on');
+  });
+  box.addEventListener('click', function () { box.classList.remove('on'); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') box.classList.remove('on'); });
+})();
+</script>
+<script src="assets/donate.js"></script>
+<script src="assets/qrlink.js"></script>
+</body>
+</html>

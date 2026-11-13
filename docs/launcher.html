@@ -38,7 +38,7 @@
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   /* 위 메뉴(높이 67px)가 섹션 여백(56px)보다 높아 #download 등으로 옮겨 가면 '다운로드' 같은 첫 줄이 메뉴에 가린다 */
-  section[id]{scroll-margin-top:32px}
+  section[id]{scroll-margin-top:78px}   /* 위 메뉴(66) 아래 바로가기 막대(46)까지 가리지 않게 */
   body{margin:0; background:var(--bg); color:var(--text);
     font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     -webkit-font-smoothing:antialiased; line-height:1.6; overflow-x:hidden}
@@ -259,7 +259,41 @@
   .demo-video .cap b{font-size:14px; font-weight:800}
   .demo-video .cap span{font-size:12.5px; color:var(--muted)}
 
-  /* 특징 카드 — 한눈에(3열) */
+
+  /* 특징 — v0.8.0 기준 큰 줄(그림 + 설명) · 문서 안내(2026-11-14) */
+  .feat{display:grid; gap:22px}
+  .frow{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:34px; align-items:center; border:1px solid var(--border); border-radius:22px; padding:22px;
+    background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.5))}
+  .frow:nth-child(even) .fimg{order:2}
+  .fimg img{display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; border-radius:14px; border:1px solid var(--border2); background:#0a0c13}
+  .frow .ver{display:inline-flex; font-size:11px; font-weight:800; letter-spacing:.06em; padding:3px 10px; border-radius:999px;
+    background:rgba(74,222,128,.14); color:#86efac; border:1px solid rgba(74,222,128,.35)}
+  .frow h3{font-size:clamp(20px,2.4vw,26px); font-weight:800; letter-spacing:-.02em; margin:10px 0 8px}
+  .frow p{margin:0 0 12px; color:var(--muted); font-size:15px; line-height:1.7}
+  .frow ul{margin:0; padding:0; list-style:none; display:grid; gap:7px}
+  .frow li{position:relative; padding-left:20px; font-size:14.5px; color:#d6dae6; line-height:1.6}
+  .frow li::before{content:""; position:absolute; left:4px; top:.62em; width:7px; height:7px; border-radius:2px; background:#4ade80; box-shadow:0 0 8px #4ade80}
+  .frow li b{color:#fff}
+  .frow li a{color:#4ade80; font-weight:700}
+  .frow .more{display:inline-block; margin-top:14px; font-size:13.5px; font-weight:800; color:#4ade80}
+  .frow .more:hover{text-decoration:underline}
+  .fmore-h{text-align:center; margin:44px 0 18px; font-size:19px; font-weight:800}
+  .doc-cta{display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-top:26px; padding:20px 24px;
+    border:1px solid rgba(74,222,128,.32); border-radius:18px; background:radial-gradient(120% 140% at 0 0, rgba(74,222,128,.12), transparent 60%), var(--surface)}
+  .doc-cta b{display:block; font-size:17px; font-weight:800}
+  .doc-cta span{display:block; color:var(--muted); font-size:14px; margin-top:3px}
+  @media (max-width:860px){
+    .frow{grid-template-columns:1fr; gap:16px; padding:16px}
+    .frow:nth-child(even) .fimg{order:0}
+  }
+  /* HB런처 섹션 바로가기 — 해방툴 페이지의 subbar 와 같은 모양(헤더 아래 고정) */
+  .subbar{position:sticky; top:66px; z-index:49; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    background:rgba(10,12,20,.62); border-bottom:1px solid var(--border)}
+  .subbar .wrap{display:flex; align-items:center; gap:4px; height:46px; overflow-x:auto}
+  .subbar a{padding:6px 12px; border-radius:8px; font-size:13.5px; font-weight:600; color:var(--faint); transition:.18s; white-space:nowrap}
+  .subbar a:hover,.subbar a.on{color:var(--text); background:var(--surface)}
+  .subbar .sb-right{margin-left:auto}
+  /* 특징 카드 — 그 밖에도(3열) */
   .fgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
   .fcard{border:1px solid var(--border); border-radius:var(--radius); padding:24px 22px;
     background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.55))}
@@ -392,6 +426,18 @@
   <div class="mnav" id="mnav"><div class="in"></div></div>
 </header>
 
+<!-- HB런처 섹션 바로가기 — launcher-guide.html 의 것과 같게 유지(2026-11-14). 모바일 햄버거 메뉴도 이 항목을 복제한다 -->
+<div class="subbar">
+  <div class="wrap">
+    <a href="#features" data-ko="특징" data-en="Features">특징</a>
+    <a href="#preview" data-ko="화면" data-en="Screens">화면</a>
+    <a href="#netplay" data-ko="온라인 오락실" data-en="Online Arcade">온라인 오락실</a>
+    <a href="#download" data-ko="받기" data-en="Download">받기</a>
+    <a href="launcher-guide.html" data-ko="문서" data-en="Docs">문서</a>
+    <div class="sb-right"></div>
+  </div>
+</div>
+
 <main id="top">
 
   <!-- HERO -->
@@ -428,6 +474,7 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.2"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>
           <span data-ko="Android APK 다운로드" data-en="Android APK Download">Android APK 다운로드</span>
         </a>
+        <a class="btn btn-ghost" href="launcher-guide.html" data-ko="사용법 문서" data-en="User guide">사용법 문서</a>
       </div>
     </div>
   </section>
@@ -561,50 +608,116 @@
     </div>
   </section>
 
-  <!-- 특징 — 한눈에 -->
+  <!-- 특징 — v0.8.0 기준 다시 짬(2026-11-14, 사용자 요청: 지금 해방런처의 특징을 고스란히). 큰 줄 여섯(그림 · 설명 · 사용법 문서로) + 그 밖의 카드.
+       그림은 assets/guide/hbl/ (실기기 RG 476H 녹화에서 뽑음 — 해방런처 문서와 같은 파일) -->
   <section id="features">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow" data-ko="특징" data-en="Features">특징</span>
-        <h2 data-ko="HB런처, 한눈에" data-en="HB Launcher at a glance">HB런처, 한눈에</h2>
+        <span class="eyebrow" data-ko="특징 · v0.8.0" data-en="Features · v0.8.0">특징 · v0.8.0</span>
+        <h2 data-ko="해방런처로 할 수 있는 것" data-en="What HB Launcher does">해방런처로 할 수 있는 것</h2>
+        <p data-ko="진열하고 고르는 재미부터 친구와 함께 하는 온라인 오락실, 기기를 옮겨 다니는 세이브까지 — 지금 해방런처에 들어 있는 것을 모두 모았습니다." data-en="From the joy of shelving and picking to the Online Arcade with friends and saves that follow you between devices — everything in HB Launcher today.">진열하고 고르는 재미부터 친구와 함께 하는 온라인 오락실, 기기를 옮겨 다니는 세이브까지 — 지금 해방런처에 들어 있는 것을 모두 모았습니다.</p>
       </div>
+      <div class="feat">
+        <div class="frow reveal">
+          <div class="fimg"><img src="assets/guide/hbl/case.webp" width="960" height="720" loading="lazy" alt="진열하고, 열고, 꽂는다" /></div>
+          <div class="ftxt">
+            <span class="ver">v0.7 ~</span>
+            <h3 data-ko="진열하고, 열고, 꽂는다" data-en="Shelve it, open it, slot it in">진열하고, 열고, 꽂는다</h3>
+            <p data-ko="파일 이름 목록 대신 손에 잡히는 패키지. 케이스를 골라 앞뒤를 살피고, 열어서 매체를 꺼내 본체에 꽂으면 게임이 시작됩니다." data-en="A package you can almost hold, not a list of file names. Pick a case, turn it over, open it and slot the media into the console to play.">파일 이름 목록 대신 손에 잡히는 패키지. 케이스를 골라 앞뒤를 살피고, 열어서 매체를 꺼내 본체에 꽂으면 게임이 시작됩니다.</p>
+            <ul><li data-ko="<b>55개 기종</b> — 클램셸 · 종이곽 · 쥬얼케이스 · 빅박스를 실물 치수 그대로" data-en="<b>55 systems</b> — clamshells, cardboard boxes, jewel cases and big boxes at real size"><b>55개 기종</b> — 클램셸 · 종이곽 · 쥬얼케이스 · 빅박스를 실물 치수 그대로</li><li data-ko="앞표지 · 뒷표지 · 책등을 ▲▼ 로 자세히, 케이스 안에서 게임 정보 · 영상" data-en="Front, back and spine up close with ▲▼; game info and video inside the case">앞표지 · 뒷표지 · 책등을 ▲▼ 로 자세히, 케이스 안에서 게임 정보 · 영상</li><li data-ko="꽂으면 <b>내장 브라운관</b>이 켜지며 플레이 영상, 보다가 바로 시작" data-en="Slot it in and the <b>built-in CRT</b> plays footage — start right from there">꽂으면 <b>내장 브라운관</b>이 켜지며 플레이 영상, 보다가 바로 시작</li><li data-ko="진열 방식 — 패키지 · 기기(본체가 섬) · 목록형, 브랜드별 탐색" data-en="Shelf styles — packages, consoles or a list, plus browsing by brand">진열 방식 — 패키지 · 기기(본체가 섬) · 목록형, 브랜드별 탐색</li></ul>
+            <a class="more" href="launcher-guide.html#controls" data-ko="사용법 보기 →" data-en="How to use it →">사용법 보기 →</a>
+          </div>
+        </div>
+        <div class="frow reveal">
+          <div class="fimg"><img src="assets/guide/hbl/check.webp" width="960" height="720" loading="lazy" alt="수백 개 게임도 금방" /></div>
+          <div class="ftxt">
+            <span class="ver">v0.7.9</span>
+            <h3 data-ko="수백 개 게임도 금방" data-en="Hundreds of games, found fast">수백 개 게임도 금방</h3>
+            <p data-ko="게임이 많아져도 바로 찾고, 여러 개를 한 번에 정리합니다." data-en="Find any game in a big library and tidy several at once.">게임이 많아져도 바로 찾고, 여러 개를 한 번에 정리합니다.</p>
+            <ul><li data-ko="<b>게임 검색</b> — SELECT, 두 글자부터 이름순 첫 게임으로 바로" data-en="<b>Search</b> — SELECT; two letters jump straight to the first match"><b>게임 검색</b> — SELECT, 두 글자부터 이름순 첫 게임으로 바로</li><li data-ko="<b>체크 모드</b> — X 로 여러 개 골라 즐겨찾기 넣기 · 빼기 · 삭제를 한 번에" data-en="<b>Check mode</b> — tick several with X, then favourite, unfavourite or delete them together"><b>체크 모드</b> — X 로 여러 개 골라 즐겨찾기 넣기 · 빼기 · 삭제를 한 번에</li><li data-ko="<b>꾸러미 상자</b> — 해방툴의 하위 폴더(예: 한글패치)가 이름표 붙은 상자로" data-en="<b>Bundle boxes</b> — Rom Tool sub-folders (e.g. Korean patches) become labelled boxes"><b>꾸러미 상자</b> — 해방툴의 하위 폴더(예: 한글패치)가 이름표 붙은 상자로</li><li data-ko="<b>게임 삭제</b>는 롬 · 그림 · 영상 · 목록을 함께, <b>세이브는 남김</b> · 롬 없는 게임은 알아서 정리" data-en="<b>Delete</b> removes the ROM, art, video and entry but <b>keeps saves</b>; games without ROMs are tidied away"><b>게임 삭제</b>는 롬 · 그림 · 영상 · 목록을 함께, <b>세이브는 남김</b> · 롬 없는 게임은 알아서 정리</li></ul>
+            <a class="more" href="launcher-guide.html#browse" data-ko="사용법 보기 →" data-en="How to use it →">사용법 보기 →</a>
+          </div>
+        </div>
+        <div class="frow reveal">
+          <div class="fimg"><img src="assets/guide/hbl/arcade_room.webp" width="960" height="720" loading="lazy" alt="멀리 있는 친구와 — 온라인 오락실" /></div>
+          <div class="ftxt">
+            <span class="ver">v0.8.0</span>
+            <h3 data-ko="멀리 있는 친구와 — 온라인 오락실" data-en="Play with friends far away — Online Arcade">멀리 있는 친구와 — 온라인 오락실</h3>
+            <p data-ko="방장이 방을 만들고, 친구는 방 번호 여섯 자리만 넣으면 같은 게임을 함께 합니다. 누구나 무료로 씁니다." data-en="The host opens a room and a friend types its six-digit number — then you play the same game together. Free for everyone.">방장이 방을 만들고, 친구는 방 번호 여섯 자리만 넣으면 같은 게임을 함께 합니다. 누구나 무료로 씁니다.</p>
+            <ul><li data-ko="같은 롬 · 코어 · 버전을 런처가 <b>알아서 맞춤</b> — 코어 버전이 달라도 그 판에만 쓸 코어를 받아 옴" data-en="The launcher <b>matches the ROM, core and version</b> — even fetching a matching core just for that session">같은 롬 · 코어 · 버전을 런처가 <b>알아서 맞춤</b> — 코어 버전이 달라도 그 판에만 쓸 코어를 받아 옴</li><li data-ko="입력 지연도 연결 속도에 맞춰 자동, <b>Windows ↔ Android</b>끼리도" data-en="Input delay set from the connection speed, and <b>Windows ↔ Android</b> works too">입력 지연도 연결 속도에 맞춰 자동, <b>Windows ↔ Android</b>끼리도</li><li data-ko="아케이드 · 메가드라이브 · 슈퍼패미컴 · 패미컴 · PC엔진" data-en="Arcade, Mega Drive, Super Famicom, Famicom and PC Engine">아케이드 · 메가드라이브 · 슈퍼패미컴 · 패미컴 · PC엔진</li><li data-ko="Android 는 <a href='hbretroarch.html'>해방레트로아크</a> hb16 이상이 필요" data-en="Android needs <a href='hbretroarch.html'>HB RetroArch</a> hb16 or later">Android 는 <a href='hbretroarch.html'>해방레트로아크</a> hb16 이상이 필요</li></ul>
+            <a class="more" href="launcher-guide.html#arcade" data-ko="사용법 보기 →" data-en="How to use it →">사용법 보기 →</a>
+          </div>
+        </div>
+        <div class="frow reveal">
+          <div class="fimg"><img src="assets/guide/hbl/save.webp" width="960" height="720" loading="lazy" alt="하던 곳에서 그대로 — 세이브" /></div>
+          <div class="ftxt">
+            <span class="ver">v0.8.0</span>
+            <h3 data-ko="하던 곳에서 그대로 — 세이브" data-en="Right where you left off — saves">하던 곳에서 그대로 — 세이브</h3>
+            <p data-ko="세이브가 있는 게임은 케이스에 표시가 붙고, Y 한 번으로 세이브 창이 열립니다." data-en="Games with saves get a badge on the case, and Y opens the save window.">세이브가 있는 게임은 케이스에 표시가 붙고, Y 한 번으로 세이브 창이 열립니다.</p>
+            <ul><li data-ko="<b>세이브 창</b> — 자동 · 번호별 상태저장을 골라 그 장면부터 바로 시작" data-en="<b>Save window</b> — pick the auto or a numbered state and start from that moment"><b>세이브 창</b> — 자동 · 번호별 상태저장을 골라 그 장면부터 바로 시작</li><li data-ko="<b>나갈 때 자동 상태저장</b> — 홈 · 슬립 · 종료 때 저장해 두고 다음에 이어서" data-en="<b>Auto save-state on exit</b> — saved on home, sleep or quit, ready to resume"><b>나갈 때 자동 상태저장</b> — 홈 · 슬립 · 종료 때 저장해 두고 다음에 이어서</li><li data-ko="<b>세이브 맞추기</b> — PC 해방툴(PRO)의 세이브 보관함과 맞춰 다른 기기에서도 이어 하기" data-en="<b>Save sync</b> — sync with the PC Rom Tool's save vault (PRO) and carry on on another device"><b>세이브 맞추기</b> — PC 해방툴(PRO)의 세이브 보관함과 맞춰 다른 기기에서도 이어 하기</li><li data-ko="게임 중 잠갔다 깨우면 하던 곳에서 이어지는 <b>슬립 이어 하기</b>" data-en="<b>Sleep resume</b> — lock the device mid-game and pick up instantly">게임 중 잠갔다 깨우면 하던 곳에서 이어지는 <b>슬립 이어 하기</b></li></ul>
+            <a class="more" href="launcher-guide.html#saves" data-ko="사용법 보기 →" data-en="How to use it →">사용법 보기 →</a>
+          </div>
+        </div>
+        <div class="frow reveal">
+          <div class="fimg"><img src="assets/guide/hbl/mall_front.webp" width="960" height="720" loading="lazy" alt="해방레트로 전자상가" /></div>
+          <div class="ftxt">
+            <span class="ver">v0.7.8 ~</span>
+            <h3 data-ko="해방레트로 전자상가" data-en="HAE-BANG Retro Mall">해방레트로 전자상가</h3>
+            <p data-ko="PC 해방툴이 연 가게에 들어가 평소 진열대 그대로 구경하고, 장바구니에 담아 한 번에 가져옵니다." data-en="Step into a shop opened by the Rom Tool on a PC, browse it like your own shelf, and take games home in one go.">PC 해방툴이 연 가게에 들어가 평소 진열대 그대로 구경하고, 장바구니에 담아 한 번에 가져옵니다.</p>
+            <ul><li data-ko="여러 시스템을 한 장바구니에 <b>200개까지</b>" data-en="Up to <b>200 games</b> across systems in one cart">여러 시스템을 한 장바구니에 <b>200개까지</b></li><li data-ko="영수증에서 게임 · 그림 · 영상 용량과 남은 공간을 먼저 확인" data-en="The receipt shows game, art and video sizes and your free space first">영수증에서 게임 · 그림 · 영상 용량과 남은 공간을 먼저 확인</li><li data-ko="포장 → 보내기 → 기기에 저장, 진행을 실제 용량으로" data-en="Packing → sending → saving, with real byte progress">포장 → 보내기 → 기기에 저장, 진행을 실제 용량으로</li><li data-ko="Android 10 이상 · Windows 손님(다른 PC)도 들어올 수 있음" data-en="Android 10+, and Windows guests (another PC) can visit too">Android 10 이상 · Windows 손님(다른 PC)도 들어올 수 있음</li></ul>
+            <a class="more" href="launcher-guide.html#mall" data-ko="사용법 보기 →" data-en="How to use it →">사용법 보기 →</a>
+          </div>
+        </div>
+        <div class="frow reveal">
+          <div class="fimg"><img src="assets/guide/hbl/apps.webp" width="960" height="720" loading="lazy" alt="앱 · 프로그램도 한 곳에서" /></div>
+          <div class="ftxt">
+            <span class="ver">v0.8.0</span>
+            <h3 data-ko="앱 · 프로그램도 한 곳에서" data-en="Apps and programs in one place">앱 · 프로그램도 한 곳에서</h3>
+            <p data-ko="진열대 아래 줄에서 자주 쓰는 앱을 바로 켭니다. 게임기를 켜면 해방런처가 바로 뜨게 홈 앱으로도 씁니다." data-en="Launch your usual apps from the row below the shelf — and set it as the home app so the handheld boots straight into it.">진열대 아래 줄에서 자주 쓰는 앱을 바로 켭니다. 게임기를 켜면 해방런처가 바로 뜨게 홈 앱으로도 씁니다.</p>
+            <ul><li data-ko="<b>Android</b> — 깔린 앱에서 골라 넣고 A 로 실행" data-en="<b>Android</b> — add any installed app and launch it with A"><b>Android</b> — 깔린 앱에서 골라 넣고 A 로 실행</li><li data-ko="<b>Windows</b> — exe · 바로가기를 넣어 프로그램 실행" data-en="<b>Windows</b> — add exes or shortcuts and run them"><b>Windows</b> — exe · 바로가기를 넣어 프로그램 실행</li><li data-ko="홈 런처 · 안드로이드 TV(리모컨 ≡ 옵션) · 터치 조작까지" data-en="Home launcher, Android TV (remote ≡ for options) and touch controls">홈 런처 · 안드로이드 TV(리모컨 ≡ 옵션) · 터치 조작까지</li></ul>
+            <a class="more" href="launcher-guide.html#apps" data-ko="사용법 보기 →" data-en="How to use it →">사용법 보기 →</a>
+          </div>
+        </div>
+      </div>
+      <h3 class="fmore-h reveal" data-ko="그 밖에도" data-en="And also">그 밖에도</h3>
       <div class="fgrid">
-        <div class="fcard reveal">
-          <div class="ico">📦</div>
-          <h3 data-ko="실물 그대로의 케이스" data-en="True-to-life cases">실물 그대로의 케이스</h3>
-          <p data-ko="클램셸·종이곽·쥬얼케이스·빅박스. 기종마다 케이스 구조를 실물 치수(mm)대로 만들었습니다."
-             data-en="Clamshells, cardboard boxes, jewel cases, big boxes — each system's case built at real millimetre sizes.">클램셸·종이곽·쥬얼케이스·빅박스. 기종마다 케이스 구조를 실물 치수(mm)대로 만들었습니다.</p>
-        </div>
-        <div class="fcard reveal">
-          <div class="ico">💿</div>
-          <h3 data-ko="꺼내서 꽂는 매체" data-en="Media you pull out and slot in">꺼내서 꽂는 매체</h3>
-          <p data-ko="카트리지·디스크·UMD·게임카드를 꺼내 그 기종의 본체에 꽂으면 게임이 시작됩니다."
-             data-en="Pull the cartridge, disc, UMD or game card and slot it into that system's own console to play.">카트리지·디스크·UMD·게임카드를 꺼내 그 기종의 본체에 꽂으면 게임이 시작됩니다.</p>
-        </div>
-        <div class="fcard reveal">
-          <div class="ico">🗂️</div>
-          <h3 data-ko="55개 기종" data-en="55 systems">55개 기종</h3>
-          <p data-ko="패미컴·메가드라이브·PS1부터 게임큐브·PSP·3DS, DOS·아미가 빅박스, 아케이드까지 기종별 진열장."
-             data-en="From Famicom, Mega Drive and PS1 to GameCube, PSP and 3DS, DOS and Amiga big boxes, and arcade — a shelf for each.">패미컴·메가드라이브·PS1부터 게임큐브·PSP·3DS, DOS·아미가 빅박스, 아케이드까지 기종별 진열장.</p>
-        </div>
-        <div class="fcard reveal">
-          <div class="ico">📺</div>
-          <h3 data-ko="내장 브라운관" data-en="A built-in CRT">내장 브라운관</h3>
-          <p data-ko="꽂으면 브라운관이 켜지며 플레이 영상이 흐르고, 보다가 그 자리에서 바로 게임을 시작합니다."
-             data-en="Slot it in and the CRT flickers on with gameplay video — start the game right from there.">꽂으면 브라운관이 켜지며 플레이 영상이 흐르고, 보다가 그 자리에서 바로 게임을 시작합니다.</p>
-        </div>
         <div class="fcard reveal">
           <div class="ico">🕹️</div>
           <h3 data-ko="RetroArch + 단독 에뮬레이터" data-en="RetroArch + standalone emulators">RetroArch + 단독 에뮬레이터</h3>
-          <p data-ko="기본은 RetroArch, 기종마다 단독 에뮬레이터를 골라 실행할 수 있습니다."
-             data-en="RetroArch out of the box, with a standalone emulator selectable per system.">기본은 RetroArch, 기종마다 단독 에뮬레이터를 골라 실행할 수 있습니다.</p>
+          <p data-ko="시스템마다, 게임마다 실행기를 고릅니다. 런처에서 고른 값은 해방툴이 다시 보내도 지켜집니다." data-en="Pick the emulator per system or per game; choices made in the launcher survive new exports.">시스템마다, 게임마다 실행기를 고릅니다. 런처에서 고른 값은 해방툴이 다시 보내도 지켜집니다.</p>
+        </div>
+        <div class="fcard reveal">
+          <div class="ico">⚡</div>
+          <h3 data-ko="코어는 알아서" data-en="Cores handled for you">코어는 알아서</h3>
+          <p data-ko="해방레트로아크가 있으면 없는 코어를 받아 이어서 바로 시작합니다." data-en="With HB RetroArch, missing cores are fetched and the game just starts.">해방레트로아크가 있으면 없는 코어를 받아 이어서 바로 시작합니다.</p>
+        </div>
+        <div class="fcard reveal">
+          <div class="ico">📶</div>
+          <h3 data-ko="무선 받기" data-en="Wireless receive">무선 받기</h3>
+          <p data-ko="SELECT 한 번이면 케이블 없이 해방툴에서 게임을 받습니다. IP 입력도 필요 없습니다." data-en="One press of SELECT and the Rom Tool sends games over Wi-Fi — no cable, no IP.">SELECT 한 번이면 케이블 없이 해방툴에서 게임을 받습니다. IP 입력도 필요 없습니다.</p>
         </div>
         <div class="fcard reveal">
           <div class="ico">🎮</div>
-          <h3 data-ko="패드 하나로 · Windows · Android" data-en="One gamepad · Windows · Android">패드 하나로 · Windows · Android</h3>
-          <p data-ko="모든 조작을 패드 버튼만으로. 안드로이드 핸드헬드와 Windows PC에서 같은 진열장을 씁니다."
-             data-en="Everything works from the pad. The same shelf on an Android handheld or a Windows PC.">모든 조작을 패드 버튼만으로. 안드로이드 핸드헬드와 Windows PC에서 같은 진열장을 씁니다.</p>
+          <h3 data-ko="패드 · 키보드 · 터치" data-en="Pad, keyboard, touch">패드 · 키보드 · 터치</h3>
+          <p data-ko="패드 하나로 모든 조작. 패드 없는 폰은 터치로, Windows 는 키보드 · 마우스로." data-en="Everything from a pad; touch on phones, keyboard and mouse on Windows.">패드 하나로 모든 조작. 패드 없는 폰은 터치로, Windows 는 키보드 · 마우스로.</p>
         </div>
+        <div class="fcard reveal">
+          <div class="ico">📺</div>
+          <h3 data-ko="Windows · Android · TV" data-en="Windows, Android, TV">Windows · Android · TV</h3>
+          <p data-ko="같은 진열대를 PC · 휴대용 게임기 · 안드로이드 TV 에서 씁니다." data-en="The same shelf on a PC, an Android handheld or an Android TV.">같은 진열대를 PC · 휴대용 게임기 · 안드로이드 TV 에서 씁니다.</p>
+        </div>
+        <div class="fcard reveal">
+          <div class="ico">🎨</div>
+          <h3 data-ko="그래픽 · 배터리 · 회전" data-en="Graphics, battery, rotation">그래픽 · 배터리 · 회전</h3>
+          <p data-ko="고사양(바닥 반사 · 광택) 기본, 배터리 표시, 화면 회전, UI 크기를 기기에 맞게." data-en="High graphics by default (reflections, gloss), battery display, rotation and UI size to suit the device.">고사양(바닥 반사 · 광택) 기본, 배터리 표시, 화면 회전, UI 크기를 기기에 맞게.</p>
+        </div>
+      </div>
+      <div class="doc-cta reveal">
+        <div>
+          <b data-ko="처음이라면 해방런처 문서부터" data-en="New here? Start with the guide">처음이라면 해방런처 문서부터</b>
+          <span data-ko="설치 · 게임 채우기 · 조작법 · 전자상가 · 온라인 오락실 · 문제 해결을 실제 화면과 함께 정리했습니다." data-en="Install, filling the shelf, controls, the Retro Mall, the Online Arcade and troubleshooting — with real screens.">설치 · 게임 채우기 · 조작법 · 전자상가 · 온라인 오락실 · 문제 해결을 실제 화면과 함께 정리했습니다.</span>
+        </div>
+        <a class="btn btn-primary" href="launcher-guide.html" data-ko="해방런처 문서 보기 →" data-en="Open the guide →">해방런처 문서 보기 →</a>
       </div>
     </div>
   </section>
@@ -722,6 +835,7 @@
            data-en="HB Launcher v0.8 is out for Windows and Android (APK). Set up your library with the Rom Tool (public version included) and send it with [HB Launcher] export — it's there the moment you start the launcher.">HB런처 v0.8 Windows판과 안드로이드(APK)판이 나왔습니다. 해방툴(공개 버전 포함)로 라이브러리를 세팅하고 [HB런처] 내보내기로 보내면 런처를 켜자마자 이어집니다.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="haebang.html" data-ko="해방툴 알아보기" data-en="Explore the Rom Tool">해방툴 알아보기</a>
+          <a class="btn btn-ghost" href="launcher-guide.html" data-ko="해방런처 문서" data-en="HB Launcher guide">해방런처 문서</a>
           <a class="btn btn-ghost" href="news.html" data-ko="새로운 소식" data-en="News">새로운 소식</a>
         </div>
       </div>
