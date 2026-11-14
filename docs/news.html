@@ -412,7 +412,7 @@
           <div class="next-cta">
             <a class="btn btn-primary" href="launcher.html#download" data-ko="HB런처 받기" data-en="Get HB Launcher">HB런처 받기</a>
             <a class="btn btn-ghost" href="https://youtu.be/gS49FPfEqwo" target="_blank" rel="noopener" data-ko="▶ 사용법 영상" data-en="▶ How-to video">▶ 사용법 영상</a>
-            <a class="btn btn-ghost" href="#hbl-v081" data-ko="v0.8 소식 자세히" data-en="What’s new in v0.8">v0.8 소식 자세히</a>
+            <a class="btn btn-ghost" href="#hbl-v082" data-ko="v0.8 소식 자세히" data-en="What’s new in v0.8">v0.8 소식 자세히</a>
           </div>
         </div>
       </div>
@@ -511,26 +511,31 @@
           </div>
         </article>
 
-        <!-- 2026-11-14 : HB런처 v0.8.1 (윈도우 · 안드로이드) — 런처 e15f790 빌드(APK versionCode 19 11/14 12:04 e18daa86… · zip 12:06 ad118e3b…).
-             11/13 의 v0.8.0 글(런처 b5d0acd)에 덮어 썼다(사용자: 하루 만이라 글을 따로 세우지 않는다) — 옛 주소 #hbl-v080 은 글 안의 빈 표식으로 남긴다.
+        <!-- 2026-11-15 : HB런처 v0.8.2 (윈도우 · 안드로이드) — 런처 8e239ae 빌드(APK versionCode 20 788b407c… · zip 35b94d91…).
+             11/13 의 v0.8.0 글 → 11/14 v0.8.1 → 11/15 v0.8.2 로 덮어 썼다(하루 만이라 글을 따로 세우지 않는다) — 옛 주소 #hbl-v080 · #hbl-v081 은 글 안의 빈 표식으로 남긴다.
              온라인 오락실은 HB레트로아크 hb16 이상 필요 · hb17 권장(hbretroarch.html — 11/14 공개). 세이브 맞추기(X)는 해방툴 v1.1.8(세이브 보관함)부터 -->
-        <article class="tl-item hl reveal" data-cat="hbl" id="hbl-v081">
-          <span id="hbl-v080"></span>
+        <article class="tl-item hl reveal" data-cat="hbl" id="hbl-v082">
+          <span id="hbl-v080"></span><span id="hbl-v081"></span>
           <div class="tl-dot"><i></i></div>
-          <div class="tl-date">2026.11.14</div>
-          <h3 class="tl-title" data-ko="HB런처 v0.8.1 (윈도우 · 안드로이드) — 온라인 오락실(넷플레이) · 세이브 창 · 세이브 맞추기 · 앱 화면" data-en="HB Launcher v0.8.1 (Windows · Android) — Online Arcade (netplay), save panel, save sync, apps screen">HB런처 v0.8.1 (윈도우 · 안드로이드) &mdash; 온라인 오락실(넷플레이) · 세이브 창 · 세이브 맞추기 · 앱 화면</h3>
+          <div class="tl-date">2026.11.15</div>
+          <h3 class="tl-title" data-ko="HB런처 v0.8.2 (윈도우 · 안드로이드) — 온라인 오락실(넷플레이) · 세이브 창 · 세이브 맞추기 · 앱 화면" data-en="HB Launcher v0.8.2 (Windows · Android) — Online Arcade (netplay), save panel, save sync, apps screen">HB런처 v0.8.2 (윈도우 · 안드로이드) &mdash; 온라인 오락실(넷플레이) · 세이브 창 · 세이브 맞추기 · 앱 화면</h3>
           <div class="tags">
             <span class="tag new" data-ko="신규" data-en="New">신규</span>
             <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
             <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
           </div>
           <div class="tl-body">
+            <p class="tl-grp" data-ko="v0.8.2 에서 고친 것 (11/15) — 온라인 오락실: 두 화면이 어긋나던 문제" data-en="Fixed in v0.8.2 (Nov 15) — Online Arcade: the two screens drifting apart">v0.8.2 에서 고친 것 (11/15) — 온라인 오락실: 두 화면이 어긋나던 문제</p>
+            <ul>
+              <li data-ko="<b>시간이 지나면 두 화면이 서로 다른 장면이 되던 문제</b> — 아케이드(FinalBurn Neo) · 메가드라이브 등 일부 코어의 방에서 두 기기의 게임 상태를 5초마다 견줘, 어긋났으면 방장 장면으로 맞춥니다. v0.8.1 은 10초마다 화면이 튀는 것을 없애려고 이 검사를 껐는데, 그러면 실제로 어긋난 판이 끝까지 고쳐지지 않았습니다. 다시 켜고 간격을 줄여 한 번에 튀는 폭도 작게 했습니다."
+                  data-en="<b>The two screens ending up in different scenes after a while</b> — in rooms on some cores (arcade FinalBurn Neo, Mega Drive and others) the two devices now compare their game state every 5 seconds and the guest is brought back to the host's scene when they differ. v0.8.1 turned this check off to remove a jump every 10 seconds, but then a game that really drifted apart was never corrected. It is back on, at a shorter interval so each correction is smaller."><b>시간이 지나면 두 화면이 서로 다른 장면이 되던 문제</b> — 아케이드(FinalBurn Neo) · 메가드라이브 등 일부 코어의 방에서 두 기기의 게임 상태를 5초마다 견줘, 어긋났으면 방장 장면으로 맞춥니다. v0.8.1 은 10초마다 화면이 튀는 것을 없애려고 이 검사를 껐는데, 그러면 실제로 어긋난 판이 끝까지 고쳐지지 않았습니다. 다시 켜고 간격을 줄여 한 번에 튀는 폭도 작게 했습니다.</li>
+              <li data-ko="<b>방장이 v0.8.2 여야 적용됩니다</b> — 검사 간격은 방을 만든 쪽이 정합니다. 안드로이드가 방장이면 HB레트로아크 1.22.2-hb17 이상도 필요합니다."
+                  data-en="<b>The host needs v0.8.2</b> — the room's host sets the check interval. When Android hosts, HB RetroArch 1.22.2-hb17 or later is needed too."><b>방장이 v0.8.2 여야 적용됩니다</b> — 검사 간격은 방을 만든 쪽이 정합니다. 안드로이드가 방장이면 HB레트로아크 1.22.2-hb17 이상도 필요합니다.</li>
+            </ul>
             <p class="tl-grp" data-ko="v0.8.1 에서 더한 것 (11/14) — 온라인 오락실 안정성" data-en="Added in v0.8.1 (Nov 14) — Online Arcade stability">v0.8.1 에서 더한 것 (11/14) — 온라인 오락실 안정성</p>
             <ul>
               <li data-ko="<b>끊기면 자동으로 다시 들어가기</b> — 온라인 오락실에서 친구와의 연결이 끊기면 3초 뒤 같은 방으로 스스로 다시 들어가, 방장의 지금 장면부터 이어서 합니다(A 바로 들어가기 · B 나가기). 방장의 게임은 친구가 끊겨도 닫히지 않고 기다립니다. 두 사람 모두 v0.8.1 이어야 합니다."
                   data-en="<b>Back in automatically after a drop</b> — if the link to your friend drops in the Online Arcade, the launcher goes back into the same room after 3 seconds and you carry on from the host's current scene (A to go in now, B to leave). The host's game no longer closes when the friend drops; it waits. Both players need v0.8.1."><b>끊기면 자동으로 다시 들어가기</b> — 온라인 오락실에서 친구와의 연결이 끊기면 3초 뒤 같은 방으로 스스로 다시 들어가, 방장의 지금 장면부터 이어서 합니다(A 바로 들어가기 · B 나가기). 방장의 게임은 친구가 끊겨도 닫히지 않고 기다립니다. 두 사람 모두 v0.8.1 이어야 합니다.</li>
-              <li data-ko="<b>워프(캐릭터가 갑자기 빨리 움직임) 줄이기</b> — 아케이드(FinalBurn Neo) · 메가드라이브 등 일부 코어에서 10초마다 화면이 튀던 원인을 껐습니다. 윈도우가 방장이면 바로 적용되고, 안드로이드가 방장이면 HB레트로아크 1.22.2-hb17 부터 적용됩니다."
-                  data-en="<b>Less warping (characters suddenly speeding up)</b> — on some cores (arcade FinalBurn Neo, Mega Drive and others) the cause of a jump every 10 seconds is now turned off. It applies right away when Windows hosts; when Android hosts it applies from HB RetroArch 1.22.2-hb17."><b>워프(캐릭터가 갑자기 빨리 움직임) 줄이기</b> — 아케이드(FinalBurn Neo) · 메가드라이브 등 일부 코어에서 10초마다 화면이 튀던 원인을 껐습니다. 윈도우가 방장이면 바로 적용되고, 안드로이드가 방장이면 HB레트로아크 1.22.2-hb17 부터 적용됩니다.</li>
               <li data-ko="<b>(윈도우) 창을 바꿔도 끊기지 않게</b> — 게임 창이 잠깐 뒤로 가도 멈추지 않습니다(멈추면 방장이 연결을 끊었습니다)."
                   data-en="<b>(Windows) Switching windows no longer drops the link</b> — the game keeps running when its window loses focus (pausing used to get the player disconnected)."><b>(윈도우) 창을 바꿔도 끊기지 않게</b> — 게임 창이 잠깐 뒤로 가도 멈추지 않습니다(멈추면 방장이 연결을 끊었습니다).</li>
             </ul>
@@ -603,8 +608,8 @@
             <p class="tl-note" data-ko="안드로이드: 구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아 지금 쓰시는 앱 위에 설치하면 됩니다. 윈도우: [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(둘 다 라이브러리 · 설정 유지). 온라인 오락실은 해방툴 없이 런처끼리 바로 됩니다. 세이브 맞추기와 전자상가는 PC 의 해방툴 v1.1.8 베타(PRO)가 가게를 열어 두어야 합니다."
                data-en="Android: use the same HB Launcher APK code with [Get the APK with your code] on the HB Launcher page and install over your app. Windows: unzip the [Download for Windows] file over the old files (both keep your library and settings). The Online Arcade works launcher to launcher — no Rom Tool needed. Save sync and the Mall need the Rom Tool v1.1.8 beta (PRO) on your PC with its shop open.">안드로이드: 구매하신 HB런처 APK 코드 그대로 HB런처 페이지의 [코드로 APK 받기]에서 받아 지금 쓰시는 앱 위에 설치하면 됩니다. 윈도우: [Windows용 다운로드]로 받은 압축 파일을 풀어 예전 파일을 덮어쓰면 됩니다(둘 다 라이브러리 · 설정 유지). 온라인 오락실은 해방툴 없이 런처끼리 바로 됩니다. 세이브 맞추기와 전자상가는 PC 의 해방툴 v1.1.8 베타(PRO)가 가게를 열어 두어야 합니다.</p>
             <div class="tl-cta">
-              <a class="btn btn-primary" href="launcher.html#download" data-ko="APK v0.8.1 받기 →" data-en="Get APK v0.8.1 →">APK v0.8.1 받기 →</a>
-              <a class="btn btn-ghost" href="launcher.html#download" data-ko="Windows v0.8.1 받기 →" data-en="Get Windows v0.8.1 →">Windows v0.8.1 받기 →</a>
+              <a class="btn btn-primary" href="launcher.html#download" data-ko="APK v0.8.2 받기 →" data-en="Get APK v0.8.2 →">APK v0.8.2 받기 →</a>
+              <a class="btn btn-ghost" href="launcher.html#download" data-ko="Windows v0.8.2 받기 →" data-en="Get Windows v0.8.2 →">Windows v0.8.2 받기 →</a>
               <a class="btn btn-ghost" href="hbretroarch.html" data-ko="HB레트로아크 hb17 받기 →" data-en="Get HB RetroArch hb17 →">HB레트로아크 hb17 받기 →</a>
             </div>
           </div>
