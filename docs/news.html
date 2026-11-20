@@ -437,8 +437,8 @@
               </li>
               <li class="now">
                 <span class="rd" data-ko="후원자 전용" data-en="Sponsors">후원자 전용</span>
-                <span data-ko="<b>v1.1.8 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 앱 안에서 자동으로 받습니다(v1.1.9 → … → 1.2). 시스템 제외 없음"
-                      data-en="<b>v1.1.8 beta</b> — via sponsor code. Minor updates arrive automatically inside the app (v1.1.9 → … → 1.2). No systems excluded"><b>v1.1.8 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 앱 안에서 자동으로 받습니다(v1.1.9 → … → 1.2). 시스템 제외 없음</span>
+                <span data-ko="<b>v1.1.9 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 앱 안에서 자동으로 받습니다(1.2 까지). 시스템 제외 없음"
+                      data-en="<b>v1.1.9 beta</b> — via sponsor code. Minor updates arrive automatically inside the app (up to 1.2). No systems excluded"><b>v1.1.9 베타</b> — 스폰서 코드로 다운로드. 마이너 업데이트를 앱 안에서 자동으로 받습니다(1.2 까지). 시스템 제외 없음</span>
               </li>
               <li class="next-up">
                 <span class="rd" data-ko="v1.2 까지" data-en="Toward v1.2">v1.2 까지</span>
@@ -467,6 +467,66 @@
       </div>
 
       <div class="tl">
+
+        <!-- 2026-11-20 : 해방툴 v1.1.9 (베타) — main 29c0e66 빌드(설치 파일 11/20 13:33, md5 bdde7b69…), 커밋 대조로 쓴 내역(1c23a08..29c0e66) -->
+        <article class="tl-item hl reveal" data-cat="tool" id="rt-v119">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.11.20</div>
+          <h3 class="tl-title" data-ko="해방툴 v1.1.9 베타 — BIOS 관리 · 시스템 하위폴더 · 기기 파일 복사/받기 · RetroPie 지원" data-en="Rom Tool v1.1.9 beta — BIOS manager, system subfolders, PC ↔ device file copy, RetroPie">해방툴 v1.1.9 베타 &mdash; BIOS 관리 · 시스템 하위폴더 · 기기 파일 복사/받기 · RetroPie 지원</h3>
+          <div class="tags">
+            <span class="tag new" data-ko="신규" data-en="New">신규</span>
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+            <span class="tag fix" data-ko="수정" data-en="Fixed">수정</span>
+          </div>
+          <div class="tl-body">
+            <p class="tl-grp" data-ko="신규 · 개선" data-en="New · Improved">신규 · 개선</p>
+            <ul>
+              <li data-ko="<b>BIOS 관리</b> — 도구의 'BIOS 점검'이 'BIOS 관리'로 넓어졌습니다. 가지고 있는 BIOS 파일을 보관함에 모아 두고(파일 · 폴더 · zip · 7z 에서 골라 넣으며, 이름이 달라도 내용으로 알아봅니다), USB로 연결한 기기의 RetroArch 와 주요 단독 에뮬레이터 자리에 맞춰 보냅니다. 점검 기준 목록도 37개에서 48개 시스템으로 늘었습니다. BIOS 파일을 받아 오는 기능은 없습니다."
+                  data-en="<b>BIOS manager</b> — 'BIOS check' under Tools has grown into 'BIOS manager'. Keep the BIOS files you own in a library (pick them from files, folders, zip or 7z — they are recognised by content even when the name differs) and send them to the right places for RetroArch and the main standalone emulators on a device connected over USB. The reference list grew from 37 to 48 systems. The Rom Tool does not download BIOS files."><b>BIOS 관리</b> — 도구의 'BIOS 점검'이 'BIOS 관리'로 넓어졌습니다. 가지고 있는 BIOS 파일을 보관함에 모아 두고(파일 · 폴더 · zip · 7z 에서 골라 넣으며, 이름이 달라도 내용으로 알아봅니다), USB로 연결한 기기의 RetroArch 와 주요 단독 에뮬레이터 자리에 맞춰 보냅니다. 점검 기준 목록도 37개에서 48개 시스템으로 늘었습니다. BIOS 파일을 받아 오는 기능은 없습니다.</li>
+              <li data-ko="<b>시스템 하위폴더</b> — 같은 기종의 한글패치 · 핵롬 같은 갈래를 시스템 아래 하위폴더로 정리합니다. 시스템 우클릭 메뉴나 끌어다 넣기로 만들고, 여러 단으로 둘 수 있습니다. 내보내면 '시스템 폴더/하위폴더'로 나가고, 해방런처에서는 폴더 타일로 보입니다. +시스템 · +폴더의 '폴더별로 구분'도 하위폴더로 넣습니다."
+                  data-en="<b>System subfolders</b> — keep branches of one system (Korean patches, hacks …) as subfolders under that system. Create them from the system right-click menu or by drag and drop, several levels deep. They export as 'system folder/subfolder' and show up as folder tiles in HB Launcher. 'Split by folder' in +System and +Folder now adds subfolders too."><b>시스템 하위폴더</b> — 같은 기종의 한글패치 · 핵롬 같은 갈래를 시스템 아래 하위폴더로 정리합니다. 시스템 우클릭 메뉴나 끌어다 넣기로 만들고, 여러 단으로 둘 수 있습니다. 내보내면 '시스템 폴더/하위폴더'로 나가고, 해방런처에서는 폴더 타일로 보입니다. +시스템 · +폴더의 '폴더별로 구분'도 하위폴더로 넣습니다.</li>
+              <li data-ko="<b>시스템 이름 수정 · 게임으로 인식</b> — 시스템 우클릭으로 목록에 보이는 이름을 바꿉니다. 게임 하나의 폴더가 하위폴더로 잡혔을 때는 '게임으로 인식'으로 실행 파일을 골라 게임 한 줄로 바꿉니다."
+                  data-en="<b>Rename a system · Treat as a game</b> — right-click a system to change the name shown in the list. When the folder of a single game was picked up as a subfolder, 'Treat as a game' lets you choose its launch file and turns it into one game row."><b>시스템 이름 수정 · 게임으로 인식</b> — 시스템 우클릭으로 목록에 보이는 이름을 바꿉니다. 게임 하나의 폴더가 하위폴더로 잡혔을 때는 '게임으로 인식'으로 실행 파일을 골라 게임 한 줄로 바꿉니다.</li>
+              <li data-ko="<b>RetroPie 지원</b> — 커스텀 리눅스(SFTP) 대상에 RetroPie 가 추가되었습니다. 내보내기 · 가져오기가 되고, 기기에 에뮬레이터가 설치되지 않은 시스템은 내보낸 뒤 알려 줍니다."
+                  data-en="<b>RetroPie</b> — RetroPie joins the custom Linux (SFTP) targets. Export and import both work, and after an export the Rom Tool tells you which systems have no emulator installed on the device."><b>RetroPie 지원</b> — 커스텀 리눅스(SFTP) 대상에 RetroPie 가 추가되었습니다. 내보내기 · 가져오기가 되고, 기기에 에뮬레이터가 설치되지 않은 시스템은 내보낸 뒤 알려 줍니다.</li>
+              <li data-ko="<b>기기 탐색 창에서 PC ↔ 기기 파일 복사</b> — [⬆ PC 파일 복사] · [⬆ PC 폴더 복사]로 PC의 파일을 기기 폴더로 보내고, [⬇ PC로 받기]로 기기의 파일 · 폴더를 PC로 받습니다. 같은 이름이 있으면 덮어쓸지 건너뛸지 묻습니다."
+                  data-en="<b>Copy files between PC and device in the device browser</b> — [⬆ Copy PC files] and [⬆ Copy PC folder] send files from the PC into the device folder, and [⬇ Download to PC] brings device files and folders to the PC. When a name already exists it asks whether to overwrite or skip."><b>기기 탐색 창에서 PC ↔ 기기 파일 복사</b> — [⬆ PC 파일 복사] · [⬆ PC 폴더 복사]로 PC의 파일을 기기 폴더로 보내고, [⬇ PC로 받기]로 기기의 파일 · 폴더를 PC로 받습니다. 같은 이름이 있으면 덮어쓸지 건너뛸지 묻습니다.</li>
+              <li data-ko="<b>(PRO) 기기 시트</b> — 기기 이름 옆 [📂 탐색]으로 지금 연결된 기기의 탐색 창을 바로 엽니다(해방런처 무선 연결 포함). 하위폴더를 트리로 보여 주고, 정보 패널은 기기가 실제로 읽는 그림 · 경로를 그대로 보여 줍니다. 시트 여는 시간도 줄었습니다(RG 476H 해방런처 기준 7.7초 → 3.4초)."
+                  data-en="<b>(PRO) Device sheet</b> — [📂 Browse] next to the device name opens the browser of the device you are connected to (HB Launcher wireless included). Subfolders are shown as a tree, and the info panel shows the artwork and paths exactly as the device reads them. Sheets also open faster (7.7 s → 3.4 s for HB Launcher on an RG 476H)."><b>(PRO) 기기 시트</b> — 기기 이름 옆 [📂 탐색]으로 지금 연결된 기기의 탐색 창을 바로 엽니다(해방런처 무선 연결 포함). 하위폴더를 트리로 보여 주고, 정보 패널은 기기가 실제로 읽는 그림 · 경로를 그대로 보여 줍니다. 시트 여는 시간도 줄었습니다(RG 476H 해방런처 기준 7.7초 → 3.4초).</li>
+              <li data-ko="<b>(PRO) 연결이 끊기면 자동으로 로컬로</b> — 기기 시트를 연 상태에서 USB가 빠지거나 무선 연결(해방런처 무선 받기 · 리눅스 기기 Wi-Fi)이 끊기면 알리고 내 라이브러리로 돌아갑니다."
+                  data-en="<b>(PRO) Back to local when the connection drops</b> — with a device sheet open, if the USB cable is pulled or the wireless link (HB Launcher wireless receive, Linux handheld Wi-Fi) drops, the Rom Tool tells you and returns to your own library."><b>(PRO) 연결이 끊기면 자동으로 로컬로</b> — 기기 시트를 연 상태에서 USB가 빠지거나 무선 연결(해방런처 무선 받기 · 리눅스 기기 Wi-Fi)이 끊기면 알리고 내 라이브러리로 돌아갑니다.</li>
+              <li data-ko="<b>기기 선택</b> — USB · 무선으로 붙은 안드로이드 기기가 둘 이상이면 어느 기기에 보낼지 고릅니다."
+                  data-en="<b>Choose device</b> — when two or more Android devices are attached over USB or wireless, you choose which one to send to."><b>기기 선택</b> — USB · 무선으로 붙은 안드로이드 기기가 둘 이상이면 어느 기기에 보낼지 고릅니다.</li>
+              <li data-ko="<b>해방런처 내보내기</b> (해방런처 v0.9.0 과 함께) — 런처에 직접 지정해 둔 롬 경로와 보낼 자리가 다르면, 런처 경로로 보낼지 런처 설정을 되돌릴지 고릅니다. 안드로이드 해방런처로 보내는 영상은 변환하지 않고 MP4 원본 그대로 보내 처음 내보내기가 빨라집니다. [영상 내보내기]는 기본으로 켜집니다."
+                  data-en="<b>HB Launcher export</b> (with HB Launcher v0.9.0) — when the ROM path you set by hand in the launcher differs from where the export would go, you choose between sending to the launcher's path and resetting the launcher setting. Videos for HB Launcher on Android are sent as the original MP4 without converting, so a first export is quicker. [Export videos] is now on by default."><b>해방런처 내보내기</b> (해방런처 v0.9.0 과 함께) — 런처에 직접 지정해 둔 롬 경로와 보낼 자리가 다르면, 런처 경로로 보낼지 런처 설정을 되돌릴지 고릅니다. 안드로이드 해방런처로 보내는 영상은 변환하지 않고 MP4 원본 그대로 보내 처음 내보내기가 빨라집니다. [영상 내보내기]는 기본으로 켜집니다.</li>
+              <li data-ko="<b>(PRO) 외부 AI 연결</b> — 하위폴더 · 게임으로 인식 · BIOS 관리를 AI에게 시킬 수 있습니다(도구 87개 → 97개)."
+                  data-en="<b>(PRO) AI connection</b> — subfolders, 'Treat as a game' and the BIOS manager can now be driven by your AI (87 → 97 tools)."><b>(PRO) 외부 AI 연결</b> — 하위폴더 · 게임으로 인식 · BIOS 관리를 AI에게 시킬 수 있습니다(도구 87개 → 97개).</li>
+            </ul>
+            <p class="tl-grp" data-ko="변경" data-en="Changed">변경</p>
+            <ul>
+              <li data-ko="<b>[무선 adb] 옆 [📂 탐색] 단추</b> — 안드로이드 내보내기 · 해방런처 창에서 없앴습니다. 롬 경로는 저장소별 롬 기본 경로의 [탐색]으로 고르며, 이 창은 폴더만 고르는 창으로 단순해졌습니다."
+                  data-en="<b>[📂 Browse] next to [Wireless adb]</b> — removed from the Android export and HB Launcher windows. Choose ROM paths with [Browse] on the per-storage ROM path instead; that window is now a simple folder picker."><b>[무선 adb] 옆 [📂 탐색] 단추</b> — 안드로이드 내보내기 · 해방런처 창에서 없앴습니다. 롬 경로는 저장소별 롬 기본 경로의 [탐색]으로 고르며, 이 창은 폴더만 고르는 창으로 단순해졌습니다.</li>
+            </ul>
+            <p class="tl-grp" data-ko="수정" data-en="Fixed">수정</p>
+            <ul>
+              <li data-ko="<b>저장소별 롬 경로 [탐색]</b> — 안드로이드 내보내기에서 누르면 '목록 실패'가 뜨던 문제를 고쳤습니다."
+                  data-en="<b>[Browse] on the per-storage ROM path</b> — fixed the 'List failed' error when pressing it in the Android export."><b>저장소별 롬 경로 [탐색]</b> — 안드로이드 내보내기에서 누르면 '목록 실패'가 뜨던 문제를 고쳤습니다.</li>
+              <li data-ko="<b>기기 탐색 창</b> — 새 폴더를 만들거나 파일을 지우면 창이 닫히던 문제를 고쳤습니다."
+                  data-en="<b>Device browser</b> — the window no longer closes after you create a folder or delete a file."><b>기기 탐색 창</b> — 새 폴더를 만들거나 파일을 지우면 창이 닫히던 문제를 고쳤습니다.</li>
+              <li data-ko="<b>시스템 순서 바꾸기</b> — 시스템 목록을 끌어서 순서를 바꾸는 것이 되지 않던 문제를 고쳤습니다."
+                  data-en="<b>Reordering systems</b> — dragging rows in the system list to reorder them works again."><b>시스템 순서 바꾸기</b> — 시스템 목록을 끌어서 순서를 바꾸는 것이 되지 않던 문제를 고쳤습니다.</li>
+              <li data-ko="<b>(PRO) 전자상가</b> — 일부 게임 표지가 잠깐 보였다가 회색 제목판으로 바뀌던 문제를 고쳤습니다."
+                  data-en="<b>(PRO) HAE-BANG Retro Mall</b> — fixed some covers showing briefly and then turning into a grey title card."><b>(PRO) 전자상가</b> — 일부 게임 표지가 잠깐 보였다가 회색 제목판으로 바뀌던 문제를 고쳤습니다.</li>
+              <li data-ko="<b>(PRO) 기기 시트 +파일</b> — 파일 하나만 넣어도 그 폴더의 압축 파일을 전부 열어 보느라 느리던 문제를 고쳤습니다."
+                  data-en="<b>(PRO) Device sheet +Files</b> — adding a single file no longer opens every archive in that folder, which made it slow."><b>(PRO) 기기 시트 +파일</b> — 파일 하나만 넣어도 그 폴더의 압축 파일을 전부 열어 보느라 느리던 문제를 고쳤습니다.</li>
+            </ul>
+            <p class="tl-note" data-ko="후원자 전용 베타 다운로드에서 받으실 수 있습니다. 베타를 쓰고 계시면 앱을 켤 때 새 버전 알림이 뜹니다 — 설정 &gt; 업데이트의 [지금 확인]으로도 확인할 수 있습니다. MP4 원본 보내기와 런처 롬 경로 되돌리기는 함께 배포되는 해방런처 v0.9.0부터 동작하며, 이전 버전의 런처에는 예전 방식(영상 변환 · 런처 경로로 보내기)으로 보냅니다."
+               data-en="Available now from the sponsor beta download. On the beta you get a new-version notice when the app starts — or use [Check now] in Settings &gt; Update. Sending original MP4 and resetting the launcher ROM path need HB Launcher v0.9.0, released alongside; with an older launcher the Rom Tool works as before (converted video, send to the launcher path).">후원자 전용 베타 다운로드에서 받으실 수 있습니다. 베타를 쓰고 계시면 앱을 켤 때 새 버전 알림이 뜹니다 — 설정 &gt; 업데이트의 [지금 확인]으로도 확인할 수 있습니다. MP4 원본 보내기와 런처 롬 경로 되돌리기는 함께 배포되는 해방런처 v0.9.0부터 동작하며, 이전 버전의 런처에는 예전 방식(영상 변환 · 런처 경로로 보내기)으로 보냅니다.</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="haebang.html#download" data-ko="베타 다운로드로 이동 →" data-en="Go to beta download →">베타 다운로드로 이동 →</a>
+            </div>
+          </div>
+        </article>
 
         <!-- 2026-11-13 : 해방툴 v1.1.8 (베타) — main 1c23a08 빌드(설치 파일 11/13 23:41, md5 467af294…), 커밋 대조로 쓴 내역 -->
         <article class="tl-item hl reveal" data-cat="tool" id="rt-v118">
