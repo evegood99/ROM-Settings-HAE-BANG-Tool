@@ -329,6 +329,7 @@
   .np-table td.ok small{color:var(--muted); font-weight:600; font-size:12.5px}
   .np-table tbody tr:last-child td{border-bottom:0}
 </style>
+<link rel="stylesheet" href="assets/nav-dd.css" />
 </head>
 <body>
 
@@ -347,9 +348,15 @@
       <a href="haebang.html" data-ko="해방툴" data-en="Rom Tool">해방툴</a>
       <a href="launcher.html" data-ko="HB런처" data-en="HB Launcher">HB런처</a>
       <a href="hbretroarch.html" data-ko="HB레트로아크" data-en="HB RetroArch">HB레트로아크</a>
-      <a href="https://evegoodretro.com/games/" data-ko="게임 아카이브" data-en="Game Archive">게임 아카이브</a>
-      <a href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
-      <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
+      <a href="hbwinlator.html" data-ko="HB윈레이터" data-en="HB Winlator">HB윈레이터</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" data-ko="게임 아카이브" data-en="Game Archive">게임 아카이브</button>
+        <div class="nav-dd-menu"><div class="nav-dd-box">
+          <a data-grp="게임 아카이브" data-grp-en="Game Archive" class="dd-item dd-first" href="https://evegoodretro.com/games/" data-ko="게임박물관" data-en="Game Museum">게임박물관</a>
+          <a class="dd-item" href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
+          <a class="dd-item" href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
+        </div></div>
+      </div>
     </nav>
     <div class="nav-right">
       <a class="icon-btn yt" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" title="해방 레트로 유튜브 채널" aria-label="YouTube"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
@@ -468,6 +475,54 @@
 
       <div class="tl">
 
+        <!-- 2026-11-28 : HB윈레이터 5.0-hb2 첫 공개 — github.com/evegood99/HBWinlator 릴리스 v5.0-hb2(APK sha256 46d71ea3…), 페이지 hbwinlator.html.
+             해방툴 연동은 v1.2.0 부터(이 글을 올릴 때 v1.2.0 은 아직 공개 전 — 공개하면 "곧 공개" 를 지운다) -->
+        <article class="tl-item hl reveal" data-cat="etc" id="hbwin-hb2">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.11.28</div>
+          <h3 class="tl-title" data-ko="HB윈레이터 5.0-hb2 공개 — 컨테이너까지 알아서 준비되는 Winlator (안드로이드 · 무료)" data-en="HB Winlator 5.0-hb2 — a Winlator that sets itself up (Android · free)">HB윈레이터 5.0-hb2 공개 — 컨테이너까지 알아서 준비되는 Winlator (안드로이드 · 무료)</h3>
+          <div class="tags">
+            <span class="tag new" data-ko="신규" data-en="New">신규</span>
+          </div>
+          <div class="tl-body">
+            <p data-ko="안드로이드에서 윈도우 게임을 돌리는 Winlator(Ludashi 5.0)에 준비 브릿지를 더한 새 앱입니다. HB레트로아크처럼 GitHub 에서 무료로 받고, 다른 Winlator 옆에 나란히 설치됩니다." data-en="A new app: Winlator (Ludashi 5.0) for Windows games on Android, with a setup bridge. Like HB RetroArch it is free on GitHub and installs next to any other Winlator.">안드로이드에서 윈도우 게임을 돌리는 Winlator(Ludashi 5.0)에 준비 브릿지를 더한 새 앱입니다. HB레트로아크처럼 GitHub 에서 무료로 받고, 다른 Winlator 옆에 나란히 설치됩니다.</p>
+            <ul>
+              <li data-ko="<b>준비 브릿지</b> — Winlator 는 앱을 처음 열었을 때만 스스로를 준비해서, 게임을 보내도 기기에서 직접 설정하기 전에는 켜지지 않았습니다. HB윈레이터는 해방툴이 시스템 파일 · 런타임 · 첫 컨테이너까지 대신 준비합니다(RG 476H 29초 · AYN 오딘 2 13초)."
+                  data-en="<b>Setup bridge</b> — Winlator prepares itself only when first opened, so a game you sent would not start until you set things up on the device. With HB Winlator the Rom Tool prepares the system files, runtime and first container for you (RG 476H 29 s · AYN Odin 2 13 s)."><b>준비 브릿지</b> — Winlator 는 앱을 처음 열었을 때만 스스로를 준비해서, 게임을 보내도 기기에서 직접 설정하기 전에는 켜지지 않았습니다. HB윈레이터는 해방툴이 시스템 파일 · 런타임 · 첫 컨테이너까지 대신 준비합니다(RG 476H 29초 · AYN 오딘 2 13초).</li>
+              <li data-ko="<b>화면 맞춤</b> — 작은 해상도로 전체 화면을 잡는 게임이 화면 왼쪽 위 구석에만 나오던 것을, 기기 화면에 맞춰 키웁니다. 터치 · 마우스 위치도 따라갑니다."
+                  data-en="<b>Desktop fit</b> — games that go fullscreen at a small resolution used to fill only the top-left corner; they are now scaled to the device screen, and touch and pointer positions follow."><b>화면 맞춤</b> — 작은 해상도로 전체 화면을 잡는 게임이 화면 왼쪽 위 구석에만 나오던 것을, 기기 화면에 맞춰 키웁니다. 터치 · 마우스 위치도 따라갑니다.</li>
+              <li data-ko="<b>기기 언어</b> — 컨테이너가 기기 언어로 돌아, 시스템 언어로 게임 언어를 정하는 게임이 한국어로 시작합니다."
+                  data-en="<b>Device language</b> — containers run in the device language, so games that pick their language from the system start in yours."><b>기기 언어</b> — 컨테이너가 기기 언어로 돌아, 시스템 언어로 게임 언어를 정하는 게임이 한국어로 시작합니다.</li>
+              <li data-ko="<b>첫 실행 검은 화면</b> — 창 모드로 떴다가 전체 화면으로 바뀌는 게임이 처음 켤 때 소리만 나고 화면이 검던 문제를 고쳤습니다."
+                  data-en="<b>Black screen on first launch</b> — fixed games that start windowed and switch to fullscreen showing a black screen with sound the first time."><b>첫 실행 검은 화면</b> — 창 모드로 떴다가 전체 화면으로 바뀌는 게임이 처음 켤 때 소리만 나고 화면이 검던 문제를 고쳤습니다.</li>
+            </ul>
+            <p class="tl-note" data-ko="안드로이드 9 이상 · 64비트 기기에서 됩니다. 해방툴 연동(자동 준비 · 윈도우 게임 내보내기)은 곧 공개되는 해방툴 v1.2 부터 동작하고, 그 전에도 일반 Winlator 처럼 쓸 수 있습니다. 게임마다의 호환성은 Winlator 와 같습니다." data-en="For Android 9+ on 64-bit devices. Rom Tool integration (automatic setup, Windows game export) arrives with the upcoming Rom Tool v1.2; until then it works like a regular Winlator. Per-game compatibility is the same as Winlator.">안드로이드 9 이상 · 64비트 기기에서 됩니다. 해방툴 연동(자동 준비 · 윈도우 게임 내보내기)은 곧 공개되는 해방툴 v1.2 부터 동작하고, 그 전에도 일반 Winlator 처럼 쓸 수 있습니다. 게임마다의 호환성은 Winlator 와 같습니다.</p>
+            <div class="tl-cta">
+              <a class="btn btn-primary" href="hbwinlator.html" data-ko="HB윈레이터 알아보기 →" data-en="About HB Winlator →">HB윈레이터 알아보기 →</a>
+              <a class="btn btn-ghost" href="https://github.com/evegood99/HBWinlator/releases" target="_blank" rel="noopener" data-ko="GitHub 에서 받기 ↗" data-en="Download on GitHub ↗">GitHub 에서 받기 ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2026-11-28 : 상단 메뉴 정리 — 게임 아카이브 묶음(게임박물관 · 한글화 패치 · 읽을거리), assets/nav-dd.css · nav-dd.js (사용자 지시) -->
+        <article class="tl-item reveal" data-cat="etc" id="site-menu-1128">
+          <div class="tl-dot"><i></i></div>
+          <div class="tl-date">2026.11.28</div>
+          <h3 class="tl-title" data-ko="홈페이지 메뉴 정리 — 게임 아카이브 아래에 게임박물관 · 한글화 패치 · 읽을거리" data-en="Site menu tidy-up — Game Museum, KR Patches and Read now sit under Game Archive">홈페이지 메뉴 정리 — 게임 아카이브 아래에 게임박물관 · 한글화 패치 · 읽을거리</h3>
+          <div class="tags">
+            <span class="tag imp" data-ko="개선" data-en="Improved">개선</span>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li data-ko="상단 메뉴의 <b>게임 아카이브</b>를 누르면(또는 마우스를 올리면) 세 곳이 펼쳐집니다 — <b>게임박물관</b> · <b>한글화 패치</b> · <b>읽을거리</b>."
+                  data-en="Press (or hover) <b>Game Archive</b> in the top menu to open three places — <b>Game Museum</b>, <b>KR Patches</b> and <b>Read</b>.">상단 메뉴의 <b>게임 아카이브</b>를 누르면(또는 마우스를 올리면) 세 곳이 펼쳐집니다 — <b>게임박물관</b> · <b>한글화 패치</b> · <b>읽을거리</b>.</li>
+              <li data-ko="지금까지 게임 아카이브라고 부르던 게임 정보 둘러보기는 이름이 <b>게임박물관</b>으로 바뀌었습니다. 주소와 내용은 그대로입니다."
+                  data-en="The game browser we called the Game Archive is now the <b>Game Museum</b>. Its address and content are unchanged.">지금까지 게임 아카이브라고 부르던 게임 정보 둘러보기는 이름이 <b>게임박물관</b>으로 바뀌었습니다. 주소와 내용은 그대로입니다.</li>
+              <li data-ko="메뉴에 <b>HB윈레이터</b>가 생겼습니다."
+                  data-en="<b>HB Winlator</b> joins the menu.">메뉴에 <b>HB윈레이터</b>가 생겼습니다.</li>
+            </ul>
+          </div>
+        </article>
         <!-- 2026-11-23 : HB런처 v0.9.2 (윈도우 · 안드로이드) — APK versionCode 23 867b9e9a… · zip 87e6f87f…, 런처 작업 기록(CLAUDE.md)으로 쓴 내역.
              애니풍 시연 영상 assets/hbl_v092_anime.mp4(0:30 · 960x720 · 런처 효과음과 TV 의 게임 영상 소리) -->
         <article class="tl-item hl reveal" data-cat="hbl" id="hbl-v092">
@@ -3212,5 +3267,6 @@ document.querySelectorAll('.tl-chap button[data-t]').forEach(function (b) {
 </script>
 <script src="assets/donate.js"></script>
 <script src="assets/qrlink.js"></script>
+<script src="assets/nav-dd.js" defer></script>
 </body>
 </html>

@@ -343,7 +343,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   }
 
   /* ---------- 라인업 카드 ---------- */
-  .lineup{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px}
+  .lineup{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px}   /* 앱 넷 — 2 × 2 (HB윈레이터 추가, 2026-11-28) */
   .lineup.sub{grid-template-columns:1fr 1fr; margin-top:18px}
   .prod{position:relative; display:flex; flex-direction:column; border:1px solid var(--border); border-radius:var(--radius);
     padding:26px 24px; background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.55)); transition:.22s; overflow:hidden}
@@ -506,6 +506,7 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   html[lang="en"] .lang-ko, html:not([lang="en"]) .lang-en{display:none !important}
   @media (max-width:880px){ .yt-panel{grid-template-columns:1fr} }
 </style>
+<link rel="stylesheet" href="assets/nav-dd.css" />
 </head>
 <body>
 
@@ -524,9 +525,15 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       <a href="haebang.html" data-ko="해방툴" data-en="Rom Tool">해방툴</a>
       <a href="launcher.html" data-ko="HB런처" data-en="HB Launcher">HB런처</a>
       <a href="hbretroarch.html" data-ko="HB레트로아크" data-en="HB RetroArch">HB레트로아크</a>
-      <a href="https://evegoodretro.com/games/" data-ko="게임 아카이브" data-en="Game Archive">게임 아카이브</a>
-      <a href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
-      <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
+      <a href="hbwinlator.html" data-ko="HB윈레이터" data-en="HB Winlator">HB윈레이터</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" data-ko="게임 아카이브" data-en="Game Archive">게임 아카이브</button>
+        <div class="nav-dd-menu"><div class="nav-dd-box">
+          <a data-grp="게임 아카이브" data-grp-en="Game Archive" class="dd-item dd-first" href="https://evegoodretro.com/games/" data-ko="게임박물관" data-en="Game Museum">게임박물관</a>
+          <a class="dd-item" href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
+          <a class="dd-item" href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
+        </div></div>
+      </div>
     </nav>
     <div class="nav-right">
       <a class="icon-btn yt" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" title="해방 레트로 유튜브 채널" aria-label="YouTube"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
@@ -609,16 +616,16 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
         <h2 data-ko="지금 HAE-BANG RETRO는" data-en="What's happening">지금 HAE-BANG RETRO는</h2>
       </div>
       <div class="news-grid">
+        <a class="ncard reveal" href="news.html#hbwin-hb2">
+          <div class="n-top"><span class="n-date">2026.11.28</span><span class="n-tag site" data-ko="HB윈레이터" data-en="HB Winlator">HB윈레이터</span></div>
+          <h3 data-ko="HB윈레이터 공개 — 컨테이너까지 알아서 준비되는 Winlator" data-en="HB Winlator is out — a Winlator that sets itself up">HB윈레이터 공개 — 컨테이너까지 알아서 준비되는 Winlator</h3>
+          <p data-ko="안드로이드에서 윈도우 게임을 돌리는 Winlator 에 준비 브릿지를 더한 새 앱입니다. 해방툴이 첫 준비를 대신 하고, 작은 전체 화면 게임을 화면에 맞춰 키우며, 처음 켤 때 검은 화면이던 문제를 고쳤습니다. 무료 · GitHub 에서 받습니다." data-en="A new app: Winlator for Windows games on Android, with a setup bridge. The Rom Tool does the first-time setup, small fullscreen games are scaled to fit, and a black screen on first launch is fixed. Free, on GitHub.">안드로이드에서 윈도우 게임을 돌리는 Winlator 에 준비 브릿지를 더한 새 앱입니다. 해방툴이 첫 준비를 대신 하고, 작은 전체 화면 게임을 화면에 맞춰 키우며, 처음 켤 때 검은 화면이던 문제를 고쳤습니다. 무료 · GitHub 에서 받습니다.</p>
+          <span class="n-more" data-ko="자세히 보기 →" data-en="Read more →">자세히 보기 →</span>
+        </a>
         <a class="ncard reveal" href="news.html#hbl-v092">
           <div class="n-top"><span class="n-date">2026.11.23</span><span class="n-tag launcher" data-ko="HB런처" data-en="HB Launcher">HB런처</span></div>
           <h3 data-ko="HB런처 v0.9.2 — 새 테마 '애니풍' · 플레이 기록 · 게임 숨기기" data-en="HB Launcher v0.9.2 — the 'Anime Style' theme, play history, hide games">HB런처 v0.9.2 — 새 테마 '애니풍' · 플레이 기록 · 게임 숨기기</h3>
           <p data-ko="80 ~ 90년대 TV 애니메이션 속 내 방에서 게임을 고르는 새 테마 '애니풍'이 들어왔습니다. 최근 플레이 · 많이 한 순 정렬, 게임 숨기기, 바이오스 확인, 다시 깔아도 돌아오는 설정 사본도 더했습니다. 시연 영상도 함께 보세요." data-en="Pick games in a kid's room from an '80s–'90s TV anime with the new Anime Style theme. Plus recent and most-played sorting, hiding games, a BIOS check and a settings backup that survives a reinstall. Comes with a short demo video.">80 ~ 90년대 TV 애니메이션 속 내 방에서 게임을 고르는 새 테마 '애니풍'이 들어왔습니다. 최근 플레이 · 많이 한 순 정렬, 게임 숨기기, 바이오스 확인, 다시 깔아도 돌아오는 설정 사본도 더했습니다. 시연 영상도 함께 보세요.</p>
-          <span class="n-more" data-ko="자세히 보기 →" data-en="Read more →">자세히 보기 →</span>
-        </a>
-        <a class="ncard reveal" href="news.html#hbl-v091">
-          <div class="n-top"><span class="n-date">2026.11.21</span><span class="n-tag launcher" data-ko="HB런처" data-en="HB Launcher">HB런처</span></div>
-          <h3 data-ko="HB런처 v0.9.1 — 새 테마 '라이트 어드밴스' · 전자상가 가게 주인 고르기" data-en="HB Launcher v0.9.1 — the 'Lite Advance' theme, pick your shopkeeper">HB런처 v0.9.1 — 새 테마 '라이트 어드밴스' · 전자상가 가게 주인 고르기</h3>
-          <p data-ko="밝고 둥근 새 테마 '라이트 어드밴스'가 들어왔습니다 — 넘길 때마다 마림바가 울리고 배경 음악이 흐릅니다. 전자상가 계산대의 캐릭터를 셋 중에서 고르고, 아케이드는 에뮬레이터를 더 고를 수 있습니다. 소개 영상도 함께 보세요." data-en="A bright, rounded new theme — Lite Advance — with marimba chimes and background music. Pick one of three shopkeepers for the Mall counter, and choose from more emulators for arcade games. Comes with a short intro video.">밝고 둥근 새 테마 '라이트 어드밴스'가 들어왔습니다 — 넘길 때마다 마림바가 울리고 배경 음악이 흐릅니다. 전자상가 계산대의 캐릭터를 셋 중에서 고르고, 아케이드는 에뮬레이터를 더 고를 수 있습니다. 소개 영상도 함께 보세요.</p>
           <span class="n-more" data-ko="자세히 보기 →" data-en="Read more →">자세히 보기 →</span>
         </a>
         <a class="ncard reveal" href="news.html#rt-v119">
@@ -898,18 +905,31 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
             <a class="btn btn-ghost" href="https://github.com/evegood99/HBRetroArch/releases" target="_blank" rel="noopener" data-ko="다운로드" data-en="Download">다운로드</a>
           </div>
         </div>
+
+        <div class="prod reveal">
+          <div class="p-head">
+            <div class="p-ico">🪟</div>
+            <h3 data-ko="HB윈레이터" data-en="HB Winlator">HB윈레이터</h3>
+            <span class="p-status st-live" data-ko="5.0-hb2 · 무료" data-en="5.0-hb2 · free">5.0-hb2 · 무료</span>
+          </div>
+          <p data-ko="안드로이드에서 윈도우 게임을 돌리는 Winlator 에 준비 브릿지를 더했습니다. 해방툴이 시스템 파일 · 런타임 · 컨테이너까지 준비해, 기기에서 앱을 열지 않아도 ES-DE · Pegasus · HB런처에서 윈도우 게임을 눌러 켭니다. 작은 전체 화면 게임은 화면에 맞춰 키웁니다. 해방툴 연동은 v1.2 부터." data-en="Winlator runs Windows games on Android; this edition adds a setup bridge. The Rom Tool prepares the system files, runtime and container, so Windows games start with one tap in ES-DE, Pegasus or HB Launcher without opening the app. Small fullscreen games are scaled to fit. Rom Tool integration from v1.2.">안드로이드에서 윈도우 게임을 돌리는 Winlator 에 준비 브릿지를 더했습니다. 해방툴이 시스템 파일 · 런타임 · 컨테이너까지 준비해, 기기에서 앱을 열지 않아도 ES-DE · Pegasus · HB런처에서 윈도우 게임을 눌러 켭니다. 작은 전체 화면 게임은 화면에 맞춰 키웁니다. 해방툴 연동은 v1.2 부터.</p>
+          <div class="p-links">
+            <a class="btn btn-primary" href="hbwinlator.html" data-ko="자세히 보기" data-en="Learn more">자세히 보기</a>
+            <a class="btn btn-ghost" href="https://github.com/evegood99/HBWinlator/releases" target="_blank" rel="noopener" data-ko="다운로드" data-en="Download">다운로드</a>
+          </div>
+        </div>
       </div>
       <div class="lineup sub">
         <div class="prod reveal">
           <div class="p-head">
             <div class="p-ico">🌐</div>
-            <h3 data-ko="게임 아카이브" data-en="Game Archive">게임 아카이브</h3>
+            <h3 data-ko="게임박물관" data-en="Game Museum">게임박물관</h3>
             <span class="p-status st-live" data-ko="운영 중" data-en="Open now">운영 중</span>
           </div>
           <p data-ko="설치 없이 브라우저에서 수만 개의 레트로 게임 정보를 둘러보는 웹 아카이브. 시스템·연도·장르로 탐색하고, 한글 제목·설명과 박스아트·스크린샷·영상을 한 자리에서 만나 보세요."
              data-en="A web archive for browsing tens of thousands of retro games — no install needed. Explore by system, year and genre, with Korean titles, descriptions, box art, screenshots and videos in one place.">설치 없이 브라우저에서 수만 개의 레트로 게임 정보를 둘러보는 웹 아카이브. 시스템·연도·장르로 탐색하고, 한글 제목·설명과 박스아트·스크린샷·영상을 한 자리에서 만나 보세요.</p>
           <div class="p-links">
-            <a class="btn btn-primary" href="https://evegoodretro.com/games/" data-ko="아카이브 입장" data-en="Enter the Archive">아카이브 입장</a>
+            <a class="btn btn-primary" href="https://evegoodretro.com/games/" data-ko="박물관 입장" data-en="Enter the Museum">박물관 입장</a>
           </div>
         </div>
 
@@ -973,9 +993,10 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
       <div class="foot-col">
         <h5 data-ko="섹션" data-en="Sections">섹션</h5>
         <a href="haebang.html" data-ko="해방툴" data-en="Rom Tool">해방툴</a>
-        <a href="https://evegoodretro.com/games/" data-ko="게임 아카이브" data-en="Game Archive">게임 아카이브</a>
+        <a href="https://evegoodretro.com/games/" data-ko="게임박물관" data-en="Game Museum">게임박물관</a>
         <a href="launcher.html" data-ko="HB런처" data-en="HB Launcher">HB런처</a>
         <a href="hbretroarch.html" data-ko="HB레트로아크" data-en="HB RetroArch">HB레트로아크</a>
+        <a href="hbwinlator.html" data-ko="HB윈레이터" data-en="HB Winlator">HB윈레이터</a>
         <a href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
       </div>
       <div class="foot-col">
@@ -1387,5 +1408,6 @@ document.documentElement.className += ' js';   // 첫 화면 배너 등장 효�
   window.addEventListener('resize', function () { if (window.innerWidth > 1040) setOpen(false); });
 })();
 </script>
+<script src="assets/nav-dd.js" defer></script>
 </body>
 </html>

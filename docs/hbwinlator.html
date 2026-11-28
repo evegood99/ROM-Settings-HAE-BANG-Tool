@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- 이 저장소는 GitHub Pages 와 Cloudflare Pages 두 곳에 배포된다.
+     깃허브 쪽에는 Functions(/api/*)가 없어 아카이브·패치가 동작하지 않으므로,
+     그쪽으로 들어온 방문자는 같은 경로 그대로 정식 도메인으로 보낸다.
+     <head> 위쪽에 두어 화면이 그려지기 전에 옮겨지게 한다. -->
+<link rel="canonical" href="https://evegoodretro.com/hbwinlator" />
+<script>
+(function () {
+  if (location.hostname.indexOf('github.io') < 0) return;   // 정식 도메인에서는 아무 일 없음
+  var p = location.pathname.replace(/^\/ROM-Settings-HAE-BANG-Tool/, '') || '/';
+  location.replace('https://evegoodretro.com' + p + location.search + location.hash);
+})();
+</script>
+<title>HB윈레이터 — 컨테이너까지 알아서 준비되는 Winlator | HAE-BANG RETRO</title>
+<meta name="description" content="안드로이드에서 윈도우 게임을 돌리는 Winlator 에 준비 브릿지를 더한 비공식 빌드. 해방툴이 시스템 파일 · 런타임 · 컨테이너까지 준비해, 기기에서 앱을 열지 않아도 ES-DE · Pegasus · HB런처에서 윈도우 게임을 눌러 켭니다. 작은 전체 화면 게임을 화면에 맞춰 키우는 화면 맞춤 포함. 무료 · GPLv3." />
+<meta property="og:title" content="HB윈레이터 — 컨테이너는 알아서, 윈도우 게임은 누르면 바로" />
+<meta property="og:description" content="해방툴이 첫 준비까지 대신 하는 안드로이드 Winlator. 화면 맞춤 · 기기 언어 · 첫 실행 검은 화면 고침. HAE-BANG RETRO." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/icon_v2.png" />
+<link rel="icon" href="assets/favicon_v2.ico" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  :root{
+    --bg:#07080d; --bg2:#0a0c14; --surface:#11131d; --surface2:#171a27;
+    --border:#222639; --border2:#2c3147;
+    --text:#e9ebf4; --muted:#9aa1b6; --faint:#6b7186;
+    --cyan:#22d3ee; --violet:#8b5cf6; --indigo:#6366f1; --gold:#fbbf24; --emerald:#34d399; --rose:#fb7185;
+    --grad:linear-gradient(120deg,#22d3ee 0%,#6366f1 50%,#8b5cf6 100%);
+    --grad-soft:linear-gradient(120deg,rgba(34,211,238,.16),rgba(139,92,246,.16));
+    --radius:16px; --maxw:1180px;
+    --shadow:0 24px 60px -20px rgba(0,0,0,.7);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  /* 위 메뉴(높이 67px)가 섹션 여백(56px)보다 높아 #download 등으로 옮겨 가면 '다운로드' 같은 첫 줄이 메뉴에 가린다 */
+  section[id]{scroll-margin-top:32px}
+  body{margin:0; background:var(--bg); color:var(--text);
+    font-family:"Pretendard Variable",Pretendard,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6; overflow-x:hidden}
+  body::before{content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:radial-gradient(900px 520px at 78% -8%, rgba(251,191,36,.10), transparent 60%),
+      radial-gradient(720px 480px at 10% 4%, rgba(34,211,238,.12), transparent 55%),
+      radial-gradient(700px 700px at 50% 120%, rgba(139,92,246,.12), transparent 60%)}
+  a{color:inherit; text-decoration:none}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 22px}
+  .grad-text{background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .muted{color:var(--muted)}
+  .eyebrow{font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); font-weight:700}
+  header{position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+    background:rgba(8,9,15,.62); border-bottom:1px solid transparent; transition:.25s}
+  header.scrolled{border-bottom-color:var(--border); background:rgba(8,9,15,.84)}
+  .nav{display:flex; align-items:center; gap:18px; height:66px}
+  .brand{display:flex; align-items:center; gap:11px; font-weight:800; letter-spacing:.2px}
+  .brand img{width:34px; height:34px; border-radius:9px; box-shadow:0 0 0 1px var(--border2), 0 6px 18px -6px rgba(34,211,238,.5)}
+  .brand .bt{font-size:15.5px}
+  .brand .bs{font-size:10.5px; color:var(--muted); font-weight:600; letter-spacing:.04em}
+  .nav-links{display:flex; gap:6px; margin-left:18px}
+  .nav-links a{padding:8px 12px; border-radius:9px; font-size:14px; color:var(--muted); font-weight:600; transition:.18s}
+  /* 영어도 한국어처럼 한 줄로 — 'Game Archive' · 'HB Launcher' · 'HAE-BANG RETRO' 가 두 줄로 접혀 메뉴 모양이 달라지던 것 */
+  .nav-links a{white-space:nowrap}
+  @media (min-width:941px){ .brand .bt, .brand .bs{white-space:nowrap} }  /* 폰에서는 로고 글자가 접혀야 오른쪽 단추가 들어간다 */
+  /* 영어 글자가 한국어보다 넓어 같은 자리에 들어가도록 영어에서만 간격을 조금 줄인다 */
+  @media (min-width:1161px){
+    html[lang="en"] .nav-links{gap:2px}
+    html[lang="en"] .nav-links a{padding:8px 10px}
+  }
+  @media (max-width:1160px) and (min-width:941px){
+    html[lang="en"] .nav-links a{padding:8px 3px; font-size:12px}
+    html[lang="en"] .nav-right{gap:5px}
+    html[lang="en"] .nav-right > a.btn{padding:9px 12px; font-size:13px}
+  }
+  .nav-links a:hover{color:var(--text); background:var(--surface)}
+  .nav-links a.active{color:var(--text); background:var(--surface); box-shadow:inset 0 -2px 0 var(--gold)}
+  .nav-right{margin-left:auto; display:flex; align-items:center; gap:10px}
+  .icon-btn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:10px;
+    border:1px solid var(--border); color:var(--muted); background:var(--surface); transition:.18s; cursor:pointer}
+  .icon-btn:hover{color:var(--text); border-color:var(--border2); transform:translateY(-1px)}
+  .lang{font-size:12.5px; font-weight:800; letter-spacing:.04em}
+  .btn{display:inline-flex; align-items:center; gap:8px; font-weight:700; border-radius:11px; cursor:pointer;
+    padding:11px 18px; font-size:14px; border:1px solid transparent; transition:.2s; white-space:nowrap}
+  .btn-primary{background:var(--grad); color:#05070d; box-shadow:0 10px 30px -10px rgba(99,102,241,.7)}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 40px -12px rgba(99,102,241,.85)}
+  .btn-ghost{border-color:var(--border2); color:var(--text); background:var(--surface)}
+  .btn-ghost:hover{border-color:var(--cyan); color:#fff; transform:translateY(-2px)}
+
+  .hero{padding:80px 0 26px; text-align:center}
+
+  section{padding:56px 0}
+  .sec-head{text-align:center; max-width:700px; margin:0 auto 40px}
+  .sec-head h2{font-size:clamp(24px,3.4vw,36px); font-weight:800; letter-spacing:-.02em; margin:12px 0 12px}
+  .sec-head p{color:var(--muted); font-size:15.5px; margin:0}
+
+  /* ---------- HB레트로아크 — 히어로 ---------- */
+  .ra-hero{padding:76px 0 30px}
+  .ra-logo{display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:24px;
+    animation:logoIn .85s cubic-bezier(.2,.85,.25,1) both}
+  .ra-ico{width:min(104px,22vw); height:auto; flex:0 0 auto; filter:drop-shadow(0 10px 26px rgba(139,92,246,.42))}
+  .ra-word{display:flex; flex-direction:column; gap:6px; text-align:left; min-width:0}
+  .ra-word b{font-size:clamp(26px,4.2vw,46px); font-weight:900; letter-spacing:-.5px; line-height:1.05;
+    background:linear-gradient(110deg,#7c3aed 0%,#8b5cf6 20%,#a78bfa 33%,#f5f3ff 45%,#67e8f9 57%,#22d3ee 70%,#0e7490 100%);
+    background-size:240% 100%; background-position:135% 0;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 6px 22px rgba(139,92,246,.34));
+    animation:shine 6s ease-in-out 1.4s infinite}
+  .ra-word i{font-style:normal; font-size:clamp(10px,1.4vw,13.5px); font-weight:800; letter-spacing:.18em; color:#a78bfa; white-space:nowrap}
+  @keyframes logoIn{from{opacity:0; transform:translateY(16px) scale(.965)} to{opacity:1; transform:none}}
+  @keyframes shine{0%,58%{background-position:135% 0} 84%,100%{background-position:-45% 0}}
+  .ra-h1{font-size:clamp(32px,5.2vw,56px); line-height:1.14; letter-spacing:-.02em; font-weight:800; margin:6px auto 18px; max-width:880px}
+  .ra-h1 span{display:block}
+  .ra-lead{font-size:clamp(15.5px,2vw,18.5px); color:var(--muted); max-width:680px; margin:0 auto}
+  .badge{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700; color:var(--muted);
+    border:1px solid var(--border); background:var(--surface); padding:6px 11px; border-radius:999px}
+  .badge .dot{width:7px; height:7px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold)}
+  .badge.ok{color:#ddd6fe; border-color:rgba(167,139,250,.45); background:rgba(139,92,246,.12)}
+  .hero-badges{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:22px 0 0}
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:26px 0 0}
+
+  /* ---------- 연결 그림 — 넓은 화면은 SVG, 폰은 같은 내용을 세로 카드로 ---------- */
+  .ra-map{margin:0 auto; max-width:1000px; border:1px solid var(--border2); border-radius:22px; padding:18px 18px 0;
+    background:radial-gradient(80% 90% at 50% 0%, rgba(139,92,246,.10), transparent 70%), var(--surface); box-shadow:var(--shadow)}
+  .ra-map > svg{display:block; width:100%; height:auto}
+  .ra-map text{font-family:"Pretendard Variable",Pretendard,system-ui,sans-serif}
+  .ra-map .t-b{fill:#e9ebf4; font-size:16px; font-weight:800}
+  .ra-map .t-s{fill:#9aa1b6; font-size:13px; font-weight:600}
+  .ra-map .t-c{fill:#67e8f9; font-size:15px; font-weight:800}
+  .ra-map .t-v{fill:#c4b5fd; font-size:15px; font-weight:800}
+  .ra-map .t-k{fill:#86efac; font-size:14px; font-weight:800}
+  .ra-map .t-g{fill:#fcd34d; font-size:14px; font-weight:800}
+  .ra-map .flow{animation:raFlow 1.1s linear infinite}
+  @keyframes raFlow{to{stroke-dashoffset:-26}}
+  /* 말풍선 — 묻고 → 받고 → 시작, 차례로 떠서 함께 머문다 */
+  .ra-map .bub{opacity:0}
+  .ra-map .b1{animation:raB1 10s ease-in-out infinite}
+  .ra-map .b2{animation:raB2 10s ease-in-out infinite}
+  .ra-map .b3{animation:raB3 10s ease-in-out infinite}
+  @keyframes raB1{0%{opacity:0} 4%,88%{opacity:1} 95%,100%{opacity:0}}
+  @keyframes raB2{0%,26%{opacity:0} 30%,88%{opacity:1} 95%,100%{opacity:0}}
+  @keyframes raB3{0%,54%{opacity:0} 58%,88%{opacity:1} 95%,100%{opacity:0}}
+  .ra-map figcaption{margin-top:10px; padding:13px 8px 16px; border-top:1px solid var(--border); text-align:center;
+    color:var(--muted); font-size:13.5px; line-height:1.7}
+  .ra-flow{display:none}
+  .rf-node{display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:14px; border:1px solid var(--border2); background:var(--bg2)}
+  .rf-node img{width:40px; height:40px; flex:none}
+  .rf-node .ic{width:40px; height:40px; flex:none; display:grid; place-items:center; font-size:22px; border-radius:10px; background:var(--surface2)}
+  .rf-node b{display:block; font-size:15px}
+  .rf-node b + span{display:block; font-size:12.5px; color:var(--muted)}
+  .rf-link{align-self:center; padding:9px 4px; font-size:12.5px; font-weight:800; color:#67e8f9; text-align:center; line-height:1.45}
+  .rf-link.dl{color:#86efac}
+  .rf-dev{border:2px solid transparent; border-radius:20px; padding:12px;
+    background:linear-gradient(var(--bg2),var(--bg2)) padding-box, linear-gradient(120deg,#22d3ee,#8b5cf6) border-box}
+  .rf-cap{display:block; text-align:center; font-size:12px; color:var(--muted); margin-bottom:10px}
+  .rf-apps{display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:center}
+  .rf-app{display:flex; flex-direction:column; align-items:center; gap:6px; padding:10px 6px; border-radius:14px; font-size:13px; font-weight:800; text-align:center}
+  .rf-app.hbl{border:1.5px solid #4ade80; background:#0f1a14}
+  .rf-app.ra{border:1.5px solid #a78bfa; background:#130f24}
+  .rf-app img, .rf-app svg{width:38px; height:38px}
+  .rf-bridge{font-size:11.5px; font-weight:800; color:#fcd34d; text-align:center; line-height:1.3; max-width:72px; word-break:keep-all}
+
+  /* ---------- 예전 / 이제 ---------- */
+  .ra-tint{background:linear-gradient(180deg, transparent, rgba(139,92,246,.05) 18%, rgba(34,211,238,.04) 82%, transparent)}
+  .ra-ba{display:grid; grid-template-columns:1fr 1fr; gap:18px; max-width:980px; margin:0 auto}
+  .ra-col{display:flex; flex-direction:column; border:1px solid var(--border); border-radius:var(--radius); padding:22px 22px 18px; background:var(--surface)}
+  .ra-col.after{border-color:rgba(74,222,128,.42); background:radial-gradient(90% 80% at 100% 0%, rgba(74,222,128,.10), transparent 60%), var(--surface)}
+  .ra-col-top{margin-bottom:14px}
+  .tag-b,.tag-a{display:inline-flex; font-size:12px; font-weight:800; letter-spacing:.04em; padding:4px 11px; border-radius:999px}
+  .tag-b{color:#fecdd3; background:rgba(251,113,133,.14); border:1px solid rgba(251,113,133,.4)}
+  .tag-a{color:#04130b; background:#4ade80}
+  .ra-steps{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+  .ra-steps li{display:flex; gap:11px; align-items:center; font-size:14.5px; color:var(--muted); line-height:1.5}
+  .ra-steps i{flex:none; font-style:normal; display:grid; place-items:center; width:26px; height:26px; border-radius:8px;
+    font-size:13px; font-weight:800; color:#fecdd3; background:rgba(251,113,133,.14); border:1px solid rgba(251,113,133,.35)}
+  .after .ra-steps li{font-size:19px; font-weight:800; color:var(--text)}
+  .after .ra-steps i{width:32px; height:32px; font-size:15px; color:#04130b; background:#4ade80; border-color:#4ade80}
+  .ra-col-foot{margin:14px 0 0; padding-top:12px; border-top:1px dashed var(--border2); font-size:13px; color:var(--faint); line-height:1.6}
+  .after .ra-col-foot{color:#a7f3d0}
+  /* HB런처 '코어 받는 중' 모형 — 막대가 차면 '게임 시작' */
+  .ra-mock{flex:1; display:flex; flex-direction:column; justify-content:center; margin:16px 0 0; padding:18px 18px 16px;
+    border-radius:14px; background:#0b0e16; border:1px solid var(--border2)}
+  .mk-title{font-size:12px; font-weight:800; letter-spacing:.12em; color:#86efac}
+  .mk-name{margin:4px 0 12px; font-size:16px; font-weight:800}
+  .mk-bar{height:10px; border-radius:99px; background:#1d2233; overflow:hidden}
+  .mk-bar span{display:block; height:100%; width:0; border-radius:inherit; background:linear-gradient(90deg,#22d3ee,#4ade80);
+    animation:mkFill 5s ease-in-out infinite}
+  .mk-go{margin-top:12px; font-size:13.5px; font-weight:800; color:#4ade80; opacity:0; animation:mkGo 5s ease-in-out infinite}
+  @keyframes mkFill{0%{width:0} 60%,100%{width:100%}}
+  @keyframes mkGo{0%,60%{opacity:0} 66%,92%{opacity:1} 100%{opacity:0}}
+
+  /* ---------- 코어 관리만이 아닙니다 — 개선 카드 · 업데이트 기록 ---------- */
+  .badge.new{color:#a7f3d0; border-color:rgba(74,222,128,.45); background:rgba(74,222,128,.10)}
+  .fcard .ver{display:inline-flex; margin:0 0 10px; font-size:11.5px; font-weight:800; letter-spacing:.04em; padding:3px 9px; border-radius:999px;
+    color:#c4b5fd; background:rgba(139,92,246,.14); border:1px solid rgba(167,139,250,.35)}
+  .fcard .ra-stat{margin:14px 0 0; padding-top:12px; border-top:1px dashed var(--border2); font-size:13px; font-weight:700; color:#a7f3d0; line-height:1.55}
+  .fcard .ver.req{color:#fcd34d; background:rgba(251,191,36,.10); border-color:rgba(251,191,36,.40)}
+  /* 연동에 필요한 버전 — HB런처 0.7.6 · 해방툴 베타 1.1.5 (첫 화면 배지 아래) */
+  .ra-req{margin:16px auto 0; max-width:640px; font-size:13px; font-weight:700; color:#fcd34d; line-height:1.6}
+  .sec-head p.ra-req{color:#fcd34d; font-size:14px}
+  .fcard.core{border-color:rgba(251,191,36,.32)}
+  .fcard.input{border-color:rgba(74,222,128,.32)}
+  .fcard.screen{border-color:rgba(34,211,238,.32)}
+  .ra-log{list-style:none; margin:28px auto 0; padding:0; max-width:860px; display:grid; gap:10px}
+  .ra-log li{display:grid; grid-template-columns:118px 1fr; gap:14px; align-items:baseline; padding:13px 18px;
+    border:1px solid var(--border); border-radius:14px; background:var(--surface); font-size:14px; color:var(--muted); line-height:1.6}
+  .ra-log b{font-size:13.5px; font-weight:800; color:var(--text); white-space:nowrap}
+  .ra-log b small{display:block; font-size:11.5px; font-weight:600; color:var(--faint)}
+  .ra-log li.next{border-color:rgba(251,191,36,.45); background:radial-gradient(90% 100% at 0 0, rgba(251,191,36,.09), transparent 60%), var(--surface)}
+  .ra-log li.next b{color:#fcd34d}
+  @media (max-width:560px){ .ra-log li{grid-template-columns:1fr; gap:4px} }
+
+  /* ---------- 누가 챙기나 ---------- */
+  .fgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  .fcard{border:1px solid var(--border); border-radius:var(--radius); padding:24px 22px;
+    background:linear-gradient(180deg,var(--surface),rgba(13,15,23,.55))}
+  .fcard .ico{width:44px; height:44px; border-radius:12px; display:grid; place-items:center; margin-bottom:14px;
+    background:var(--grad-soft); border:1px solid var(--border2); font-size:21px}
+  .fcard h3{margin:0 0 8px; font-size:17px; font-weight:800}
+  .fcard p{margin:0; color:var(--muted); font-size:14px}
+  .fcard.hbl{border-color:rgba(74,222,128,.32)}
+  .fcard.tool{border-color:rgba(34,211,238,.32)}
+  .fcard.fe{border-color:rgba(167,139,250,.32)}
+
+  /* ---------- 세 걸음 ---------- */
+  .ra-setup{list-style:none; margin:0 auto; padding:0; max-width:980px; display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+  .ra-setup li{border:1px solid var(--border); border-radius:var(--radius); padding:22px 20px 20px; background:var(--surface)}
+  .ra-setup .n{display:inline-grid; place-items:center; width:34px; height:34px; border-radius:50%; margin-bottom:12px;
+    font-size:15px; font-weight:900; color:#05070d; background:var(--grad)}
+  .ra-setup b{display:block; font-size:17px; font-weight:800; margin-bottom:6px}
+  .ra-setup p{margin:0; font-size:14px; color:var(--muted); line-height:1.65}
+
+  /* ---------- 자주 묻는 것 ---------- */
+  .ra-faq{display:grid; grid-template-columns:1fr 1fr; gap:14px; max-width:1000px; margin:0 auto}
+  .qa{border:1px solid var(--border); border-radius:14px; padding:18px 20px; background:var(--surface)}
+  .qa b{display:block; font-size:15.5px; font-weight:800; margin-bottom:6px}
+  .qa p{margin:0; font-size:14px; color:var(--muted); line-height:1.7}
+  .qa.soon{border-color:rgba(251,191,36,.45); background:radial-gradient(90% 100% at 0 0, rgba(251,191,36,.09), transparent 60%), var(--surface)}
+  .qa.soon b{color:#fcd34d}
+
+  .cta{position:relative; border:1px solid var(--border2); border-radius:24px; overflow:hidden; text-align:center;
+    padding:52px 24px; background:radial-gradient(120% 130% at 50% -10%, rgba(139,92,246,.18), transparent 60%), var(--surface)}
+  .cta h2{font-size:clamp(24px,3.4vw,36px); font-weight:800; margin:0 0 12px; letter-spacing:-.02em}
+  .cta p{color:var(--muted); font-size:15.5px; max-width:560px; margin:0 auto 26px}
+  .cta p.ra-fine{margin:24px auto 0; font-size:12.5px; color:var(--faint)}
+  .cta-row{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
+
+  footer{border-top:1px solid var(--border); padding:42px 0 46px; margin-top:30px}
+  .foot-bottom{display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; color:var(--faint); font-size:12.5px}
+  .foot-links{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px; justify-content:center}
+  .foot-links a{color:var(--muted); font-size:13.5px; font-weight:600}
+  .foot-links a:hover{color:var(--text)}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1; transform:none}
+
+  @media (max-width:920px){ .fgrid{grid-template-columns:1fr 1fr} }
+  @media (max-width:760px){ .ra-ba, .ra-setup, .ra-faq{grid-template-columns:1fr} }
+  @media (max-width:700px){
+    .ra-map{padding:16px 14px 0}
+    .ra-map > svg{display:none}   /* 큰 그림만 — 세로 카드 안 작은 아이콘(svg)은 그대로 */
+    .ra-flow{display:flex; flex-direction:column}
+  }
+  @media (max-width:640px){ .fgrid{grid-template-columns:1fr} }
+  @media (max-width:560px){
+    .hide-s{display:none}   /* 상단 '다운로드' — 폰에서는 히어로 단추로 충분 */
+    .ra-logo{gap:12px}
+    .ra-word i{letter-spacing:.1em}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .ra-map .flow, .ra-word b, .ra-logo{animation:none}
+    .ra-map .bub{animation:none; opacity:1}
+    .mk-bar span{animation:none; width:100%}
+    .mk-go{animation:none; opacity:1}
+  }
+  /* 모바일 메뉴 — 좁은 화면에서 상단 메뉴가 숨겨지므로 햄버거로 같은 항목을 낸다 */
+  .menu-btn{display:none; align-items:center; justify-content:center; padding:0;
+    width:38px; height:38px; border-radius:10px; border:1px solid var(--border2);
+    background:var(--surface); color:var(--text); font-size:17px; line-height:1;
+    cursor:pointer; font-family:inherit; transition:.18s}
+  .menu-btn:hover{border-color:var(--cyan)}
+  .mnav{display:none; position:absolute; top:100%; left:0; right:0;
+    background:rgba(8,9,15,.98); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border); max-height:0; overflow:hidden;
+    transition:max-height .28s ease}
+  .mnav.on{max-height:78vh; overflow:auto}
+  .mnav .in{padding:8px 22px 16px; display:flex; flex-direction:column; gap:2px}
+  .mnav a{display:block; padding:12px; border-radius:10px; font-size:15px;
+    font-weight:600; color:var(--muted)}
+  .mnav a:hover,.mnav a.on,.mnav a.active{color:var(--text); background:var(--surface)}
+  /* 상단 메뉴가 8개가 되어 접히는 지점을 1040px 로 올린다(모든 페이지 공통).
+     기존 미디어쿼리에는 다른 규칙이 섞여 있어 값을 바꾸지 않고 여기서 덧쓴다. */
+  @media (max-width:1160px) and (min-width:941px){
+    /* 태블릿 — 메뉴를 좁혀 상단에 그대로 둔다. 가로 태블릿은 전부 들어간다.
+       (실측: 이 값이면 항목이 가장 많은 홈이 838px 부터 들어간다) */
+    .nav-links{gap:1px; margin-left:8px}
+    .nav-links a{padding:8px 6px; font-size:12.5px}
+  }
+  /* 860px 이하 — 메뉴를 접고 햄버거로 바꾼다.
+     ⚠️ 숨김·버튼·메뉴판을 반드시 한 곳에서 함께 켠다. 예전엔 버튼만 1040px 에서
+     켜고 메뉴판은 더 좁은 폭에서 켜서, 그 사이 구간(태블릿)에서는 버튼이 보이는데
+     눌러도 아무것도 안 열렸다. */
+  @media (max-width:940px){
+    .nav-links{display:none}
+    .menu-btn{display:inline-flex}
+    .mnav{display:block}
+  }
+  /* 메뉴 8개(HB레트로아크 추가, 2026-10-20) — 오른쪽에 '다운로드' 단추까지 있는 페이지에서도 한 줄에 들어가게.
+     넓은 화면은 메뉴 사이만 조금 좁히고(영어가 더 넓다), 1020px 이하는 햄버거로 접는다. */
+  @media (min-width:1161px){
+    .nav-links{gap:4px}
+    html[lang="en"] .nav-links{gap:0}
+    html[lang="en"] .nav-links a{padding:8px 6px}
+  }
+  @media (max-width:1020px){
+    .nav-links{display:none}
+    .menu-btn{display:inline-flex}
+    .mnav{display:block}
+  }
+  .icon-btn.yt{color:#ff4d4d} .icon-btn.yt:hover{color:#fff; background:#e0261c; border-color:#e0261c}
+</style>
+<link rel="stylesheet" href="assets/nav-dd.css" />
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <img src="assets/icon_v2.png" alt="HAE-BANG RETRO logo" />
+      <span>
+        <span class="bt">HAE-BANG RETRO</span>
+        <div class="bs" data-ko="HB윈레이터" data-en="HB Winlator">HB윈레이터</div>
+      </span>
+    </a>
+    <nav class="nav-links">
+      <a href="news.html" data-ko="새로운 소식" data-en="News">새로운 소식</a>
+      <a href="index.html" data-ko="홈" data-en="Home">홈</a>
+      <a href="haebang.html" data-ko="해방툴" data-en="Rom Tool">해방툴</a>
+      <a href="launcher.html" data-ko="HB런처" data-en="HB Launcher">HB런처</a>
+      <a href="hbretroarch.html" data-ko="HB레트로아크" data-en="HB RetroArch">HB레트로아크</a>
+      <a href="hbwinlator.html" class="active" data-ko="HB윈레이터" data-en="HB Winlator">HB윈레이터</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn" aria-haspopup="true" aria-expanded="false" data-ko="게임 아카이브" data-en="Game Archive">게임 아카이브</button>
+        <div class="nav-dd-menu"><div class="nav-dd-box">
+          <a data-grp="게임 아카이브" data-grp-en="Game Archive" class="dd-item dd-first" href="https://evegoodretro.com/games/" data-ko="게임박물관" data-en="Game Museum">게임박물관</a>
+          <a class="dd-item" href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
+          <a class="dd-item" href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
+        </div></div>
+      </div>
+    </nav>
+    <div class="nav-right">
+      <a class="icon-btn yt" href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" title="해방 레트로 유튜브 채널" aria-label="YouTube"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+      <button class="icon-btn lang" id="langBtn" title="Language" aria-label="Language">EN</button>
+      <a class="btn btn-primary hide-s" href="https://github.com/evegood99/HBWinlator/releases" target="_blank" rel="noopener" data-ko="다운로드" data-en="Download">다운로드</a>
+    </div>
+      <button class="menu-btn" id="menuBtn" aria-label="메뉴" aria-expanded="false">☰</button>
+    </div>
+  <div class="mnav" id="mnav"><div class="in"></div></div>
+</header>
+
+<main id="top">
+<!-- 해방툴 연동(권한 · 준비 · 컨테이너 번호 · 바로가기 · ES-DE 찾기 규칙)은 해방툴 v1.2.0 부터 동작한다.
+     2026-11-28 이 페이지를 올릴 때 v1.2.0 은 아직 공개 전이라 "곧 공개" 라고 적었다 — v1.2.0 을 공개하면 그 말(.ra-req 한 줄 · FAQ 한 칸)을 지운다. -->
+
+  <!-- HERO -->
+  <section class="hero ra-hero">
+    <div class="wrap">
+      <div class="ra-logo">
+        <svg class="ra-ico" viewBox="0 0 120 120" aria-hidden="true">
+          <defs>
+            <linearGradient id="raG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset=".55" stop-color="#6366f1"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+          </defs>
+          <rect x="4" y="4" width="112" height="112" rx="26" fill="#0d0f1a" stroke="url(#raG)" stroke-width="4"/>
+          <rect x="34" y="50" width="24" height="20" rx="3" fill="url(#raG)"/><rect x="62" y="50" width="24" height="20" rx="3" fill="url(#raG)"/>
+          <rect x="34" y="74" width="24" height="20" rx="3" fill="url(#raG)"/><rect x="62" y="74" width="24" height="20" rx="3" fill="url(#raG)"/>
+          <text x="60" y="40" text-anchor="middle" font-family="Pretendard, sans-serif" font-size="20" font-weight="900" fill="#e9ebf4" letter-spacing="1">HB</text>
+        </svg>
+        <div class="ra-word">
+          <b>HB윈레이터</b>
+          <i>HB WINLATOR · SETUP BRIDGE</i>
+        </div>
+      </div>
+      <h1 class="ra-h1">
+        <span data-ko="컨테이너는 알아서," data-en="Setup handled for you,">컨테이너는 알아서,</span>
+        <span class="grad-text" data-ko="윈도우 게임은 누르면 바로" data-en="Windows games one tap away">윈도우 게임은 누르면 바로</span>
+      </h1>
+      <p class="ra-lead" data-ko="안드로이드에서 윈도우 게임을 돌리는 Winlator 에, 해방툴이 첫 준비(시스템 파일 · 런타임 · 컨테이너)까지 대신 하는 준비 브릿지를 더했습니다. 기기에서 앱을 열어 설정하지 않아도, PC 에서 보낸 게임을 ES-DE · Pegasus · HB런처에서 눌러 바로 켭니다. 다른 Winlator 옆에 나란히 설치됩니다." data-en="Winlator runs Windows games on Android. This edition adds a setup bridge, so the Rom Tool can do the first-time preparation (system files, runtime, container) for you. Without opening the app on the device, games sent from your PC start with one tap in ES-DE, Pegasus or HB Launcher. It installs next to any other Winlator.">안드로이드에서 윈도우 게임을 돌리는 Winlator 에, 해방툴이 첫 준비(시스템 파일 · 런타임 · 컨테이너)까지 대신 하는 준비 브릿지를 더했습니다. 기기에서 앱을 열어 설정하지 않아도, PC 에서 보낸 게임을 ES-DE · Pegasus · HB런처에서 눌러 바로 켭니다. 다른 Winlator 옆에 나란히 설치됩니다.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://github.com/evegood99/HBWinlator/releases" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          <span data-ko="HB윈레이터 받기 (GitHub)" data-en="Get HB Winlator (GitHub)">HB윈레이터 받기 (GitHub)</span>
+        </a>
+        <a class="btn btn-ghost" href="#easy"><span data-ko="무엇이 쉬워지나요? ↓" data-en="What gets easier? ↓">무엇이 쉬워지나요? ↓</span></a>
+      </div>
+      <div class="hero-badges">
+        <span class="badge new" data-ko="최신 5.0-hb2" data-en="Latest 5.0-hb2">최신 5.0-hb2</span>
+        <span class="badge"><span class="dot"></span><span data-ko="무료 · 오픈소스(GPLv3)" data-en="Free · open source (GPLv3)">무료 · 오픈소스(GPLv3)</span></span>
+        <span class="badge" data-ko="Winlator Ludashi 5.0 기반" data-en="Based on Winlator Ludashi 5.0">Winlator Ludashi 5.0 기반</span>
+        <span class="badge" data-ko="안드로이드 9+ · 64비트" data-en="Android 9+ · 64-bit">안드로이드 9+ · 64비트</span>
+        <span class="badge ok" data-ko="해방툴 · HB런처 연동" data-en="Works with Rom Tool · HB Launcher">해방툴 · HB런처 연동</span>
+      </div>
+      <p class="ra-req" data-ko="해방툴 연동(자동 준비 · 윈도우 게임 내보내기)은 해방툴 v1.2 부터 동작합니다 — v1.2 는 곧 공개됩니다. 그 전에도 HB윈레이터는 지금 받아 일반 Winlator 처럼 쓸 수 있습니다." data-en="Rom Tool integration (automatic setup and Windows game export) works from Rom Tool v1.2, which is coming soon. Until then you can install HB Winlator now and use it like a regular Winlator.">해방툴 연동(자동 준비 · 윈도우 게임 내보내기)은 해방툴 v1.2 부터 동작합니다 — v1.2 는 곧 공개됩니다. 그 전에도 HB윈레이터는 지금 받아 일반 Winlator 처럼 쓸 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- BETTER — 더한 것 · 고친 것 + 업데이트 기록 -->
+  <section id="better" class="ra-tint">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow" data-ko="더한 것 · 고친 것" data-en="What it adds and fixes">더한 것 · 고친 것</span>
+        <h2><span data-ko="게임기에서 " data-en="A Winlator that is ">게임기에서 </span><span class="grad-text" data-ko="손이 덜 가는 Winlator" data-en="less work on handhelds">손이 덜 가는 Winlator</span></h2>
+        <p data-ko="Winlator Ludashi 5.0 을 바탕으로, 처음 준비를 바깥에서 시킬 수 있게 하고 게임기 화면에서 걸리던 문제를 고쳤습니다. 게임 실행 · 설정 · 그래픽 드라이버는 원래 Winlator 와 같습니다." data-en="Built on Winlator Ludashi 5.0: the first-time setup can be driven from outside the app, and a few problems on handheld screens are fixed. Running games, settings and graphics drivers are the same as the original.">Winlator Ludashi 5.0 을 바탕으로, 처음 준비를 바깥에서 시킬 수 있게 하고 게임기 화면에서 걸리던 문제를 고쳤습니다. 게임 실행 · 설정 · 그래픽 드라이버는 원래 Winlator 와 같습니다.</p>
+      </div>
+      <div class="fgrid">
+        <article class="fcard reveal core">
+          <span class="ver">hb1</span>
+          <div class="ico">🔌</div>
+          <h3 data-ko="준비 브릿지" data-en="Setup bridge">준비 브릿지</h3>
+          <p data-ko="Winlator 는 앱을 처음 열었을 때의 화면에서만 스스로를 준비하고, 컨테이너는 앱 안쪽에 있어 바깥에서 만들 수 없었습니다. HB윈레이터는 준비됐는지 알려 주고, 화면 없이 시스템 파일 · 런타임 · 첫 컨테이너까지 준비합니다." data-en="Winlator prepares itself only on its first-run screens, and containers live inside the app where nothing else can create them. HB Winlator reports whether it is ready and prepares the system files, runtime and first container without any screen.">Winlator 는 앱을 처음 열었을 때의 화면에서만 스스로를 준비하고, 컨테이너는 앱 안쪽에 있어 바깥에서 만들 수 없었습니다. HB윈레이터는 준비됐는지 알려 주고, 화면 없이 시스템 파일 · 런타임 · 첫 컨테이너까지 준비합니다.</p>
+          <p class="ra-stat" data-ko="설치한 뒤 한 번도 열지 않고 준비: RG 476H 29초 · AYN 오딘 2 13초" data-en="Installed, never opened, prepared over USB: RG 476H 29 s · AYN Odin 2 13 s">설치한 뒤 한 번도 열지 않고 준비: RG 476H 29초 · AYN 오딘 2 13초</p>
+        </article>
+        <article class="fcard reveal screen">
+          <span class="ver">hb2</span>
+          <div class="ico">🖥️</div>
+          <h3 data-ko="화면 맞춤" data-en="Desktop fit">화면 맞춤</h3>
+          <p data-ko="컨테이너 화면보다 작은 해상도로 전체 화면을 잡는 게임은 화면 왼쪽 위 구석에만 그려지고 나머지가 검게 남았습니다. 이제 그 영역을 기기 화면에 맞춰 키우고(비율 유지), 터치 · 마우스 위치도 따라갑니다." data-en="A game that goes fullscreen at a resolution smaller than the container screen was drawn only in the top-left corner, with the rest black. That area is now scaled to the device screen (aspect kept), and touch and pointer positions follow.">컨테이너 화면보다 작은 해상도로 전체 화면을 잡는 게임은 화면 왼쪽 위 구석에만 그려지고 나머지가 검게 남았습니다. 이제 그 영역을 기기 화면에 맞춰 키우고(비율 유지), 터치 · 마우스 위치도 따라갑니다.</p>
+          <p class="ra-stat" data-ko="창 모드 프로그램 · 메뉴가 밖에 뜬 화면은 키우지 않습니다. Vulkan · EGL · DisplayX 모두" data-en="Windowed programs and screens with a menu outside the area are left alone. Vulkan, EGL and DisplayX">창 모드 프로그램 · 메뉴가 밖에 뜬 화면은 키우지 않습니다. Vulkan · EGL · DisplayX 모두</p>
+        </article>
+        <article class="fcard reveal fe">
+          <span class="ver">hb2</span>
+          <div class="ico">🌐</div>
+          <h3 data-ko="기기 언어" data-en="Device language">기기 언어</h3>
+          <p data-ko="바깥에서 만든 컨테이너는 언어 값이 없어 Wine 이 영어로 동작했고, 처음 켤 때 시스템 언어로 게임 언어를 정하는 게임이 계속 영어로 남았습니다. 이제 컨테이너가 기기 언어(한국어 기기면 한국어)로 돕니다." data-en="A container made from outside had no language set, so Wine ran in English and games that pick their language from the system on first launch stayed English. Containers now run in the device language.">바깥에서 만든 컨테이너는 언어 값이 없어 Wine 이 영어로 동작했고, 처음 켤 때 시스템 언어로 게임 언어를 정하는 게임이 계속 영어로 남았습니다. 이제 컨테이너가 기기 언어(한국어 기기면 한국어)로 돕니다.</p>
+          <p class="ra-stat" data-ko="이미 영어로 저장된 게임은 게임 안 설정에서 한 번 바꿔 주세요" data-en="A game that already saved English needs its in-game language changed once">이미 영어로 저장된 게임은 게임 안 설정에서 한 번 바꿔 주세요</p>
+        </article>
+        <article class="fcard reveal input">
+          <span class="ver">hb2</span>
+          <div class="ico">🩹</div>
+          <h3 data-ko="첫 실행 검은 화면" data-en="Black screen on first launch">첫 실행 검은 화면</h3>
+          <p data-ko="창 모드로 떴다가 전체 화면으로 바뀌는 게임(Unity 게임에 흔합니다)이 처음 켤 때 소리만 나고 화면이 검던 문제를 고쳤습니다. 화면 밖에 숨겨 둔 옛 게임 창이 통째로 그려져 진짜 화면을 덮고 있었습니다." data-en="Fixed games that start windowed and then switch to fullscreen (common with Unity) showing a black screen with sound on their first launch. A stale game window parked off-screen was drawn whole and covered the real picture.">창 모드로 떴다가 전체 화면으로 바뀌는 게임(Unity 게임에 흔합니다)이 처음 켤 때 소리만 나고 화면이 검던 문제를 고쳤습니다. 화면 밖에 숨겨 둔 옛 게임 창이 통째로 그려져 진짜 화면을 덮고 있었습니다.</p>
+          <p class="ra-stat" data-ko="RG 476H 에서 첫 실행 조건을 되살려 확인 — 평소처럼 약 80초에 타이틀" data-en="Checked on RG 476H with the first-launch state restored — title screen at about 80 s as usual">RG 476H 에서 첫 실행 조건을 되살려 확인 — 평소처럼 약 80초에 타이틀</p>
+        </article>
+        <article class="fcard reveal hbl">
+          <span class="ver">hb1</span>
+          <div class="ico">📦</div>
+          <h3 data-ko="나란히 설치 · 드라이버는 저절로" data-en="Side by side · driver picked for you">나란히 설치 · 드라이버는 저절로</h3>
+          <p data-ko="앱 이름(패키지)이 달라 쓰던 Winlator 를 지우지 않아도 됩니다. 그래픽 드라이버는 기기의 그래픽 칩에 맞게 저절로 정해지고, 새 버전을 덮어 설치해도 컨테이너와 세이브는 그대로 남습니다." data-en="It has its own package name, so you can keep the Winlator you already use. The graphics driver is chosen to suit the device GPU, and installing a new version over the old one keeps your containers and saves.">앱 이름(패키지)이 달라 쓰던 Winlator 를 지우지 않아도 됩니다. 그래픽 드라이버는 기기의 그래픽 칩에 맞게 저절로 정해지고, 새 버전을 덮어 설치해도 컨테이너와 세이브는 그대로 남습니다.</p>
+          <p class="ra-stat" data-ko="Mali-G57(RG 476H) · Adreno 740(AYN 오딘 2)에서 확인" data-en="Checked on Mali-G57 (RG 476H) and Adreno 740 (AYN Odin 2)">Mali-G57(RG 476H) · Adreno 740(AYN 오딘 2)에서 확인</p>
+        </article>
+        <article class="fcard reveal tool">
+          <span class="ver">hb1</span>
+          <div class="ico">🔒</div>
+          <h3 data-ko="바깥에서 할 수 있는 일은 정해져 있습니다" data-en="What outside apps may do is limited">바깥에서 할 수 있는 일은 정해져 있습니다</h3>
+          <p data-ko="준비됐는지 보기와 첫 준비 시키기는 어느 앱이나 할 수 있지만, 컨테이너가 이미 있으면 아무것도 바꾸지 않습니다. 컨테이너를 더 만들거나 드라이브를 바꾸는 일은 USB(adb)와 같은 서명의 앱만 할 수 있습니다." data-en="Any app can check readiness and trigger the first-time setup, which changes nothing once a container exists. Adding containers or changing drives is limited to USB (adb) and apps with the same signature.">준비됐는지 보기와 첫 준비 시키기는 어느 앱이나 할 수 있지만, 컨테이너가 이미 있으면 아무것도 바꾸지 않습니다. 컨테이너를 더 만들거나 드라이브를 바꾸는 일은 USB(adb)와 같은 서명의 앱만 할 수 있습니다.</p>
+          <p class="ra-stat" data-ko="규약은 GitHub 저장소의 haebang/README.md 에 있습니다" data-en="The protocol is documented in haebang/README.md in the GitHub repository">규약은 GitHub 저장소의 haebang/README.md 에 있습니다</p>
+        </article>
+      </div>
+      <ol class="ra-log reveal">
+        <li><b>5.0-hb2<small>2026-11-28</small></b><span data-ko="첫 공개 버전 — 준비 브릿지, 화면 맞춤, 기기 언어, 첫 실행 검은 화면 고침. (hb1 은 따로 공개하지 않았습니다.)" data-en="First public version — setup bridge, desktop fit, device language, first-launch black screen fix. (hb1 was not released separately.)">첫 공개 버전 — 준비 브릿지, 화면 맞춤, 기기 언어, 첫 실행 검은 화면 고침. (hb1 은 따로 공개하지 않았습니다.)</span></li>
+        <li class="next"><b data-ko="다음 업데이트" data-en="Coming next">다음 업데이트</b><span data-ko="게임을 끝내면 프론트엔드로 돌아가기, SD 카드의 게임 폴더 잇기, 기기 안에서(HB런처) 바로 준비하기를 살펴보고 있습니다. 바라는 점은 GitHub Issues 나 홈 화면 맨 아래 문의 칸으로 알려 주세요." data-en="Returning to the front end when a game ends, linking game folders on an SD card, and preparing straight from the device (HB Launcher) are being looked at. Tell us what you would like through GitHub Issues or the contact form at the bottom of the home page.">게임을 끝내면 프론트엔드로 돌아가기, SD 카드의 게임 폴더 잇기, 기기 안에서(HB런처) 바로 준비하기를 살펴보고 있습니다. 바라는 점은 GitHub Issues 나 홈 화면 맨 아래 문의 칸으로 알려 주세요.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- EASY — 전 / 후 -->
+  <section id="easy">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow" data-ko="얼마나 쉬워졌나" data-en="How much easier">얼마나 쉬워졌나</span>
+        <h2><span data-ko="윈도우 게임 넣기, " data-en="Adding a Windows game: ">윈도우 게임 넣기, </span><span class="grad-text" data-ko="6단계 → 1단계" data-en="6 steps → 1">6단계 → 1단계</span></h2>
+        <p data-ko="게임 폴더를 기기에 넣는 것만으로는 켜지지 않습니다. 컨테이너와 바로가기, 프론트엔드의 실행 규칙까지 맞춰야 했습니다. 이제 그 일을 해방툴이 대신합니다." data-en="Copying a game folder to the device is not enough: a container, a shortcut and the front end launch rule all had to be set up. Now the Rom Tool does that.">게임 폴더를 기기에 넣는 것만으로는 켜지지 않습니다. 컨테이너와 바로가기, 프론트엔드의 실행 규칙까지 맞춰야 했습니다. 이제 그 일을 해방툴이 대신합니다.</p>
+      </div>
+      <div class="ra-ba">
+        <div class="ra-col before reveal">
+          <div class="ra-col-top"><span class="tag-b" data-ko="예전 — Winlator 만" data-en="Before — Winlator only">예전 — Winlator 만</span></div>
+          <ol class="ra-steps">
+            <li><i>1</i><span data-ko="게임 폴더를 기기로 복사" data-en="Copy the game folder to the device">게임 폴더를 기기로 복사</span></li>
+            <li><i>2</i><span data-ko="Winlator 를 열어 첫 설정을 끝까지" data-en="Open Winlator and finish its first-run setup">Winlator 를 열어 첫 설정을 끝까지</span></li>
+            <li><i>3</i><span data-ko="컨테이너 만들기 · 드라이브 확인" data-en="Create a container, check its drives">컨테이너 만들기 · 드라이브 확인</span></li>
+            <li><i>4</i><span data-ko="실행 파일을 찾아 바로가기 만들기" data-en="Find the executable and make a shortcut">실행 파일을 찾아 바로가기 만들기</span></li>
+            <li><i>5</i><span data-ko="프론트엔드에 실행 규칙 넣기" data-en="Add a launch rule to the front end">프론트엔드에 실행 규칙 넣기</span></li>
+            <li><i>6</i><span data-ko="게임 실행" data-en="Start the game">게임 실행</span></li>
+          </ol>
+          <p class="ra-col-foot" data-ko="게임마다 4 · 5번을 되풀이합니다." data-en="Steps 4 and 5 repeat for every game.">게임마다 4 · 5번을 되풀이합니다.</p>
+        </div>
+        <div class="ra-col after reveal">
+          <div class="ra-col-top"><span class="tag-a" data-ko="이제 — HB윈레이터 + 해방툴" data-en="Now — HB Winlator + Rom Tool">이제 — HB윈레이터 + 해방툴</span></div>
+          <ol class="ra-steps">
+            <li><i>1</i><span data-ko="해방툴에서 내보내기. 끝!" data-en="Export from the Rom Tool. Done!">해방툴에서 내보내기. 끝!</span></li>
+          </ol>
+          <div class="ra-mock" aria-hidden="true">
+            <div class="mk-title" data-ko="HB윈레이터 준비 중" data-en="Preparing HB Winlator">HB윈레이터 준비 중</div>
+            <div class="mk-name">system · runtime · container 1</div>
+            <div class="mk-bar"><span></span></div>
+            <div class="mk-go" data-ko="▶ 준비 끝 — 게임 보내는 중" data-en="▶ Ready — sending the game">▶ 준비 끝 — 게임 보내는 중</div>
+          </div>
+          <p class="ra-col-foot" data-ko="권한 · 준비 · 컨테이너 번호 · 바로가기 · 실행 규칙을 해방툴이 맞춥니다. 기기에서는 게임을 고르기만 합니다. (해방툴 v1.2 이상 · USB 연결)" data-en="The Rom Tool handles permissions, setup, the container number, shortcuts and launch rules. On the device you just pick the game. (Rom Tool v1.2+ · USB)">권한 · 준비 · 컨테이너 번호 · 바로가기 · 실행 규칙을 해방툴이 맞춥니다. 기기에서는 게임을 고르기만 합니다. (해방툴 v1.2 이상 · USB 연결)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO -->
+  <section id="who" class="ra-tint">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow" data-ko="누가 무엇을 하나" data-en="Who does what">누가 무엇을 하나</span>
+        <h2 data-ko="해방툴이 준비하고, 프론트엔드가 켭니다" data-en="The Rom Tool prepares, the front end launches">해방툴이 준비하고, 프론트엔드가 켭니다</h2>
+        <p class="ra-req" data-ko="해방툴 v1.2 이상이 필요합니다. 그 전 버전에서는 HB윈레이터를 일반 Winlator 처럼 쓰고, 컨테이너 · 바로가기는 앱에서 직접 만듭니다." data-en="Needs Rom Tool v1.2 or later. With older versions, use HB Winlator like a regular Winlator and create containers and shortcuts in the app.">해방툴 v1.2 이상이 필요합니다. 그 전 버전에서는 HB윈레이터를 일반 Winlator 처럼 쓰고, 컨테이너 · 바로가기는 앱에서 직접 만듭니다.</p>
+      </div>
+      <div class="fgrid">
+        <article class="fcard reveal tool">
+          <span class="ver req" data-ko="해방툴 v1.2 이상" data-en="Rom Tool v1.2+">해방툴 v1.2 이상</span>
+          <div class="ico"><img src="assets/eco/ic_tool.webp" alt="" width="30" height="30" /></div>
+          <h3 data-ko="해방툴 — USB 로 보낼 때" data-en="Rom Tool — when sending over USB">해방툴 — USB 로 보낼 때</h3>
+          <p data-ko="PC 윈도우 시스템의 게임을 내보내면, 저장소 권한을 주고 준비를 시킨 뒤 그 앱이 알려 준 컨테이너 번호 · 드라이브로 바로가기를 만들고 게임 폴더를 보냅니다. 이미 보낸 파일은 건너뜁니다." data-en="Exporting games from the PC Windows system grants storage access, runs the setup, then writes shortcuts with the container number and drives the app reports and sends the game folders. Files already there are skipped.">PC 윈도우 시스템의 게임을 내보내면, 저장소 권한을 주고 준비를 시킨 뒤 그 앱이 알려 준 컨테이너 번호 · 드라이브로 바로가기를 만들고 게임 폴더를 보냅니다. 이미 보낸 파일은 건너뜁니다.</p>
+        </article>
+        <article class="fcard reveal fe">
+          <span class="ver req" data-ko="해방툴 v1.2 이상" data-en="Rom Tool v1.2+">해방툴 v1.2 이상</span>
+          <div class="ico">🎮</div>
+          <h3 data-ko="ES-DE · Pegasus — 실행 규칙까지" data-en="ES-DE · Pegasus — launch rules too">ES-DE · Pegasus — 실행 규칙까지</h3>
+          <p data-ko="ES-DE 에는 Windows 시스템이 HB윈레이터를 먼저 쓰도록 찾기 규칙을 써 두고, Pegasus 에는 실행 명령을 이 앱으로 적습니다. 목록 · 그림 · 한글 제목도 함께 갑니다." data-en="For ES-DE it writes a find rule so the Windows system uses HB Winlator first; for Pegasus the launch command names this app. Game lists, artwork and titles go along.">ES-DE 에는 Windows 시스템이 HB윈레이터를 먼저 쓰도록 찾기 규칙을 써 두고, Pegasus 에는 실행 명령을 이 앱으로 적습니다. 목록 · 그림 · 한글 제목도 함께 갑니다.</p>
+        </article>
+        <article class="fcard reveal hbl">
+          <span class="ver req" data-ko="HB런처 0.9.3 에서 확인" data-en="Checked with HB Launcher 0.9.3">HB런처 0.9.3 에서 확인</span>
+          <div class="ico"><img src="assets/eco/ic_hbl.webp" alt="" width="30" height="30" /></div>
+          <h3 data-ko="HB런처 — 케이스를 열고 게임 시작" data-en="HB Launcher — open the case and play">HB런처 — 케이스를 열고 게임 시작</h3>
+          <p data-ko="해방툴로 내보내면 런처가 HB윈레이터를 윈도우 게임의 실행기로 알아봅니다. 케이스를 열고 [게임 시작]을 누르면 그대로 켜집니다. 지금은 USB 내보내기에서 됩니다." data-en="After an export from the Rom Tool, the launcher recognises HB Winlator as the runner for Windows games. Open the case, press [Start] and the game runs. For now this works with USB export.">해방툴로 내보내면 런처가 HB윈레이터를 윈도우 게임의 실행기로 알아봅니다. 케이스를 열고 [게임 시작]을 누르면 그대로 켜집니다. 지금은 USB 내보내기에서 됩니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section id="setup">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow" data-ko="설정은 이게 전부" data-en="That is the whole setup">설정은 이게 전부</span>
+        <h2 data-ko="세 걸음이면 끝납니다" data-en="Three steps and you are done">세 걸음이면 끝납니다</h2>
+      </div>
+      <ol class="ra-setup">
+        <li class="reveal"><span class="n">1</span><b data-ko="받기" data-en="Download">받기</b>
+          <p data-ko="GitHub 릴리스에서 HBWinlator APK(약 540MB)를 받습니다. 시스템 파일과 런타임이 들어 있어 큽니다." data-en="Get the HBWinlator APK (about 540 MB) from GitHub Releases. It is large because the system files and runtime are inside.">GitHub 릴리스에서 HBWinlator APK(약 540MB)를 받습니다. 시스템 파일과 런타임이 들어 있어 큽니다.</p></li>
+        <li class="reveal"><span class="n">2</span><b data-ko="설치" data-en="Install">설치</b>
+          <p data-ko="게임기에 설치합니다. 해방툴을 쓴다면 앱을 열 필요가 없습니다. 다른 Winlator 는 그대로 두어도 됩니다." data-en="Install it on the handheld. If you use the Rom Tool there is no need to open it. You can keep any other Winlator.">게임기에 설치합니다. 해방툴을 쓴다면 앱을 열 필요가 없습니다. 다른 Winlator 는 그대로 두어도 됩니다.</p></li>
+        <li class="reveal"><span class="n">3</span><b data-ko="해방툴로 내보내기" data-en="Export with the Rom Tool">해방툴로 내보내기</b>
+          <p data-ko="기기를 USB 로 잇고 PC 윈도우 게임을 ES-DE · Pegasus · HB런처로 내보냅니다. 준비부터 바로가기까지 해방툴이 합니다(해방툴 v1.2 이상)." data-en="Connect the device over USB and export your PC Windows games to ES-DE, Pegasus or HB Launcher. The Rom Tool does everything from setup to shortcuts (Rom Tool v1.2+).">기기를 USB 로 잇고 PC 윈도우 게임을 ES-DE · Pegasus · HB런처로 내보냅니다. 준비부터 바로가기까지 해방툴이 합니다(해방툴 v1.2 이상).</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="ra-tint">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow" data-ko="자주 묻는 것" data-en="FAQ">자주 묻는 것</span>
+        <h2 data-ko="알아 두면 좋은 것" data-en="Good to know">알아 두면 좋은 것</h2>
+      </div>
+      <div class="ra-faq">
+        <div class="qa reveal"><b data-ko="모든 윈도우 게임이 되나요?" data-en="Does every Windows game run?">모든 윈도우 게임이 되나요?</b>
+          <p data-ko="아니요. 게임마다의 호환성과 성능은 Winlator(Wine · Box64 · 그래픽 드라이버)와 기기의 그래픽 칩에 달려 있습니다. HB윈레이터는 준비와 화면 문제를 고친 것이고, 호환성을 바꾸지는 않습니다. 런타임(VC++ · .NET) 설치가 필요한 게임은 Winlator 에서 직접 해야 합니다." data-en="No. Compatibility and performance depend on Winlator (Wine, Box64, graphics drivers) and the device GPU. HB Winlator fixes the setup and screen problems; it does not change compatibility. Games that need runtimes (VC++, .NET) still need them installed in Winlator by hand.">아니요. 게임마다의 호환성과 성능은 Winlator(Wine · Box64 · 그래픽 드라이버)와 기기의 그래픽 칩에 달려 있습니다. HB윈레이터는 준비와 화면 문제를 고친 것이고, 호환성을 바꾸지는 않습니다. 런타임(VC++ · .NET) 설치가 필요한 게임은 Winlator 에서 직접 해야 합니다.</p></div>
+        <div class="qa reveal"><b data-ko="다른 Winlator 는 지워야 하나요?" data-en="Do I have to remove other Winlator apps?">다른 Winlator 는 지워야 하나요?</b>
+          <p data-ko="아니요. 앱 이름(패키지)이 달라 나란히 깔립니다. 컨테이너는 앱마다 따로라, 다른 Winlator 에서 만든 컨테이너는 보이지 않습니다." data-en="No. It has its own package name, so they install side by side. Containers are separate per app, so containers made in another Winlator do not appear here.">아니요. 앱 이름(패키지)이 달라 나란히 깔립니다. 컨테이너는 앱마다 따로라, 다른 Winlator 에서 만든 컨테이너는 보이지 않습니다.</p></div>
+        <div class="qa reveal"><b data-ko="원래 Winlator 와 뭐가 다른가요?" data-en="How is it different from the original Winlator?">원래 Winlator 와 뭐가 다른가요?</b>
+          <p data-ko="Winlator Ludashi 5.0 을 바탕으로 준비 브릿지를 더하고, 화면 맞춤 · 기기 언어 · 첫 실행 검은 화면을 고쳤습니다. 게임 실행 방식과 설정은 같습니다. Winlator 개발자들과 관계없는 비공식 빌드이고, 소스는 GPLv3 로 공개합니다." data-en="It is Winlator Ludashi 5.0 plus the setup bridge, with desktop fit, device language and the first-launch black screen fixed. The way games run and the settings are the same. It is an unofficial build not affiliated with the Winlator developers; the source is published under GPLv3.">Winlator Ludashi 5.0 을 바탕으로 준비 브릿지를 더하고, 화면 맞춤 · 기기 언어 · 첫 실행 검은 화면을 고쳤습니다. 게임 실행 방식과 설정은 같습니다. Winlator 개발자들과 관계없는 비공식 빌드이고, 소스는 GPLv3 로 공개합니다.</p></div>
+        <div class="qa reveal"><b data-ko="어떤 기기에서 되나요?" data-en="Which devices does it run on?">어떤 기기에서 되나요?</b>
+          <p data-ko="안드로이드 9 이상의 64비트(arm64) 기기입니다. Anbernic RG 476H(Mali-G57)와 AYN 오딘 2(Adreno 740)에서 확인했습니다. 그래픽 드라이버는 기기에 맞게 저절로 정해집니다." data-en="Android 9 or later on 64-bit (arm64) devices. Checked on Anbernic RG 476H (Mali-G57) and AYN Odin 2 (Adreno 740). The graphics driver is chosen automatically for the device.">안드로이드 9 이상의 64비트(arm64) 기기입니다. Anbernic RG 476H(Mali-G57)와 AYN 오딘 2(Adreno 740)에서 확인했습니다. 그래픽 드라이버는 기기에 맞게 저절로 정해집니다.</p></div>
+        <div class="qa reveal"><b data-ko="해방툴 없이도 쓸 수 있나요?" data-en="Can I use it without the Rom Tool?">해방툴 없이도 쓸 수 있나요?</b>
+          <p data-ko="네. 앱을 한 번 열어 안내대로 진행하면 원래 Winlator 처럼 쓸 수 있습니다. 화면 맞춤 · 기기 언어 · 첫 실행 고침은 그대로 적용됩니다." data-en="Yes. Open the app once and follow its guide to use it like the original Winlator. Desktop fit, device language and the first-launch fix still apply.">네. 앱을 한 번 열어 안내대로 진행하면 원래 Winlator 처럼 쓸 수 있습니다. 화면 맞춤 · 기기 언어 · 첫 실행 고침은 그대로 적용됩니다.</p></div>
+        <div class="qa reveal"><b data-ko="게임 폴더는 어디에 들어가나요?" data-en="Where do game folders go?">게임 폴더는 어디에 들어가나요?</b>
+          <p data-ko="내부 저장소의 Download/WinGames 아래입니다(컨테이너의 D: 드라이브). 용량이 큰 게임은 내부 저장소 여유를 확인하세요. SD 카드에 둔 게임 폴더는 컨테이너 설정에서 드라이브로 직접 이어야 합니다." data-en="Under Download/WinGames in internal storage (the container D: drive). Check free internal space for large games. A game folder on an SD card has to be linked as a drive in the container settings by hand.">내부 저장소의 Download/WinGames 아래입니다(컨테이너의 D: 드라이브). 용량이 큰 게임은 내부 저장소 여유를 확인하세요. SD 카드에 둔 게임 폴더는 컨테이너 설정에서 드라이브로 직접 이어야 합니다.</p></div>
+        <div class="qa reveal"><b data-ko="게임이 화면 한쪽 구석에만 나와요" data-en="The game only fills a corner of the screen">게임이 화면 한쪽 구석에만 나와요</b>
+          <p data-ko="5.0-hb2 부터 작은 전체 화면 게임은 저절로 화면에 맞춰집니다. 창 모드로 뜨는 게임은 키우지 않으니, 게임 설정에서 전체 화면으로 바꿔 보세요." data-en="From 5.0-hb2 small fullscreen games are fitted to the screen automatically. Windowed games are not scaled, so try switching the game to fullscreen in its settings.">5.0-hb2 부터 작은 전체 화면 게임은 저절로 화면에 맞춰집니다. 창 모드로 뜨는 게임은 키우지 않으니, 게임 설정에서 전체 화면으로 바꿔 보세요.</p></div>
+        <div class="qa reveal"><b data-ko="게임이 영어로 나와요" data-en="The game is in English">게임이 영어로 나와요</b>
+          <p data-ko="예전에 영어로 시작해 그 설정을 저장한 게임입니다. 게임 안 설정에서 언어를 한 번 바꿔 주세요. 새로 넣은 게임은 기기 언어로 시작합니다(게임이 그 언어를 지원할 때)." data-en="The game started in English earlier and saved that choice. Change the language once in its settings. Newly added games start in the device language (when the game supports it).">예전에 영어로 시작해 그 설정을 저장한 게임입니다. 게임 안 설정에서 언어를 한 번 바꿔 주세요. 새로 넣은 게임은 기기 언어로 시작합니다(게임이 그 언어를 지원할 때).</p></div>
+        <div class="qa reveal"><b data-ko="게임을 끝냈는데 프론트엔드로 안 돌아가요" data-en="The game ended but I am not back in the front end">게임을 끝냈는데 프론트엔드로 안 돌아가요</b>
+          <p data-ko="게임을 끝내도 Winlator 화면은 남습니다. 뒤로 가기로 메뉴를 열어 직접 닫아 주세요. 다음 업데이트에서 살펴보고 있습니다." data-en="Winlator stays open after a game exits. Open its menu with Back and close it yourself. This is being looked at for a later update.">게임을 끝내도 Winlator 화면은 남습니다. 뒤로 가기로 메뉴를 열어 직접 닫아 주세요. 다음 업데이트에서 살펴보고 있습니다.</p></div>
+        <div class="qa reveal"><b data-ko="새 버전은 어떻게 설치하나요?" data-en="How do I update to a new version?">새 버전은 어떻게 설치하나요?</b>
+          <p data-ko="GitHub 릴리스에서 새 APK 를 받아 쓰던 HB윈레이터 위에 그대로 설치하면 됩니다. 컨테이너와 그 안의 세이브 · 설정은 그대로 남습니다. 앱을 지우면 컨테이너도 사라지니 지우지 말고 덮어 설치하세요." data-en="Download the new APK from GitHub Releases and install it over your current HB Winlator. Containers and the saves and settings inside stay. Uninstalling removes the containers, so install over it instead.">GitHub 릴리스에서 새 APK 를 받아 쓰던 HB윈레이터 위에 그대로 설치하면 됩니다. 컨테이너와 그 안의 세이브 · 설정은 그대로 남습니다. 앱을 지우면 컨테이너도 사라지니 지우지 말고 덮어 설치하세요.</p></div>
+        <div class="qa reveal"><b data-ko="언제부터 해방툴과 이어지나요?" data-en="When does it work with the Rom Tool?">언제부터 해방툴과 이어지나요?</b>
+          <p data-ko="해방툴 v1.2 부터입니다(곧 공개). v1.2 에는 PC 윈도우 시스템과 안드로이드 기기로 보내기가 함께 들어갑니다. HB윈레이터는 지금 받아 설치해 두어도 됩니다." data-en="From Rom Tool v1.2 (coming soon), which also brings the PC Windows system and sending games to Android devices. You can install HB Winlator now.">해방툴 v1.2 부터입니다(곧 공개). v1.2 에는 PC 윈도우 시스템과 안드로이드 기기로 보내기가 함께 들어갑니다. HB윈레이터는 지금 받아 설치해 두어도 됩니다.</p></div>
+        <div class="qa reveal"><b data-ko="문제가 생기면요?" data-en="What if something goes wrong?">문제가 생기면요?</b>
+          <p data-ko="GitHub 저장소의 Issues 나 홈 화면 맨 아래 문의 칸으로 알려 주세요. 원래 Winlator 저장소가 아니라 이쪽에 남겨 주세요." data-en="Let us know through Issues on the GitHub repository or the contact form at the bottom of the home page — here rather than on the original Winlator repositories.">GitHub 저장소의 Issues 나 홈 화면 맨 아래 문의 칸으로 알려 주세요. 원래 Winlator 저장소가 아니라 이쪽에 남겨 주세요.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section id="download">
+    <div class="wrap">
+      <div class="cta reveal ra-cta">
+        <h2 data-ko="HB윈레이터 받기" data-en="Get HB Winlator">HB윈레이터 받기</h2>
+        <p data-ko="GitHub 릴리스 페이지에서 최신 APK(HBWinlator-….apk, 약 540MB)를 받으세요. 무료이고, 지금 최신 버전은 5.0-hb2 입니다." data-en="Grab the latest APK (HBWinlator-….apk, about 540 MB) from the GitHub Releases page. It is free; the latest version is 5.0-hb2.">GitHub 릴리스 페이지에서 최신 APK(HBWinlator-….apk, 약 540MB)를 받으세요. 무료이고, 지금 최신 버전은 5.0-hb2 입니다.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/evegood99/HBWinlator/releases" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+            <span data-ko="GitHub 에서 받기 ↗" data-en="Download on GitHub ↗">GitHub 에서 받기 ↗</span>
+          </a>
+          <a class="btn btn-ghost" href="haebang.html" data-ko="해방툴 보기 →" data-en="Explore the Rom Tool →">해방툴 보기 →</a>
+          <a class="btn btn-ghost" href="hbretroarch.html" data-ko="HB레트로아크 보기 →" data-en="Explore HB RetroArch →">HB레트로아크 보기 →</a>
+        </div>
+        <p class="ra-fine" data-ko="비공식 Winlator 빌드입니다(Winlator · Winlator Bionic · Winlator Ludashi 개발자와 관계없음). Windows 는 Microsoft 의 상표입니다." data-en="Unofficial Winlator build (not affiliated with the developers of Winlator, Winlator Bionic or Winlator Ludashi). Windows is a trademark of Microsoft.">비공식 Winlator 빌드입니다(Winlator · Winlator Bionic · Winlator Ludashi 개발자와 관계없음). Windows 는 Microsoft 의 상표입니다.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html" data-ko="홈" data-en="Home">홈</a>
+      <a href="haebang.html" data-ko="해방툴" data-en="Rom Tool">해방툴</a>
+      <a href="launcher.html" data-ko="HB런처" data-en="HB Launcher">HB런처</a>
+      <a href="hbretroarch.html" data-ko="HB레트로아크" data-en="HB RetroArch">HB레트로아크</a>
+      <a href="https://github.com/evegood99/HBWinlator" target="_blank" rel="noopener" data-ko="HB윈레이터 소스(GitHub)" data-en="HB Winlator source (GitHub)">HB윈레이터 소스(GitHub)</a>
+      <a href="https://evegoodretro.com/games/" data-ko="게임박물관" data-en="Game Museum">게임박물관</a>
+      <a href="https://evegoodretro.com/patches/" data-ko="한글화 패치" data-en="KR Patches">한글화 패치</a>
+      <a href="story.html" data-ko="읽을거리" data-en="Read">읽을거리</a>
+      <a href="news.html" data-ko="새로운 소식" data-en="News">새로운 소식</a>
+      <a href="https://www.youtube.com/@evegood_retro" target="_blank" rel="noopener" data-ko="유튜브 채널" data-en="YouTube channel">유튜브 채널</a>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr"></span> HAE-BANG RETRO. All rights reserved.</span>
+      <span data-ko="HB윈레이터 · 비공식 Winlator 빌드" data-en="HB Winlator · unofficial Winlator build">HB윈레이터 · 비공식 Winlator 빌드</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var lang = 'ko';
+  function applyLang(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-ko]').forEach(function(el){
+      var v = el.getAttribute('data-' + l);
+      if (v != null) el.textContent = v;
+    });
+    document.getElementById('langBtn').textContent = (l === 'ko') ? 'EN' : '한';
+    try { localStorage.setItem('hb_lang', l); } catch(e){}
+  }
+  document.getElementById('langBtn').addEventListener('click', function(){ applyLang(lang === 'ko' ? 'en' : 'ko'); });
+  try { var saved = localStorage.getItem('hb_lang'); if (saved) applyLang(saved); } catch(e){}
+  var hdr = document.getElementById('hdr');
+  function onScroll(){ hdr.classList.toggle('scrolled', window.scrollY > 8); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+</script>
+<script>
+/* 모바일 메뉴 — 상단 메뉴가 숨겨지는 폭에서 같은 항목을 펼쳐 보여준다.
+   항목을 따로 적지 않고 .nav-links 를 복제해 두 곳이 어긋날 일이 없게 한다. */
+(function () {
+  var btn = document.getElementById('menuBtn'), mn = document.getElementById('mnav');
+  if (!btn || !mn) return;
+  var box = mn.querySelector('.in');
+  document.querySelectorAll('.nav-links a').forEach(function (a) { box.appendChild(a.cloneNode(true)); });
+  document.querySelectorAll('.subbar .wrap > a').forEach(function (a) { box.appendChild(a.cloneNode(true)); });
+  function setOpen(on) {
+    mn.classList.toggle('on', on);
+    btn.textContent = on ? '✕' : '☰';
+    btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function () { setOpen(!mn.classList.contains('on')); });
+  box.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 1040) setOpen(false); });
+})();
+</script>
+<script src="assets/donate.js"></script>
+<script src="assets/qrlink.js"></script>
+<script src="assets/nav-dd.js" defer></script>
+</body>
+</html>

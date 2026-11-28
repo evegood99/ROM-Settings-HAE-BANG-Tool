@@ -15,7 +15,7 @@
   location.replace('https://evegoodretro.com' + p + location.search + location.hash);
 })();
 </script>
-<title>기종별 게임 — 레트로 게임 아카이브</title>
+<title>기종별 게임 — 레트로 게임박물관</title>
 <meta name="description" content="기종별 레트로 게임 목록. 박스아트와 한국어 제목으로 둘러보세요." />
 <link rel="icon" href="../assets/favicon_v2.ico" />
 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -58,6 +58,7 @@
 })();
 </script>
 
+<link rel="stylesheet" href="../assets/nav-dd.css" />
 </head>
 <body>
 
@@ -67,7 +68,7 @@
       <img src="../assets/icon_v2.png" alt="HAE-BANG logo" />
       <span>
         <span class="bt">HAE-BANG RETRO</span>
-        <div class="bs">게임 아카이브</div>
+        <div class="bs">게임박물관</div>
       </span>
     </a>
     <nav class="nav-links">
@@ -76,9 +77,15 @@
       <a href="../haebang.html">해방툴</a>
       <a href="../launcher.html">HB런처</a>
       <a href="../hbretroarch.html">HB레트로아크</a>
-      <a href="./" class="on">게임 아카이브</a>
-      <a href="../patches/">한글화 패치</a>
-      <a href="../story.html">읽을거리</a>
+      <a href="../hbwinlator.html">HB윈레이터</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn active" aria-haspopup="true" aria-expanded="false">게임 아카이브</button>
+        <div class="nav-dd-menu"><div class="nav-dd-box">
+          <a data-grp="게임 아카이브" data-grp-en="Game Archive" href="./" class="dd-item dd-first on">게임박물관</a>
+          <a class="dd-item" href="../patches/">한글화 패치</a>
+          <a class="dd-item" href="../story.html">읽을거리</a>
+        </div></div>
+      </div>
     </nav>
     <div class="nav-right">
     </div>
@@ -100,7 +107,7 @@
 <section class="sec wrap" style="padding-top:30px">
   <div class="sec-head">
     <div>
-      <div class="eyebrow" id="eyebrow">Retro Game Archive</div>
+      <div class="eyebrow" id="eyebrow">Retro Game Museum</div>
       <h2 id="title" style="margin-top:6px">불러오는 중…</h2>
     </div>
     <span class="muted" id="count"></span>
@@ -220,7 +227,7 @@ async function load() {
     if (!d.ok) throw new Error(d.error || 'API error');
 
     const name = d.system ? d.system.name : '전체 게임';
-    document.title = `${name} — 레트로 게임 아카이브`;
+    document.title = `${name} — 레트로 게임박물관`;
     document.getElementById('title').textContent = name;
     document.getElementById('eyebrow').textContent = d.system ? d.system.slug : 'All Platforms';
     // 검색일 때는 총 개수를 세지 않는다(세려면 목록만큼 한 번 더 읽어야 한다).
@@ -297,5 +304,6 @@ load();
 </script>
 <script src="../assets/donate.js"></script>
 <script src="../assets/qrlink.js"></script>
+<script src="../assets/nav-dd.js" defer></script>
 </body>
 </html>

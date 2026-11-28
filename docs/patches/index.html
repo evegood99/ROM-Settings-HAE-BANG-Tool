@@ -104,6 +104,7 @@
     background:#0c0e16}
   .gal-in figcaption{margin-top:7px; font-size:12px; color:var(--faint); text-align:center}
 </style>
+<link rel="stylesheet" href="../assets/nav-dd.css" />
 </head>
 <body>
 
@@ -122,9 +123,15 @@
       <a href="../haebang.html">해방툴</a>
       <a href="../launcher.html">HB런처</a>
       <a href="../hbretroarch.html">HB레트로아크</a>
-      <a href="../games/">게임 아카이브</a>
-      <a href="./" class="on">한글화 패치</a>
-      <a href="../story.html">읽을거리</a>
+      <a href="../hbwinlator.html">HB윈레이터</a>
+      <div class="nav-dd">
+        <button type="button" class="nav-dd-btn active" aria-haspopup="true" aria-expanded="false">게임 아카이브</button>
+        <div class="nav-dd-menu"><div class="nav-dd-box">
+          <a data-grp="게임 아카이브" data-grp-en="Game Archive" class="dd-item dd-first" href="../games/">게임박물관</a>
+          <a href="./" class="dd-item on">한글화 패치</a>
+          <a class="dd-item" href="../story.html">읽을거리</a>
+        </div></div>
+      </div>
     </nav>
     <div class="nav-right">
     </div>
@@ -338,5 +345,6 @@ load();
 </script>
 <script src="../assets/donate.js"></script>
 <script src="../assets/qrlink.js"></script>
+<script src="../assets/nav-dd.js" defer></script>
 </body>
 </html>

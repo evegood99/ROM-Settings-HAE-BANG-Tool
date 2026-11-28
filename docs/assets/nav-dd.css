@@ -1,0 +1,40 @@
+/* 상단 메뉴의 묶음(드롭다운) — '게임 아카이브' 아래에 게임박물관 · 한글화 패치 · 읽을거리 (2026-11-28).
+   모든 페이지가 같이 쓴다. 페이지마다의 .nav-links a 규칙(크기 · 좁은 화면 압축)을 그대로 따르도록
+   단추(.nav-dd-btn)는 그 값을 물려받고, 펼친 판 안의 링크만 여기서 다시 정한다.
+   좁은 화면(햄버거 메뉴)에서는 .nav-links 가 통째로 숨고, 각 페이지의 스크립트가 .nav-links a 를
+   복제해 .mnav 에 한 줄씩 세운다 — 묶음 안의 링크(.dd-item)는 들여 쓰고 첫 줄 위에 묶음 이름을 단다. */
+.nav-dd{position:relative; display:flex; align-items:center}
+.nav-dd-btn{display:inline-flex; align-items:center; gap:6px; margin:0; padding:8px 12px; border:0; border-radius:9px;
+  background:none; color:var(--muted); font:inherit; font-size:14px; font-weight:600; line-height:inherit;
+  white-space:nowrap; cursor:pointer; transition:.18s}
+.nav-dd-btn::after{content:""; width:5px; height:5px; margin-top:-3px; border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor; transform:rotate(45deg); opacity:.75; transition:transform .18s}
+.nav-dd:hover .nav-dd-btn, .nav-dd.open .nav-dd-btn, .nav-dd-btn:focus-visible{color:var(--text); background:var(--surface)}
+.nav-dd.open .nav-dd-btn::after{transform:rotate(225deg); margin-top:3px}
+.nav-dd-btn.active{color:var(--text); background:var(--surface); box-shadow:inset 0 -2px 0 var(--cyan)}
+
+/* 펼친 판 — 단추와 판 사이의 틈(8px)도 판의 일부라 마우스를 옮기는 동안 닫히지 않는다 */
+.nav-dd-menu{display:none; position:absolute; top:100%; left:0; z-index:60; padding-top:8px; min-width:176px}
+.nav-dd:hover .nav-dd-menu, .nav-dd.open .nav-dd-menu{display:block}
+.nav-dd-box{display:flex; flex-direction:column; gap:2px; padding:6px; border:1px solid var(--border2, #2c3147);
+  border-radius:12px; background:rgba(13,15,24,.98); box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.nav-links .nav-dd .nav-dd-box a{display:block; padding:9px 12px; border-radius:8px; font-size:13.5px; font-weight:600;
+  color:var(--muted); white-space:nowrap; box-shadow:none}
+.nav-links .nav-dd .nav-dd-box a:hover{color:var(--text); background:var(--surface2, var(--surface))}
+.nav-links .nav-dd .nav-dd-box a.active, .nav-links .nav-dd .nav-dd-box a.on{color:var(--text); background:var(--surface);
+  box-shadow:inset 2px 0 0 var(--cyan)}
+
+/* 각 페이지가 .nav-links a 를 좁히는 구간(태블릿 폭 · 영어)에서 단추도 같은 값으로 */
+@media (min-width:1161px){
+  html[lang="en"] .nav-dd-btn{padding:8px 6px}
+}
+@media (max-width:1160px){
+  .nav-dd-btn{padding:8px 6px; font-size:12.5px; gap:5px}
+  html[lang="en"] .nav-dd-btn{padding:8px 3px; font-size:12px; gap:4px}
+}
+
+/* 햄버거 메뉴 안 — 묶음의 링크는 들여 쓰고, 첫 줄 위에 묶음 이름 */
+.mnav a.dd-item{padding-left:26px}
+.mnav a.dd-first::before{content:attr(data-grp); display:block; margin:2px 0 8px -14px; font-size:11.5px; font-weight:700;
+  letter-spacing:.04em; color:var(--faint, #6b7189)}
+html[lang="en"] .mnav a.dd-first::before{content:attr(data-grp-en)}
